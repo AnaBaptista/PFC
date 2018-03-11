@@ -1,0 +1,58 @@
+-Ontologia na informática
+Nas Ciências e Tecnologias de Informação, as ontologias são classificações. 
+São usadas como um meio para categorizar
+ou agrupar as informações em classes.
+https://www.significados.com.br/ontologia/ acedido a 09-03-2018
+
+As ontologias também são aplicadas em Web Semântica e em Inteligência Artificial para assimilar e codificar o 
+conhecimento, definindo as relações existentes entre os conceitos de determinado domínio (uma área do conhecimento).
+https://pt.wikipedia.org/wiki/Ontologia_(ci%C3%AAncia_da_computa%C3%A7%C3%A3o) acedido a 09-03-2018
+
+Ontology Web Language (OWL) é uma liguagem de representação de ontologias. É uma liguagem computacional baseada 
+em lógica de forma que o conhecimento expressado em OWL possa ser interpretado/explorado por outros programas. Esta pode estar escita em RDF
+https://pt.wikipedia.org/wiki/OWL acedido a 09-03-18
+
+Area de conhecimento - Bioinformatica é uma area de conhecimento que utiliza ferramentas informaticas para a 
+resolução de problemas na area de biologia.
+Um workflow cientifico é uma forma especializada de workflow desenhada especificamente para compor e 
+executar uma série de passos computacionais ou de maipulação de dados especificos (ou seja, um workflow) numa 
+aplicação cientifica
+https://en.wikipedia.org/wiki/Scientific_workflow_system acedido a 09-03-2018
+
+
+Common Workflow Language (CWL) é uma maneira de descrever ferramentas de lina de comando e conectá-las, criando workflows. 
+Como CWl é uma especificação e nao uma ferramenta ou programa, a mesma tem portabilidade entre varias plataformas que suportem CWL Standard (palavra proibida que a carol lá se há de lembrar).
+Esta pode estar definida em JSOn ou YAML ou uma mistura de ambos.
+
+A maioria dos bioinformaticos não têm facilidade em transformar um ficheiro OWL que descreve uma ontologia num caso concreto do mesmo, tambem escrito em OWL.
+Desta forma, XPTO é uma aplicação que integra nos workflows cienficos, que foi criada com o intuito de ajudar os
+ bioinformaticos na criação destes ficheiros.
+ 
+Requisitos : 
+A XPTO será desenvolvida de modo a que o utilizador insira um ficheiro representativo de uma ontologia (extenção .OWL), 
+que será interpretado/explorado. De seguida irá ser gerada a interface grafica com base na informação contida nesse ficheiro.
+Nesta interface grafica, o user terá de atribuir valores aos conceitos presentes no ficheiro de input. No final da atribuição de valores é posteriormente 
+gerado um novo ficheiro .OWL que contém uma concretização da ontologia descrita no input, que será devolvido ao user.
+Tambem será possivel a inserção de um outro ficheiro de input que contem um caso concreto da ontologia em cwl(JSON) ou não (XML).
+Queremos tambem dar opção ao utilizadorde guardar os ficheiros de input e output numa base de dados remota.
+
+1 - Iremos definir em OWL a descrição de ferramentas, previamente definidas em CWL.
+2 - Iremos realizar 2 versões de XPTO: uma remota, publicada num servidor e outra local, utilizando a tecnologia Electron.
+3 - Precistencia do ficheiros de input e de output numa base de dados remota (para a web).
+
+Opcional:
+1 - Descrição de fluxos de execução em cwl
+2 - Adicionar um parser para YAML
+3 - Adicionar mais ontologias para novos mapeamentos
+4 - Sistema de autorização/autenticação para a versão Web
+5 - Versao melhorada de Desktop (?)
+
+
+Referencias:
+https://www.safaribooksonline.com/library/view/programming-the-semantic/9780596802141/
+http://www.commonwl.org/draft-3/UserGuide.html
+http://www.commonwl.org/v1.0/CommandLineTool.html#Running_a_Command
+https://www.w3.org/OWL/
+https://electronjs.org/docs/tutorial/about
+
+
