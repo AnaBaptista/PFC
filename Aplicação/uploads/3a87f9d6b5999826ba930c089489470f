@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://sysresearch.org/ontologies/cardosofamily.owl#"
+     xml:base="http://sysresearch.org/ontologies/cardosofamily.owl"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:family="http://sysresearch.org/ontologies/family.owl#">
+    <owl:Ontology rdf:about="http://sysresearch.org/ontologies/cardosofamily.owl#">
+        <owl:imports rdf:resource="http://sysresearch.org/ontologies/family.owl#"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://sysresearch.org/ontologies/family#Person -->
+
+    <owl:Class rdf:about="http://sysresearch.org/ontologies/family#Person"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://sysresearch.org/ontologies/cardosofamily.owl#AnaRitaCardoso -->
+
+    <owl:NamedIndividual rdf:about="http://sysresearch.org/ontologies/cardosofamily.owl#AnaRitaCardoso">
+        <rdf:type rdf:resource="http://sysresearch.org/ontologies/family#Person"/>
+        <family:hasBrother rdf:resource="http://sysresearch.org/ontologies/cardosofamily.owl#JoãoManuelCardoso"/>
+        <family:hasParent rdf:resource="http://sysresearch.org/ontologies/cardosofamily.owl#MariaGorettiFernandes"/>
+        <family:alsoKnownAs rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Rita</family:alsoKnownAs>
+        <family:hasFamilyName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cardoso</family:hasFamilyName>
+        <family:hasFirstGivenName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ana Rita</family:hasFirstGivenName>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Rita</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://sysresearch.org/ontologies/cardosofamily.owl#JoãoAnteroCardoso -->
+
+    <owl:NamedIndividual rdf:about="http://sysresearch.org/ontologies/cardosofamily.owl#JoãoAnteroCardoso">
+        <rdf:type rdf:resource="http://sysresearch.org/ontologies/family#Person"/>
+        <family:hasChild rdf:resource="http://sysresearch.org/ontologies/cardosofamily.owl#AnaRitaCardoso"/>
+        <family:hasParent rdf:resource="http://sysresearch.org/ontologies/cardosofamily.owl#MariaTeresaCardoso"/>
+        <family:hasPartner rdf:resource="http://sysresearch.org/ontologies/cardosofamily.owl#MariaGorettiFernandes"/>
+        <family:alsoKnownAs rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Pai</family:alsoKnownAs>
+        <family:hasDeathYear rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1986</family:hasDeathYear>
+        <family:hasFamilyName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cardoso</family:hasFamilyName>
+        <family:hasFirstGivenName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">João Antero</family:hasFirstGivenName>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Pai</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://sysresearch.org/ontologies/cardosofamily.owl#JoãoManuelCardoso -->
+
+    <owl:NamedIndividual rdf:about="http://sysresearch.org/ontologies/cardosofamily.owl#JoãoManuelCardoso">
+        <rdf:type rdf:resource="http://sysresearch.org/ontologies/family#Person"/>
+        <family:hasParent rdf:resource="http://sysresearch.org/ontologies/cardosofamily.owl#MariaGorettiFernandes"/>
+        <family:hasSister rdf:resource="http://sysresearch.org/ontologies/cardosofamily.owl#AnaRitaCardoso"/>
+        <family:hasFamilyName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cardoso</family:hasFamilyName>
+        <family:hasFirstGivenName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">João Manuel</family:hasFirstGivenName>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">JoãoManuelCardoso</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://sysresearch.org/ontologies/cardosofamily.owl#MariaEmídioMoreira -->
+
+    <rdf:Description rdf:about="http://sysresearch.org/ontologies/cardosofamily.owl#MariaEmídioMoreira">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MariaEmídioMoreira</rdfs:label>
+    </rdf:Description>
+    
+
+
+    <!-- http://sysresearch.org/ontologies/cardosofamily.owl#MariaGorettiFernandes -->
+
+    <owl:NamedIndividual rdf:about="http://sysresearch.org/ontologies/cardosofamily.owl#MariaGorettiFernandes">
+        <rdf:type rdf:resource="http://sysresearch.org/ontologies/family#Person"/>
+        <family:hasChild rdf:resource="http://sysresearch.org/ontologies/cardosofamily.owl#AnaRitaCardoso"/>
+        <family:hasParent rdf:resource="http://sysresearch.org/ontologies/cardosofamily.owl#MariaEmídioMoreira"/>
+        <family:hasPartner rdf:resource="http://sysresearch.org/ontologies/cardosofamily.owl#JoãoAnteroCardoso"/>
+        <family:alsoKnownAs rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mãe</family:alsoKnownAs>
+        <family:hasDeathYear rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1986</family:hasDeathYear>
+        <family:hasFamilyName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fernandes</family:hasFamilyName>
+        <family:hasFirstGivenName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Maria Goretti</family:hasFirstGivenName>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mãe</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://sysresearch.org/ontologies/cardosofamily.owl#MariaTeresaCardoso -->
+
+    <rdf:Description rdf:about="http://sysresearch.org/ontologies/cardosofamily.owl#MariaTeresaCardoso">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MariaTeresaCardoso</rdfs:label>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.1.3.20151118-2017) https://github.com/owlcs/owlapi -->
+
