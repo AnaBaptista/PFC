@@ -1,18 +1,28 @@
 'use strict'
-const port = 3000
+
+const path = require('path');
 const hbs = require('hbs')
-const path = require('path')
+const bodyParser = require('body-parser')
 const express = require('express')
+const app = express();
 
-const index = require('./routes/index');
+const fileRouter = require('./routes/file-routes.js')
 
-const app = express()
-
-app.set('views', path.join(__dirname, 'views'))
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+app.set('port', (process.env.PORT || 3000))
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.static(path.join(__dirname, 'public')));
+
 hbs.registerPartials(__dirname + '/views/partials')
 
+app.get('/', (req, res) => {
+    res.render('index')
+})
 
-app.use(index)
+app.use(fileRouter);
 
-app.listen(port, () => console.log(`Server listening on: ${port} port`))
+app.listen(app.get('port'), function() {
+    console.log(`listening on port: ${app.get('port')}`)
+})
