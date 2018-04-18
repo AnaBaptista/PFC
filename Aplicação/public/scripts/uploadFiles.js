@@ -12,13 +12,14 @@ function uploadFiles () {
   }
 
   let dataFilePromise = uploadSingleFile(dataFile, '/dataFile', 'data-file')
+  dataFilePromise.then(alertify.success('Data file add '))
   let ontologyFilePromise = uploadSingleFile(ontologyFile, '/ontologyFile', 'ontology-file')
-
-  Promise.all([dataFilePromise, ontologyFilePromise])
-    .then(alertify.success('Files upload with success'))
-    .catch(err => {
-      alert(err)
-    })
+  ontologyFilePromise.then(alertify.success('Data file add '))
+  // Promise.all([dataFilePromise, ontologyFilePromise])
+  //   .then(alertify.success('Files upload with success'))
+  //   .catch(err => {
+  //     alert(err)
+  //   })
 }
 /**
  * @param {*} file
