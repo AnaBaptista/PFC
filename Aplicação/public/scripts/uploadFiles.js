@@ -1,35 +1,56 @@
-function uploadFiles() {
-    let data = document.getElementById('data-file-input');
-    let ontology = document.getElementById('ontology-file-input');
-    
-    let dataFile = data.files[0];
-    if (!dataFile) {
-      alert('Data file required');
-      return;
-    }
+/**
+ * upload all files
+ */
+function uploadFiles () {
+  const idx = 0
+  let dataFile = $('#data-file-input')[idx].files[idx]
+  let ontologyFile = $('#ontology-file-input')[idx].files[idx]
+ 
+  if (!dataFile || !ontologyFile) {
+    alertify.error('Some file required')
+    return
+  }
 
-   let ontologyFile = ontology.files[0];
-    if (!ontologyFile) {
-      alert('Ontology file required');
-      return;
-    }
+  let dataFilePromise = uploadSingleFile(dataFile, '/dataFile', 'data-file')
+  let ontologyFilePromise = uploadSingleFile(ontologyFile, '/ontologyFile', 'ontology-file')
 
-    uploadSingleFile('/dataFile', dataFile, 'data-file-content')
-    //endpoint ainda nao existe no chaospop
-  //  uploadSingleFile('/ontologyFile', ontologyFile, 'ontology-file-content')
+  Promise.all([dataFilePromise, ontologyFilePromise])
+    .then(alertify.success('Files upload with success'))
+    .catch(err => {
+      alert(err)
+    })
 }
-
-function uploadSingleFile(path, file, contentFile) {
+/**
+ * @param {*} file
+ * @param {*} fileId
+ */
+function uploadSingleFile (file, path, fileId) {
   let formData = new FormData()
   formData.append('file', file)
-  
-  httpRequest('POST', path, formData, (err, res) => {
-    if(err) return alert(err)
-    let reader = new FileReader();
-    reader.onload = function(e) {
-      let contents = e.target.result;
-      displayContents(contents, contentFile, 'textContent');
-    };
-    reader.readAsText(file);
-  })
+  let options = {
+    method: 'POST',
+    body: formData
+  }
+
+  return fetch(path, options)
+    .then(() => {
+      let reader = new FileReader()
+      reader.onload = function (e) {
+        let contents = e.target.result
+
+        displayContents(contents, `${fileId}-content`, 'textContent')
+        let contentHtml = $(`#${fileId}-popover-content`).html()
+        let elem = $(`#${fileId}-popover`)
+        $(elem).popover({
+          content: contentHtml
+        })
+      }
+      reader.readAsText(file)
+    })
+    .catch(err => alert(err))
+}
+
+function displayContents (contents, elem, evt) {
+  var element = document.getElementById(elem)
+  element[evt] = contents
 }

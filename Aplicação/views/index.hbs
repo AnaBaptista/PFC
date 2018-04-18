@@ -1,33 +1,10 @@
-<!-- Navbar -->
-{{> navBar}}
-
-<!-- First Container -->
-<div class="container-fluid bg-1">
-    <div class="row">
-        <div class="col-sm-6">
-            <div>
-                <label for="data-file-input">Choose data file to upload</label>
-                <input type="file" name="data-file-input" id="data-file-input"/>
-            </div>
-            <h3>Contents of the data file:</h3>
-            <pre id="data-file-content"></pre>
-        </div>
-        <div class="col-sm-6">
-            <div>
-                <label for="ontology-file-input">Choose ontology file to upload</label>
-                <input type="file" name="ontology-file-input" id="ontology-file-input"/>
-            </div>
-            <h3>Contents of the ontology file:</h3>
-            <pre id="ontology-file-content"></pre>
-        </div>
-        <div class="col-sm-6">
-            <button type="button" class="btn" id="send-btn">Submit</button>
-            <button type="button" class="btn" id="get-files">Get all files</button>
-            <div id="file-list"></div>
-        </div>
-
+<div class="row">
+    <div class="col-sm-3">
+        {{> navBar}}
+    </div>
+    <div class="col-sm-9">
+        <p>
+            ONTOLOGY EDITOR HERE
+        </p>
     </div>
 </div>
-
-<!-- Footer -->
-{{> footer}}
