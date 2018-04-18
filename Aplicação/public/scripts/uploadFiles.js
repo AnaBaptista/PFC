@@ -5,20 +5,21 @@ function uploadFiles () {
   const idx = 0
   let dataFile = $('#data-file-input')[idx].files[idx]
   let ontologyFile = $('#ontology-file-input')[idx].files[idx]
- 
+
   if (!dataFile || !ontologyFile) {
     alertify.error('Some file required')
     return
   }
 
   let dataFilePromise = uploadSingleFile(dataFile, '/dataFile', 'data-file')
+  dataFilePromise.then(alertify.success('Data file add '))
   let ontologyFilePromise = uploadSingleFile(ontologyFile, '/ontologyFile', 'ontology-file')
-
-  Promise.all([dataFilePromise, ontologyFilePromise])
-    .then(alertify.success('Files upload with success'))
-    .catch(err => {
-      alert(err)
-    })
+  ontologyFilePromise.then(alertify.success('Data file add '))
+  // Promise.all([dataFilePromise, ontologyFilePromise])
+  //   .then(alertify.success('Files upload with success'))
+  //   .catch(err => {
+  //     alert(err)
+  //   })
 }
 /**
  * @param {*} file

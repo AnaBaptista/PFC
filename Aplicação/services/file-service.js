@@ -1,40 +1,31 @@
 module.exports = {
   addDataFile,
-  addOntologyFile
+  addOntologyFile,
+  getDataFileNodes,
+  getOntologyFileClasses,
+  getOntologyFiles
 }
 
 const dataAccess = require('../data-access/file-access')
 
 function addDataFile ({name, path}, cb) {
-  getDataFiles((err, files) => {
+  addFile(path, (err, res) => {
     if (err) return cb(err)
-    addFile(path, (err, res) => {
+    getDataFiles((err, currFiles) => {
       if (err) return cb(err)
-      getDataFiles((err, currFiles) => {
-        if (err) return cb(err)
-        let id = currFiles.files.filter(elem => !files.files.includes(elem))
-        getDataFileNodes(id, (err, nodes) => {
-          if (err) return cb(err)
-          cb(null, nodes)
-        })
-      })
+      let currFile = currFiles.files.pop()
+      cb(null, currFile._id)
     })
   })
 }
 
-function addOntologyFile ({name, path, cb}) {
-  getOntologyFiles((err, files) => {
+function addOntologyFile ({name, path}, cb) {
+  addFile(path, (err, res) => {
     if (err) return cb(err)
-    addFile(path, (err, res) => {
+    getOntologyFiles((err, currFiles) => {
       if (err) return cb(err)
-      getOntologyFiles((err, currFiles) => {
-        if (err) return cb(err)
-        let id = currFiles.files.filter(elem => !files.files.includes(elem))
-        getOntologyFileClasses(id, (err, nodes) => {
-          if (err) return cb(err)
-          cb(null, nodes)
-        })
-      })
+      let currFile = currFiles.files.pop()
+      return cb(null, currFile._id)
     })
   })
 }

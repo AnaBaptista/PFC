@@ -45,8 +45,15 @@ function getDataFiles (cb) {
 }
 
 function getDataFileNodes (id, cb) {
-  let url = `${nodeManager}/${id}/getAllNodesFromDataFile`
-  req(url, (err, res) => {
+  // let url = `${nodeManager}/${id}/getAllNodesFromDataFile`
+  let url = `${nodeManager}/getAllNodesFromDataFile`
+  let options = {
+    url: url,
+    form: {
+      id: id
+    }
+  }
+  req.post(options, (err, res) => {
     if (err) return cb(err)
     let obj = JSON.parse(res.body.toString())
     cb(null, obj)
@@ -63,8 +70,14 @@ function getOntologyFiles (cb) {
 }
 
 function getOntologyFileClasses (id, cb) {
-  let url = `${ontologyFile}/${id}/getOWLClasses`
-  req(url, (err, res) => {
+  let url = `${ontologyFile}/getOWLClasses`
+  let options = {
+    url: url,
+    form: {
+      ontologyId: id
+    }
+  }
+  req.post(options, (err, res) => {
     if (err) return cb(err)
     let obj = JSON.parse(res.body.toString())
     cb(null, obj)
