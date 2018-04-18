@@ -5,7 +5,7 @@ function uploadFiles () {
   const idx = 0
   let dataFile = $('#data-file-input')[idx].files[idx]
   let ontologyFile = $('#ontology-file-input')[idx].files[idx]
- 
+
   if (!dataFile || !ontologyFile) {
     alertify.error('Some file required')
     return
