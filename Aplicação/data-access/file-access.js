@@ -45,7 +45,6 @@ function getDataFiles (cb) {
 }
 
 function getDataFileNodes (id, cb) {
-  // let url = `${nodeManager}/${id}/getAllNodesFromDataFile`
   let url = `${nodeManager}/getAllNodesFromDataFile`
   let options = {
     url: url,

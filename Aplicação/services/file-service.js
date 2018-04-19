@@ -9,6 +9,7 @@ module.exports = {
 const dataAccess = require('../data-access/file-access')
 
 function addDataFile ({name, path}, cb) {
+  // TODO id generator
   addFile(path, (err, res) => {
     if (err) return cb(err)
     getDataFiles((err, currFiles) => {
