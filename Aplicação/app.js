@@ -6,7 +6,7 @@ const bodyParser = require('body-parser')
 const express = require('express')
 const app = express()
 
-const fileRouter = require('./routes/file-routes.js')
+const fileRouter = require('./controllers/file-routes.js')
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')
