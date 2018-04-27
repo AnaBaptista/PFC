@@ -1,24 +1,40 @@
 <!-- Add files -->
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <strong class="text-white">Upload files</strong>
-    </div>
-    <div class="panel-body">
-        <div class="input-group mb-3">
-            <div class="custom-file">
-                <input type="file" class="custom-file-input" id="data-file-input">
-                <label id = "data-file-label" class="custom-file-label" for="data-file-input">
-                    Choose data file
-                </label>
+<div class="six wide column">
+    <div class="ui fluid segment">
+            <input type="file" id="data-file-input" class="file-input">
+            <div class="ui animated fade button floated">
+                <div class="visible content">
+                    <i class="ui trash alternate icon"></i>
+                </div>
+                <div class="hidden content">
+                    Clear
+                </div>
             </div>
-        </div>
-        <div class="input-group mb-3">
-            <div class="custom-file">
-                <input type="file" class="custom-file-input" id="ontology-file-input">
-                <label id="ontology-file-label" class="custom-file-label" for="ontology-file-input">
-                    Choose ontology file
-                </label>
+            <div class="ui animated fade button floated">
+                <div class="visible content">
+                    <i class="ui cloud upload icon"></i>
+                </div>
+                <div class="hidden content">
+                    Submit
+                </div>
             </div>
+            <label for="data-file-input" class="ui animated fade button floated">
+                <div class="visible content">
+                    <i class="ui folder open icon"></i>
+                </div>
+                <div class="hidden content">Choose</div>
+            </label>
+        <label class="ui floated " id ="data-file-label" >Ontology file</label>
+    </div>
+</div>
+<div class="eight wide column">
+    <div class="ui input">
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="ontology-file-input">
+            <label id="ontology-file-label" class="custom-file-label" for="ontology-file-input">
+                Choose ontology file
+            </label>
         </div>
     </div>
+    <button type="button" class="btn btn-dark" id="send-ontology-file" disabled required="required">Submit ontology file</button>
 </div>

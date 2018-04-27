@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>
+            H.O.M.I - Hybdrid Ontology Mapping Interface
+        </title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.css"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.js"></script>
       
         <!--  Javascripts  -->        
         <script src='/scripts/onload.js'></script>
         <script src='/scripts/upload-files.js'></script>
 
         <!-- Styles -->
-        <link rel="stylesheet" type="text/css" href="/stylesheet/loader.css">
-        <link rel="stylesheet" type="text/css" href="/stylesheet/others.css">
+        <link rel="stylesheet" type="text/css" href="/stylesheet/addfiles.css">
 
         <!-- Alertify -->
         <link rel="stylesheet" href="alertifyjs/css/alertify.css" />
@@ -25,11 +29,12 @@
     </head>
     <body>
         <!-- Navbar -->
-       
-        
-            <!-- Body -->
-            {{{body}}}
-            <!-- Footer -->
+        {{> navbar}}
+
+        <!-- Body -->
+        {{{body}}}
+
+        <!-- Footer -->
             
          
     </body>
