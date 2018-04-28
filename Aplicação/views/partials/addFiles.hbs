@@ -1,5 +1,5 @@
 <!-- Add files -->
-<div class="six wide column">
+<div class="eight wide column">
     <div class="ui fluid segment">
             <input type="file" id="data-file-input" class="file-input">
             <div class="ui animated fade button floated">
@@ -24,17 +24,34 @@
                 </div>
                 <div class="hidden content">Choose</div>
             </label>
-        <label class="ui floated " id ="data-file-label" >Ontology file</label>
+        <label class="ui floated " id ="data-file-label" >Data file</label>
     </div>
 </div>
 <div class="eight wide column">
-    <div class="ui input">
-        <div class="custom-file">
-            <input type="file" class="custom-file-input" id="ontology-file-input">
-            <label id="ontology-file-label" class="custom-file-label" for="ontology-file-input">
-                Choose ontology file
-            </label>
+    <div class="ui fluid segment">
+        <input type="file" id="ontology-file-input" class="file-input">
+        <div class="ui animated fade button floated">
+            <div class="visible content">
+                <i class="ui trash alternate icon"></i>
+            </div>
+            <div class="hidden content">
+                Clear
+            </div>
         </div>
+        <div class="ui animated fade button floated">
+            <div class="visible content">
+                <i class="ui cloud upload icon"></i>
+            </div>
+            <div class="hidden content">
+                Submit
+            </div>
+        </div>
+        <label for="ontology-file-input" class="ui animated fade button floated">
+            <div class="visible content">
+                <i class="ui folder open icon"></i>
+            </div>
+            <div class="hidden content">Choose</div>
+        </label>
+        <label class="ui floated " id ="ontology-file-label" >Ontology file</label>
     </div>
-    <button type="button" class="btn btn-dark" id="send-ontology-file" disabled required="required">Submit ontology file</button>
 </div>
