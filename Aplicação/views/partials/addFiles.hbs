@@ -1,36 +1,8 @@
 <!-- Add files -->
-<div class="eight wide column">
-    <div class="ui fluid segment">
-            <input type="file" id="data-file-input" class="file-input">
-            <div class="ui animated fade button floated">
-                <div class="visible content">
-                    <i class="ui trash alternate icon"></i>
-                </div>
-                <div class="hidden content">
-                    Clear
-                </div>
-            </div>
-            <div class="ui animated fade button floated">
-                <div class="visible content">
-                    <i class="ui cloud upload icon"></i>
-                </div>
-                <div class="hidden content">
-                    Submit
-                </div>
-            </div>
-            <label for="data-file-input" class="ui animated fade button floated">
-                <div class="visible content">
-                    <i class="ui folder open icon"></i>
-                </div>
-                <div class="hidden content">Choose</div>
-            </label>
-        <label class="ui floated " id ="data-file-label" >Data file</label>
-    </div>
-</div>
-<div class="eight wide column">
-    <div class="ui fluid segment">
-        <input type="file" id="ontology-file-input" class="file-input">
-        <div class="ui animated fade button floated">
+<div class="ui floated column">
+    <input type="file" id="data-file-input" class="file-input" accept=".xml,.json">
+    <div class="ui buttons">
+        <div class="ui animated fade secondary basic button">
             <div class="visible content">
                 <i class="ui trash alternate icon"></i>
             </div>
@@ -38,7 +10,7 @@
                 Clear
             </div>
         </div>
-        <div class="ui animated fade button floated">
+        <div id = "data-file-submit" class="ui animated fade secondary basic button">
             <div class="visible content">
                 <i class="ui cloud upload icon"></i>
             </div>
@@ -46,12 +18,44 @@
                 Submit
             </div>
         </div>
-        <label for="ontology-file-input" class="ui animated fade button floated">
+        <label for="data-file-input" class="ui animated fade secondary basic button">
             <div class="visible content">
                 <i class="ui folder open icon"></i>
             </div>
             <div class="hidden content">Choose</div>
         </label>
-        <label class="ui floated " id ="ontology-file-label" >Ontology file</label>
+        <button class="ui left pointing label secondary basic" id ="data-file-label" disabled>
+            Data file
+        </button>
+    </div>
+</div>
+<div class="ui floated column">
+    <input type="file" id="ontology-file-input" class="file-input" accept=".owl">
+    <div class="ui buttons">
+        <div class="ui animated fade button secondary basic">
+            <div class="visible content">
+                <i class="ui trash alternate icon"></i>
+            </div>
+            <div class="hidden content">
+                Clear
+            </div>
+        </div>
+        <div  id="ontology-file-submit" class="ui animated fade secondary basic button">
+            <div class="visible content">
+                <i class="ui cloud upload icon"></i>
+            </div>
+            <div class="hidden content">
+                Submit
+            </div>
+        </div>
+        <label for="ontology-file-input" class="ui animated fade secondary basic button">
+            <div class="visible content">
+                <i class="ui folder open icon"></i>
+            </div>
+            <div class="hidden content">Choose</div>
+        </label>
+        <button class="ui left pointing label secondary basic" id ="ontology-file-label" disabled >
+            Ontology file
+        </button>
     </div>
 </div>
