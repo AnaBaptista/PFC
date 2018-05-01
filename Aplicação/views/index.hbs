@@ -1,20 +1,15 @@
-<div class="ui attached black segment">
+<div class="ui attached black segment body-content">
     <div class="ui equal width center aligned attached grid">
         {{> addfiles}}
     </div>
 </div>
-<div class="ui equal width center aligned attached grid">
+<div class="ui equal width attached grid">
     <div class="row">
         <div id="ontology-file-content" class="column">
-            <div class="ui buttons fluid">
-                <button class="ui secondary basic button">Classes</button>
-                <button class="ui secondary basic button">Object Properties</button>
-                <button class="ui secondary basic button">Data Properties</button>
-            </div>
-            {{> ontologyclasses}}
+            <!-- {{> loader text='Ontology file'}} -->
         </div>
-        <div id="data-file-nodes" class="column">
-            NODES
+        <div id="data-file-content" class="column">
+            <!-- {{> loader text='Data file'}} -->
         </div>
     </div>
 </div>

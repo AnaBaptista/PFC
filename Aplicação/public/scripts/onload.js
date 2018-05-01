@@ -1,31 +1,39 @@
 window.onload = function () {
   /**
-   * files input on change listener
+   * data file listeners
    */
   document.getElementById('data-file-input').addEventListener('change', () => {
-    changeLabel('data-file')
+    changeFileInputLabel('data-file')
   })
 
-  document.getElementById('ontology-file-input').addEventListener('change', () => {
-    changeLabel('ontology-file')
+  document.getElementById('data-file-clear').addEventListener('click', () => {
+    clearFileInput('data-file', 'Data file')
   })
 
   document.getElementById('data-file-submit').addEventListener('click', () => {
     let f = uploadSingleFile('data-file', '/dataFile')
-    f.then((json) => {
-      console.log(json.nodes)
+    f.then((res) => {
+      let elem = document.getElementById('data-file-content')
+      elem.innerHTML = res
     })
+  })
+
+  /**
+   * ontology file listeners
+   */
+  document.getElementById('ontology-file-input').addEventListener('change', () => {
+    changeFileInputLabel('ontology-file')
   })
 
   document.getElementById('ontology-file-submit').addEventListener('click', () => {
     let f = uploadSingleFile('ontology-file', '/ontologyFile')
-    f.then((json) => {
-      console.log(json.classes)
+    f.then((res) => {
+      let elem = document.getElementById('ontology-file-content')
+      elem.innerHTML = res
     })
   })
-}
 
-function changeLabel (id) {
-  let file = document.getElementById(`${id}-input`).files[0]
-  document.getElementById(`${id}-label`).innerText = file.name
+  document.getElementById('ontology-file-clear').addEventListener('click', () => {
+    clearFileInput('ontology-file', 'Ontology file')
+  })
 }

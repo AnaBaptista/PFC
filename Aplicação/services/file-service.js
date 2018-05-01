@@ -3,6 +3,8 @@ module.exports = {
   addOntologyFile,
   getDataFileNodes,
   getOntologyFileClasses,
+  getOntologyFileObjectProperties,
+  getOntologyFileDataProperties,
   getOntologyFiles
 }
 
@@ -63,5 +65,19 @@ function getOntologyFileClasses (id, cb) {
   dataAccess.getOntologyFileClasses(id, (err, res) => {
     if (err) return cb(err)
     return cb(null, {classes: res})
+  })
+}
+
+function getOntologyFileObjectProperties (id, cb) {
+  dataAccess.getOntologyFileObjectProperties(id, (err, res) => {
+    if (err) return cb(err)
+    return cb(null, {properties: res})
+  })
+}
+
+function getOntologyFileDataProperties (id, cb) {
+  dataAccess.getOntologyFileDataProperties(id, (err, res) => {
+    if (err) return cb(err)
+    return cb(null, {properties: res})
   })
 }

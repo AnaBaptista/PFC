@@ -1,0 +1,27 @@
+body {
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.body-navbar,
+.body-footer {
+    height: 50px;
+}
+
+.body-content,
+.body-footer {
+    position: absolute;
+    width: 100%;
+}
+
+.body-content {
+    bottom: 100px;
+    top: 100px;
+}
+
+.body-footer {
+    bottom: 0;
+}

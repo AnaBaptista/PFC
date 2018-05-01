@@ -1,0 +1,12 @@
+#ontology-file-data {
+    max-height: 425px;
+    overflow-y:auto;
+}
+
+#data-file-content {
+    max-height: 425px;
+    overflow-y:auto;
+}
+.m-loader {
+    padding-bottom: 300px;
+}

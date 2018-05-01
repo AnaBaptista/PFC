@@ -3,7 +3,9 @@ module.exports = {
   getDataFiles,
   getDataFileNodes,
   getOntologyFiles,
-  getOntologyFileClasses
+  getOntologyFileClasses,
+  getOntologyFileObjectProperties,
+  getOntologyFileDataProperties
 }
 
 const req = require('request')
@@ -71,6 +73,36 @@ function getOntologyFiles (cb) {
 
 function getOntologyFileClasses (id, cb) {
   let url = `${ontologyFile}/getOWLClasses`
+  let options = {
+    url: url,
+    form: {
+      ontologyId: id
+    }
+  }
+  req.post(options, (err, res) => {
+    if (err) return cb(err)
+    let obj = JSON.parse(res.body.toString())
+    cb(null, obj)
+  })
+}
+
+function getOntologyFileObjectProperties (id, cb) {
+  let url = `${ontologyFile}/getObjectProperties`
+  let options = {
+    url: url,
+    form: {
+      ontologyId: id
+    }
+  }
+  req.post(options, (err, res) => {
+    if (err) return cb(err)
+    let obj = JSON.parse(res.body.toString())
+    cb(null, obj)
+  })
+}
+
+function getOntologyFileDataProperties (id, cb) {
+  let url = `${ontologyFile}/getDataProperties`
   let options = {
     url: url,
     form: {
