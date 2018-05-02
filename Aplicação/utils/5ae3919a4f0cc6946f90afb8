@@ -1,0 +1,702 @@
+[
+  {
+    "childrenIDs": {
+      "childID": [
+        "5ae3919a4f0cc6946f90afba",
+        "5ae3919a4f0cc6946f90afcb",
+        "5ae3919a4f0cc6946f90afdd",
+        "5ae3919a4f0cc6946f90afef"
+      ]
+    },
+    "_id": "5ae3919a4f0cc6946f90afb9",
+    "dataFileId": "5ae3919a4f0cc6946f90afb9",
+    "hasAttributes": false,
+    "tag": "family"
+  },
+  {
+    "childrenIDs": {
+      "childID": [
+        "5ae3919a4f0cc6946f90afbb",
+        "5ae3919a4f0cc6946f90afbf",
+        "5ae3919a4f0cc6946f90afc0",
+        "5ae3919a4f0cc6946f90afc1",
+        "5ae3919a4f0cc6946f90afc2",
+        "5ae3919a4f0cc6946f90afc5",
+        "5ae3919a4f0cc6946f90afc8",
+        "5ae3919a4f0cc6946f90afca"
+      ]
+    },
+    "_id": "5ae3919a4f0cc6946f90afba",
+    "dataFileId": "5ae3919a4f0cc6946f90afba",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afb9",
+    "tag": "member"
+  },
+  {
+    "childrenIDs": {
+      "childID": [
+        "5ae3919a4f0cc6946f90afbc",
+        "5ae3919a4f0cc6946f90afbd",
+        "5ae3919a4f0cc6946f90afbe"
+      ]
+    },
+    "_id": "5ae3919a4f0cc6946f90afbb",
+    "dataFileId": "5ae3919a4f0cc6946f90afbb",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afba",
+    "tag": "name"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afbc",
+    "dataFileId": "5ae3919a4f0cc6946f90afbc",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afbb",
+    "tag": "given",
+    "value": "João Manuel"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afbd",
+    "dataFileId": "5ae3919a4f0cc6946f90afbd",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afbb",
+    "tag": "surname",
+    "value": "Cardoso"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afbe",
+    "dataFileId": "5ae3919a4f0cc6946f90afbe",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afbb",
+    "tag": "nickname",
+    "value": ""
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afbf",
+    "dataFileId": "5ae3919a4f0cc6946f90afbf",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afba",
+    "tag": "sex",
+    "value": "male"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afc0",
+    "dataFileId": "5ae3919a4f0cc6946f90afc0",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afba",
+    "tag": "birth_year",
+    "value": "1987"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afc1",
+    "dataFileId": "5ae3919a4f0cc6946f90afc1",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afba",
+    "tag": "death_year",
+    "value": ""
+  },
+  {
+    "childrenIDs": {
+      "childID": [
+        "5ae3919a4f0cc6946f90afc3",
+        "5ae3919a4f0cc6946f90afc4"
+      ]
+    },
+    "_id": "5ae3919a4f0cc6946f90afc2",
+    "dataFileId": "5ae3919a4f0cc6946f90afc2",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afba",
+    "tag": "marriage"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afc3",
+    "dataFileId": "5ae3919a4f0cc6946f90afc3",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afc2",
+    "tag": "marriage_year",
+    "value": ""
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afc4",
+    "dataFileId": "5ae3919a4f0cc6946f90afc4",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afc2",
+    "tag": "partner_name",
+    "value": ""
+  },
+  {
+    "childrenIDs": {
+      "childID": [
+        "5ae3919a4f0cc6946f90afc6",
+        "5ae3919a4f0cc6946f90afc7"
+      ]
+    },
+    "_id": "5ae3919a4f0cc6946f90afc5",
+    "dataFileId": "5ae3919a4f0cc6946f90afc5",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afba",
+    "tag": "ancestors"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afc6",
+    "dataFileId": "5ae3919a4f0cc6946f90afc6",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afc5",
+    "tag": "father",
+    "value": "João Antero"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afc7",
+    "dataFileId": "5ae3919a4f0cc6946f90afc7",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afc5",
+    "tag": "mother",
+    "value": "Maria Goretti Fernandes"
+  },
+  {
+    "childrenIDs": {
+      "childID": [
+        "5ae3919a4f0cc6946f90afc9"
+      ]
+    },
+    "_id": "5ae3919a4f0cc6946f90afc8",
+    "dataFileId": "5ae3919a4f0cc6946f90afc8",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afba",
+    "tag": "siblings"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afc9",
+    "dataFileId": "5ae3919a4f0cc6946f90afc9",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afc8",
+    "tag": "sister",
+    "value": "Ana Rita Cardoso"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afca",
+    "dataFileId": "5ae3919a4f0cc6946f90afca",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afba",
+    "tag": "descendants",
+    "value": ""
+  },
+  {
+    "childrenIDs": {
+      "childID": [
+        "5ae3919a4f0cc6946f90afcc",
+        "5ae3919a4f0cc6946f90afd0",
+        "5ae3919a4f0cc6946f90afd1",
+        "5ae3919a4f0cc6946f90afd2",
+        "5ae3919a4f0cc6946f90afd3",
+        "5ae3919a4f0cc6946f90afd6",
+        "5ae3919a4f0cc6946f90afd9",
+        "5ae3919a4f0cc6946f90afda"
+      ]
+    },
+    "_id": "5ae3919a4f0cc6946f90afcb",
+    "dataFileId": "5ae3919a4f0cc6946f90afcb",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afb9",
+    "tag": "member"
+  },
+  {
+    "childrenIDs": {
+      "childID": [
+        "5ae3919a4f0cc6946f90afcd",
+        "5ae3919a4f0cc6946f90afce",
+        "5ae3919a4f0cc6946f90afcf"
+      ]
+    },
+    "_id": "5ae3919a4f0cc6946f90afcc",
+    "dataFileId": "5ae3919a4f0cc6946f90afcc",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afcb",
+    "tag": "name"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afcd",
+    "dataFileId": "5ae3919a4f0cc6946f90afcd",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afcc",
+    "tag": "given",
+    "value": "João Antero"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afce",
+    "dataFileId": "5ae3919a4f0cc6946f90afce",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afcc",
+    "tag": "surname",
+    "value": "Cardoso"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afcf",
+    "dataFileId": "5ae3919a4f0cc6946f90afcf",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afcc",
+    "tag": "nickname",
+    "value": "Pai"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afd0",
+    "dataFileId": "5ae3919a4f0cc6946f90afd0",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afcb",
+    "tag": "sex",
+    "value": "male"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afd1",
+    "dataFileId": "5ae3919a4f0cc6946f90afd1",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afcb",
+    "tag": "birth_year",
+    "value": "1960"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afd2",
+    "dataFileId": "5ae3919a4f0cc6946f90afd2",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afcb",
+    "tag": "death_year",
+    "value": ""
+  },
+  {
+    "childrenIDs": {
+      "childID": [
+        "5ae3919a4f0cc6946f90afd4",
+        "5ae3919a4f0cc6946f90afd5"
+      ]
+    },
+    "_id": "5ae3919a4f0cc6946f90afd3",
+    "dataFileId": "5ae3919a4f0cc6946f90afd3",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afcb",
+    "tag": "marriage"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afd4",
+    "dataFileId": "5ae3919a4f0cc6946f90afd4",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afd3",
+    "tag": "marriage_year",
+    "value": "1986"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afd5",
+    "dataFileId": "5ae3919a4f0cc6946f90afd5",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afd3",
+    "tag": "partner_name",
+    "value": "Maria Goretti"
+  },
+  {
+    "childrenIDs": {
+      "childID": [
+        "5ae3919a4f0cc6946f90afd7",
+        "5ae3919a4f0cc6946f90afd8"
+      ]
+    },
+    "_id": "5ae3919a4f0cc6946f90afd6",
+    "dataFileId": "5ae3919a4f0cc6946f90afd6",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afcb",
+    "tag": "ancestors"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afd7",
+    "dataFileId": "5ae3919a4f0cc6946f90afd7",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afd6",
+    "tag": "father",
+    "value": "Antero Cardoso"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afd8",
+    "dataFileId": "5ae3919a4f0cc6946f90afd8",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afd6",
+    "tag": "mother",
+    "value": "Maria Teresa Cardoso"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afd9",
+    "dataFileId": "5ae3919a4f0cc6946f90afd9",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afcb",
+    "tag": "siblings",
+    "value": ""
+  },
+  {
+    "childrenIDs": {
+      "childID": [
+        "5ae3919a4f0cc6946f90afdb",
+        "5ae3919a4f0cc6946f90afdc"
+      ]
+    },
+    "_id": "5ae3919a4f0cc6946f90afda",
+    "dataFileId": "5ae3919a4f0cc6946f90afda",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afcb",
+    "tag": "descendants"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afdb",
+    "dataFileId": "5ae3919a4f0cc6946f90afdb",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afda",
+    "tag": "son",
+    "value": "João Manuel Cardoso"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afdc",
+    "dataFileId": "5ae3919a4f0cc6946f90afdc",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afda",
+    "tag": "daughter",
+    "value": "Ana Rita Cardoso"
+  },
+  {
+    "childrenIDs": {
+      "childID": [
+        "5ae3919a4f0cc6946f90afde",
+        "5ae3919a4f0cc6946f90afe2",
+        "5ae3919a4f0cc6946f90afe3",
+        "5ae3919a4f0cc6946f90afe4",
+        "5ae3919a4f0cc6946f90afe5",
+        "5ae3919a4f0cc6946f90afe8",
+        "5ae3919a4f0cc6946f90afeb",
+        "5ae3919a4f0cc6946f90afec"
+      ]
+    },
+    "_id": "5ae3919a4f0cc6946f90afdd",
+    "dataFileId": "5ae3919a4f0cc6946f90afdd",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afb9",
+    "tag": "member"
+  },
+  {
+    "childrenIDs": {
+      "childID": [
+        "5ae3919a4f0cc6946f90afdf",
+        "5ae3919a4f0cc6946f90afe0",
+        "5ae3919a4f0cc6946f90afe1"
+      ]
+    },
+    "_id": "5ae3919a4f0cc6946f90afde",
+    "dataFileId": "5ae3919a4f0cc6946f90afde",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afdd",
+    "tag": "name"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afdf",
+    "dataFileId": "5ae3919a4f0cc6946f90afdf",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afde",
+    "tag": "given",
+    "value": "Maria Goretti"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afe0",
+    "dataFileId": "5ae3919a4f0cc6946f90afe0",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afde",
+    "tag": "surname",
+    "value": "Fernandes"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afe1",
+    "dataFileId": "5ae3919a4f0cc6946f90afe1",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afde",
+    "tag": "nickname",
+    "value": "Mãe"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afe2",
+    "dataFileId": "5ae3919a4f0cc6946f90afe2",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afdd",
+    "tag": "sex",
+    "value": "female"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afe3",
+    "dataFileId": "5ae3919a4f0cc6946f90afe3",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afdd",
+    "tag": "birth_year",
+    "value": "1960"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afe4",
+    "dataFileId": "5ae3919a4f0cc6946f90afe4",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afdd",
+    "tag": "death_year",
+    "value": ""
+  },
+  {
+    "childrenIDs": {
+      "childID": [
+        "5ae3919a4f0cc6946f90afe6",
+        "5ae3919a4f0cc6946f90afe7"
+      ]
+    },
+    "_id": "5ae3919a4f0cc6946f90afe5",
+    "dataFileId": "5ae3919a4f0cc6946f90afe5",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afdd",
+    "tag": "marriage"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afe6",
+    "dataFileId": "5ae3919a4f0cc6946f90afe6",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afe5",
+    "tag": "marriage_year",
+    "value": "1986"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afe7",
+    "dataFileId": "5ae3919a4f0cc6946f90afe7",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afe5",
+    "tag": "partner_name",
+    "value": "João Antero Cardoso"
+  },
+  {
+    "childrenIDs": {
+      "childID": [
+        "5ae3919a4f0cc6946f90afe9",
+        "5ae3919a4f0cc6946f90afea"
+      ]
+    },
+    "_id": "5ae3919a4f0cc6946f90afe8",
+    "dataFileId": "5ae3919a4f0cc6946f90afe8",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afdd",
+    "tag": "ancestors"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afe9",
+    "dataFileId": "5ae3919a4f0cc6946f90afe9",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afe8",
+    "tag": "father",
+    "value": "Manuel Fernandes"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afea",
+    "dataFileId": "5ae3919a4f0cc6946f90afea",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afe8",
+    "tag": "mother",
+    "value": "Maria Emídio Moreira"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afeb",
+    "dataFileId": "5ae3919a4f0cc6946f90afeb",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afdd",
+    "tag": "siblings",
+    "value": ""
+  },
+  {
+    "childrenIDs": {
+      "childID": [
+        "5ae3919a4f0cc6946f90afed",
+        "5ae3919a4f0cc6946f90afee"
+      ]
+    },
+    "_id": "5ae3919a4f0cc6946f90afec",
+    "dataFileId": "5ae3919a4f0cc6946f90afec",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afdd",
+    "tag": "descendants"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afed",
+    "dataFileId": "5ae3919a4f0cc6946f90afed",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afec",
+    "tag": "son",
+    "value": "João Manuel Cardoso"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afee",
+    "dataFileId": "5ae3919a4f0cc6946f90afee",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afec",
+    "tag": "daughter",
+    "value": "Ana Rita Cardoso"
+  },
+  {
+    "childrenIDs": {
+      "childID": [
+        "5ae3919a4f0cc6946f90aff0",
+        "5ae3919a4f0cc6946f90aff4",
+        "5ae3919a4f0cc6946f90aff5",
+        "5ae3919a4f0cc6946f90aff6",
+        "5ae3919a4f0cc6946f90aff7",
+        "5ae3919a4f0cc6946f90affa",
+        "5ae3919a4f0cc6946f90affd",
+        "5ae3919a4f0cc6946f90afff"
+      ]
+    },
+    "_id": "5ae3919a4f0cc6946f90afef",
+    "dataFileId": "5ae3919a4f0cc6946f90afef",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afb9",
+    "tag": "member"
+  },
+  {
+    "childrenIDs": {
+      "childID": [
+        "5ae3919a4f0cc6946f90aff1",
+        "5ae3919a4f0cc6946f90aff2",
+        "5ae3919a4f0cc6946f90aff3"
+      ]
+    },
+    "_id": "5ae3919a4f0cc6946f90aff0",
+    "dataFileId": "5ae3919a4f0cc6946f90aff0",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afef",
+    "tag": "name"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90aff1",
+    "dataFileId": "5ae3919a4f0cc6946f90aff1",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90aff0",
+    "tag": "given",
+    "value": "Ana Rita"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90aff2",
+    "dataFileId": "5ae3919a4f0cc6946f90aff2",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90aff0",
+    "tag": "surname",
+    "value": "Cardoso"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90aff3",
+    "dataFileId": "5ae3919a4f0cc6946f90aff3",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90aff0",
+    "tag": "nickname",
+    "value": "Rita"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90aff4",
+    "dataFileId": "5ae3919a4f0cc6946f90aff4",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afef",
+    "tag": "sex",
+    "value": "female"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90aff5",
+    "dataFileId": "5ae3919a4f0cc6946f90aff5",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afef",
+    "tag": "birth_year",
+    "value": "1991"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90aff6",
+    "dataFileId": "5ae3919a4f0cc6946f90aff6",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afef",
+    "tag": "death_year",
+    "value": ""
+  },
+  {
+    "childrenIDs": {
+      "childID": [
+        "5ae3919a4f0cc6946f90aff8",
+        "5ae3919a4f0cc6946f90aff9"
+      ]
+    },
+    "_id": "5ae3919a4f0cc6946f90aff7",
+    "dataFileId": "5ae3919a4f0cc6946f90aff7",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afef",
+    "tag": "marriage"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90aff8",
+    "dataFileId": "5ae3919a4f0cc6946f90aff8",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90aff7",
+    "tag": "marriage_year",
+    "value": ""
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90aff9",
+    "dataFileId": "5ae3919a4f0cc6946f90aff9",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90aff7",
+    "tag": "partner_name",
+    "value": ""
+  },
+  {
+    "childrenIDs": {
+      "childID": [
+        "5ae3919a4f0cc6946f90affb",
+        "5ae3919a4f0cc6946f90affc"
+      ]
+    },
+    "_id": "5ae3919a4f0cc6946f90affa",
+    "dataFileId": "5ae3919a4f0cc6946f90affa",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afef",
+    "tag": "ancestors"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90affb",
+    "dataFileId": "5ae3919a4f0cc6946f90affb",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90affa",
+    "tag": "father",
+    "value": "João Antero Cardoso"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90affc",
+    "dataFileId": "5ae3919a4f0cc6946f90affc",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90affa",
+    "tag": "mother",
+    "value": "Maria Goretti Fernandes"
+  },
+  {
+    "childrenIDs": {
+      "childID": [
+        "5ae3919a4f0cc6946f90affe"
+      ]
+    },
+    "_id": "5ae3919a4f0cc6946f90affd",
+    "dataFileId": "5ae3919a4f0cc6946f90affd",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afef",
+    "tag": "siblings"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90affe",
+    "dataFileId": "5ae3919a4f0cc6946f90affe",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90affd",
+    "tag": "brother",
+    "value": "João Manuel Cardoso"
+  },
+  {
+    "_id": "5ae3919a4f0cc6946f90afff",
+    "dataFileId": "5ae3919a4f0cc6946f90afff",
+    "hasAttributes": false,
+    "parent": "5ae3919a4f0cc6946f90afef",
+    "tag": "descendants",
+    "value": ""
+  }
+]

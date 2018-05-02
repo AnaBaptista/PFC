@@ -1,0 +1,12 @@
+.node rect {
+    cursor: pointer;
+    fill: #fff;
+    fill-opacity: 0.5;
+    stroke: #3182bd;
+    stroke-width: 0px;
+}
+
+.node text {
+    font: 15px "Calibri Light";
+    pointer-events: none;
+}

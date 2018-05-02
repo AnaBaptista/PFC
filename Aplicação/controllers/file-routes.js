@@ -15,6 +15,8 @@ router.get('/ontologyFile/:id/objectproperties', getOntologyFileObjectProperties
 router.get('/ontologyFile/:id/dataproperties', getOntologyFileDataProperties)
 router.get('/ontologyFiles', getOntologyFiles)
 
+const listTotree = require('../utils/list-to-tree')
+
 function addDataFile (req, res, next) {
   /* let file = req.files['file']
   service.addDataFile(file, (err, id) => {
@@ -36,13 +38,18 @@ function addOntologyFile (req, res, next) {
   res.render('partials/ontologycontent', ctx)
 }
 
+const fs = require('fs')
 function getDataFileNodes (req, res, next) {
   let id = req.params.id
-  service.getDataFileNodes(id, (err, nodes) => {
-    if (err) return next(err)
-    let root = list_to_tree(nodes.nodes)
-    res.json(root)
-  })
+  // service.getDataFileNodes(id, (err, nodes) => {
+  //   if (err) return next(err)
+  //   let root = listTotree(nodes.nodes)
+  //   res.json(root)
+  // })
+  let data = fs.readFileSync(`./utils/${id}`, 'utf8')
+  let list = JSON.parse(data)
+  let root = listTotree(list)
+  res.json(root)
 }
 
 function getOntologyFileClasses (req, res, next) {
@@ -80,32 +87,6 @@ function getOntologyFiles (req, res, next) {
     if (err) return next(err)
     res.json(files)
   })
-}
-
-function list_to_tree (list) {
-  let map = {}, node, roots = [], i
-  let nodes = []
-  for (i = 0; i < list.length; i += 1) {
-    map[list[i]._id] = i // initialize the map
-    nodes[i] = {
-      tag: list[i].tag,
-      value: list[i].value
-    }
-    if (list[i].parent) {
-      nodes[i].parent = list[i].parent
-    }
-    nodes[i].children = [] // initialize the children
-  }
-  for (i = 0; i < nodes.length; i += 1) {
-    node = nodes[i]
-    if (node.parent) {
-      // if you have dangling branches check that map[node.parentId] exists
-      nodes[map[node.parent]].children.push(node)
-    } else {
-      roots.push(node)
-    }
-  }
-  return roots
 }
 
 module.exports = router

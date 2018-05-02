@@ -13,8 +13,9 @@ window.onload = function () {
   document.getElementById('data-file-submit').addEventListener('click', () => {
     let f = uploadSingleFile('data-file', '/dataFile')
     f.then((res) => {
-      let elem = document.getElementById('data-file-content')
-      elem.innerHTML = res
+      drawIndentedTree(JSON.parse(res), 'data-file-content')
+      // let elem = document.getElementById('data-file-content')
+      // elem.innerHTML = res
     })
   })
 
