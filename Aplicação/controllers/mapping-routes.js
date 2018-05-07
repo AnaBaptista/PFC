@@ -111,14 +111,19 @@ function getIndividualNameAndLabel(req,res,next){
   let nodeId = req.query.nodeId
   let id = req.params.individualId
 
-  const ctx = {
-    layout: false,
-    _id : id,
-    ontologyFileId: ontologyId,
-    dataFileId: dataFileId,
-    nodeId: nodeId
-  }
-  res.render('partials/individualmapoproperties', ctx)
+  fileService.getOntologyFileDataProperties(id,(err,result)=>{
+    if(err) return next(err)
+    const ctx = {
+      layout: false,
+      _id : id,
+      ontologyFileId: ontologyId,
+      dataFileId: dataFileId,
+      nodeId: nodeId,
+      dproperties: result.properties
+    }
+    res.render('partials/individualmapproperties', ctx)
+  })
+
 }
 
 
