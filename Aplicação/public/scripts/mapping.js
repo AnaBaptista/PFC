@@ -52,7 +52,7 @@ function changeDataFileTerm (node) {
   elem.replaceChild(div, elem.childNodes[0])
 }
 
-function createIndividualMapping (dataId, ontId) {
+function createIndMapping (dataId, ontId) {
   let dNode = document.getElementById('classes-to-term').childNodes[0]
   let onto = document.getElementById('classes-to-concept').childNodes[0]
   let data = {
@@ -71,7 +71,7 @@ function createIndividualMapping (dataId, ontId) {
   }
   textRequest(`/map/individual?ontologyFileId=${ontId}&dataFileId=${dataId}`, options)
     .then(res => {
-      let elem = document.getElementById('individual-mapping-segment')
+      let elem = document.getElementById('mapper-segment')
       elem.innerHTML = res
     })
 }

@@ -18,7 +18,6 @@ router.get('/ontologyFile/:id/dataproperties', getOntologyFileDataProperties)
 router.get('/ontologyFiles', getOntologyFiles)
 
 router.get('/mapping/:dataFileId/to/:ontologyFileId', getMapperContent)
-router.post('/mapping/:dataFileId/individualMapping', addIndividualMapping)
 
 const listTotree = require('../utils/list-to-tree')
 
