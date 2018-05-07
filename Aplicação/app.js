@@ -6,7 +6,9 @@ const bodyParser = require('body-parser')
 const express = require('express')
 const app = express()
 
-const fileRouter = require('./controllers/file-routes.js')
+const fileRouter = require('./controllers/file-routes')
+const mappingRouter = require('./controllers/mapping-routes')
+
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')
@@ -22,6 +24,7 @@ app.get('/', (req, res) => {
 })
 
 app.use(fileRouter)
+app.use(mappingRouter)
 
 app.listen(app.get('port'), () => {
   console.log(`listening on port: ${app.get('port')}`)

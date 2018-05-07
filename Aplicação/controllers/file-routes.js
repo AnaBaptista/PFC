@@ -6,6 +6,8 @@ const multipart = require('connect-multiparty')
 const router = Router()
 const multipartMiddleware = multipart()
 
+module.exports = router
+
 router.post('/dataFile', multipartMiddleware, addDataFile)
 router.get('/dataFile/:id/nodes', getDataFileNodes)
 
@@ -89,4 +91,4 @@ function getOntologyFiles (req, res, next) {
   })
 }
 
-module.exports = router
+
