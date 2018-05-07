@@ -17,13 +17,9 @@ router.get('/ontologyFile/:id/objectproperties', getOntologyFileObjectProperties
 router.get('/ontologyFile/:id/dataproperties', getOntologyFileDataProperties)
 router.get('/ontologyFiles', getOntologyFiles)
 
-/***
- *
- */
 router.get('/mapping/:dataFileId/to/:ontologyFileId', getMapperContent)
 router.post('/mapping/:dataFileId/individualMapping', addIndividualMapping)
 
-let maps = {}
 const listTotree = require('../utils/list-to-tree')
 
 function addDataFile (req, res, next) {
@@ -110,27 +106,6 @@ function getMapperContent (req, res, next) {
       classes: classes.classes
     }
     res.render('mapper', ctx)
-  })
-}
-
-function addIndividualMapping (req, res, next) {
-  let dataFileId = req.params.dataFileId
-  let ontologyId = req.body.ontologyId
-  let map = req.body.map
-  maps[map.nodeId] = map
-
-  service.getOntologyFileDataProperties(ontologyId, (err, dproperties) => {
-    service.getOntologyFileObjectProperties(ontologyId, (err, oproperties) => {
-      const ctx = {
-        layout: false,
-        ontologyFileId: ontologyId,
-        dataFileId: dataFileId,
-        dproperties: dproperties.properties,
-        oproperties: oproperties.properties,
-        nodeId: map.nodeId
-      }
-      res.render('partials/individualmap', ctx)
-    })
   })
 }
 

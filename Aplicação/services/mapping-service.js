@@ -1,5 +1,5 @@
 module.exports = {
-  createEmptyIndividualMapping,
+  createIndividualMapping,
   getAllIndividualMappings,
   getIndividualMapping,
   updateIndividualMapping,
@@ -13,9 +13,12 @@ const idGen = require('shortid')
 const parser = require('../utils/PropertiesParser')
 
 /**
+ * @param tag
+ * @param IRI
+ * @param fileIds
  * @param {function} cb(err, id from result)
  */
-function createEmptyIndividualMapping (cb) {
+function createIndividualMapping (tag,IRI,fileIds,cb) {
   const id = idGen.generate()
   //dataAccess.createEmptyIndividualMapping(id, (err, result) =>{
   //   if(err) return cb(err)
@@ -27,12 +30,12 @@ function createEmptyIndividualMapping (cb) {
   //
   // })
   let individualMappingTO = {
-    _id : id,
-    dataFileIds: [],
-    tag: id,
-    individualName: '',
+    _id : idGen.generate() ,
+    dataFileIds: fileIds,
+    tag: tag,
+    individualName: id,
     individualLabel: '',
-    owlClassIRI: '',
+    owlClassIRI: IRI,
     specification: false,
     objectProperties: [],
     dataProperties: []
