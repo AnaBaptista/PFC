@@ -15,6 +15,13 @@ router.get('/ontologyFile/:id/objectproperties', getOntologyFileObjectProperties
 router.get('/ontologyFile/:id/dataproperties', getOntologyFileDataProperties)
 router.get('/ontologyFiles', getOntologyFiles)
 
+/***
+ *
+ */
+router.get('/mapping/:dataFileId/to/:ontologyFileId', getMapperContent)
+router.post('/mapping/:dataFileId/individualMapping', addIndividualMapping)
+
+let maps = {}
 const listTotree = require('../utils/list-to-tree')
 
 function addDataFile (req, res, next) {
@@ -24,7 +31,8 @@ function addDataFile (req, res, next) {
     res.redirect(`/dataFile/${id}/nodes`)
   }) */
   let id = '5ae3919a4f0cc6946f90afb8'
-  res.redirect(`/dataFile/${id}/nodes`)
+  res.json({dataFileId: id})
+  // res.redirect(`/dataFile/${id}/nodes`)
 }
 
 function addOntologyFile (req, res, next) {
@@ -34,8 +42,9 @@ function addOntologyFile (req, res, next) {
     res.redirect(`/ontologyFile/${id}/classes`)
   }) */
   let id = '5ac4b52e4f0c4b28125c8512'
-  const ctx = {layout: false, id: id}
-  res.render('partials/ontologycontent', ctx)
+  res.json({ontologyFileId: id})
+  // const ctx = {layout: false, id: id}
+  // res.render('partials/ontologycontent', ctx)
 }
 
 const fs = require('fs')
@@ -86,6 +95,40 @@ function getOntologyFiles (req, res, next) {
   service.getOntologyFiles((err, files) => {
     if (err) return next(err)
     res.json(files)
+  })
+}
+
+function getMapperContent (req, res, next) {
+  let ontologyId = req.params.ontologyFileId
+  let dataFileId = req.params.dataFileId
+  service.getOntologyFileClasses(ontologyId, (err, classes) => {
+    const ctx = {
+      ontologyFileId: ontologyId,
+      dataFileId: dataFileId,
+      classes: classes.classes
+    }
+    res.render('mapper', ctx)
+  })
+}
+
+function addIndividualMapping (req, res, next) {
+  let dataFileId = req.params.dataFileId
+  let ontologyId = req.body.ontologyId
+  let map = req.body.map
+  maps[map.nodeId] = map
+
+  service.getOntologyFileDataProperties(ontologyId, (err, dproperties) => {
+    service.getOntologyFileObjectProperties(ontologyId, (err, oproperties) => {
+      const ctx = {
+        layout: false,
+        ontologyFileId: ontologyId,
+        dataFileId: dataFileId,
+        dproperties: dproperties.properties,
+        oproperties: oproperties.properties,
+        nodeId: map.nodeId
+      }
+      res.render('partials/individualmaps', ctx)
+    })
   })
 }
 

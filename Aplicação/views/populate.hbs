@@ -1,0 +1,22 @@
+<!-- Navbar -->
+{{> navbar}}
+<div class="ui body-content" id="populate-content">
+    <div class="ui grid" id="mapper-grid">
+        <div id="ontology-file-content" class="column">
+            <div id="ontology-file">
+                <div class="ui buttons black fluid">
+                    <button class="ui button" onclick="getOntologyFileData('{{ontologyFileId}}', 'classes', 'ontology-file-data');">Classes</button>
+                    <button class="ui button" onclick="getOntologyFileData('{{ontologyFileId}}', 'objectproperties');">Object Properties</button>
+                    <button class="ui button" onclick="getOntologyFileData('{{ontologyFileId}}', 'dataproperties');">Data Properties</button>
+                </div>
+                <div id="ontology-file-data" class="left aligned">
+                </div>
+            </div>
+        </div>
+        <div id="populating" class="column">
+            POPULATING
+        </div>
+    </div>
+</div>
+<!-- Footer -->
+{{> footer}}

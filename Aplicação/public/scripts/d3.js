@@ -1,5 +1,5 @@
-function drawIndentedTree (root, wherein) {
-  root = {children: [root]}
+function drawIndentedTree (root, id) {
+  root = {children: [root], id: 0}
   let margin = {
     top: -10,
     bottom: 10,
@@ -19,7 +19,7 @@ function drawIndentedTree (root, wherein) {
   let diagonal = d3.svg.diagonal()
     .projection(function (d) { return [d.y, d.x] })
 
-  let svg = d3.select(`#${wherein}`).append('svg')
+  let svg = d3.select(`#${id}`).append('svg')
     .attr('width', width + margin.left + margin.right)
     .append('g')
     .attr('transform', `translate(${margin.left},${margin.top})`)
@@ -43,7 +43,6 @@ function drawIndentedTree (root, wherein) {
   update(root)
 
   function update (source) {
-
     // Compute the flattened node list. TODO use d3.layout.hierarchy.
     let nodes = tree.nodes(root)
 
@@ -71,23 +70,37 @@ function drawIndentedTree (root, wherein) {
       .attr('transform', function (d) {
         return `translate(${source.y0}, ${source.x0})`
       })
+      .attr('id', (d) => {
+        return `${d.id}`
+      })
 
     // Enter any new nodes at the parent's previous position.
     nodeEnter.append('rect')
-      .attr('y', -barHeight / 2)
-      .attr('height', barHeight)
-      .attr('width', barWidth)
-      .style('fill', color)
+      .attr('y', -barHeight / 4)
+      .attr('x', -barWidth / 8)
+      .attr('height', barHeight / 2)
+      .attr('width', barWidth / 4)
+      .attr('rx', 7)
+      .attr('ry', 7)
       .on('click', click)
 
     nodeEnter.append('text')
+      .attr('dy', 4)
+      .attr('dx', -3)
+      .attr('id', 'text-symbol')
+
+    node.select('text[id=text-symbol]').text(symbol)
+
+    nodeEnter.append('text')
       .attr('dy', 5)
-      .attr('dx', 14)
+      .attr('dx', 16)
+      .attr('id', 'text-tag')
+      .on('click', showNode)
       .text(function (d) {
         let ret = d.tag
-        if (d.value) {
-          ret = `${ret} value: ${d.value}`
-        }
+        // if (d.value) {
+        //   ret = `${ret} value: ${d.value}`
+        // }
         return ret
       })
 
@@ -102,7 +115,7 @@ function drawIndentedTree (root, wherein) {
       .attr('transform', function (d) { return `translate(${d.y}, ${d.x})` })
       .style('opacity', 1)
       .select('rect')
-      .style('fill', color)
+      .style('opacity', 1)
 
     // Transition exiting nodes to the parent's new position.
     node.exit().transition()
@@ -110,12 +123,6 @@ function drawIndentedTree (root, wherein) {
       .attr('transform', function (d) { return `translate(${source.y}, ${source.x})` })
       .style('opacity', 1e-6)
       .remove()
-
-    // Stash the old positions for transition.
-    root.each(function (d) {
-      d.x0 = d.x
-      d.y0 = d.y
-    })
   }
 
   // Toggle children on click.
@@ -130,17 +137,11 @@ function drawIndentedTree (root, wherein) {
     update(d)
   }
 
-  function color (d) {
-    // return d._children ? '#FFFFFF' : d.children ? '#FFFFFe' : '#FFFFF2'
-    return d.children ? '#FFFFFF' : d._children ? '#FFFFFF' : '#FFFFF2'
+  function symbol (d) {
+    return d._children ? (d._children.length === 0 ? '' : '+') : d.children ? '-' : ''
   }
 
-  function check(d) {
-    d.Selected = !d.Selected;
-    d3.select(this).style("opacity", boxStyle(d));
-  }
-
-  function boxStyle(d) {
-    return d.Selected ? 1 : 0;
+  function showNode (d) {
+    changeDataFileTerm(d)
   }
 }

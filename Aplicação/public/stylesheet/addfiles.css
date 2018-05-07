@@ -14,3 +14,10 @@
         width: 100%;
     }
 }
+
+#add-files-segment {
+    margin-left: 35%;
+    padding-left: 100px;
+    padding-right: 100px;
+    margin-top: 5%;
+}
