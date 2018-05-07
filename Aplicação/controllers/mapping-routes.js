@@ -1,29 +1,127 @@
 const router = require('express')()
 
 const service = require('../services/mapping-service')
+const fileService = require('../services/file-service')
+
 
 module.exports = router
 
 router.post('/map/individual/', createIndividual)
+router.post('/map', createMapping)
+
 router.put('/map/individual/:individualId', updateIndividualMapping)
 router.put('/map/individual/:individualId/properties', updateIndividualMappingProperties)
-
-router.post('/map', createMapping)
 router.put('/map/:mappingId', updateMapping)
 
+router.get('/map/individual/:individualId/objectProperties', getIndividualObjProperties)
+router.get('/map/individual/:individualId/dataProperties', getIndividualDataProperties)
+router.get('/map/individual/:individualId/nameAndLabel', getIndividualNameAndLabel)
 
 
 /**
- * @todo
- * Creates an Empty Individual and returns it or its id (?)
+ * Id's needed in query:
+ * :ontologyFileId
+ * :dataFIleId
+ * Will return a 400 status code if not present
+ *
+ * Body Parameters:
+ * (string) tag. The node's tag
+ * (string) iri. The OWL IRI that identifies the OWL class that is being mapped
+ * (string) nodeId.
+ *
  */
 function createIndividual (req, res, next) {
+  let dataFileId = req.query.dataFileId
+  let ontologyId = req.query.ontologyFileId
+  let tag = req.body.tag
+  let nodeId = req.body.nodeId
+  let IRI = req.body.IRI
 
-  service.createEmptyIndividualMapping((err, result) =>{
+  service.createIndividualMapping(tag,IRI,[dataFileId,ontologyId],(err, result) =>{
     if(err) return next(err)
-    else res.json(result)
+    const ctx = {
+      layout: false,
+      _id : result._id,
+      tag : result.tag,
+      IRI : result.owlClassIRI,
+      ontologyFileId: ontologyId,
+      dataFileId: dataFileId,
+      nodeId: nodeId
+    }
+    res.render('partials/individualmap', ctx)
   })
 }
+
+/**
+ * Id's needed in path:
+ * :mappingId -> this id refers to the mapping id for the mapping that was created.
+ * Will return 400 if not present
+ *
+ * Id's needed in query:
+ * :ontologyFileId
+ * :dataFIleId
+ * :nodeId
+ * Will return a 400 status code if not present
+ */
+function getIndividualObjProperties(req,res,next){
+  let dataFileId = req.query.dataFileId
+  let ontologyId = req.query.ontologyFileId
+  let nodeId = req.query.nodeId
+  let id = req.params.individualId
+
+  fileService.getOntologyFileObjectProperties(ontologyId,(err,result)=>{
+    const ctx = {
+      layout: false,
+      _id : id,
+      nodeId: nodeId,
+      ontologyFileId: ontologyId,
+      dataFileId: dataFileId,
+      oproperties: result.properties
+    }
+    res.render('partials/individualmapoproperties', ctx)
+
+  })
+
+
+}
+
+function getIndividualDataProperties(req,res,next){
+  let dataFileId = req.query.dataFileId
+  let ontologyId = req.query.ontologyFileId
+  let nodeId = req.query.nodeId
+  let id = req.params.individualId
+
+  fileService.getOntologyFileDataProperties(ontologyId,(err,result)=>{
+    const ctx = {
+      layout: false,
+      _id : id,
+      nodeId: nodeId,
+      ontologyFileId: ontologyId,
+      dataFileId: dataFileId,
+      dproperties: result.properties
+    }
+    res.render('partials/individualmapdproperties', ctx)
+
+  })
+}
+
+function getIndividualNameAndLabel(req,res,next){
+  let dataFileId = req.query.dataFileId
+  let ontologyId = req.query.ontologyFileId
+  let nodeId = req.query.nodeId
+  let id = req.params.individualId
+
+  const ctx = {
+    layout: false,
+    _id : id,
+    ontologyFileId: ontologyId,
+    dataFileId: dataFileId,
+    nodeId: nodeId
+  }
+  res.render('partials/individualmapoproperties', ctx)
+}
+
+
 
 
 /**
