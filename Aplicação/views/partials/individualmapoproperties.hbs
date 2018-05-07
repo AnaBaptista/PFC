@@ -1,0 +1,22 @@
+<div class="ui left labeled button fluid" tabindex="0">
+    <a class="ui basic right pointing label fluid">
+        Add object properties
+    </a>
+    <div class="ui button compact" onclick="createObjectProperty('{{nodeId}}', '{{_id}}');">
+        <i class="paperclip icon"></i> ADD
+    </div>
+</div>
+<div class="oproperty-to">
+    <div id="oproperty-to-term">
+    </div>
+    <div id="oproperty-to-concept">
+    </div>
+</div>
+<select class="ui fluid dropdown selection" id="oproperty-selection" onchange="changeOntologyMapping('oproperty');">
+    <option value="">Object property</option>
+    {{#each this.oproperties}}
+        <option value="{{this}}">
+            {{this}}
+        </option>
+    {{/each}}
+</select>

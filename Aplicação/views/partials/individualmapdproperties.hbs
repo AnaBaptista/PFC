@@ -1,0 +1,22 @@
+<div class="ui left labeled button fluid" tabindex="0">
+    <a class="ui basic right pointing label fluid">
+        Add data properties
+    </a>
+    <div class="ui button compact" onclick="createDataProperty('{{nodeId}}');">
+        <i class="paperclip icon"></i> ADD
+    </div>
+</div>
+<div class="dproperty-to">
+    <div id="dproperty-to-term">
+    </div>
+    <div id="dproperty-to-concept">
+    </div>
+</div>
+<select class="ui fluid dropdown selection" id="dproperty-selection" onchange="changeOntologyMapping('dproperty');">
+    <option value="">Data property</option>
+    {{#each this.dproperties}}
+        <option value="{{this}}">
+            {{this}}
+        </option>
+    {{/each}}
+</select>

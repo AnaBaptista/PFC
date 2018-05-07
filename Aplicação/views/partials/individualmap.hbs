@@ -1,0 +1,18 @@
+<div id="{{_id}}" class="ui vertical segments">
+    <div class="ui vertical segments">
+        <div class="segment" id="indvidual-mapping-object">
+            {{tag}}
+            {{IRI}}
+        </div>
+        <hr>
+        <div class="segment" id="indvidual-mapping-properties">
+            <div class="ui buttons black">
+                <button class="ui button" onclick="changeIndMappingContent('{{_id}}', '{{nodeId}}', 'property', 'nameAndLabel', '{{ontologyFileId}}', '{{dataFileId}}');">name and label</button>
+                <button class="ui button" onclick="changeIndMappingContent('{{_id}}', '{{nodeId}}', 'dproperty', 'dataproperties', '{{ontologyFileId}}', '{{dataFileId}}');">data properties</button>
+                <button class="ui button" onclick="changeIndMappingContent('{{_id}}', '{{nodeId}}','oproperty', 'objectproperties', '{{ontologyFileId}}', '{{dataFileId}}');">object properties</button>
+            </div>
+            <div id="individual-mapping-content">
+            </div>
+        </div>
+    </div>
+</div>

@@ -47,20 +47,18 @@ function changeDataFileTerm (node) {
   let div = document.createElement('div')
   div.id = node.id
   div.innerText = node.tag
-  let elem = document.getElementById('classes-to-term')
+  let id = document.getElementById('data-file-term').innerText
+  let elem = document.getElementById(id)
   elem.replaceChild(div, elem.childNodes[0])
 }
 
-function createIndividualMapping (id, ontId) {
+function createIndividualMapping (dataId, ontId) {
   let dNode = document.getElementById('classes-to-term').childNodes[0]
   let onto = document.getElementById('classes-to-concept').childNodes[0]
   let data = {
-    map: {
-      tag: dNode.textContent,
-      nodeId: dNode.id,
-      OWLClassURI: onto.textContent
-    },
-    ontologyId: ontId
+    tag: dNode.textContent,
+    nodeId: dNode.id,
+    IRI: onto.textContent
   }
 
   let options = {
@@ -71,7 +69,7 @@ function createIndividualMapping (id, ontId) {
     },
     body: JSON.stringify(data)
   }
-  textRequest(`/mapping/${id}/individualMapping`, options)
+  textRequest(`/map/individual?ontologyFileId=${ontId}&dataFileId=${dataId}`, options)
     .then(res => {
       let elem = document.getElementById('individual-mapping-segment')
       elem.innerHTML = res
@@ -84,4 +82,15 @@ function createDataProperty (id) {
 
 function createObjectProperty (id) {
   let x = 'a'
+}
+
+function changeIndMappingContent(id, nodeId, name, path, ontId, dataId) {
+  let term = document.getElementById('data-file-term')
+  term.innerText = `${name}-to-term`
+  let url = `/map/individual/${id}/${path}?nodeId=${nodeId}&ontologyFileId=${ontId}&dataFileId=${dataId}`
+  textRequest(url)
+    .then(res => {
+      let elem = document.getElementById('individual-mapping-content')
+      elem.innerHTML = res
+    })
 }

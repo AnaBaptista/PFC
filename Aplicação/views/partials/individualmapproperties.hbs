@@ -1,0 +1,19 @@
+<div class="ui left labeled button fluid" tabindex="0">
+    <a class="ui basic right pointing label fluid">
+        Name
+    </a>
+</div>
+<div class="property-to">
+    <div id="property-to-term">
+    </div>
+    <div id="property-to-concept">
+    </div>
+</div>
+<select class="ui fluid dropdown selection" id="property-selection" onchange="changeOntologyMapping('property');">
+    <option value="">Data property</option>
+    {{#each this.dproperties}}
+        <option value="{{this}}">
+            {{this}}
+        </option>
+    {{/each}}
+</select>

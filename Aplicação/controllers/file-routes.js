@@ -129,7 +129,7 @@ function addIndividualMapping (req, res, next) {
         oproperties: oproperties.properties,
         nodeId: map.nodeId
       }
-      res.render('partials/individualmaps', ctx)
+      res.render('partials/individualmap', ctx)
     })
   })
 }
