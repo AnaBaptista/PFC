@@ -8,6 +8,7 @@ module.exports = router
 
 router.post('/map/individual/', createIndividual)
 router.post('/map', createMapping)
+router.post('/map/to', createMappingTo)
 
 router.put('/map/individual/:individualId', updateIndividualMapping)
 router.put('/map/individual/:individualId/properties', updateIndividualMappingProperties)
@@ -111,7 +112,7 @@ function getIndividualNameAndLabel(req,res,next){
   let nodeId = req.query.nodeId
   let id = req.params.individualId
 
-  fileService.getOntologyFileDataProperties(id,(err,result)=>{
+  fileService.getOntologyFileDataProperties(ontologyId,(err,result)=>{
     if(err) return next(err)
     const ctx = {
       layout: false,
@@ -249,7 +250,17 @@ function updateMapping (req, res, next) {
   let individualMappings = req.body.individualMappings
 
   service.updateMapping(id,outputOntologyFileName,outputOntologyNamespace,fileList,directOntologyImports,individualMappings, (err,result)=>{
-    if(err) return next(err)
+    if (err) return next(err)
     return res.json(result)
   })
+}
+
+function createMappingTo (req, res) {
+  let dataFileId = req.body.dataFiles
+  let classes = req.body.classes
+  const ctx = {
+    dataFiles: dataFileId,
+    classes: classes
+  }
+  res.render('mapper', ctx)
 }

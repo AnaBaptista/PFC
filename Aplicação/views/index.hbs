@@ -1,7 +1,67 @@
 <!-- Navbar -->
 {{> navbar}}
-<div class="body-content" id="body-content">
-    {{> addfiles}}
+<div class="ui body-content" id="files-content">
+    <div class="ui internally celled three column grid">
+        <div class="five column files-content-column">
+            <h5 class="ui center aligned icon header">
+                <i class="circular file alternate outline icon"></i>
+                DATA FILES
+            </h5>
+            <div>
+                <div class="ui action input fluid" id="add-data-file">
+                    <input type="text" id="data-file-input-text" placeholder="Data file name">
+                    <input type="file" id="data-file-input" class="file-input" accept=".xml,.json">
+                    <div class="ui icon basic button" onclick="submitFile('data-file', '/dataFile')">
+                        <i class="plus icon"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="ui fluid multiple search selection dropdown files-dropdown">
+                <input name="data-files" value="data-files" type="hidden">
+                <i class="dropdown icon"></i>
+                <input class="search">
+                <div class="default text">Data files..</div>
+                <div class="menu" id="data-file-menu">
+                    {{#each dataFiles}}
+                        <div class="item" id="{{_id}}">{{name}}</div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+        <div class="five column files-content-column">
+            <h5 class="ui center aligned icon header">
+                <i class="circular file alternate outline icon"></i>
+                ONTOLOGY FILES
+            </h5>
+            <div>
+                <div class="ui action input fluid" id="add-data-file">
+                    <input type="text" id="ontology-file-input-text" placeholder="Ontology file name">
+                    <input type="file" id="ontology-file-input" class="file-input" accept=".owl">
+                    <div class="ui icon basic button" onclick="submitFile('ontology-file', '/ontologyFile')">
+                        <i class="plus icon"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="ui fluid multiple search selection dropdown files-dropdown">
+                <input name="ontology-files" value="ontology-files" type="hidden">
+                <i class="dropdown icon"></i>
+                <input class="search">
+                <div class="default text">Ontology files..</div>
+                <div class="menu" id="ontology-file-menu">
+                    {{#each ontologyFiles}}
+                        <div class="item" id="{{_id}}">{{name}}</div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+        <div class="six column files-content-column">
+            <div class="ui compact segment" id="mapper-options">
+                <div class="ui fluid button basic secondary" onclick="mapperFile();">mapper</div>
+                <hr>
+                <div class="ui fluid button basic secondary" onclick="populateOntology();">populate</div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- Footer -->
 {{> footer}}

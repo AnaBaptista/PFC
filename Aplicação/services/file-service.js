@@ -5,7 +5,8 @@ module.exports = {
   getOntologyFileClasses,
   getOntologyFileObjectProperties,
   getOntologyFileDataProperties,
-  getOntologyFiles
+  getOntologyFiles,
+  getDataFiles
 }
 
 const dataAccess = require('../data-access/file-access')

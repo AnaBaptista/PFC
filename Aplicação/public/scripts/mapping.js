@@ -2,28 +2,45 @@
  *
  */
 function mapperFile () {
-  let ontologyFile = getFile('ontology-file')
-  let dataFile = getFile('data-file')
+  let oFiles = getSelectionFiles('ontology-file-menu')
+  let dFiles = getSelectionFiles('data-file-menu')
 
-  if (!ontologyFile || !dataFile) {
+  if (!oFiles.length === 0 || !dFiles.length === 0) {
     alertify.error('File required')
     return
   }
+  let classes = getOntologyClasses(oFiles)
 
-  let ontologyFilePromise = uploadSingleFile(ontologyFile, '/ontologyFile')
-  let dataFilePromise = uploadSingleFile(dataFile, '/dataFile')
+  let data = {
+    dataFiles: dFiles,
+    classes: classes
+  }
 
-  Promise.all([ontologyFilePromise, dataFilePromise])
-    .then(([ontology, data]) => {
-      let ontologyId = ontology.ontologyFileId
-      let dataId = data.dataFileId
-      fetch(`/mapping/${dataId}/to/${ontologyId}`)
-        .then(res => {
-          window.location = res.url
-        })
+  let options = {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }
+  fetch('/map/to', options)
+    .then(res => {
+      window.location = res.url
     }).catch(err => alert(err))
 }
 
+function getOntologyClasses (ids) {
+
+}
+
+function getSelectionFiles (id) {
+  let menu = document.getElementById(id)
+  let filtersElems = []
+  menu.querySelectorAll('.filtered')
+    .forEach(elem => filtersElems.push({id: elem.id}))
+  return filtersElems
+}
 function getDataFileTree (id) {
   jsonRequest(`/dataFile/${id}/nodes`)
     .then(tree => {

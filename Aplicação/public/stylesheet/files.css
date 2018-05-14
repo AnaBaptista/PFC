@@ -38,3 +38,7 @@
 #individual-mapping-content {
     min-height: 300px;
 }
+
+#individual-mapping-buttons {
+    margin-bottom: 10px;
+}

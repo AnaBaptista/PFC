@@ -98,9 +98,9 @@ function drawIndentedTree (root, id) {
       .on('click', showNode)
       .text(function (d) {
         let ret = d.tag
-        // if (d.value) {
-        //   ret = `${ret} value: ${d.value}`
-        // }
+        if (d.value) {
+          ret = `${ret} value: ${d.value}`
+        }
         return ret
       })
 

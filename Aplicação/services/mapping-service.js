@@ -5,7 +5,7 @@ module.exports = {
   updateIndividualMapping,
   createEmptyMapping,
   updateMapping,
-  updateIndividualMappingProperties
+  updateIndividualMappingProperties,
 }
 
 const dataAccess = require('../data-access/mapping-access')
@@ -117,6 +117,3 @@ function createEmptyMapping(cb) {
  */
 function updateMapping(id,outputOntologyFileName,outputOntologyNamespace,fileList,directOntologyImports,individualMappings,cb) {
 }
-
-
-
