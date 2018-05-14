@@ -30,7 +30,7 @@ function createIndividualMapping (tag,IRI,fileIds,cb) {
   //
   // })
   let individualMappingTO = {
-    _id : idGen.generate() ,
+    _id :  ,
     dataFileIds: fileIds,
     tag: tag,
     individualName: id,
