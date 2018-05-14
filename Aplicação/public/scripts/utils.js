@@ -4,7 +4,7 @@
  */
 function changeFileInputLabel (id) {
   let file = document.getElementById(`${id}-input`).files[0]
-  document.getElementById(`${id}-label`).innerText = file.name
+  document.getElementById(`${id}-input-text`).value = file.name
 }
 
 /**
@@ -12,7 +12,7 @@ function changeFileInputLabel (id) {
  * @param id
  * @param label
  */
-function clearFileInput (id, label) {
+function clearFileInput (id) {
   document.getElementById(`${id}-input`).value = ''
-  document.getElementById(`${id}-label`).innerText = label
+  document.getElementById(`${id}-input-text`).value = ''
 }

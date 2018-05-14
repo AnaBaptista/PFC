@@ -17,8 +17,6 @@ router.get('/ontologyFile/:id/objectproperties', getOntologyFileObjectProperties
 router.get('/ontologyFile/:id/dataproperties', getOntologyFileDataProperties)
 router.get('/ontologyFiles', getOntologyFiles)
 
-router.get('/mapping/:dataFileId/to/:ontologyFileId', getMapperContent)
-
 const listTotree = require('../utils/list-to-tree')
 
 function addDataFile (req, res, next) {
@@ -92,19 +90,6 @@ function getOntologyFiles (req, res, next) {
   service.getOntologyFiles((err, files) => {
     if (err) return next(err)
     res.json(files)
-  })
-}
-
-function getMapperContent (req, res, next) {
-  let ontologyId = req.params.ontologyFileId
-  let dataFileId = req.params.dataFileId
-  service.getOntologyFileClasses(ontologyId, (err, classes) => {
-    const ctx = {
-      ontologyFileId: ontologyId,
-      dataFileId: dataFileId,
-      classes: classes.classes
-    }
-    res.render('mapper', ctx)
   })
 }
 

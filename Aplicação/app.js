@@ -8,7 +8,7 @@ const app = express()
 
 const fileRouter = require('./controllers/file-routes')
 const mappingRouter = require('./controllers/mapping-routes')
-
+const index = require('./controllers/index')
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')
@@ -20,12 +20,9 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 hbs.registerPartials(`${__dirname}/views/partials`)
 
-app.get('/', (req, res) => {
-  res.render('index')
-})
-
 app.use(fileRouter)
 app.use(mappingRouter)
+app.use(index)
 
 app.listen(app.get('port'), () => {
   console.log(`listening on port: ${app.get('port')}`)
