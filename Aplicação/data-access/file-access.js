@@ -10,6 +10,9 @@ module.exports = {
 
 const req = require('request')
 const fs = require('fs')
+
+//const fetch = require('isomorphic-fetch')
+
 const async = require('async')
 
 // const api = 'http://chaospop.sysresearch.org/chaos/wsapi'

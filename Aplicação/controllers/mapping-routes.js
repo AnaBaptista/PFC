@@ -5,7 +5,7 @@ const fileService = require('../services/file-service')
 
 module.exports = router
 
-router.post('/map/individual/', createIndividual)
+router.post('/map/individual', createIndividual)
 router.post('/map', createMapping)
 
 router.put('/map/individual/:individualId', updateIndividualMapping)
@@ -28,6 +28,10 @@ router.get('/map/individual/:individualId/nameAndLabel', getIndividualNameAndLab
  * (string) iri. The OWL IRI that identifies the OWL class that is being mapped
  * (string) nodeId.
  *
+ *
+ * id to debug
+ * datafile = 5af093d445193e040736e20f
+ * ontologyId
  */
 function createIndividual (req, res, next) {
   let dataFileId = req.query.dataFileId
@@ -37,7 +41,7 @@ function createIndividual (req, res, next) {
   let IRI = req.body.IRI
 
   service.createIndividualMapping(tag,IRI,[dataFileId,ontologyId],(err, result) =>{
-    if(err) return next(err)
+    if(err ) return next(err)
     const ctx = {
       layout: false,
       _id : result._id,
