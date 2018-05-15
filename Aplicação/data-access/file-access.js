@@ -12,8 +12,8 @@ const req = require('request')
 const fs = require('fs')
 const async = require('async')
 
-const api = 'http://chaospop.sysresearch.org/chaos/wsapi'
-// const api = 'http://localhost:8080/chaos/wsapi'
+// const api = 'http://chaospop.sysresearch.org/chaos/wsapi'
+const api = 'http://localhost:8080/chaos/wsapi'
 const dataFile = `${api}/fileManager`
 const ontologyFile = `${api}/ontologyManager`
 const nodeManager = `${api}/nodeManager`
@@ -32,7 +32,7 @@ function addFile (path, cb) {
   }
   req.post(options, (err, res) => {
     if (err) return cb(err)
-    cb()
+    cb(null, res.body)
   })
 }
 

@@ -12,32 +12,23 @@ module.exports = {
 const dataAccess = require('../data-access/file-access')
 
 function addDataFile ({name, path}, cb) {
-  // TODO id generator
-  addFile(path, (err, res) => {
+  addFile(path, (err, id) => {
     if (err) return cb(err)
-    getDataFiles((err, currFiles) => {
-      if (err) return cb(err)
-      let currFile = currFiles.files.pop()
-      cb(null, currFile._id)
-    })
+    cb(null, id)
   })
 }
 
 function addOntologyFile ({name, path}, cb) {
-  addFile(path, (err, res) => {
+  addFile(path, (err, id) => {
     if (err) return cb(err)
-    getOntologyFiles((err, currFiles) => {
-      if (err) return cb(err)
-      let currFile = currFiles.files.pop()
-      return cb(null, currFile._id)
-    })
+    cb(null, id)
   })
 }
 
 function addFile (path, cb) {
   dataAccess.addFile(path, (err, id) => {
     if (err) return cb(err)
-    cb()
+    cb(null, id)
   })
 }
 

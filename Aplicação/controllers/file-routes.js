@@ -8,38 +8,39 @@ const multipartMiddleware = multipart()
 
 module.exports = router
 
+router.post('/dataFile', multipartMiddleware, addDataFile)
+router.post('/ontologyFile', multipartMiddleware, addOntologyFile)
+
+router.get('/dataFile', getDataFiles)
 router.get('/dataFile/:id/nodes', getDataFileNodes)
-router.get('/ontologyFiles', getOntologyFiles)
+router.get('/ontologyFile', getOntologyFiles)
 router.get('/ontologyFile/:id/classes', getOntologyFileClasses)
 router.get('/ontologyFile/:id/objectproperties', getOntologyFileObjectProperties)
 router.get('/ontologyFile/:id/dataproperties', getOntologyFileDataProperties)
 
-router.post('/dataFile', multipartMiddleware, addDataFile)
-router.post('/ontologyFile', multipartMiddleware, addOntologyFile)
-
 const listTotree = require('../utils/list-to-tree')
 
 function addDataFile (req, res, next) {
-  /* let file = req.files['file']
+  let file = req.files['file']
   service.addDataFile(file, (err, id) => {
     if (err) return next(err)
-    res.redirect(`/dataFile/${id}/nodes`)
-  }) */
-  let id = '5ae3919a4f0cc6946f90afb8'
-  res.json({dataFileId: id})
-  // res.redirect(`/dataFile/${id}/nodes`)
+    res.json({dataFileId: id})
+  })
 }
 
 function addOntologyFile (req, res, next) {
-  /* let file = req.files['file']
+  let file = req.files['file']
   service.addOntologyFile(file, (err, id) => {
     if (err) return next(err)
-    res.redirect(`/ontologyFile/${id}/classes`)
-  }) */
-  let id = '5ac4b52e4f0c4b28125c8512'
-  res.json({ontologyFileId: id})
-  // const ctx = {layout: false, id: id}
-  // res.render('partials/ontologycontent', ctx)
+    res.json({ontologyFileId: id})
+  })
+}
+
+function getDataFiles (req, res, next) {
+  service.getDataFiles((err, files) => {
+    if (err) return next(err)
+    res.json(files)
+  })
 }
 
 const fs = require('fs')
@@ -54,6 +55,13 @@ function getDataFileNodes (req, res, next) {
   let list = JSON.parse(data)
   let root = listTotree(list)
   res.json(root)
+}
+
+function getOntologyFiles (req, res, next) {
+  service.getOntologyFiles((err, files) => {
+    if (err) return next(err)
+    res.json(files)
+  })
 }
 
 function getOntologyFileClasses (req, res, next) {
@@ -83,13 +91,6 @@ function getOntologyFileDataProperties (req, res, next) {
     const ctx = {layout: false, id: id}
     Object.assign(ctx, properties)
     res.render('partials/ontologyproperties', ctx)
-  })
-}
-
-function getOntologyFiles (req, res, next) {
-  service.getOntologyFiles((err, files) => {
-    if (err) return next(err)
-    res.json(files)
   })
 }
 

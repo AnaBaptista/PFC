@@ -145,4 +145,3 @@ function drawIndentedTree (root, id) {
     changeDataFileTerm(d)
   }
 }
-

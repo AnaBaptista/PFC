@@ -15,11 +15,11 @@ function home (req, res, next) {
     if (err) return next(err)
     service.getDataFiles((err, dfiles) => {
       if (err) return next(err)
-      let dFiles = dfiles.files.map(f => {
+      let dFiles = dfiles.files.dataFilesTO.map(f => {
         let name = `${f.name.split('-')[0]}.${f.name.split('.')[1]}`
         return {name: name, _id: f._id}
       })
-      let oFiles = ofiles.files.map(f => {
+      let oFiles = ofiles.files.ontologyFilesTO.map(f => {
         let name = f.namespace.split('/').pop()
         return {name: name, _id: f._id}
       })

@@ -10,6 +10,9 @@ function submitFile (id, path) {
     alertify.error('No file selected')
     return
   }
+  //
+  // hasFile(id, file.name)
+  //   .then()
 
   let formData = new FormData()
   formData.append('file', file)
@@ -31,6 +34,17 @@ function submitFile (id, path) {
       alertify.success('File add with success')
     })
 }
+
+// function hasFile (id, filename) {
+//   let path = ((id === 'data-file') && '/dataFile') || ((id === 'ontology-file') && '/ontologyFiles')
+//   return fetch(path)
+//     .then(res => {
+//       return res.json()
+//     }).then(files => {
+//       let file = files.filter(f => f._id === id)
+//
+//     })
+// }
 
 /**
  * This function submits all selected files and renders
@@ -62,8 +76,9 @@ function populateOntologyWithData () {
     .then(res => {
       return res.text()
     }).then(body => {
-    document.body.innerHTML = body
-  })
+      // history.pushState(body, 'Populate with data', '/populate/data')
+      document.body.innerHTML = body
+    })
 }
 
 /**
