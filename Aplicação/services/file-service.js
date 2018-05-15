@@ -62,8 +62,8 @@ function getOntologyFiles (cb) {
   })
 }
 
-function getOntologyFileClasses (id, cb) {
-  dataAccess.getOntologyFileClasses(id, (err, res) => {
+function getOntologyFileClasses (ids, cb) {
+  dataAccess.getOntologyFileClasses(ids, (err, res) => {
     if (err) return cb(err)
     return cb(null, {classes: res})
   })

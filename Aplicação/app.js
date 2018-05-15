@@ -8,7 +8,7 @@ const app = express()
 
 const fileRouter = require('./controllers/file-routes')
 const mappingRouter = require('./controllers/mapping-routes')
-const index = require('./controllers/index')
+const index = require('./controllers/index-routes')
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')

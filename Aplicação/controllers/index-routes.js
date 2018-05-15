@@ -7,6 +7,9 @@ module.exports = router
 
 router.get('/', home)
 
+router.post('/populate/data', populateWithData)
+router.post('/populate', populateWithoutData)
+
 function home (req, res, next) {
   service.getOntologyFiles((err, ofiles) => {
     if (err) return next(err)
@@ -26,3 +29,23 @@ function home (req, res, next) {
     })
   })
 }
+
+function populateWithData (req, res, next) {
+  let ontologyFileIds = req.body.ontologyFiles
+  let dataFileIds = req.body.dataFiles
+  service.getOntologyFileClasses(ontologyFileIds, (err, classes) => {
+    if (err) return next(err)
+    let ctx = {
+      classes: classes.classes,
+      dataFilesIds: dataFileIds,
+      layout: false
+    }
+    res.render('populateWithData', ctx)
+  })
+}
+
+function populateWithoutData (req, res, next) {
+  res.render('populateWithoutData')
+}
+
+
