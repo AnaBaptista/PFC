@@ -8,14 +8,14 @@ const multipartMiddleware = multipart()
 
 module.exports = router
 
-router.post('/dataFile', multipartMiddleware, addDataFile)
 router.get('/dataFile/:id/nodes', getDataFileNodes)
-
-router.post('/ontologyFile', multipartMiddleware, addOntologyFile)
+router.get('/ontologyFiles', getOntologyFiles)
 router.get('/ontologyFile/:id/classes', getOntologyFileClasses)
 router.get('/ontologyFile/:id/objectproperties', getOntologyFileObjectProperties)
 router.get('/ontologyFile/:id/dataproperties', getOntologyFileDataProperties)
-router.get('/ontologyFiles', getOntologyFiles)
+
+router.post('/dataFile', multipartMiddleware, addDataFile)
+router.post('/ontologyFile', multipartMiddleware, addOntologyFile)
 
 const listTotree = require('../utils/list-to-tree')
 

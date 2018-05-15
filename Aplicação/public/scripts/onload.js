@@ -17,10 +17,10 @@ window.onload = function () {
   document.getElementById('ontology-file-input-text').addEventListener('click', () => {
     document.getElementById('ontology-file-input').click()
   })
+
   document.getElementById('ontology-file-input').addEventListener('change', () => {
     changeFileInputLabel('ontology-file')
   })
 
   $('.dropdown').dropdown()
-
 }

@@ -3,12 +3,10 @@ const router = require('express')()
 const service = require('../services/mapping-service')
 const fileService = require('../services/file-service')
 
-
 module.exports = router
 
 router.post('/map/individual', createIndividual)
 router.post('/map', createMapping)
-router.post('/map/to', createMappingTo)
 
 router.put('/map/individual/:individualId', updateIndividualMapping)
 router.put('/map/individual/:individualId/properties', updateIndividualMappingProperties)
@@ -257,14 +255,4 @@ function updateMapping (req, res, next) {
     if (err) return next(err)
     return res.json(result)
   })
-}
-
-function createMappingTo (req, res) {
-  let dataFileId = req.body.dataFiles
-  let classes = req.body.classes
-  const ctx = {
-    dataFiles: dataFileId,
-    classes: classes
-  }
-  res.render('mapper', ctx)
 }

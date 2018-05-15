@@ -10,7 +10,11 @@ module.exports = {
 
 const req = require('request')
 const fs = require('fs')
+
 //const fetch = require('isomorphic-fetch')
+
+const async = require('async')
+
 
 //const api = 'http://chaospop.sysresearch.org/chaos/wsapi'
 const api = 'http://localhost:8080/chaos/wsapi'
@@ -72,18 +76,26 @@ function getOntologyFiles (cb) {
   })
 }
 
-function getOntologyFileClasses (id, cb) {
+function getOntologyFileClasses (ids, cb) {
   let url = `${ontologyFile}/getOWLClasses`
-  let options = {
-    url: url,
-    form: {
-      ontologyId: id
+
+  async.map(ids, (ont, cbReq) => {
+    let options = {
+      url: url,
+      form: {
+        ontologyId: ont.id
+      }
     }
-  }
-  req.post(options, (err, res) => {
+    req.post(options, (err, res) => {
+      if (err) return cb(err)
+      let obj = JSON.parse(res.body.toString())
+      cbReq(null, obj)
+    })
+  }, (err, res) => {
     if (err) return cb(err)
-    let obj = JSON.parse(res.body.toString())
-    cb(null, obj)
+    let classes = []
+    res.forEach(arr => { classes = classes.concat(arr) })
+    cb(null, classes)
   })
 }
 
