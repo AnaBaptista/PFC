@@ -15,32 +15,17 @@ const parser = require('../utils/PropertiesParser')
 /**
  * @param tag
  * @param IRI
- * @param fileIds
+ * @param fileIds list
  * @param {function} cb(err, id from result)
  */
-function createIndividualMapping (tag,IRI,fileIds,cb) {
-  const id = idGen.generate()
-  //dataAccess.createEmptyIndividualMapping(id, (err, result) =>{
-  //   if(err) return cb(err)
-  //   getAllIndividualMappings((err,result) => {
-  //     if(err) return cb(err)
-  //     let emptymapping = result.filter(mapping => mapping.tag === id)
-  //     return cb (null, emptymapping._id)
-  //   })
-  //
-  // })
-  let individualMappingTO = {
-    _id :  ,
-    dataFileIds: fileIds,
-    tag: tag,
-    individualName: id,
-    individualLabel: '',
-    owlClassIRI: IRI,
-    specification: false,
-    objectProperties: [],
-    dataProperties: []
-  }
-  return cb(null, individualMappingTO)
+//@todo verufy if result has id
+function createIndividualMapping (tag, IRI, fileIds, cb) {
+
+  dataAccess.createIndividualMapping(tag, IRI, fileIds, (err, result) => {
+    if (err) return cb(err)
+    return cb(null, result._id)
+  })
+
 }
 
 /**
@@ -56,6 +41,7 @@ function getAllIndividualMappings (cb) {
 function getIndividualMapping (id, cb) {
   dataAccess.getIndividualMapping()
 }
+
 /**
  * @param id
  * @param fileList
@@ -68,12 +54,12 @@ function getIndividualMapping (id, cb) {
  * @param objProps
  * @param cb(err, result)
  */
-function updateIndividualMapping(id,fileList, tag, name, label, specification, IRI, dataProps, objProps, cb) {
+function updateIndividualMapping (id, fileList, tag, name, label, specification, IRI, dataProps, objProps, cb) {
   let listOfDataProps = parser.parseDataProperties(dataProps)
   let listOfObjProps = parser.parseObjectProperties(objProps)
 
   let individualMappingTO = {
-    _id : id,
+    _id: id,
     dataFileIds: fileList,
     tag: tag,
     individualName: name,
@@ -83,7 +69,7 @@ function updateIndividualMapping(id,fileList, tag, name, label, specification, I
     objectProperties: listOfObjProps,
     dataProperties: listOfDataProps
   }
-  dataAccess.updateIndividualMapping(id, individualMappingTO,(err,result) =>{
+  dataAccess.updateIndividualMapping(id, individualMappingTO, (err, result) => {
     if (err) return cb(err)
     return cb(null, result)
   })
@@ -96,14 +82,14 @@ function updateIndividualMapping(id,fileList, tag, name, label, specification, I
  * @param objProps
  * @param cb (err, results)
  */
-function updateIndividualMappingProperties(id, dataProps,objProps,cb) {
+function updateIndividualMappingProperties (id, dataProps, objProps, cb) {
 }
 
 /**
  *
  * @param cb(err,result)
  */
-function createEmptyMapping(cb) {
+function createEmptyMapping (cb) {
 }
 
 /**
@@ -115,5 +101,5 @@ function createEmptyMapping(cb) {
  * @param individualMappings
  * @param cb (err, result)
  */
-function updateMapping(id,outputOntologyFileName,outputOntologyNamespace,fileList,directOntologyImports,individualMappings,cb) {
+function updateMapping (id, outputOntologyFileName, outputOntologyNamespace, fileList, directOntologyImports, individualMappings, cb) {
 }

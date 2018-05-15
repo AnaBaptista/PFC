@@ -20,13 +20,13 @@ router.get('/ontologyFiles', getOntologyFiles)
 const listTotree = require('../utils/list-to-tree')
 
 function addDataFile (req, res, next) {
-  /* let file = req.files['file']
+   let file = req.files['file']
   service.addDataFile(file, (err, id) => {
     if (err) return next(err)
     res.redirect(`/dataFile/${id}/nodes`)
-  }) */
-  let id = '5ae3919a4f0cc6946f90afb8'
-  res.json({dataFileId: id})
+  })
+  //let id = '5ae3919a4f0cc6946f90afb8'
+  //res.json({dataFileId: id})
   // res.redirect(`/dataFile/${id}/nodes`)
 }
 

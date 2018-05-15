@@ -10,10 +10,10 @@ module.exports = {
 
 const req = require('request')
 const fs = require('fs')
-const fetch = require('isomorphic-fetch')
+//const fetch = require('isomorphic-fetch')
 
-const api = 'http://chaospop.sysresearch.org/chaos/wsapi'
-// const api = 'http://localhost:8080/chaos/wsapi'
+//const api = 'http://chaospop.sysresearch.org/chaos/wsapi'
+const api = 'http://localhost:8080/chaos/wsapi'
 const dataFile = `${api}/fileManager`
 const ontologyFile = `${api}/ontologyManager`
 const nodeManager = `${api}/nodeManager`
@@ -32,7 +32,7 @@ function addFile (path, cb) {
   }
   req.post(options, (err, res) => {
     if (err) return cb(err)
-    cb()
+    return cb(null, res._id)
   })
 }
 
