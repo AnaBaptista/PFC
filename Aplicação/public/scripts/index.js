@@ -10,41 +10,60 @@ function submitFile (id, path) {
     alertify.error('No file selected')
     return
   }
-  //
-  // hasFile(id, file.name)
-  //   .then()
 
-  let formData = new FormData()
-  formData.append('file', file)
-  let options = {
-    method: 'POST',
-    body: formData
-  }
-
-  fetch(path, options)
-    .then(res => {
-      return res.json()
-    }).then(json => {
-      let item = document.createElement('div')
-      item.id = json.dataFileId
-      item.className = 'item'
-      item.innerText = file.name
-      document.getElementById(`${id}-menu`).appendChild(item)
-      clearFileInput(id)
-      alertify.success('File add with success')
+  hasFile(id, file.name)
+    .then(f => {
+      if (f.length !== 0) {
+        throw new Error('Choose another filename')
+      }
+    }).then(_ => {
+      let formData = new FormData()
+      formData.append('file', file)
+      let options = {
+        method: 'POST',
+        body: formData
+      }
+      fetch(path, options)
+        .then(res => {
+          return res.json()
+        }).then(json => {
+          let item = document.createElement('div')
+          item.id = json.dataFileId
+          item.className = 'item'
+          item.innerText = file.name
+          document.getElementById(`${id}-menu`).appendChild(item)
+          /**
+         * Clear the file input
+         * @type {string}
+         */
+          document.getElementById(`${id}-input`).value = ''
+          document.getElementById(`${id}-input-text`).value = ''
+          alertify.success('File add with success')
+        })
+    }).catch(err => {
+      alert(err.message)
     })
 }
 
-// function hasFile (id, filename) {
-//   let path = ((id === 'data-file') && '/dataFile') || ((id === 'ontology-file') && '/ontologyFiles')
-//   return fetch(path)
-//     .then(res => {
-//       return res.json()
-//     }).then(files => {
-//       let file = files.filter(f => f._id === id)
-//
-//     })
-// }
+/**
+ * This function verifies if exists a file with name
+ * @param id {String} file id
+ * @param name {String} name to verify
+ * @returns {Promise<any>}
+ */
+function hasFile (id, name) {
+  let path = ((id === 'data-file') && '/dataFile') || ((id === 'ontology-file') && '/ontologyFile')
+  return fetch(path)
+    .then(res => {
+      return res.json()
+    }).then(obj => {
+      let file = obj.files.filter(f => {
+        let cmpName = ((id === 'data-file') && f.name) || f.path.split('\\').pop()
+        return cmpName === name
+      })
+      return file
+    })
+}
 
 /**
  * This function submits all selected files and renders
@@ -78,12 +97,12 @@ function populateOntologyWithData () {
     }).then(body => {
       // history.pushState(body, 'Populate with data', '/populate/data')
       document.body.innerHTML = body
-    })
+    }).catch(err => alert(err.message))
 }
 
 /**
  *
- * @param id {String} the dropdown's id
+ * @param id {String} dropdown id
  * @returns {Array} all selected files present in the dropdown
  */
 function getSelectedFiles (id) {
@@ -95,7 +114,8 @@ function getSelectedFiles (id) {
 }
 
 /**
- *
+ * This function submits all selected ontology files and renders
+ * the populateWithoutData view
  */
 function populateOntologyWithoutData () {
 

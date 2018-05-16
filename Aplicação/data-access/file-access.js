@@ -10,8 +10,7 @@ module.exports = {
 
 const req = require('request')
 const fs = require('fs')
-
-//const fetch = require('isomorphic-fetch')
+const handleResponse = require('../utils/handleResponse')
 
 const async = require('async')
 
@@ -35,7 +34,7 @@ function addFile (path, cb) {
   }
   req.post(options, (err, res) => {
     if (err) return cb(err)
-    cb(null, res.body)
+    handleResponse(res, cb)
   })
 }
 
@@ -46,8 +45,7 @@ function getDataFiles (cb) {
   let url = `${dataFile}/listDataFiles`
   req(url, (err, res) => {
     if (err) return cb(err)
-    let obj = JSON.parse(res.body.toString())
-    cb(null, obj)
+    handleResponse(res, cb)
   })
 }
 
@@ -61,8 +59,7 @@ function getDataFileNodes (id, cb) {
   }
   req.post(options, (err, res) => {
     if (err) return cb(err)
-    let obj = JSON.parse(res.body.toString())
-    cb(null, obj)
+    handleResponse(res, cb)
   })
 }
 
@@ -70,8 +67,7 @@ function getOntologyFiles (cb) {
   let url = `${ontologyFile}/listOntologyFiles`
   req(url, (err, res) => {
     if (err) return cb(err)
-    let obj = JSON.parse(res.body.toString())
-    cb(null, obj)
+    handleResponse(res, cb)
   })
 }
 
@@ -87,8 +83,7 @@ function getOntologyFileClasses (ids, cb) {
     }
     req.post(options, (err, res) => {
       if (err) return cb(err)
-      let obj = JSON.parse(res.body.toString())
-      cbReq(null, obj)
+      handleResponse(res, cbReq)
     })
   }, (err, res) => {
     if (err) return cb(err)
@@ -108,8 +103,7 @@ function getOntologyFileObjectProperties (id, cb) {
   }
   req.post(options, (err, res) => {
     if (err) return cb(err)
-    let obj = JSON.parse(res.body.toString())
-    cb(null, obj)
+    handleResponse(res, cb)
   })
 }
 
@@ -123,7 +117,6 @@ function getOntologyFileDataProperties (id, cb) {
   }
   req.post(options, (err, res) => {
     if (err) return cb(err)
-    let obj = JSON.parse(res.body.toString())
-    cb(null, obj)
+    handleResponse(res, cb)
   })
 }

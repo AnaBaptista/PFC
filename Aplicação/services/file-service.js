@@ -14,14 +14,14 @@ const dataAccess = require('../data-access/file-access')
 function addDataFile ({name, path}, cb) {
   addFile(path, (err, id) => {
     if (err) return cb(err)
-    cb(null, id)
+    cb(null, {dataFileId: id})
   })
 }
 
 function addOntologyFile ({name, path}, cb) {
   addFile(path, (err, id) => {
     if (err) return cb(err)
-    cb(null, id)
+    cb(null, {ontologyFileId: id})
   })
 }
 
@@ -35,41 +35,47 @@ function addFile (path, cb) {
 function getDataFiles (cb) {
   dataAccess.getDataFiles((err, res) => {
     if (err) return cb(err)
-    return cb(null, {files: res})
+    let obj = JSON.parse(res.toString())
+    return cb(null, {files: obj.dataFilesTO})
   })
 }
 
 function getDataFileNodes (id, cb) {
   dataAccess.getDataFileNodes(id, (err, res) => {
     if (err) return cb(err)
-    return cb(null, {nodes: res})
+    let obj = JSON.parse(res.toString())
+    return cb(null, {nodes: obj})
   })
 }
 
 function getOntologyFiles (cb) {
   dataAccess.getOntologyFiles((err, res) => {
     if (err) return cb(err)
-    return cb(null, {files: res})
+    let obj = JSON.parse(res.toString())
+    return cb(null, {files: obj.ontologyFilesTO})
   })
 }
 
 function getOntologyFileClasses (ids, cb) {
   dataAccess.getOntologyFileClasses(ids, (err, res) => {
     if (err) return cb(err)
-    return cb(null, {classes: res})
+    let obj = JSON.parse(res.toString())
+    return cb(null, {classes: obj})
   })
 }
 
 function getOntologyFileObjectProperties (id, cb) {
   dataAccess.getOntologyFileObjectProperties(id, (err, res) => {
     if (err) return cb(err)
-    return cb(null, {properties: res})
+    let obj = JSON.parse(res.toString())
+    return cb(null, {properties: obj})
   })
 }
 
 function getOntologyFileDataProperties (id, cb) {
   dataAccess.getOntologyFileDataProperties(id, (err, res) => {
     if (err) return cb(err)
-    return cb(null, {properties: res})
+    let obj = JSON.parse(res.toString())
+    return cb(null, {properties: obj})
   })
 }

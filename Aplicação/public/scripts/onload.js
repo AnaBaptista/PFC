@@ -24,3 +24,12 @@ window.onload = function () {
 
   $('.dropdown').dropdown()
 }
+
+/**
+ *
+ * @param id
+ */
+function changeFileInputLabel (id) {
+  let file = document.getElementById(`${id}-input`).files[0]
+  document.getElementById(`${id}-input-text`).value = file.name
+}

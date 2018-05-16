@@ -13,13 +13,3 @@ function jsonRequest (path, options) {
     })
     .catch(err => alert(err))
 }
-
-function request (path, options) {
-  return fetch(path, options)
-    .then(res => {
-      if (res.ok) {
-        res.redirect(res.url)
-      }
-    })
-    .catch(err => alert(err))
-}

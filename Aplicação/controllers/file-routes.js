@@ -24,7 +24,7 @@ function addDataFile (req, res, next) {
   let file = req.files['file']
   service.addDataFile(file, (err, id) => {
     if (err) return next(err)
-    res.json({dataFileId: id})
+    res.json(id)
   })
 }
 
@@ -32,7 +32,7 @@ function addOntologyFile (req, res, next) {
   let file = req.files['file']
   service.addOntologyFile(file, (err, id) => {
     if (err) return next(err)
-    res.json({ontologyFileId: id})
+    res.json(id)
   })
 }
 

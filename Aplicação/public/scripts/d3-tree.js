@@ -1,3 +1,8 @@
+/**
+ * This function transforms an array of nodes into a tree
+ * @param root {Array} an array of nodes
+ * @param id {String} element id to append the tree
+ */
 function drawIndentedTree (root, id) {
   root = {children: [root], id: 0}
   let margin = {
