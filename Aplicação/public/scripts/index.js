@@ -24,6 +24,7 @@ function submitFile (id, path) {
         body: formData
       }
       fetch(path, options)
+        .then(handleError)
         .then(res => {
           return res.json()
         }).then(json => {
@@ -39,6 +40,8 @@ function submitFile (id, path) {
           document.getElementById(`${id}-input`).value = ''
           document.getElementById(`${id}-input-text`).value = ''
           alertify.success('File add with success')
+        }).catch(err => {
+          alert(err.message)
         })
     }).catch(err => {
       alert(err.message)
@@ -54,10 +57,11 @@ function submitFile (id, path) {
 function hasFile (id, name) {
   let path = ((id === 'data-file') && '/dataFile') || ((id === 'ontology-file') && '/ontologyFile')
   return fetch(path)
+    .then(handleError)
     .then(res => {
       return res.json()
-    }).then(obj => {
-      let file = obj.files.filter(f => {
+    }).then(json => {
+      let file = json.files.filter(f => {
         let cmpName = ((id === 'data-file') && f.name) || f.path.split('\\').pop()
         return cmpName === name
       })
@@ -92,6 +96,7 @@ function populateOntologyWithData () {
   }
 
   fetch('/populate/data', options)
+    .then(handleError)
     .then(res => {
       return res.text()
     }).then(body => {
