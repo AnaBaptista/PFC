@@ -21,22 +21,15 @@ const mappingManager = `${api}/mappingManager`
  * @param fileIds
  * @param {function} cb(err, result)
  */
-function createIndividualMapping (tag, IRI, fileIds,cb) {
+function createIndividualMapping (individualMapping,cb) {
   let url = `${individualMappingManager}/createIndividualMapping`
-  let indMap = {
-    tag : tag,
-    dataFileIds : fileIds,
-    individualNme : "a name",
-    owlClassIRI : IRI,
-    specification : false
-  }
 
   let options = {
     url: url,
     headers:{
       'Content-Type' : 'application/json'
     },
-    body : JSON.stringify(indMap)
+    body : JSON.stringify(individualMapping)
 
   }
   req.post(options, (err, res) => {
@@ -85,7 +78,7 @@ function removeIndividualMapping (id, cb) {
   let options = {
     url: url,
     form: {
-      ids : "5afc7a9c89bbcf256e41f939"
+      ids : id
     }
   }
 
