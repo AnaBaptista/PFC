@@ -10,7 +10,6 @@ module.exports = {
 }
 
 const dataAccess = require('../data-access/individual-mapping-access')
-const idGen = require('shortid')
 const parser = require('../utils/PropertiesParser')
 
 /**
@@ -20,32 +19,30 @@ const parser = require('../utils/PropertiesParser')
  * @param nodeId
  * @param {function} cb(err, status, id from result)
  */
-function createIndividualMapping (tag, IRI, fileIds,nodeId, cb) {
-
-  if(fileIds[0] === undefined || fileIds[1] === undefined){
+function createIndividualMapping (tag, IRI, fileIds, nodeId, cb) {
+  if (fileIds[0] === undefined || fileIds[1] === undefined) {
     let error = new Error('Bad Request, missing ontology or data file Id\'s')
     error.statusCode = 400
     return cb(error)
   }
 
-  if(tag=== undefined || IRI === undefined || nodeId === undefined){
+  if (tag === undefined || IRI === undefined || nodeId === undefined) {
     let error = new Error('Bad Request, missing TAG or IRI or NODEID')
     error.statusCode = 400
     return cb(error)
   }
 
   let indMapping = {
-    tag : tag,
-    dataFileIds : fileIds,
-    individualNme : "a name",
-    owlClassIRI : IRI,
-    specification : false
+    tag: tag,
+    dataFileIds: fileIds,
+    individualNme: 'a name',
+    owlClassIRI: IRI,
+    specification: false
   }
   dataAccess.createIndividualMapping(indMapping, (err, id) => {
     if (err) return cb(err)
     return cb(null, id)
   })
-
 }
 
 /**
@@ -119,8 +116,8 @@ function updateMapping (id, outputOntologyFileName, outputOntologyNamespace, fil
 }
 
 function removeIndividualMapping (id, cb) {
-  dataAccess.removeIndividualMapping(id, (err, result) =>{
-    if(err) cb(err)
+  dataAccess.removeIndividualMapping(id, (err, result) => {
+    if (err) cb(err)
     return cb(null, result)
   })
 }
