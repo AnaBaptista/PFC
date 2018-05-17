@@ -83,7 +83,7 @@ function getOntologyFileObjectProperties (req, res, next) {
 
 function getOntologyFileDataProperties (req, res, next) {
   let id = req.params.id
-  service.getOntologyFileDataProperties(id, (err, properties) => {
+  service.getOntologyFileDataProps(id, (err, properties) => {
     if (err) return next(err)
     const ctx = {layout: false, id: id}
     Object.assign(ctx, properties)

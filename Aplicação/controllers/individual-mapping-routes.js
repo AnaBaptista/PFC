@@ -9,16 +9,15 @@ router.post('/map/individual', createIndividual)
 router.post('/map', createMapping)
 
 router.put('/map/individual/:individualId', updateIndividualMapping)
-router.put('/map/individual/:individualId/properties', updateIndividualMappingProperties)
+router.put('/map/individual/:individualId/properties', updateIndividualMappingObjectProperties)
 router.put('/map/:mappingId', updateMapping)
 
-//router.get('/map/individual', getAllIndividualMappings)
-router.get('/map/individual/:individualId/objectProperties', getIndividualObjProperties)
-router.get('/map/individual/:individualId/dataProperties', getIndividualDataProperties)
-router.get('/map/individual/:individualId/nameAndLabel', getIndividualNameAndLabel)
+router.get('/map/individual', getAllIndividualMappings)
+router.get('/map/individual/:individualId/objectProperties', getIndividualObjProps)
+router.get('/map/individual/:individualId/dataProperties', getIndividualDataProps)
+router.get('/map/individual/:individualId/nameAndLabel', getIndividualAnnotationProps)
 
-router.get('/map/individual/', removeIndividualMapping)
-
+// router.get('/map/individual/', removeIndividualMapping)
 
 /**
  * Id's needed in query:
@@ -40,27 +39,21 @@ function createIndividual (req, res, next) {
   console.log('/map/individual, createIndividual')
   let dataFileId = req.query.dataFileId
   let ontologyId = req.query.ontologyFileId
-  if(ontologyId === undefined || dataFileId === undefined){
-    res.statusCode = 400
-    res.end()
-    return
-  }
   let tag = req.body.tag
   let nodeId = req.body.nodeId
   let IRI = req.body.IRI
-
-  service.createIndividualMapping(tag,IRI,[dataFileId,ontologyId],(err, id) =>{
-    if(err ) return next(err)
+  service.createIndividualMapping(tag, IRI, [dataFileId, ontologyId], nodeId, (err, id) => {
+    if (err) return next(err)
     const ctx = {
       layout: false,
-      _id : id,
-      tag : tag,
-      IRI : IRI,
+      _id: id,
+      tag: tag,
+      IRI: IRI,
       ontologyFileId: ontologyId,
       dataFileId: dataFileId,
       nodeId: nodeId
     }
-    res.render('partials/individualmap', ctx)
+    res.render('partials/individualMapping', ctx)
   })
 }
 
@@ -75,71 +68,66 @@ function createIndividual (req, res, next) {
  * :nodeId
  * Will return a 400 status code if not present
  */
-function getIndividualObjProperties(req,res,next){
-  console.log('/map/individual/:individualId/objectProperties, getIndividualObjProperties')
+function getIndividualObjProps (req, res, next) {
+  console.log('/map/individual/:individualId/objectProperties, getIndividualObjProps')
   let dataFileId = req.query.dataFileId
   let ontologyId = req.query.ontologyFileId
   let nodeId = req.query.nodeId
   let id = req.params.individualId
 
-  fileService.getOntologyFileObjectProperties(ontologyId,(err,result)=>{
+  fileService.getOntologyFileObjectProperties(ontologyId, (err, result) => {
     const ctx = {
       layout: false,
-      _id : id,
+      _id: id,
       nodeId: nodeId,
       ontologyFileId: ontologyId,
       dataFileId: dataFileId,
       oproperties: result.properties
     }
-    res.render('partials/individualmapoproperties', ctx)
-
+    res.render('partials/individualMapObjectProps', ctx)
   })
-
-
 }
 
-function getIndividualDataProperties(req,res,next){
-  console.log('/map/individual/:individualId/dataProperties, getIndividualDataProperties')
+function getIndividualDataProps (req, res, next) {
+  console.log('/map/individual/:individualId/dataProperties, getIndividualDataProps')
   let dataFileId = req.query.dataFileId
   let ontologyId = req.query.ontologyFileId
   let parentNodeId = req.query.nodeId
   let toMapNodeId
   let id = req.params.individualId
 
-  fileService.getOntologyFileDataProperties(ontologyId,(err,result)=>{
+  fileService.getOntologyFileDataProps(ontologyId, (err, result) => {
     const ctx = {
       layout: false,
-      _id : id,
+      _id: id,
       nodeId: nodeId,
       ontologyFileId: ontologyId,
       dataFileId: dataFileId,
       dproperties: result.properties
     }
-    res.render('partials/individualmapdproperties', ctx)
-
+    res.render('partials/individualMapDataProps', ctx)
   })
 }
 
-function getIndividualNameAndLabel(req,res,next){
-  console.log('/map/individual/:individualId/nameAndLabel, getIndividualNameAndLabel')
+function getIndividualAnnotationProps (req, res, next) {
+  console.log('/map/individual/:individualId/nameAndLabel, getIndividualAnnotationProps')
   let dataFileId = req.query.dataFileId
   let ontologyId = req.query.ontologyFileId
   let nodeId = req.query.nodeId
   let id = req.params.individualId
 
-  fileService.getOntologyFileDataProperties(ontologyId,(err,result)=>{
-    if(err) return next(err)
+  fileService.getOntologyFileDataProps(ontologyId, (err, result) => {
+    if (err) return next(err)
     const ctx = {
       layout: false,
-      _id : id,
+      _id: id,
       ontologyFileId: ontologyId,
       dataFileId: dataFileId,
       nodeId: nodeId,
       dproperties: result.properties
     }
-    res.render('partials/individualmapproperties', ctx)
+    res.render('partials/individualMapAnnotionProps', ctx)
   })
-
 }
 
 /**
@@ -167,14 +155,14 @@ function getIndividualNameAndLabel(req,res,next){
 function updateIndividualMapping (req, res, next) {
   console.log('/map/individual/:individualId, updateIndividualMapping')
   let id = req.params.individualId
-  if(id === undefined) {
+  if (id === undefined) {
     res.statusCode = 400
     res.json('Missing: individualId in path')
     return
   }
   let ontologyFileId = req.query.ontologyFileId
   let dataFileId = req.query.dataFIleId
-  if(ontologyFileId === undefined || dataFIleId === undefined) {
+  if (ontologyFileId === undefined || dataFileId === undefined) {
     res.statusCode = 400
     res.json('Missing: ontologyFileId or dataFIleId in query')
     return
@@ -188,9 +176,8 @@ function updateIndividualMapping (req, res, next) {
   let dataProps = req.body.dataProps
   let objProps = req.body.objProps
 
-  // @todo verificar se a lista de file ids é assim sou se precisa de ser key-value
-  service.updateIndividualMapping(id,[ontologyFileId,dataFileId],tag,name,label,specification,IRI,dataProps,objProps, (err,result)=>{
-    if(err) return next(err)
+  service.updateIndividualMapping(id, [ontologyFileId, dataFileId], tag, name, label, specification, IRI, dataProps, objProps, (err, result) => {
+    if (err) return next(err)
     return res.json(result)
   })
 }
@@ -198,18 +185,20 @@ function updateIndividualMapping (req, res, next) {
 /**
  * Id's needed in path:
  * :individualId -> this id refers to the mapping id for the mapping that was created.
+ * :dataFileId
  * Will return a 400 status code if not present
  *
  * Body Parameters:
  * (list) dataProps. A list of the data properties to be mapped to this individual.
- * (list) objectProps. A list of the object properties to be mapped to this individual.
+ * nodeParentId
+ * nodeId
  *
  * Returns: Id for that individual mapping
  */
-function updateIndividualMappingProperties (req, res, next) {
+function updateIndividualMappingObjectProperties (req, res, next) {
   console.log('/map/individual/:individualId/properties, updateIndividualMappingProperties')
   let id = req.params.individualId
-  if(id === undefined) {
+  if (id === undefined) {
     res.statusCode = 400
     res.json('Id needed')
     return
@@ -217,8 +206,8 @@ function updateIndividualMappingProperties (req, res, next) {
 
   let dataProps = req.body.dataProps
   let objProps = req.body.objProps
-  service.updateIndividualMappingProperties(id, dataProps,objProps, (err,result)=>{
-    if(err) return next(err)
+  service.updateIndividualMappingProperties(id, dataProps, objProps, (err, result) => {
+    if (err) return next(err)
     return res.json(result)
   })
 }
@@ -229,12 +218,11 @@ function updateIndividualMappingProperties (req, res, next) {
  */
 function createMapping (req, res, next) {
   console.log('/map, createMapping')
-  service.createEmptyMapping((err, result) =>{
-    if(err) return next(err)
+  service.createEmptyMapping((err, result) => {
+    if (err) return next(err)
     else res.json(result)
   })
 }
-
 
 /**
  * Id's needed in path:
@@ -253,7 +241,7 @@ function createMapping (req, res, next) {
 function updateMapping (req, res, next) {
   console.log('/map/:mappingId, updateMapping')
   let id = req.params.mappingId
-  if(id === undefined) {
+  if (id === undefined) {
     res.statusCode = 400
     res.json('Id needed')
     return
@@ -264,16 +252,15 @@ function updateMapping (req, res, next) {
   let directOntologyImports = req.body.directOntologyImports
   let individualMappings = req.body.individualMappings
 
-  service.updateMapping(id,outputOntologyFileName,outputOntologyNamespace,fileList,directOntologyImports,individualMappings, (err,result)=>{
+  service.updateMapping(id, outputOntologyFileName, outputOntologyNamespace, fileList, directOntologyImports, individualMappings, (err, result) => {
     if (err) return next(err)
     return res.json(result)
   })
 }
 
-
 function getAllIndividualMappings (req, res, next) {
   console.log('/map/individual, getAllIndividualMappings')
-  service.getAllIndividualMappings((err, indMappings)=>{
+  service.getAllIndividualMappings((err, indMappings) => {
     if (err) return next(err)
     return res.json(indMappings)
   })
@@ -282,7 +269,7 @@ function getAllIndividualMappings (req, res, next) {
 function removeIndividualMapping (req, res, next) {
   console.log('/map/individual/, removeIndividualMapping')
   let id = req.body.id
-  service.removeIndividualMapping(id, (err, result) =>{
+  service.removeIndividualMapping(id, (err, result) => {
     if (err) return next(err)
     return res.json(result)
   })

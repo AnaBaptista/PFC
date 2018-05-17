@@ -4,7 +4,7 @@ module.exports = {
   getDataFileNodes,
   getOntologyFileClasses,
   getOntologyFileObjectProperties,
-  getOntologyFileDataProperties,
+  getOntologyFileDataProps: getOntologyFileDataProperties,
   getOntologyFiles,
   getDataFiles
 }
@@ -96,7 +96,7 @@ function getOntologyFileObjectProperties (id, cb) {
 }
 
 function getOntologyFileDataProperties (id, cb) {
-  dataAccess.getOntologyFileDataProperties(id, (err, res) => {
+  dataAccess.getOntologyFileDataProps(id, (err, res) => {
     if (err) return cb(err)
     let obj = JSON.parse(res.toString())
     return cb(null, {properties: obj})

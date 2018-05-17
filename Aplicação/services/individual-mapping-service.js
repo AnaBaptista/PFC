@@ -3,7 +3,7 @@ module.exports = {
   getAllIndividualMappings,
   getIndividualMapping,
   updateIndividualMapping,
-  createEmptyMapping,
+
   updateMapping,
   updateIndividualMappingProperties,
   removeIndividualMapping
@@ -17,12 +17,31 @@ const parser = require('../utils/PropertiesParser')
  * @param tag
  * @param IRI
  * @param fileIds list
- * @param {function} cb(err, id from result)
+ * @param nodeId
+ * @param {function} cb(err, status, id from result)
  */
-//@todo verify if result has id
-function createIndividualMapping (tag, IRI, fileIds, cb) {
+function createIndividualMapping (tag, IRI, fileIds,nodeId, cb) {
 
-  dataAccess.createIndividualMapping(tag, IRI, fileIds, (err, id) => {
+  if(fileIds[0] === undefined || fileIds[1] === undefined){
+    let error = new Error('Bad Request, missing ontology or data file Id\'s')
+    error.statusCode = 400
+    return cb(error)
+  }
+
+  if(tag=== undefined || IRI === undefined || nodeId === undefined){
+    let error = new Error('Bad Request, missing TAG or IRI or NODEID')
+    error.statusCode = 400
+    return cb(error)
+  }
+
+  let indMapping = {
+    tag : tag,
+    dataFileIds : fileIds,
+    individualNme : "a name",
+    owlClassIRI : IRI,
+    specification : false
+  }
+  dataAccess.createIndividualMapping(indMapping, (err, id) => {
     if (err) return cb(err)
     return cb(null, id)
   })
@@ -85,13 +104,6 @@ function updateIndividualMapping (id, fileList, tag, name, label, specification,
  * @param cb (err, results)
  */
 function updateIndividualMappingProperties (id, dataProps, objProps, cb) {
-}
-
-/**
- *
- * @param cb(err,result)
- */
-function createEmptyMapping (cb) {
 }
 
 /**
