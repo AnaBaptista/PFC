@@ -41,17 +41,12 @@ function getDataFiles (req, res, next) {
   })
 }
 
-const fs = require('fs')
 function getDataFileNodes (req, res, next) {
   let ids = req.body.ids
   service.getDataFileNodes(ids, (err, nodes) => {
     if (err) return next(err)
     res.json(nodes)
   })
-  // let data = fs.readFileSync(`./utils/${id}`, 'utf8')
-  // let list = JSON.parse(data)
-  // let root = listTotree(list)
-  // res.json(root)
 }
 
 function getOntologyFiles (req, res, next) {
@@ -67,7 +62,7 @@ function getOntologyFileClasses (req, res, next) {
     if (err) return next(err)
     const ctx = {layout: false, id: id}
     Object.assign(ctx, classes)
-    res.render('partials/ontologyclasses', ctx)
+    res.render('partials/ontologyClasses', ctx)
   })
 }
 
@@ -77,7 +72,7 @@ function getOntologyFileObjectProperties (req, res, next) {
     if (err) return next(err)
     const ctx = {layout: false, id: id}
     Object.assign(ctx, properties)
-    res.render('partials/ontologyproperties', ctx)
+    res.render('partials/ontologyProperties', ctx)
   })
 }
 
@@ -87,7 +82,7 @@ function getOntologyFileDataProperties (req, res, next) {
     if (err) return next(err)
     const ctx = {layout: false, id: id}
     Object.assign(ctx, properties)
-    res.render('partials/ontologyproperties', ctx)
+    res.render('partials/ontologyProperties', ctx)
   })
 }
 

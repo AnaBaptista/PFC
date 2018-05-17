@@ -1,13 +1,4 @@
-<div class="segment" id="individual-mapping-{{_id}}">
-    <h4>
-        {{tag}}
-    </h4>
-    <h5>
-        {{IRI}}
-    </h5>
-</div>
-<hr>
-<div class="segment" id="indvidual-mapping-properties">
+<div class="ui segment" id="indvidual-mapping-properties">
     <div class="ui buttons fluid black" id="individual-mapping-buttons">
         <button class="ui button" onclick="changeIndMappingContent('{{_id}}', '{{nodeId}}', 'property', 'nameAndLabel', '{{ontologyFileId}}', '{{dataFileId}}');">name and label</button>
         <button class="ui button" onclick="changeIndMappingContent('{{_id}}', '{{nodeId}}', 'dproperty', 'dataproperties', '{{ontologyFileId}}', '{{dataFileId}}');">data properties</button>
@@ -15,4 +6,13 @@
     </div>
     <div id="individual-mapping-content">
     </div>
+</div>
+<hr>
+<div class="ui segment" id="individual-mapping-{{_id}}">
+    <h4>
+        {{tag}}
+    </h4>
+    <h5>
+        {{IRI}}
+    </h5>
 </div>

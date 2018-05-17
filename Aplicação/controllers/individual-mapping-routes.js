@@ -12,12 +12,12 @@ router.put('/map/individual/:individualId', updateIndividualMapping)
 router.put('/map/individual/:individualId/properties', updateIndividualMappingProperties)
 router.put('/map/:mappingId', updateMapping)
 
-//router.get('/map/individual', getAllIndividualMappings)
+router.get('/map/individual', getAllIndividualMappings)
 router.get('/map/individual/:individualId/objectProperties', getIndividualObjProperties)
 router.get('/map/individual/:individualId/dataProperties', getIndividualDataProperties)
 router.get('/map/individual/:individualId/nameAndLabel', getIndividualNameAndLabel)
 
-router.get('/map/individual/', removeIndividualMapping)
+//router.get('/map/individual/', removeIndividualMapping)
 
 
 /**

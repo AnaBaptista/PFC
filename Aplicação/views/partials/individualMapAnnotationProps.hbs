@@ -9,7 +9,7 @@
     <div id="property-to-concept">
     </div>
 </div>
-<select class="ui fluid dropdown selection" id="property-selection" onchange="changeOntologyMapping('property');">
+<select class="ui fluid dropdown selection" id="property-selection" onchange="changeOntologyOptionToMapping('property');">
     <option value="">Data property</option>
     {{#each this.dproperties}}
         <option value="{{this}}">

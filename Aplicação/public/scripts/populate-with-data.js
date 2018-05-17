@@ -17,38 +17,16 @@ function getDataFileTree (ids) {
       document.getElementById('data-file-tree').innerText = ''
       drawIndentedTree(tree, `data-file-tree`)
     }).catch(err => alert(err.message()))
-  // jsonRequest(`/dataFile/${id}/nodes`)
-  //   .then(tree => {
-  //     let elemId = `data-file-tree-${id}`
-  //     document.getElementById(elemId).innerText = ''
-  //     drawIndentedTree(tree, elemId)
-  //   }).catch(err => alert(err))
 }
 
-function changeOntologyMapping (name) {
-  let id = `${name}-selection`
-  let value = document.getElementById(id).value
-  let div = document.createElement('div')
-  div.className = name
-  div.innerText = value
-  let elem = document.getElementById(`${name}-to-concept`)
-  elem.replaceChild(div, elem.childNodes[0])
-}
-
-function changeDataFileTerm (node) {
-  let div = document.createElement('div')
-  div.id = node.id
-  div.innerText = node.tag
-  let id = document.getElementById('data-file-term').innerText
-  let elem = document.getElementById(id)
-  elem.replaceChild(div, elem.childNodes[0])
-}
-
-function createIndMapping (dataId, ontId) {
+/**
+ * This function create an individual mapping on server side
+ */
+function createIndMapping () {
   let dNode = document.getElementById('classes-to-term').childNodes[0]
   let onto = document.getElementById('classes-to-concept').childNodes[0]
   let data = {
-    tag: dNode.textContent,
+    tag: dNode.childNodes[0].textContent,
     nodeId: dNode.id,
     IRI: onto.textContent
   }
@@ -61,11 +39,45 @@ function createIndMapping (dataId, ontId) {
     },
     body: JSON.stringify(data)
   }
-  textRequest(`/map/individual?ontologyFileId=${ontId}&dataFileId=${dataId}`, options)
-    .then(res => {
+  fetch(`/map/individual?ontologyFileId=${onto.id}&dataFileId=${dNode.childNodes[1].id}`, options)
+    .then(handleError)
+    .then(res => res.text())
+    .then(text => {
       let elem = document.getElementById('mapper-segment')
-      elem.innerHTML = res
+      elem.innerHTML = text
     })
+}
+
+/**
+ * This functions dynamically changes the selected option
+ * @param name {String} dropwdown id to get the selected option
+ */
+function changeOntologyOptionToMapping (name) {
+  let select = document.getElementById(`${name}-selection`)
+  let selectElem = select[select.selectedIndex]
+  let div = document.createElement('div')
+  div.id = selectElem.id
+  div.className = name
+  div.innerText = selectElem.value
+  let elem = document.getElementById(`${name}-to-concept`)
+  elem.replaceChild(div, elem.childNodes[0])
+}
+
+/**
+ * This functions dynamically changes the selected option
+ * @param node {Object} the selected node
+ */
+function changeDataFileOptionToMapping (node) {
+  let div = document.createElement('div')
+  div.id = node.id
+  div.innerText = node.tag
+  let childDiv = document.createElement('label')
+  childDiv.id = node.dataFileId
+  childDiv.className = 'dataFileId'
+  div.appendChild(childDiv)
+  let id = document.getElementById('data-file-term').innerText
+  let elem = document.getElementById(id)
+  elem.replaceChild(div, elem.childNodes[0])
 }
 
 function createDataProperty (id) {
