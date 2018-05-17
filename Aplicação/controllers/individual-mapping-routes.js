@@ -13,17 +13,14 @@ router.put('/map/individual/:individualId/properties', updateIndividualMappingOb
 router.put('/map/:mappingId', updateMapping)
 
 router.get('/map/individual', getAllIndividualMappings)
-<<<<<<< HEAD
 router.get('/map/individual/:individualId/objectProperties', getIndividualObjProperties)
 router.get('/map/individual/:individualId/dataProperties', getIndividualDataProperties)
 router.get('/map/individual/:individualId/nameAndLabel', getIndividualNameAndLabel)
 
 //router.get('/map/individual/', removeIndividualMapping)
-=======
 router.get('/map/individual/:individualId/objectProperties', getIndividualObjProps)
 router.get('/map/individual/:individualId/dataProperties', getIndividualDataProps)
 router.get('/map/individual/:individualId/nameAndLabel', getIndividualAnnotationProps)
->>>>>>> 01d61ae2fc1afbbe9b8ea4b377ec19ff7bef8448
 
 // router.get('/map/individual/', removeIndividualMapping)
 
