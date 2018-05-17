@@ -4,7 +4,7 @@ module.exports = {
   getDataFileNodes,
   getOntologyFileClasses,
   getOntologyFileObjectProperties,
-  getOntologyFileDataProps: getOntologyFileDataProperties,
+  getOntologyFileDataProperties,
   getOntologyFiles,
   getDataFiles
 }

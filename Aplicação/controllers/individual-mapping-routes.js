@@ -101,7 +101,7 @@ function getIndividualDataProps (req, res, next) {
   let toMapNodeId
   let id = req.params.individualId
 
-  fileService.getOntologyFileDataProps(ontologyId, (err, result) => {
+  fileService.getOntologyFileDataProperties(ontologyId, (err, result) => {
     const ctx = {
       layout: false,
       _id: id,
@@ -121,7 +121,7 @@ function getIndividualAnnotationProps (req, res, next) {
   let nodeId = req.query.nodeId
   let id = req.params.individualId
 
-  fileService.getOntologyFileDataProps(ontologyId, (err, result) => {
+  fileService.getOntologyFileDataProperties(ontologyId, (err, result) => {
     if (err) return next(err)
     const ctx = {
       layout: false,
