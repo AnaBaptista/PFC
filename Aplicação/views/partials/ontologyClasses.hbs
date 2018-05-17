@@ -1,0 +1,12 @@
+<div id="ontology-classes-{{id}}">
+    <div class="ui grouped fields">
+        {{#each this.classes}}
+            <div class="field">
+                <div class="ui radio checkbox checked-class" id="checked-class-{{this}}">
+                    <input name="checked-class" type="radio" onchange="setRadioOnChangeListener('{{this}}', )">
+                    <label>{{this}}</label>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>
