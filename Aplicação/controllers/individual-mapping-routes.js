@@ -13,9 +13,9 @@ router.put('/map/individual/:individualId/properties', updateIndividualMappingOb
 router.put('/map/:mappingId', updateMapping)
 
 router.get('/map/individual', getAllIndividualMappings)
-router.get('/map/individual/:individualId/objectProperties', getIndividualObjProperties)
-router.get('/map/individual/:individualId/dataProperties', getIndividualDataProperties)
-router.get('/map/individual/:individualId/nameAndLabel', getIndividualNameAndLabel)
+router.get('/map/individual/:individualId/objectProperties', getIndividualObjProps)
+router.get('/map/individual/:individualId/dataProperties', getIndividualDataProps)
+router.get('/map/individual/:individualId/nameAndLabel', getIndividualAnnotationProps)
 
 //router.get('/map/individual/', removeIndividualMapping)
 router.get('/map/individual/:individualId/objectProperties', getIndividualObjProps)
@@ -98,14 +98,14 @@ function getIndividualDataProps (req, res, next) {
   let dataFileId = req.query.dataFileId
   let ontologyId = req.query.ontologyFileId
   let parentNodeId = req.query.nodeId
-  let toMapNodeId
+  // let toMapNodeId
   let id = req.params.individualId
 
   fileService.getOntologyFileDataProperties(ontologyId, (err, result) => {
     const ctx = {
       layout: false,
       _id: id,
-      nodeId: nodeId,
+      nodeId: parentNodeId,
       ontologyFileId: ontologyId,
       dataFileId: dataFileId,
       dproperties: result.properties
@@ -131,7 +131,7 @@ function getIndividualAnnotationProps (req, res, next) {
       nodeId: nodeId,
       dproperties: result.properties
     }
-    res.render('partials/individualMapAnnotionProps', ctx)
+    res.render('partials/individualMapAnnotationProps', ctx)
   })
 }
 
