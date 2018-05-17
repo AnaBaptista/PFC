@@ -14,7 +14,8 @@ function listToTree (list) { // id
       tag: list[i].tag,
       value: list[i].value,
       parentid: list[i].parent,
-      children: []
+      children: [],
+      dataFileId: list[i].dataFileId
     }
     i++
   })

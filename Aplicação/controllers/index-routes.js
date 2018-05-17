@@ -37,6 +37,7 @@ function populateWithData (req, res, next) {
     let ctx = {
       classes: classes,
       dataFileIds:  dataFileIds.map(id => id.id),
+      ontologyFileIds: ontologyFileIds,
       layout: false
     }
     res.render('populateWithData', ctx)
@@ -46,5 +47,4 @@ function populateWithData (req, res, next) {
 function populateWithoutData (req, res, next) {
   res.render('populateWithoutData')
 }
-
 

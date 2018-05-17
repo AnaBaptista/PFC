@@ -147,6 +147,6 @@ function drawIndentedTree (root, id) {
   }
 
   function showNode (d) {
-    changeDataFileTerm(d)
+    changeDataFileOptionToMapping(d)
   }
 }

@@ -19,7 +19,7 @@
                         <a class="ui basic right pointing label fluid">
                             Individual mapping
                         </a>
-                        <div class="ui button compact" onclick="createIndMapping('{{dataFileIds}}', '{{ontologyFileId}}');">
+                        <div class="ui button compact" onclick="createIndMapping();">
                             <i class="paperclip icon"></i> Create
                         </div>
                     </div>
@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <hr>
-                    <select class="ui fluid dropdown selection" id="classes-selection" onchange="changeOntologyMapping('classes');">
+                    <select class="ui fluid dropdown selection" id="classes-selection" onchange="changeOntologyOptionToMapping('classes');">
                        <option value="">Class</option>
                        {{#each this.classes}}
                            <option value="{{IRI}}" id="{{ontologyId}}">
