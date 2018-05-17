@@ -10,15 +10,13 @@ module.exports = router
 
 router.post('/dataFile', multipartMiddleware, addDataFile)
 router.post('/ontologyFile', multipartMiddleware, addOntologyFile)
+router.post('/dataFile/nodes', getDataFileNodes)
 
 router.get('/dataFile', getDataFiles)
-router.get('/dataFile/:id/nodes', getDataFileNodes)
 router.get('/ontologyFile', getOntologyFiles)
 router.get('/ontologyFile/:id/classes', getOntologyFileClasses)
 router.get('/ontologyFile/:id/objectproperties', getOntologyFileObjectProperties)
 router.get('/ontologyFile/:id/dataproperties', getOntologyFileDataProperties)
-
-const listTotree = require('../utils/list-to-tree')
 
 function addDataFile (req, res, next) {
   let file = req.files['file']
@@ -45,16 +43,15 @@ function getDataFiles (req, res, next) {
 
 const fs = require('fs')
 function getDataFileNodes (req, res, next) {
-  let id = req.params.id
-  // service.getDataFileNodes(id, (err, nodes) => {
-  //   if (err) return next(err)
-  //   let root = listTotree(nodes.nodes)
-  //   res.json(root)
-  // })
-  let data = fs.readFileSync(`./utils/${id}`, 'utf8')
-  let list = JSON.parse(data)
-  let root = listTotree(list)
-  res.json(root)
+  let ids = req.body.ids
+  service.getDataFileNodes(ids, (err, nodes) => {
+    if (err) return next(err)
+    res.json(nodes)
+  })
+  // let data = fs.readFileSync(`./utils/${id}`, 'utf8')
+  // let list = JSON.parse(data)
+  // let root = listTotree(list)
+  // res.json(root)
 }
 
 function getOntologyFiles (req, res, next) {

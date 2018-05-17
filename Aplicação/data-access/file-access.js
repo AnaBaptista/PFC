@@ -10,9 +10,7 @@ module.exports = {
 
 const req = require('request')
 const fs = require('fs')
-const handleResponse = require('../utils/handleResponse')
-
-const async = require('async')
+const handleResponse = require('../utils/handle-response')
 
 // const api = 'http://chaospop.sysresearch.org/chaos/wsapi'
 const api = 'http://localhost:8080/chaos/wsapi'
@@ -57,9 +55,9 @@ function getDataFileNodes (id, cb) {
       id: id
     }
   }
-  req.post(options, (err, res) => {
+  req.post(options, (err, nodes) => {
     if (err) return cb(err)
-    handleResponse(res, cb)
+    handleResponse(nodes, cb)
   })
 }
 
@@ -71,25 +69,18 @@ function getOntologyFiles (cb) {
   })
 }
 
-function getOntologyFileClasses (ids, cb) {
+function getOntologyFileClasses (id, cb) {
   let url = `${ontologyFile}/getOWLClasses`
 
-  async.map(ids, (ont, cbReq) => {
-    let options = {
-      url: url,
-      form: {
-        ontologyId: ont.id
-      }
+  let options = {
+    url: url,
+    form: {
+      ontologyId: id
     }
-    req.post(options, (err, res) => {
-      if (err) return cb(err)
-      handleResponse(res, cbReq)
-    })
-  }, (err, res) => {
+  }
+  req.post(options, (err, classes) => {
     if (err) return cb(err)
-    let classes = []
-    res.forEach(arr => { classes = classes.concat(arr) })
-    cb(null, classes)
+    handleResponse(classes, cb)
   })
 }
 

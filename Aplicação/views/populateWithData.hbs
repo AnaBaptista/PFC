@@ -4,8 +4,8 @@
     <div class="ui internally celled three column grid" id="mapper-grid">
         <div id="data-file-content" class="five column">
             <div id="data-file-data">
-                <div id="data-file-tree-{{dataFileIds}}">
-                    <button class="ui circular compact icon basic button" onclick="getDataFileTree('{{dataFileIds}}');">
+                <div id="data-file-tree">
+                    <button class="ui circular compact icon basic button" onclick="getDataFileTree('{{this.dataFileIds}}');">
                         <i class="angle double down icon"></i>
                     </button>
                 </div>
@@ -33,8 +33,8 @@
                     <select class="ui fluid dropdown selection" id="classes-selection" onchange="changeOntologyMapping('classes');">
                        <option value="">Class</option>
                        {{#each this.classes}}
-                           <option value="{{this}}">
-                               {{this}}
+                           <option value="{{IRI}}" id="{{ontologyId}}">
+                               {{IRI}}
                            </option>
                        {{/each}}
                     </select>

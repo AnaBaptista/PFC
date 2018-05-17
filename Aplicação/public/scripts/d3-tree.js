@@ -4,7 +4,7 @@
  * @param id {String} element id to append the tree
  */
 function drawIndentedTree (root, id) {
-  root = {children: [root], id: 0}
+  root = {children: root, id: 0}
   let margin = {
     top: -10,
     bottom: 10,

@@ -10,6 +10,8 @@ module.exports = {
 }
 
 const dataAccess = require('../data-access/file-access')
+const async = require('async')
+const listTotree = require('../utils/list-to-tree')
 
 function addDataFile ({name, path}, cb) {
   addFile(path, (err, id) => {
@@ -40,11 +42,21 @@ function getDataFiles (cb) {
   })
 }
 
-function getDataFileNodes (id, cb) {
-  dataAccess.getDataFileNodes(id, (err, res) => {
+function getDataFileNodes (ids, cb) {
+  async.map(ids, (data, cbReq) => {
+    dataAccess.getDataFileNodes(data, (err, nodes) => {
+      if (err) return cb(err)
+      return cbReq(null, JSON.parse(nodes))
+    })
+  }, (err, res) => {
     if (err) return cb(err)
-    let obj = JSON.parse(res.toString())
-    return cb(null, {nodes: obj})
+    let tree = []
+    res.forEach(nodes => {
+      let root = listTotree(nodes.nodesTO)
+      root.parentid = '0'
+      tree.push(root)
+    })
+    return cb(null, tree)
   })
 }
 
@@ -57,10 +69,21 @@ function getOntologyFiles (cb) {
 }
 
 function getOntologyFileClasses (ids, cb) {
-  dataAccess.getOntologyFileClasses(ids, (err, res) => {
+  async.map(ids, (ont, cbReq) => {
+    dataAccess.getOntologyFileClasses(ont.id, (err, classes) => {
+      if (err) return cb(err)
+      return cbReq(null, {classes: JSON.parse(classes), id: ont.id})
+    })
+  }, (err, res) => {
     if (err) return cb(err)
-    let obj = JSON.parse(res.toString())
-    return cb(null, {classes: obj})
+    let classes = []
+    res.forEach(obj => {
+      let map = (obj.classes).map(c => {
+        return {IRI: c, ontologyId: obj.id}
+      })
+      classes = classes.concat(map)
+    })
+    cb(null, classes)
   })
 }
 

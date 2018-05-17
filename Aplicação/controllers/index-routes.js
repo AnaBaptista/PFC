@@ -35,8 +35,8 @@ function populateWithData (req, res, next) {
   service.getOntologyFileClasses(ontologyFileIds, (err, classes) => {
     if (err) return next(err)
     let ctx = {
-      classes: classes.classes,
-      dataFilesIds: dataFileIds,
+      classes: classes,
+      dataFileIds:  dataFileIds.map(id => id.id),
       layout: false
     }
     res.render('populateWithData', ctx)
