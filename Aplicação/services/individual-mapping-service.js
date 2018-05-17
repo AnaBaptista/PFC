@@ -6,9 +6,10 @@ module.exports = {
   createEmptyMapping,
   updateMapping,
   updateIndividualMappingProperties,
+  removeIndividualMapping
 }
 
-const dataAccess = require('../data-access/mapping-access')
+const dataAccess = require('../data-access/individual-mapping-access')
 const idGen = require('shortid')
 const parser = require('../utils/PropertiesParser')
 
@@ -18,12 +19,12 @@ const parser = require('../utils/PropertiesParser')
  * @param fileIds list
  * @param {function} cb(err, id from result)
  */
-//@todo verufy if result has id
+//@todo verify if result has id
 function createIndividualMapping (tag, IRI, fileIds, cb) {
 
-  dataAccess.createIndividualMapping(tag, IRI, fileIds, (err, result) => {
+  dataAccess.createIndividualMapping(tag, IRI, fileIds, (err, id) => {
     if (err) return cb(err)
-    return cb(null, result._id)
+    return cb(null, id)
   })
 
 }
@@ -34,7 +35,8 @@ function createIndividualMapping (tag, IRI, fileIds, cb) {
 function getAllIndividualMappings (cb) {
   dataAccess.getAllIndividualMappings((err, results) => {
     if (err) return cb(err)
-    return cb(null, results)
+    let obj = JSON.parse(results.toString())
+    cb(null, obj)
   })
 }
 
@@ -102,4 +104,11 @@ function createEmptyMapping (cb) {
  * @param cb (err, result)
  */
 function updateMapping (id, outputOntologyFileName, outputOntologyNamespace, fileList, directOntologyImports, individualMappings, cb) {
+}
+
+function removeIndividualMapping (id, cb) {
+  dataAccess.removeIndividualMapping(id, (err, result) =>{
+    if(err) cb(err)
+    return cb(null, result)
+  })
 }

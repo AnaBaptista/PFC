@@ -7,7 +7,7 @@ const express = require('express')
 const app = express()
 
 const fileRouter = require('./controllers/file-routes')
-const mappingRouter = require('./controllers/mapping-routes')
+const mappingRouter = require('./controllers/individual-mapping-routes')
 const index = require('./controllers/index-routes')
 
 app.set('views', path.join(__dirname, 'views'))
