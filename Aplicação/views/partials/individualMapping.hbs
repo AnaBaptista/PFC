@@ -1,18 +1,18 @@
-<div class="ui segment" id="indvidual-mapping-properties">
-    <div class="ui buttons fluid black" id="individual-mapping-buttons">
-        <button class="ui button" onclick="changeIndMappingContent('{{_id}}', '{{nodeId}}', 'property', 'nameAndLabel', '{{ontologyFileId}}', '{{dataFileId}}');">name and label</button>
+<div id="individual-mapping-properties">
+    <div id="individual-mapping-data">
+        <h4>
+            {{tag}}
+        </h4>
+        <h5>
+            {{IRI}}
+        </h5>
+    </div>
+    <hr>
+    <div class="ui buttons black ten wide fields">
+        <button class="ui button" onclick="changeIndMappingContent('{{_id}}', '{{nodeId}}', 'aproperty', 'annotationproperties', '{{ontologyFileId}}', '{{dataFileId}}');">annotation properties</button>
         <button class="ui button" onclick="changeIndMappingContent('{{_id}}', '{{nodeId}}', 'dproperty', 'dataproperties', '{{ontologyFileId}}', '{{dataFileId}}');">data properties</button>
         <button class="ui button" onclick="changeIndMappingContent('{{_id}}', '{{nodeId}}','oproperty', 'objectproperties', '{{ontologyFileId}}', '{{dataFileId}}');">object properties</button>
     </div>
     <div id="individual-mapping-content">
     </div>
-</div>
-<hr>
-<div class="ui segment" id="individual-mapping-{{_id}}">
-    <h4>
-        {{tag}}
-    </h4>
-    <h5>
-        {{IRI}}
-    </h5>
 </div>

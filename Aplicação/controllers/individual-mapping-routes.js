@@ -15,12 +15,7 @@ router.put('/map/:mappingId', updateMapping)
 router.get('/map/individual', getAllIndividualMappings)
 router.get('/map/individual/:individualId/objectProperties', getIndividualObjProps)
 router.get('/map/individual/:individualId/dataProperties', getIndividualDataProps)
-router.get('/map/individual/:individualId/nameAndLabel', getIndividualAnnotationProps)
-
-//router.get('/map/individual/', removeIndividualMapping)
-router.get('/map/individual/:individualId/objectProperties', getIndividualObjProps)
-router.get('/map/individual/:individualId/dataProperties', getIndividualDataProps)
-router.get('/map/individual/:individualId/nameAndLabel', getIndividualAnnotationProps)
+router.get('/map/individual/:individualId/annotationProperties', getIndividualAnnotationProps)
 
 // router.get('/map/individual/', removeIndividualMapping)
 
@@ -47,7 +42,7 @@ function createIndividual (req, res, next) {
   let tag = req.body.tag
   let nodeId = req.body.nodeId
   let IRI = req.body.IRI
-  service.createIndividualMapping(tag, IRI, [dataFileId, ontologyId], nodeId, (err, id) => {
+  service.createIndividualMapping(tag, IRI, [dataFileId], nodeId, (err, id) => {
     if (err) return next(err)
     const ctx = {
       layout: false,
@@ -108,31 +103,29 @@ function getIndividualDataProps (req, res, next) {
       nodeId: parentNodeId,
       ontologyFileId: ontologyId,
       dataFileId: dataFileId,
-      dproperties: result.properties
+      dproperties: result.properties,
+      dpropertyTypes: ['String', 'Integer', 'Float', 'Double', 'Boolean']
     }
     res.render('partials/individualMapDataProps', ctx)
   })
 }
 
 function getIndividualAnnotationProps (req, res, next) {
-  console.log('/map/individual/:individualId/nameAndLabel, getIndividualAnnotationProps')
+  console.log('/map/individual/:individualId/annotationProperties, getIndividualAnnotationProps')
   let dataFileId = req.query.dataFileId
   let ontologyId = req.query.ontologyFileId
   let nodeId = req.query.nodeId
   let id = req.params.individualId
 
-  fileService.getOntologyFileDataProperties(ontologyId, (err, result) => {
-    if (err) return next(err)
-    const ctx = {
-      layout: false,
-      _id: id,
-      ontologyFileId: ontologyId,
-      dataFileId: dataFileId,
-      nodeId: nodeId,
-      dproperties: result.properties
-    }
-    res.render('partials/individualMapAnnotationProps', ctx)
-  })
+  const ctx = {
+    layout: false,
+    _id: id,
+    ontologyFileId: ontologyId,
+    dataFileId: dataFileId,
+    nodeId: nodeId,
+    aproperties: ['Label', 'Comment', 'VersionInfo']
+  }
+  res.render('partials/individualMapAnnotationProps', ctx)
 }
 
 /**

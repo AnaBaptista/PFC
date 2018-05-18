@@ -20,9 +20,9 @@ const parser = require('../utils/PropertiesParser')
  * @param nodeId
  * @param {function} cb(err, status, id from result)
  */
-function createIndividualMapping (tag, IRI, fileIds,nodeId, cb) {
+function createIndividualMapping (tag, IRI, fileIds, nodeId, cb) {
 
-  if(fileIds[0] === undefined || fileIds[1] === undefined){
+  if(fileIds[0] === undefined){
     let error = new Error('Bad Request, missing ontology or data file Id\'s')
     error.statusCode = 400
     return cb(error)
@@ -37,7 +37,7 @@ function createIndividualMapping (tag, IRI, fileIds,nodeId, cb) {
   let indMapping = {
     tag : tag,
     dataFileIds : fileIds,
-    individualNme : "a name",
+    individualName : "a name",
     owlClassIRI : IRI,
     specification : false
   }

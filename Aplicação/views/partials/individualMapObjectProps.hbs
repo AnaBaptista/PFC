@@ -1,22 +1,22 @@
-<div class="ui left labeled button fluid" tabindex="0">
-    <a class="ui basic right pointing label fluid">
-        Add object properties
-    </a>
-    <div class="ui button compact" onclick="createObjectProperty('{{nodeId}}', '{{_id}}');">
-        <i class="paperclip icon"></i> ADD
-    </div>
-</div>
+<h5 class="ui center aligned header" id="property-header">
+    <button class="ui icon circular button basic secondary" onclick="createObjectProperty('{{nodeId}}', '{{_id}}');">
+        <i class="icon plus"></i>
+    </button>
+    OBJECT PROPERTIES
+</h5>
 <div class="oproperty-to">
     <div id="oproperty-to-term">
     </div>
-    <div id="oproperty-to-concept">
+</div>
+<div class="ui fluid multiple search selection dropdown" onmousedown="{this.size=3}">
+    <input name="select-oproperty" type="hidden">
+    <i class="dropdown icon"></i>
+    <div class="default text">Select object properties</div>
+    <div class="menu" id="objectproperties-menu">
+        {{#each this.oproperties}}
+            <div class="item" data-value" {{this}}">
+            {{this}}
+        </div>
+        {{/each}}
     </div>
 </div>
-<select class="ui fluid dropdown selection" id="oproperty-selection" onchange="changeOntologyOptionToMapping('oproperty');">
-    <option value="">Object property</option>
-    {{#each this.oproperties}}
-        <option value="{{this}}">
-            {{this}}
-        </option>
-    {{/each}}
-</select>

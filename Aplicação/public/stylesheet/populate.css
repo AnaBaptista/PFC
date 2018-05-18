@@ -20,22 +20,25 @@
 }
 
 #mapping-to-segment {
-    min-height: 170px;
+    min-height: 150px;
 }
 
-#classes-selection, #dproperty-selection, #oproperty-selection, #property-selection {
-    min-height: 42px;
-    margin-bottom: 5px;
-}
-
-.classes-to, .oproperty-to, .dproperty-to, .property-to {
+.classes-to, .oproperty-to, .dproperty-to, .aproperty-to {
     min-height: 45px;
 }
 
 #individual-mapping-content {
-    min-height: 300px;
+    min-height: 250px;
 }
 
-#individual-mapping-buttons {
-    margin-bottom: 10px;
+#individual-mapping-data {
+    margin-bottom: 15px;
+    margin-top: 30px;
+}
+#property-header {
+    margin-top: 15px;
+}
+
+#select-dproperty{
+    margin-top: 15px;
 }

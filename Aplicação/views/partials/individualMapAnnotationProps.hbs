@@ -1,19 +1,22 @@
-<div class="ui left labeled button fluid" tabindex="0">
-    <a class="ui basic right pointing label fluid">
-        Name
-    </a>
-</div>
-<div class="property-to">
-    <div id="property-to-term">
+<h5 class="ui center aligned header" id="property-header">
+    <button class="ui icon circular button basic secondary" onclick="">
+        <i class="icon plus"></i>
+    </button>
+    ANNOTATION PROPERTIES
+</h5>
+<div class="aproperty-to">
+    <div id="aproperty-to-term">
     </div>
-    <div id="property-to-concept">
-    </div>
 </div>
-<select class="ui fluid dropdown selection" id="property-selection" onchange="changeOntologyOptionToMapping('property');">
-    <option value="">Data property</option>
-    {{#each this.dproperties}}
-        <option value="{{this}}">
+<div class="ui fluid multiple search selection dropdown">
+    <input name="select-aproperty" type="hidden">
+    <i class="dropdown icon"></i>
+    <div class="default text">Select annotation properties</div>
+    <div class="menu" id="annotationproperties-menu">
+        {{#each this.aproperties}}
+            <div class="item" data-value" {{this}}">
             {{this}}
-        </option>
-    {{/each}}
-</select>
+        </div>
+        {{/each}}
+    </div>
+</div>

@@ -24,11 +24,12 @@ function getDataFileTree (ids) {
  */
 function createIndMapping () {
   let dNode = document.getElementById('classes-to-term').childNodes[0]
-  let onto = document.getElementById('classes-to-concept').childNodes[0]
+  let onto = getSelectedItems('classes-menu', '.selected')
+  
   let data = {
     tag: dNode.childNodes[0].textContent,
     nodeId: dNode.id,
-    IRI: onto.textContent
+    IRI: onto[0].textContent
   }
 
   let options = {
@@ -39,28 +40,13 @@ function createIndMapping () {
     },
     body: JSON.stringify(data)
   }
-  fetch(`/map/individual?ontologyFileId=${onto.id}&dataFileId=${dNode.childNodes[1].id}`, options)
+  fetch(`/map/individual?ontologyFileId=${onto[0].id}&dataFileId=${dNode.childNodes[1].id}`, options)
     .then(handleError)
     .then(res => res.text())
     .then(text => {
       let elem = document.getElementById('mapper-segment')
       elem.innerHTML = text
     })
-}
-
-/**
- * This functions dynamically changes the selected option
- * @param name {String} dropwdown id to get the selected option
- */
-function changeOntologyOptionToMapping (name) {
-  let select = document.getElementById(`${name}-selection`)
-  let selectElem = select[select.selectedIndex]
-  let div = document.createElement('div')
-  div.id = selectElem.id
-  div.className = name
-  div.innerText = selectElem.value
-  let elem = document.getElementById(`${name}-to-concept`)
-  elem.replaceChild(div, elem.childNodes[0])
 }
 
 /**
@@ -92,10 +78,13 @@ function changeIndMappingContent(id, nodeId, name, path, ontId, dataId) {
   let term = document.getElementById('data-file-term')
   term.innerText = `${name}-to-term`
   let url = `/map/individual/${id}/${path}?nodeId=${nodeId}&ontologyFileId=${ontId}&dataFileId=${dataId}`
-  textRequest(url)
-    .then(res => {
+  fetch(url)
+    .then(handleError)
+    .then(res => res.text())
+    .then(text => {
       let elem = document.getElementById('individual-mapping-content')
-      elem.innerHTML = res
+      elem.innerHTML = text
+      $('.dropdown').dropdown({fullTextSearch: true})
     })
 }
 
