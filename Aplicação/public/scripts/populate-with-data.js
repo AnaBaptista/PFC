@@ -25,7 +25,7 @@ function getDataFileTree (ids) {
 function createIndMapping () {
   let dNode = document.getElementById('classes-to-term').childNodes[0]
   let onto = getSelectedItems('classes-menu', '.selected')
-  
+
   let data = {
     tag: dNode.childNodes[0].textContent,
     nodeId: dNode.id,
