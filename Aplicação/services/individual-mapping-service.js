@@ -17,28 +17,19 @@ const parser = require('../utils/PropertiesParser')
  */
 function createIndividualMapping (input, cb) {
   if (input.ontologyFileId === undefined || input.dataFileId === undefined) {
-
     let error = new Error('Bad Request, missing ontology or data file Id\'s')
     error.statusCode = 400
     return cb(error)
   }
 
-  if (input.tag === undefined || input.owlClassIRI === undefined || input.nodeId === undefined) {
-    let error = new Error('Bad Request, missing TAG or IRI or NODEID')
+  if (input.tag === undefined || input.owlClassIRI === undefined || input.nodeId === undefined ||
+      input.individualName === undefined || input.specification !== false) {
+    let error = new Error('Bad Request, missing TAG or IRI or NODEID or INDIVIDUALNAME or SPACFICATION is different from false')
     error.statusCode = 400
     return cb(error)
   }
 
-  let indMapping = {
-    tag: input.tag,
-    nodeId: input.nodeId,
-    dataFileId: input.dataFileId,
-    ontologyFileId: input.ontologyFileId,
-    individualName: 'a name',
-    specification: false,
-    owlClassIRI: input.owlClassIRI
-  }
-  dataAccess.createIndividualMapping(indMapping, (err, id) => {
+  dataAccess.createIndividualMapping(input, (err, id) => {
     if (err) return cb(err)
     return cb(null, id)
   })
