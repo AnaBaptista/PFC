@@ -1,5 +1,5 @@
 <h5 class="ui center aligned header" id="property-header">
-    <button class="ui icon circular button basic secondary" onclick="">
+    <button class="ui icon circular button basic secondary" onclick="createAnnotationProperty('{{_id}}');">
         <i class="icon plus"></i>
     </button>
     ANNOTATION PROPERTIES
@@ -12,9 +12,9 @@
     <input name="select-aproperty" type="hidden">
     <i class="dropdown icon"></i>
     <div class="default text">Select annotation properties</div>
-    <div class="menu" id="annotationproperties-menu">
+    <div class="menu" id="annotation-properties-menu">
         {{#each this.aproperties}}
-            <div class="item" data-value" {{this}}">
+            <div class="item" data-value="{{this}}">
             {{this}}
         </div>
         {{/each}}

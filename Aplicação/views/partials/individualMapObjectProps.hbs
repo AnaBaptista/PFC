@@ -1,5 +1,5 @@
 <h5 class="ui center aligned header" id="property-header">
-    <button class="ui icon circular button basic secondary" onclick="createObjectProperty('{{nodeId}}', '{{_id}}');">
+    <button class="ui icon circular button basic secondary" onclick="createObjectProperty('{{_id}}');">
         <i class="icon plus"></i>
     </button>
     OBJECT PROPERTIES
@@ -8,13 +8,13 @@
     <div id="oproperty-to-term">
     </div>
 </div>
-<div class="ui fluid multiple search selection dropdown" onmousedown="{this.size=3}">
+<div class="ui fluid search selection dropdown">
     <input name="select-oproperty" type="hidden">
     <i class="dropdown icon"></i>
     <div class="default text">Select object properties</div>
-    <div class="menu" id="objectproperties-menu">
+    <div class="menu" id="object-properties-menu">
         {{#each this.oproperties}}
-            <div class="item" data-value" {{this}}">
+            <div class="item" data-value="{{this}}">
             {{this}}
         </div>
         {{/each}}

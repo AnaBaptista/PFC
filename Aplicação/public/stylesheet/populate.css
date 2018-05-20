@@ -24,7 +24,7 @@
 }
 
 .classes-to, .oproperty-to, .dproperty-to, .aproperty-to {
-    min-height: 45px;
+    min-height: 30px;
 }
 
 #individual-mapping-content {
