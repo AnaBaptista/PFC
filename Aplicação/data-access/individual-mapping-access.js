@@ -117,7 +117,8 @@ function sendDocToDb (doc, cb) {
     client.db(dbName).collection(indMapCollectionName).insertOne(doc, (err, result) => {
       client.close()
       if (err) return cb(err)
-      return cb(null, result.insertedId)
+      let id = result.insertedId.toString()
+      return cb(null, result.insertedId.toString())
     })
   })
 }
@@ -136,3 +137,4 @@ function findById (id, cb) {
     client.close()
   })
 }
+

@@ -32,8 +32,8 @@ function createIndividualMapping (input, cb) {
   let indMapping = {
     tag: input.tag,
     nodeId: input.nodeId,
-    dataFileId: input.fileId,
-    ontologyFileId: input.ontologyId,
+    dataFileId: input.dataFileId,
+    ontologyFileId: input.ontologyFileId,
     individualName: 'a name',
     specification: false,
     owlClassIRI: input.owlClassIRI

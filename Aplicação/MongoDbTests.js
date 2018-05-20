@@ -4,7 +4,7 @@ const ObjectID = require('mongodb').ObjectID
 
 /**
  * insert a document in MongoDb
- */
+
 MongoClient.connect(url, (err, client) => {
   if (err) return console.log(err)
   let db = client.db('HomiDb')
@@ -15,12 +15,27 @@ MongoClient.connect(url, (err, client) => {
 
 /**
  * inser a document in MongoDb 'ObjectID(5afdbff24506ee1f084a25f1)'
- */
+
 MongoClient.connect(url, (err, client) => {
   if (err) return console.log(err)
   let db = client.db('HomiDb')
   let collection = db.collection('HomiCollection')
   collection.findOne({_id: ObjectID('5afdbff24506ee1f084a25f1')}, (err, result) => {
+    console.log(result)
+  })
+  client.close()
+})
+
+/**
+ * update a document in MongoDb 'ObjectID(5afdbff24506ee1f084a25f1)'
+ */
+MongoClient.connect(url, (err, client) => {
+  if (err) return console.log(err)
+  let db = client.db('HomiDb')
+  let collection = db.collection('HomiCollection')
+  let query = {_id: ObjectID('5afdbff24506ee1f084a25f1')}
+  let newValues = { $set: {teste: 'teste 0.0', update: 'added new field'}}
+  collection.updateOne(query, newValues, (err, result) => {
     console.log(result)
   })
   client.close()
