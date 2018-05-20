@@ -241,5 +241,6 @@ function addIndividualName () {
   }
 
   changeDataFileOptionsToMappingId('classes')
+  document.getElementById('add-name-btn').disabled = true
   alertify.success('Individual name changed')
 }
