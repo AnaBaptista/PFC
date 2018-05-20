@@ -1,8 +1,27 @@
 var MongoClient = require('mongodb').MongoClient
-var url = 'mongodb://localhost:27017/HOMIDB'
+var url = 'mongodb://localhost:27017'
+const ObjectID = require('mongodb').ObjectID
 
-MongoClient.connect(url, function (err, db) {
-  if (err) throw err
-  console.log('Database created!')
-  db.close()
+/**
+ * insert a document in MongoDb
+ */
+MongoClient.connect(url, (err, client) => {
+  if (err) return console.log(err)
+  let db = client.db('HomiDb')
+  let collection = db.collection('HomiCollection')
+  collection.insert({teste: 'teste 1'})
+  client.close()
+})
+
+/**
+ * inser a document in MongoDb 'ObjectID(5afdbff24506ee1f084a25f1)'
+ */
+MongoClient.connect(url, (err, client) => {
+  if (err) return console.log(err)
+  let db = client.db('HomiDb')
+  let collection = db.collection('HomiCollection')
+  collection.findOne({_id: ObjectID('5afdbff24506ee1f084a25f1')}, (err, result) => {
+    console.log(result)
+  })
+  client.close()
 })

@@ -4,7 +4,7 @@ module.exports = {
   parseAnnotationProperties
 }
 
-
+const dataType = ['']
 function parseDataProperties (listOfProps) {
 
 }

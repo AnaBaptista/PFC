@@ -3,7 +3,6 @@ module.exports = {
   getAllIndividualMappings,
   getIndividualMapping,
   updateIndividualMapping,
-
   updateMapping,
   updateIndividualMappingProperties,
   removeIndividualMapping
@@ -13,31 +12,31 @@ const dataAccess = require('../data-access/individual-mapping-access')
 const parser = require('../utils/PropertiesParser')
 
 /**
- * @param tag
- * @param IRI
- * @param fileIds list
- * @param nodeId
+ * @param input {tag: , nodeId: , owlClassIRI: , ontologyFileId: , dataFileId:}
  * @param {function} cb(err, status, id from result)
  */
-function createIndividualMapping (tag, IRI, fileIds, nodeId, cb) {
-  if (fileIds[0] === undefined || fileIds[1] === undefined) {
+
+function createIndividualMapping (input, cb) {
+  if (input.ontologyFileId === undefined || input.dataFileId === undefined) {
     let error = new Error('Bad Request, missing ontology or data file Id\'s')
     error.statusCode = 400
     return cb(error)
   }
 
-  if (tag === undefined || IRI === undefined || nodeId === undefined) {
+  if (input.tag === undefined || input.owlClassIRI === undefined || input.nodeId === undefined) {
     let error = new Error('Bad Request, missing TAG or IRI or NODEID')
     error.statusCode = 400
     return cb(error)
   }
 
   let indMapping = {
-    tag: tag,
-    dataFileIds: fileIds,
-    individualNme: 'a name',
-    owlClassIRI: IRI,
-    specification: false
+    tag: input.tag,
+    nodeId: input.nodeId,
+    dataFileId: input.fileId,
+    ontologyFileId: input.ontologyId,
+    individualName: 'a name',
+    specification: false,
+    owlClassIRI: input.owlClassIRI
   }
   dataAccess.createIndividualMapping(indMapping, (err, id) => {
     if (err) return cb(err)
