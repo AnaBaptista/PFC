@@ -23,12 +23,22 @@ function getDataFileTree (ids) {
  * This function create an individual mapping on server side
  */
 function createIndMapping () {
-  let dNode = document.getElementById('classes-to-term').childNodes[0]
-  let onto = document.getElementById('classes-to-concept').childNodes[0]
+  let node = document.getElementById('classes-to-term').childNodes[0]
+  let onto = getSelectedItems('classes-menu', '.selected')
+
+  if (node.childNodes.length === 0 || onto.length === 0) {
+    alertify.error('Missing data file node or ontology class')
+    return
+  }
+
   let data = {
-    tag: dNode.childNodes[0].textContent,
-    nodeId: dNode.id,
-    IRI: onto.textContent
+    data: {
+      tag: node.childNodes[0].textContent,
+      nodeId: node.id,
+      owlClassIRI: onto[0].textContent,
+      ontologyFileId: onto[0].id,
+      dataFileId: node.childNodes[1].id
+    }
   }
 
   let options = {
@@ -39,28 +49,14 @@ function createIndMapping () {
     },
     body: JSON.stringify(data)
   }
-  fetch(`/map/individual?ontologyFileId=${onto.id}&dataFileId=${dNode.childNodes[1].id}`, options)
+
+  fetch(`/map/individual`, options)
     .then(handleError)
     .then(res => res.text())
     .then(text => {
       let elem = document.getElementById('mapper-segment')
       elem.innerHTML = text
     })
-}
-
-/**
- * This functions dynamically changes the selected option
- * @param name {String} dropwdown id to get the selected option
- */
-function changeOntologyOptionToMapping (name) {
-  let select = document.getElementById(`${name}-selection`)
-  let selectElem = select[select.selectedIndex]
-  let div = document.createElement('div')
-  div.id = selectElem.id
-  div.className = name
-  div.innerText = selectElem.value
-  let elem = document.getElementById(`${name}-to-concept`)
-  elem.replaceChild(div, elem.childNodes[0])
 }
 
 /**
@@ -80,38 +76,135 @@ function changeDataFileOptionToMapping (node) {
   elem.replaceChild(div, elem.childNodes[0])
 }
 
+/**
+ * This functions add an new data property to
+ * individual mapping identified by indMapId
+ * @param id {String} individual mapping id
+ */
 function createDataProperty (id) {
-  let x = 'a'
+  let node = document.getElementById('dproperty-to-term').childNodes[0]
+  let property = getSelectedItems('data-properties-menu', '.selected')
+  let type = getSelectedItems('data-property-type-menu', '.selected')
+
+  if (property.length === 0 || type.length === 0 || node.childNodes.length === 0) {
+    alertify.error('Missing data property, type or node')
+    return
+  }
+
+  let data = {
+    data: {
+      owlClassIRI: property[0].textContent,
+      type: type[0].textContent,
+      nodeId: node.id
+    }
+  }
+
+  let options = {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }
+
+  // TODO: make request
+  fetch(`/map/individual/${id}/dataProperty`, options)
+    .then(handleError)
+    .then(res => res.json())
+    .then()
 }
 
+/**
+ *
+ * @param id {String} individual mapping id
+ */
 function createObjectProperty (id) {
-  let x = 'a'
+  let property = getSelectedItems('object-properties-menu', '.selected')
+  let node = document.getElementById('oproperty-to-term').childNodes[0]
+
+  if (property.length === 0 || node.childNodes.length === 0) {
+    alertify.error('Missing object property or node')
+    return
+  }
+
+  let data = {
+    data: {
+      owlClassIRI: property[0].textContent,
+      nodeId: node.id
+    }
+  }
+
+  let options = {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }
+
+  //TODO: make request
+  fetch(`/map/individual/${id}/objectProperty`, options)
+    .then(handleError)
+    .then(res => res.json())
+    .then()
 }
 
-function changeIndMappingContent(id, nodeId, name, path, ontId, dataId) {
+/**
+ *
+ * @param id
+ */
+function createAnnotationProperty (id) {
+  let annotation = getSelectedItems('annotation-properties-menu', '.selected')
+  let node = document.getElementById('aproperty-to-term').childNodes[0]
+
+  if (annotation.length === 0 || node.childNodes.length === 0) {
+    alertify.error('Missing object property or node')
+    return
+  }
+
+  let data = {
+    data: {
+      annotation: annotation[0].textContent,
+      nodeId: node.id
+    }
+  }
+
+  let options = {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }
+
+  //TODO: make request
+  fetch(`/map/individual/${id}/annotationProperty`, options)
+    .then(handleError)
+    .then(res => res.json())
+    .then()
+}
+
+/**
+ *
+ * @param id {String} individual mapping id
+ * @param type {String} property type (data, object or annotation)
+ */
+function changeIndMappingContent (id, type) {
   let term = document.getElementById('data-file-term')
-  term.innerText = `${name}-to-term`
-  let url = `/map/individual/${id}/${path}?nodeId=${nodeId}&ontologyFileId=${ontId}&dataFileId=${dataId}`
-  textRequest(url)
-    .then(res => {
+  term.innerText = `${type}-to-term`
+  let path = (type === 'oproperty' && 'objectproperties') ||
+    (type === 'dproperty' && 'dataproperties') ||
+    (type === 'aproperty' && 'annotationproperties')
+  let url = `/map/individual/${id}/${path}`
+  fetch(url)
+    .then(handleError)
+    .then(res => res.text())
+    .then(text => {
       let elem = document.getElementById('individual-mapping-content')
-      elem.innerHTML = res
+      elem.innerHTML = text
+      $('.dropdown').dropdown({fullTextSearch: true})
     })
-}
-
-function getOntologyFileData (id, data, name) {
-  let path = `/ontologyFile/${id}/${data}`
-  textRequest(path).then(res => {
-    let elem = document.getElementById(name)
-    elem.innerHTML = res
-    // let inputs = document.querySelectorAll(`input[name=${name}]`)
-    // inputs.forEach(elem => elem.addEventListener('change', evt => {
-    //   let target = evt.target
-    //
-    // }))
-    // let elements = document.querySelectorAll(`div[class=${name}]`)
-    // elements.forEach(elem => {
-    //   elem.childNodes.
-    // })
-  })
 }

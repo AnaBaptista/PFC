@@ -70,9 +70,9 @@ function getOntologyFiles (cb) {
 
 function getOntologyFileClasses (ids, cb) {
   async.map(ids, (ont, cbReq) => {
-    dataAccess.getOntologyFileClasses(ont.id, (err, classes) => {
+    dataAccess.getOntologyFileClasses(ont, (err, classes) => {
       if (err) return cb(err)
-      return cbReq(null, {classes: JSON.parse(classes), id: ont.id})
+      return cbReq(null, {classes: JSON.parse(classes), id: ont})
     })
   }, (err, res) => {
     if (err) return cb(err)

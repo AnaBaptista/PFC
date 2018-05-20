@@ -22,7 +22,7 @@ window.onload = function () {
     changeFileInputLabel('ontology-file')
   })
 
-  $('.dropdown').dropdown()
+  $('.dropdown').dropdown({fullTextSearch: true})
 }
 
 /**

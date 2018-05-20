@@ -74,8 +74,8 @@ function hasFile (id, name) {
  * the populateWithData view
  */
 function populateOntologyWithData () {
-  let oFiles = getSelectedFiles('ontology-file-menu')
-  let dFiles = getSelectedFiles('data-file-menu')
+  let oFiles = getSelectedItems('ontology-file-menu', '.filtered').map(o => o.id)
+  let dFiles = getSelectedItems('data-file-menu', '.filtered').map(d => d.id)
 
   if (oFiles.length === 0 || dFiles.length === 0) {
     alertify.error('File required')
@@ -102,20 +102,8 @@ function populateOntologyWithData () {
     }).then(body => {
       // history.pushState(body, 'Populate with data', '/populate/data')
       document.body.innerHTML = body
+      $('.dropdown').dropdown({fullTextSearch: true})
     }).catch(err => alert(err.message))
-}
-
-/**
- *
- * @param id {String} dropdown id
- * @returns {Array} all selected files present in the dropdown
- */
-function getSelectedFiles (id) {
-  let menu = document.getElementById(id)
-  let filtersElems = []
-  menu.querySelectorAll('.filtered')
-    .forEach(elem => filtersElems.push({id: elem.id}))
-  return filtersElems
 }
 
 /**

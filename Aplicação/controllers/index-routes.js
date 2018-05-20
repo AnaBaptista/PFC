@@ -36,7 +36,7 @@ function populateWithData (req, res, next) {
     if (err) return next(err)
     let ctx = {
       classes: classes,
-      dataFileIds:  dataFileIds.map(id => id.id),
+      dataFileIds:  dataFileIds,
       ontologyFileIds: ontologyFileIds,
       layout: false
     }
