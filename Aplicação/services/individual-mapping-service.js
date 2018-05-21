@@ -4,7 +4,7 @@ module.exports = {
   getIndividualMapping,
   updateIndividualMapping,
   updateMapping,
-  updateIndividualMappingProperties,
+  addIndividualMappingObjectProperties,
   removeIndividualMapping
 }
 
@@ -90,7 +90,15 @@ function updateIndividualMapping (id, fileList, tag, name, label, specification,
  * @param objProps
  * @param cb (err, results)
  */
-function updateIndividualMappingProperties (id, dataProps, objProps, cb) {
+function addIndividualMappingObjectProperties (id, objProps, cb) {
+  if (id === undefined) {
+    let error = new Error('Bad Request, missing individual mapping Id')
+    error.statusCode = 400
+    return cb(error)
+  }
+  parser.parseObjectProperties(objProps, (err, listOfParsedProps) => {
+    if (err) cb(err)
+  })
 }
 
 /**

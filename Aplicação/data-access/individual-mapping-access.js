@@ -7,28 +7,18 @@ module.exports = {
   removeIndividualMapping
 }
 
-/*
- * Basic HTTP request
- */
+// Basic HTTP request
 const req = require('request')
 const handleResponse = require('../utils/handle-response')
 
-/*
- * ChaosPop requests
- */
+// ChaosPop requests
 // const api = 'http://chaospop.sysresearch.org/chaos/wsapi'
 const api = 'http://localhost:8080/chaos/wsapi'
 const individualMappingManager = `${api}/individualMappingManager`
 // const mappingManager = `${api}/mappingManager`
 
-/*
- * MongoDb Requests
- */
-const MongoClient = require('mongodb').MongoClient
-const url = 'mongodb://localhost:27017'
-const dbName = 'HomiDb'
-const indMapCollectionName = 'IndividualMappings'
-const ObjectID = require('mongodb').ObjectID
+// MongoDb Acess
+const db = require('./mongodb-access')
 
 /**
  * @param {string} id
@@ -104,37 +94,5 @@ function removeIndividualMapping (id, cb) {
 }
 
 function createIndividualMapping (indMap, cb) {
-  sendDocToDb(indMap, cb)
+  db.sendDocToDb(indMap, cb)
 }
-
-/**
- * @param doc
- * @param {function} cb(err, result)
- */
-function sendDocToDb (doc, cb) {
-  MongoClient.connect(url, (err, client) => {
-    if (err) return cb(err)
-    client.db(dbName).collection(indMapCollectionName).insertOne(doc, (err, result) => {
-      client.close()
-      if (err) return cb(err)
-      let id = result.insertedId.toString()
-      return cb(null, result.insertedId.toString())
-    })
-  })
-}
-
-/**
- * @param id
- * @param {function} cb(err, result)
- */
-function findById (id, cb) {
-  MongoClient.connect(url, (err, client) => {
-    if (err) return cb(err)
-    client.db(dbName).collection(indMapCollectionName).findOne({_id: ObjectID(id)}, (err, result) => {
-      if (err) return cb(err)
-      handleResponse(err, cb)
-    })
-    client.close()
-  })
-}
-
