@@ -5,7 +5,7 @@ module.exports = {
   getOntologyFiles,
   getOntologyFileClasses,
   getOntologyFileObjectProperties,
-  getOntologyFileDataProps: getOntologyFileDataProperties
+  getOntologyFileDataProperties
 }
 
 const req = require('request')

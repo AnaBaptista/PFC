@@ -1,5 +1,5 @@
 /**
- * This function submit a file to chaos pop
+ * This function submit a file to homidb
  * @param id {String} input file id
  * @param path {String} endpoint to submit
  */
@@ -29,7 +29,7 @@ function submitFile (id, path) {
           return res.json()
         }).then(json => {
           let item = document.createElement('div')
-          item.id = json.dataFileId
+          item.id = json._id
           item.className = 'item'
           item.innerText = file.name
           document.getElementById(`${id}-menu`).appendChild(item)
@@ -41,10 +41,10 @@ function submitFile (id, path) {
           document.getElementById(`${id}-input-text`).value = ''
           alertify.success('File add with success')
         }).catch(err => {
-          alert(err.message)
+          alertify.error(err.message)
         })
     }).catch(err => {
-      alert(err.message)
+      alertify.error(err.message)
     })
 }
 
@@ -61,10 +61,7 @@ function hasFile (id, name) {
     .then(res => {
       return res.json()
     }).then(json => {
-      let file = json.files.filter(f => {
-        let cmpName = ((id === 'data-file') && f.name) || f.path.split('\\').pop()
-        return cmpName === name
-      })
+      let file = json.filter(f => f.name === name)
       return file
     })
 }
@@ -83,8 +80,10 @@ function populateOntologyWithData () {
   }
 
   let data = {
-    dataFiles: dFiles,
-    ontologyFiles: oFiles
+    data: {
+      dataFiles: dFiles,
+      ontologyFiles: oFiles
+    }
   }
 
   let options = {
@@ -95,15 +94,12 @@ function populateOntologyWithData () {
     body: JSON.stringify(data)
   }
 
-  fetch('/populate/data', options)
+  fetch('/populate', options)
     .then(handleError)
-    .then(res => {
-      return res.text()
-    }).then(body => {
-      // history.pushState(body, 'Populate with data', '/populate/data')
-      document.body.innerHTML = body
-      $('.dropdown').dropdown({fullTextSearch: true})
-    }).catch(err => alert(err.message))
+    .then(res => res.json())
+    .then(json => {
+      window.location.href = `/session/data/${json.id}`
+    }).catch(err => alert(err.message()))
 }
 
 /**

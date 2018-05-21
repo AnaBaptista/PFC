@@ -10,35 +10,57 @@ module.exports = {
 }
 
 const dataAccess = require('../data-access/file-access')
+const db = require('../data-access/mongodb-access')
+
+const dataFileCol = 'DataFiles'
+const ontologyFileCol = 'OntologyFiles'
+
 const async = require('async')
 const listTotree = require('../utils/list-to-tree')
 
 function addDataFile ({name, path}, cb) {
-  addFile(path, (err, id) => {
+  addFile(path, name, dataFileCol, (err, id) => {
     if (err) return cb(err)
-    cb(null, {dataFileId: id})
+    cb(null, {_id: id})
   })
 }
 
 function addOntologyFile ({name, path}, cb) {
-  addFile(path, (err, id) => {
+  addFile(path, name, ontologyFileCol, (err, id) => {
     if (err) return cb(err)
-    cb(null, {ontologyFileId: id})
+    cb(null, {_id: id})
   })
 }
 
-function addFile (path, cb) {
-  dataAccess.addFile(path, (err, id) => {
+function addFile (path, name, col, cb) {
+  dataAccess.addFile(path, (err, chaosid) => {
     if (err) return cb(err)
-    cb(null, id)
+    db.sendDocToDb(col, {name: name, chaosid: chaosid}, (err, id) => {
+      if (err) return cb(err)
+      cb(null, id)
+    })
   })
 }
 
 function getDataFiles (cb) {
-  dataAccess.getDataFiles((err, res) => {
+  getFiles(dataFileCol, cb)
+}
+
+function getOntologyFiles (cb) {
+  getFiles(ontologyFileCol, cb)
+}
+
+function getFiles (col, cb) {
+  db.findByQuery(col, {}, (err, res) => {
     if (err) return cb(err)
-    let obj = JSON.parse(res.toString())
-    return cb(null, {files: obj.dataFilesTO})
+    let files = res.map(o => {
+      return {
+        _id: o._id.toString(),
+        name: o.name,
+        chaosid: o.chaosid
+      }
+    })
+    return cb(null, files)
   })
 }
 
@@ -57,14 +79,6 @@ function getDataFileNodes (ids, cb) {
       tree.push(root)
     })
     return cb(null, tree)
-  })
-}
-
-function getOntologyFiles (cb) {
-  dataAccess.getOntologyFiles((err, res) => {
-    if (err) return cb(err)
-    let obj = JSON.parse(res.toString())
-    return cb(null, {files: obj.ontologyFilesTO})
   })
 }
 
@@ -96,7 +110,7 @@ function getOntologyFileObjectProperties (id, cb) {
 }
 
 function getOntologyFileDataProperties (id, cb) {
-  dataAccess.getOntologyFileDataProps(id, (err, res) => {
+  dataAccess.getOntologyFileDataProperties(id, (err, res) => {
     if (err) return cb(err)
     let obj = JSON.parse(res.toString())
     return cb(null, {properties: obj})

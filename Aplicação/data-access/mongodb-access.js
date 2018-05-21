@@ -1,9 +1,10 @@
 module.exports = {
   sendDocToDb,
   findById,
-  updateById /*
-  findByQuery,
-  deleteById */
+  findByIds,
+  //updateById,
+  findByQuery
+  //deleteById
 }
 
 /*
@@ -12,17 +13,18 @@ module.exports = {
 const MongoClient = require('mongodb').MongoClient
 const url = 'mongodb://localhost:27017'
 const dbName = 'HomiDb'
-const indMapCollectionName = 'IndividualMappings'
 const ObjectID = require('mongodb').ObjectID
 
 /**
- * @param doc
- * @param {function} cb(err, result)
+ * This function inserts a new document into col
+ * @param col {String} colletion name
+ * @param doc {Object} document to insert
+ * @param cb {function} (err, result) callback function
  */
-function sendDocToDb (doc, cb) {
+function sendDocToDb (col, doc, cb) {
   MongoClient.connect(url, (err, client) => {
     if (err) return cb(err)
-    client.db(dbName).collection(indMapCollectionName).insertOne(doc, (err, result) => {
+    client.db(dbName).collection(col).insertOne(doc, (err, result) => {
       client.close()
       if (err) return cb(err)
       return cb(null, result.insertedId.toString())
@@ -31,32 +33,49 @@ function sendDocToDb (doc, cb) {
 }
 
 /**
- * @param id
- * @param {function} cb(err, result)
+ *  This searchs in col for a document identified by id
+ *  and returns it
+ * @param col {String} colletion name
+ * @param id {String} document id
+ * @param cb {function} (err, result) callback function
  */
-function findById (id, cb) {
+function findById (col, id, cb) {
   MongoClient.connect(url, (err, client) => {
     if (err) return cb(err)
-    client.db(dbName).collection(indMapCollectionName).findOne({_id: ObjectID(id)}, (err, result) => {
+    client.db(dbName).collection(col).findOne({_id: ObjectID(id)}, (err, result) => {
       client.close()
       if (err) return cb(err)
-      return cb(result)
+      return cb(null, result)
     })
   })
 }
 
 /**
- * @param id
- * @param {function} cb(err, result)
+ *
+ * @param col {String} collection name
+ * @param ids {Array} id's
+ * @param cb {function} (err, result)
  */
-function updateById (id, newValues, cb) {
+function findByIds (col, ids, cb) {
+  ids = ids.map(id => ObjectID(id))
+  findByQuery(col, {_id: {$in: ids}}, cb)
+}
+
+/**
+ *
+ * @param col {String} collection name
+ * @param id {String} document name
+ * @param newValues {Object} data to update
+ * @param cb {function}
+ */
+function updateById (col, id, newValues, cb) {
   MongoClient.connect(url, (err, client) => {
     if (err) return console.log(err)
-    let query = {_id: ObjectID('5afdbff24506ee1f084a25f1')}
-    client.db(dbName).collection(indMapCollectionName).updateOne(query, newValues, (err, result) => {
+    let query = {_id: ObjectID(id)}
+    client.db(dbName).collection(col).updateOne(query, newValues, (err, result) => {
       client.close()
       if (err) return cb(err)
-      return cb(result)
+      return cb(null, result)
     })
   })
 }
@@ -66,3 +85,20 @@ function updateById (id, newValues, cb) {
   if (err) return cb(err)
   return cb(null, result.insertedId.toString())
 } */
+
+/**
+ *
+ * @param col {String} collection id
+ * @param query {Object} query to filter
+ * @param cb {function}
+ */
+function findByQuery (col, query, cb) {
+  MongoClient.connect(url, (err, client) => {
+    if (err) return console.log(err)
+    client.db(dbName).collection(col).find(query).toArray((err, result) => {
+      client.close()
+      if (err) return cb(err)
+      return cb(null, result)
+    })
+  })
+}

@@ -94,5 +94,5 @@ function removeIndividualMapping (id, cb) {
 }
 
 function createIndividualMapping (indMap, cb) {
-  db.sendDocToDb(indMap, cb)
+  db.sendDocToDb('IndividualMappings', indMap, cb)
 }

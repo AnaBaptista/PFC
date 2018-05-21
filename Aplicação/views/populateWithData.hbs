@@ -5,7 +5,7 @@
         <div id="data-file-content" class="five column">
             <div id="data-file-data">
                 <div id="data-file-tree">
-                    <button class="ui circular compact icon basic button" onclick="getDataFileTree('{{this.dataFileIds}}');">
+                    <button class="ui circular compact icon basic button" onclick="getPopulateTree('{{id}}');">
                         <i class="angle double down icon"></i>
                     </button>
                 </div>
@@ -61,3 +61,9 @@
 </div>
 <!-- Footer -->
 {{> footer}}
+
+<script>
+    $(document).ready(function() {
+        $('.dropdown').dropdown({fullTextSearch: true})
+    });
+</script>
