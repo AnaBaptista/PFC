@@ -8,11 +8,8 @@ module.exports = router
 router.post('/map/individual', createIndividual)
 router.post('/map', createMapping)
 router.post('/map/individual/:individualId/properties/object', addIndividualMappingObjectProperties)
-// router.post('/map/individual/:individualId/properties/data', addIndividualMappingDataProperties)
-// router.post('/map/individual/:individualId/properties/annotation', addIndividualMappingAnnotationProperties)
-
-router.put('/map/individual/:individualId', updateIndividualMapping)
-router.put('/map/:mappingId', updateMapping)
+router.post('/map/individual/:individualId/properties/data', addIndividualMappingDataProperties)
+router.post('/map/individual/:individualId/properties/annotation', addIndividualMappingAnnotationProperties)
 
 router.get('/map/individual', getAllIndividualMappings)
 // router.get('/map/individual/:individualId', getIndividualMapping)
@@ -114,47 +111,33 @@ function getIndividualAnnotationProps (req, res, next) {
 
 /**
  * Id's needed in path:
- * :individualId -> this id refers to the individual mapping id for the individual mapping that was created.
+ * :individualId -> this id refers to the mapping id for the mapping that was created.
  * Will return a 400 status code if not present
  *
  * Body Parameters:
- * A data object with the following fields:
- * (string) tag. The node's tag
- * (string) name. The individual's name or the property that will become it's name
- * (string) label. A label (?)
- * (boolean) specification. It indicates that the created individual will modify the class of a previously created individual, as this is a subclass of the previously assigned class
- * (string) iri. The OWL IRI that identifies the OWL class that is being mapped
- * ** Optional **
- * (list) dataProps. A list of the data properties to be mapped to this individual. Can be an empty list and replaced later with the endpoint '/map/individual/:individualId/properties'
- * (list) objProps. A list of the object properties to be mapped to this individual. Can be an empty list and replaced later with the endpoint '/map/individual/:individualId/properties'
+ * (list) objProps. A list of the obj properties to be mapped to this individual.
+ * (list-entry) an object containing the owlClassIRI and toMapNodeId,  both string types
+ * example:
+ * objProps : [
+    {
+      owlIRI: 'owl iri',
+      toMapNodeId: '7531598426'
+
+    },
+    {
+      owlIRI: 'owl iri',
+      toMapNodeId: '159753268'
+    }
+  ]
  *
  * Returns: Id for that individual mapping
  */
-function updateIndividualMapping (req, res, next) {
-  console.log('/map/individual/:individualId, updateIndividualMapping')
+// @todo falta redirects para ter post redirect get
+function addIndividualMappingObjectProperties (req, res, next) {
+  console.log('/map/individual/:individualId/properties/object', addIndividualMappingObjectProperties)
   let id = req.params.individualId
-  if (id === undefined) {
-    res.statusCode = 400
-    res.json('Missing: individualId in path')
-    return
-  }
-  let ontologyFileId = req.query.ontologyFileId
-  let dataFileId = req.query.dataFIleId
-  if (ontologyFileId === undefined || dataFileId === undefined) {
-    res.statusCode = 400
-    res.json('Missing: ontologyFileId or dataFIleId in query')
-    return
-  }
-
-  let tag = req.body.tag
-  let name = req.body.name
-  let label = req.body.tag
-  let specification = req.body.specification
-  let IRI = req.body.iri
-  let dataProps = req.body.dataProps
   let objProps = req.body.objProps
-
-  service.updateIndividualMapping(id, [ontologyFileId, dataFileId], tag, name, label, specification, IRI, dataProps, objProps, (err, result) => {
+  service.addIndividualMappingProperties(id, objProps, (err, result) => {
     if (err) return next(err)
     return res.json(result)
   })
@@ -166,49 +149,62 @@ function updateIndividualMapping (req, res, next) {
  * Will return a 400 status code if not present
  *
  * Body Parameters:
- * (string) dataFileId
- * (list) objProps. A list of the obj properties to be mapped to this individual.
- * (list-entry) an object containing a list of pairs with the nodeid and its parent it, plus the iri to be associated
+ * (list) dataProps. A list of the obj properties to be mapped to this individual.
+ * (list-entry) an object containing a list of pairs with the nodeid plus the iri to be associated
  * example:
  * objProps : [
- {
-   owlIRI: 'owl iri',
-   nodeIds: [
-     {
-       parentId: 12,
-       toMapId: 34
-     },
-     {
-       parentId: 45,
-       toMapId: 67
-     }
-   ]
- },
- {
-   owlIRI: 'owl iri',
-   nodeIds: [
-     {
-       parentId: 12,
-       toMapId: 34
-     },
-     {
-       parentId: 45,
-       toMapId: 67
-     }
-   ]
- }
- ]
+    {
+        owlIRI: 'owl iri',
+        toMapNodeIds: ['123','456']
+    },
+    {
+        owlIRI: 'owl iri',
+        toMapNodeId: ['789','753']
+    }
+  ]
+ *
  * Returns: Id for that individual mapping
-*/
-// @todo falta redirects para ter post redirect get
-function addIndividualMappingObjectProperties (req, res, next) {
-  /*console.log('/map/individual/:individualId/properties/object', addIndividualMappingObjectProperties)
+ */
+function addIndividualMappingDataProperties (req, res, next) {
+  console.log('/map/individual/:individualId/properties/data', addIndividualMappingDataProperties)
   let id = req.params.individualId
   let objProps = req.body.objProps
   service.addIndividualMappingProperties(id, objProps, (err, result) => {
     if (err) return next(err)
     return res.json(result)
-  })*/
+  })
+}
+
+/**
+ * Id's needed in path:
+ * :individualId -> this id refers to the mapping id for the mapping that was created.
+ * Will return a 400 status code if not present
+ *
+ * Body Parameters:
+ * (list) annotationProps. A list of the annotation properties to be mapped to this individual.
+ * (list-entry) an object containing a list of pairs with the nodeid plus the iri to be associated
+ * example:
+ * annotationProps : [
+ {
+     owlIRI: 'owl iri',
+     toMapNodeIds: ['123','456']
+ },
+ {
+     owlIRI: 'owl iri',
+     toMapNodeId: ['789','753']
+ }
+ ]
+ *
+ * Returns: Id for that individual mapping
+ */
+function addIndividualMappingAnnotationProperties (req, res, next) {
+  console.log('/map/individual/:individualId/properties/annotation', addIndividualMappingAnnotationProperties)
+  let id = req.params.individualId
+  let annotationProps = req.body.annotationProps
+  service.addIndividualMappingProperties(id, annotationProps, (err, result) => {
+    if (err) return next(err)
+    return res.json(result)
+  })
 }
 
 /**

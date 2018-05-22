@@ -14,13 +14,13 @@ MongoClient.connect(url, (err, client) => {
 })
 
 /**
- * inser a document in MongoDb 'ObjectID(5afdbff24506ee1f084a25f1)'
-
+ * get a document in MongoDb 'ObjectID(5afdbff24506ee1f084a25f1)'
+*/
 MongoClient.connect(url, (err, client) => {
   if (err) return console.log(err)
   let db = client.db('HomiDb')
   let collection = db.collection('HomiCollection')
-  collection.findOne({_id: ObjectID('5afdbff24506ee1f084a25f1')}, (err, result) => {
+  collection.find((err, result) => {
     console.log(result)
   })
   client.close()
@@ -28,7 +28,7 @@ MongoClient.connect(url, (err, client) => {
 
 /**
  * update a document in MongoDb 'ObjectID(5afdbff24506ee1f084a25f1)'
- */
+
 MongoClient.connect(url, (err, client) => {
   if (err) return console.log(err)
   let db = client.db('HomiDb')
@@ -40,3 +40,4 @@ MongoClient.connect(url, (err, client) => {
   })
   client.close()
 })
+*/

@@ -5,10 +5,13 @@ module.exports = {
   updateIndividualMapping,
   updateMapping,
   addIndividualMappingObjectProperties,
+  addIndividualMappingDataProperties,
+  addIndividualMappingAnnotationProperties,
   removeIndividualMapping
 }
 
 const dataAccess = require('../data-access/individual-mapping-access')
+const dbAccess = require('../data-access/mongodb-access')
 const parser = require('../utils/PropertiesParser')
 
 /**
@@ -28,6 +31,11 @@ function createIndividualMapping (input, cb) {
     error.statusCode = 400
     return cb(error)
   }
+
+  parser.parseName(input, (err, result) => {
+    if (err) return cb(err)
+    let r = result
+  })
 
   dataAccess.createIndividualMapping(input, (err, id) => {
     if (err) return cb(err)
@@ -84,9 +92,7 @@ function updateIndividualMapping (id, fileList, tag, name, label, specification,
 }
 
 /**
- *
  * @param id
- * @param dataProps
  * @param objProps
  * @param cb (err, results)
  */
@@ -96,8 +102,50 @@ function addIndividualMappingObjectProperties (id, objProps, cb) {
     error.statusCode = 400
     return cb(error)
   }
-  parser.parseObjectProperties(objProps, (err, listOfParsedProps) => {
+  dbAccess.findById(id, (err, indMap) => {
     if (err) cb(err)
+    parser.parseObjectProperties(indMap, objProps, (err, listOfParsedProps) => {
+      if (err) cb(err)
+    })
+  })
+}
+
+/**
+ * @param id
+ * @param dataProps
+ * @param cb (err, results)
+ */
+function addIndividualMappingDataProperties (id, dataProps, cb) {
+  if (id === undefined) {
+    let error = new Error('Bad Request, missing individual mapping Id')
+    error.statusCode = 400
+    return cb(error)
+  }
+  dbAccess.findById(id, (err, indMap) => {
+    if (err) cb(err)
+
+    parser.parseDataProperties(indMap, dataProps, (err, listOfParsedProps) => {
+      if (err) cb(err)
+    })
+  })
+}
+
+/**
+ * @param id (string)
+ * @param annotationProps (list)
+ * @param cb (err, results)
+ */
+function addIndividualMappingAnnotationProperties (id, annotationProps, cb) {
+  if (id === undefined) {
+    let error = new Error('Bad Request, missing individual mapping Id')
+    error.statusCode = 400
+    return cb(error)
+  }
+  dbAccess.findById(id, (err, indMap) => {
+    if (err) cb(err)
+    parser.parseDataProperties(indMap, annotationProps, (err, listOfParsedProps) => {
+      if (err) cb(err)
+    })
   })
 }
 
