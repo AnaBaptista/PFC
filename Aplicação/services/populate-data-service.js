@@ -2,8 +2,11 @@ module.exports = {
   addPopulate,
   getPopulate,
   getPopulateOntologyFiles,
-  getPopulateDataFiles
+  getPopulateDataFiles,
+  getPopulateTree,
+  renderPopulate
 }
+const fileService = require('../services/file-service')
 
 const db = require('../data-access/mongodb-access')
 const populates = 'Populates'
@@ -14,6 +17,13 @@ function addPopulate (data, cb) {
   db.sendDocToDb(populates, data, (err, id) => {
     if (err) return cb(err)
     cb(null, id)
+  })
+}
+
+function getPopulate (id, cb) {
+  db.findById(populates, id, (err, res) => {
+    if (err) return cb(err)
+    cb(null, res)
   })
 }
 
@@ -49,9 +59,26 @@ function getPopulateDataFiles (id, cb) {
   })
 }
 
-function getPopulate (id, cb) {
-  db.findById(populates, id, (err, res) => {
+function getPopulateTree (id, cb) {
+  getPopulateDataFiles(id, (err, files) => {
     if (err) return cb(err)
-    cb(null, res)
+    fileService.getDataFileNodes(files.map(o => o.chaosid), (err, tree) => {
+      if (err) return cb(err)
+      cb(null, tree)
+    })
+  })
+}
+
+function renderPopulate (id, cb) {
+  getPopulateOntologyFiles(id, (err, files) => {
+    if (err) return cb(err)
+    fileService.getOntologyFileClasses(files.map(onto => onto.chaosid), (err, classes) => {
+      if (err) return cb(err)
+      let ctx = {
+        classes: classes,
+        _id: id
+      }
+      cb(null, ctx)
+    })
   })
 }

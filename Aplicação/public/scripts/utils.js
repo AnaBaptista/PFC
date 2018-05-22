@@ -1,12 +1,3 @@
-function textRequest (path, options) {
-  return fetch(path, options)
-    .then((res) => {
-      return res.text()
-    })
-    .catch(err => alert(err))
-}
-
-
 /**
  *
  * @param id {String} dropdown id
@@ -19,3 +10,4 @@ function getSelectedItems (id, selector) {
     .forEach(elem => filtersElems.push(elem))
   return filtersElems
 }
+

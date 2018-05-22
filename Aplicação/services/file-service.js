@@ -33,11 +33,19 @@ function addOntologyFile ({name, path}, cb) {
 }
 
 function addFile (path, name, col, cb) {
-  dataAccess.addFile(path, (err, chaosid) => {
+  db.findByQuery(col, {name: name}, (err, file) => {
     if (err) return cb(err)
-    db.sendDocToDb(col, {name: name, chaosid: chaosid}, (err, id) => {
+    if (file.length !== 0) {
+      let error = new Error(`File named ${name} already exists`)
+      error.status = 409
+      return cb(error)
+    }
+    dataAccess.addFile(path, (err, chaosid) => {
       if (err) return cb(err)
-      cb(null, id)
+      db.sendDocToDb(col, {name: name, chaosid: chaosid}, (err, id) => {
+        if (err) return cb(err)
+        cb(null, id)
+      })
     })
   })
 }
@@ -105,7 +113,7 @@ function getOntologyFileObjectProperties (id, cb) {
   dataAccess.getOntologyFileObjectProperties(id, (err, res) => {
     if (err) return cb(err)
     let obj = JSON.parse(res.toString())
-    return cb(null, {properties: obj})
+    return cb(null, obj)
   })
 }
 
@@ -113,6 +121,6 @@ function getOntologyFileDataProperties (id, cb) {
   dataAccess.getOntologyFileDataProperties(id, (err, res) => {
     if (err) return cb(err)
     let obj = JSON.parse(res.toString())
-    return cb(null, {properties: obj})
+    return cb(null, obj)
   })
 }

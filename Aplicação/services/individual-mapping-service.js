@@ -7,12 +7,18 @@ module.exports = {
   addIndividualMappingObjectProperties,
   addIndividualMappingDataProperties,
   addIndividualMappingAnnotationProperties,
-  removeIndividualMapping
+  removeIndividualMapping,
+  renderObjectProperties,
+  renderDataProperties
 }
 
 const dataAccess = require('../data-access/individual-mapping-access')
 const dbAccess = require('../data-access/mongodb-access')
 const parser = require('../utils/PropertiesParser')
+
+const collection = 'IndividualMappings'
+
+const fileService = require('../services/file-service')
 
 /**
  * @param input {tag: , nodeId: , owlClassIRI: , ontologyFileId: , dataFileId:}
@@ -37,7 +43,7 @@ function createIndividualMapping (input, cb) {
     let r = result
   })
 
-  dataAccess.createIndividualMapping(input, (err, id) => {
+  dbAccess.sendDocToDb(collection, input, (err, id) => {
     if (err) return cb(err)
     return cb(null, id)
   })
@@ -165,5 +171,28 @@ function removeIndividualMapping (id, cb) {
   dataAccess.removeIndividualMapping(id, (err, result) => {
     if (err) cb(err)
     return cb(null, result)
+  })
+}
+
+function renderObjectProperties (id, cb) {
+  dbAccess.findById(collection, id, (err, pop) => {
+    if (err) return cb(err)
+    fileService.getOntologyFileObjectProperties(pop.ontologyFileId, (err, props) => {
+      if (err) return cb(err)
+      cb(null, {oproperties: props})
+    })
+  })
+}
+function renderDataProperties (id, cb) {
+  dbAccess.findById(collection, id, (err, pop) => {
+    if (err) return cb(err)
+    fileService.getOntologyFileDataProperties(pop.ontologyFileId, (err, props) => {
+      if (err) return cb(err)
+      let obj = {
+        dproperties: props,
+        dpropertyTypes: ['String', 'Integer', 'Float', 'Double', 'Boolean']
+      }
+      cb(null, obj)
+    })
   })
 }

@@ -7,63 +7,34 @@ function submitFile (id, path) {
   let file = document.getElementById(`${id}-input`).files[0]
 
   if (!file) {
-    alertify.error('No file selected')
+    alertify.error('No selected file')
     return
   }
 
-  hasFile(id, file.name)
-    .then(f => {
-      if (f.length !== 0) {
-        throw new Error('Choose another filename')
-      }
-    }).then(_ => {
-      let formData = new FormData()
-      formData.append('file', file)
-      let options = {
-        method: 'POST',
-        body: formData
-      }
-      fetch(path, options)
-        .then(handleError)
-        .then(res => {
-          return res.json()
-        }).then(json => {
-          let item = document.createElement('div')
-          item.id = json._id
-          item.className = 'item'
-          item.innerText = file.name
-          document.getElementById(`${id}-menu`).appendChild(item)
-          /**
-         * Clear the file input
-         * @type {string}
-         */
-          document.getElementById(`${id}-input`).value = ''
-          document.getElementById(`${id}-input-text`).value = ''
-          alertify.success('File add with success')
-        }).catch(err => {
-          alertify.error(err.message)
-        })
-    }).catch(err => {
-      alertify.error(err.message)
-    })
-}
-
-/**
- * This function verifies if exists a file with name
- * @param id {String} file id
- * @param name {String} name to verify
- * @returns {Promise<any>}
- */
-function hasFile (id, name) {
-  let path = ((id === 'data-file') && '/dataFile') || ((id === 'ontology-file') && '/ontologyFile')
-  return fetch(path)
+  let formData = new FormData()
+  formData.append('file', file)
+  let options = {
+    method: 'POST',
+    body: formData
+  }
+  fetch(path, options)
     .then(handleError)
     .then(res => {
       return res.json()
     }).then(json => {
-      let file = json.filter(f => f.name === name)
-      return file
-    })
+      let item = document.createElement('div')
+      item.id = json._id
+      item.className = 'item'
+      item.innerText = file.name
+      document.getElementById(`${id}-menu`).appendChild(item)
+      /**
+     * Clear the file input
+     * @type {string}
+     */
+      document.getElementById(`${id}-input`).value = ''
+      document.getElementById(`${id}-input-text`).value = ''
+      alertify.success('File add with success')
+    }).catch(err => console.log(err.message))
 }
 
 /**
@@ -94,12 +65,12 @@ function populateOntologyWithData () {
     body: JSON.stringify(data)
   }
 
-  fetch('/populate', options)
+  fetch('/populate/data', options)
     .then(handleError)
     .then(res => res.json())
     .then(json => {
-      window.location.href = `/session/data/${json.id}`
-    }).catch(err => alert(err.message()))
+      window.location.href = `/populate/data/${json.id}`
+    }).catch(err => console.log(err.message))
 }
 
 /**
