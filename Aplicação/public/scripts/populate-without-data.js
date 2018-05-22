@@ -1,6 +1,6 @@
 function getOntologyFileData (id, data, name) {
   let path = `/ontologyFile/${id}/${data}`
-  textRequest(path).then(res => {
+  fetch(path).then(res => {
     let elem = document.getElementById(name)
     elem.innerHTML = res
     // let inputs = document.querySelectorAll(`input[name=${name}]`)

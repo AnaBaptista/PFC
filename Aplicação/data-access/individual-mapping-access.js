@@ -17,8 +17,6 @@ const api = 'http://localhost:8080/chaos/wsapi'
 const individualMappingManager = `${api}/individualMappingManager`
 // const mappingManager = `${api}/mappingManager`
 
-// MongoDb Acess
-const db = require('./mongodb-access')
 
 /**
  * @param {string} id
@@ -94,5 +92,5 @@ function removeIndividualMapping (id, cb) {
 }
 
 function createIndividualMapping (indMap, cb) {
-  db.sendDocToDb('IndividualMappings', indMap, cb)
+  //TODO: add individual to chaos pop
 }

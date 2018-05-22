@@ -1,6 +1,10 @@
 function handleError (response) {
   if (!response.ok) {
-    throw new Error(response.statusText)
+    response.text()
+      .then(error => {
+        document.body.innerHTML = error
+      })
+    throw new Error('Error')
   }
   return response
 }

@@ -3,13 +3,13 @@
  * @param id {Array} populate id
  */
 function getPopulateTree (id) {
-  fetch(`/populate/${id}/nodes`)
+  fetch(`/populate/data/${id}/tree`)
     .then(handleError)
     .then(res => res.json())
     .then(tree => {
       document.getElementById('data-file-tree').innerText = ''
       drawIndentedTree(tree, `data-file-tree`)
-    }).catch(err => alert(err.message))
+    }).catch(err => console.log(err.message))
 }
 
 /**
@@ -57,7 +57,7 @@ function createIndMapping () {
     .then(text => {
       let elem = document.getElementById('mapper-segment')
       elem.innerHTML = text
-    })
+    }).catch(err => console.log(err.message))
 }
 
 /**
@@ -97,6 +97,7 @@ function createDataProperty (id) {
     .then(handleError)
     .then(res => res.json())
     .then()
+    .catch(err => console.log(err.message))
 }
 
 /**
@@ -133,6 +134,7 @@ function createObjectProperty (id) {
     .then(handleError)
     .then(res => res.json())
     .then()
+    .catch(err => console.log(err.message))
 }
 
 /**
@@ -169,6 +171,7 @@ function createAnnotationProperty (id) {
     .then(handleError)
     .then(res => res.json())
     .then()
+    .catch(err => console.log(err.message))
 }
 
 /**
@@ -178,10 +181,10 @@ function createAnnotationProperty (id) {
  */
 function changeIndMappingContent (id, type) {
   changeDataFileOptionsToMappingId(type)
-  let path = (type === 'oproperty' && 'objectproperties') ||
-    (type === 'dproperty' && 'dataproperties') ||
-    (type === 'aproperty' && 'annotationproperties')
-  let url = `/map/individual/${id}/${path}`
+  let path = (type === 'oproperty' && 'objectprops') ||
+    (type === 'dproperty' && 'dataprops') ||
+    (type === 'aproperty' && 'annotationprops')
+  let url = `/map/individual/${id}/${path}/view`
   fetch(url)
     .then(handleError)
     .then(res => res.text())
@@ -189,7 +192,7 @@ function changeIndMappingContent (id, type) {
       let elem = document.getElementById('individual-mapping-content')
       elem.innerHTML = text
       $('.dropdown').dropdown({fullTextSearch: true})
-    })
+    }).catch(err => console.log(err.message))
 }
 
 /**
@@ -228,7 +231,7 @@ function changeDataFileOptionToMapping (node) {
 function addIndividualName () {
   let indName = document.getElementById('individual-name-to-term').childNodes
 
-  if(indName.length === 1) {
+  if (indName.length === 1) {
     alertify.error('First, select nodes')
     return
   }

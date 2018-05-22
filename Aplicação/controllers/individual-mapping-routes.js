@@ -13,10 +13,11 @@ router.post('/map/individual/:individualId/properties/annotation', addIndividual
 
 router.get('/map/individual', getAllIndividualMappings)
 // router.get('/map/individual/:individualId', getIndividualMapping)
-router.get('/map/individual/:individualId/objectProperties', getIndividualObjProps)
-router.get('/map/individual/:individualId/dataProperties', getIndividualDataProps)
-router.get('/map/individual/:individualId/annotationProperties', getIndividualAnnotationProps)
 // router.get('/map/individual/', removeIndividualMapping)
+
+router.get('/map/individual/:id/objectprops/view', renderObjectProps)
+router.get('/map/individual/:id/dataprops/view', renderDataProps)
+router.get('/map/individual/:id/annotationprops/view', renderAnnotationProps)
 
 /**
  * Body Parameters:
@@ -38,76 +39,6 @@ function createIndividual (req, res, next) {
   })
 }
 
-/**
- * Id's needed in path:
- * :mappingId -> this id refers to the mapping id for the mapping that was created.
- * Will return 400 if not present
- *
- * Id's needed in query:
- * :ontologyFileId
- * :dataFIleId
- * :nodeId
- * Will return a 400 status code if not present
- */
-function getIndividualObjProps (req, res, next) {
-  console.log('/map/individual/:individualId/objectProperties, getIndividualObjProps')
-  let dataFileId = req.query.dataFileId
-  let ontologyId = req.query.ontologyFileId
-  let nodeId = req.query.nodeId
-  let id = req.params.individualId
-
-  fileService.getOntologyFileObjectProperties(ontologyId, (err, result) => {
-    const ctx = {
-      layout: false,
-      _id: id,
-      nodeId: nodeId,
-      ontologyFileId: ontologyId,
-      dataFileId: dataFileId,
-      oproperties: result.properties
-    }
-    res.render('partials/individualMapObjectProps', ctx)
-  })
-}
-
-function getIndividualDataProps (req, res, next) {
-  console.log('/map/individual/:individualId/dataProperties, getIndividualDataProps')
-  let dataFileId = req.query.dataFileId
-  let ontologyId = req.query.ontologyFileId
-  let parentNodeId = req.query.nodeId
-  // let toMapNodeId
-  let id = req.params.individualId
-
-  fileService.getOntologyFileDataProperties(ontologyId, (err, result) => {
-    const ctx = {
-      layout: false,
-      _id: id,
-      nodeId: parentNodeId,
-      ontologyFileId: ontologyId,
-      dataFileId: dataFileId,
-      dproperties: result.properties,
-      dpropertyTypes: ['String', 'Integer', 'Float', 'Double', 'Boolean']
-    }
-    res.render('partials/individualMapDataProps', ctx)
-  })
-}
-
-function getIndividualAnnotationProps (req, res, next) {
-  console.log('/map/individual/:individualId/annotationProperties, getIndividualAnnotationProps')
-  let dataFileId = req.query.dataFileId
-  let ontologyId = req.query.ontologyFileId
-  let nodeId = req.query.nodeId
-  let id = req.params.individualId
-
-  const ctx = {
-    layout: false,
-    _id: id,
-    ontologyFileId: ontologyId,
-    dataFileId: dataFileId,
-    nodeId: nodeId,
-    aproperties: ['Label', 'Comment', 'VersionInfo']
-  }
-  res.render('partials/individualMapAnnotationProps', ctx)
-}
 
 /**
  * Id's needed in path:
@@ -268,4 +199,34 @@ function removeIndividualMapping (req, res, next) {
     if (err) return next(err)
     return res.json(result)
   })
+}
+
+function renderObjectProps (req, res, next) {
+  let id = req.params.id
+  service.renderObjectProperties(id, (err, props) => {
+    if (err) return next(err)
+    const ctx = {layout: false, _id: id}
+    Object.assign(ctx, props)
+    res.render('partials/individualMapObjectProps', ctx)
+  })
+}
+
+function renderDataProps (req, res, next) {
+  let id = req.params.id
+  service.renderDataProperties(id, (err, props) => {
+    if (err) return next(err)
+    const ctx = {layout: false, _id: id}
+    Object.assign(ctx, props)
+    res.render('partials/individualMapDataProps', ctx)
+  })
+}
+
+function renderAnnotationProps (req, res, next) {
+  let id = req.params.id
+  const ctx = {
+    layout: false,
+    _id: id,
+    aproperties: ['Label', 'Comment', 'VersionInfo']
+  }
+  res.render('partials/individualMapAnnotationProps', ctx)
 }
