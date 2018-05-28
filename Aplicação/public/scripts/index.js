@@ -1,5 +1,5 @@
 /**
- * This function submit a file to homidb
+ * This function submits a file to homidb
  * @param id {String} input file id
  * @param path {String} endpoint to submit
  */
@@ -46,7 +46,7 @@ function populateOntologyWithData () {
   let dFiles = getSelectedItems('data-file-menu', '.filtered').map(d => d.id)
 
   if (oFiles.length === 0 || dFiles.length === 0) {
-    alertify.error('File required')
+    alertify.error('Missing data files or ontology files')
     return
   }
 
@@ -56,7 +56,36 @@ function populateOntologyWithData () {
       ontologyFiles: oFiles
     }
   }
+  populate('/populate/data', data)
+}
 
+/**
+ * This function submits all selected ontology files and renders
+ * the populateWithoutData view
+ */
+function populateOntologyWithoutData () {
+  let oFiles = getSelectedItems('ontology-file-menu', '.filtered').map(o => o.id)
+
+  if (oFiles.length === 0) {
+    alertify.error('Missing ontology files')
+    return
+  }
+
+  let data = {
+    data: {
+      ontologyFiles: oFiles
+    }
+  }
+  populate('/populate/nondata', data)
+}
+
+/**
+ * This function creates a populate and renders the
+ * specified populate (with or without data)
+ * @param path {String} path to populate with or without data
+ * @param data {Object} populate to create
+ */
+function populate (path, data) {
   let options = {
     method: 'POST',
     headers: {
@@ -65,18 +94,10 @@ function populateOntologyWithData () {
     body: JSON.stringify(data)
   }
 
-  fetch('/populate/data', options)
+  fetch('/populate', options)
     .then(handleError)
     .then(res => res.json())
     .then(json => {
-      window.location.href = `/populate/data/${json.id}`
+      window.location.href = `${path}/${json.id}`
     }).catch(err => console.log(err.message))
-}
-
-/**
- * This function submits all selected ontology files and renders
- * the populateWithoutData view
- */
-function populateOntologyWithoutData () {
-
 }

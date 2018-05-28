@@ -4,7 +4,8 @@ module.exports = {
   getPopulateOntologyFiles,
   getPopulateDataFiles,
   getPopulateTree,
-  renderPopulate
+  renderPopulateWithData,
+  renderPopulateWithoutData
 }
 const fileService = require('../services/file-service')
 
@@ -69,7 +70,7 @@ function getPopulateTree (id, cb) {
   })
 }
 
-function renderPopulate (id, cb) {
+function renderPopulateWithData (id, cb) {
   getPopulateOntologyFiles(id, (err, files) => {
     if (err) return cb(err)
     fileService.getOntologyFileClasses(files.map(onto => onto.chaosid), (err, classes) => {
@@ -80,5 +81,11 @@ function renderPopulate (id, cb) {
       }
       cb(null, ctx)
     })
+  })
+}
+
+function renderPopulateWithoutData(id, cb) {
+  getPopulateOntologyFiles(id, (err, files) => {
+
   })
 }
