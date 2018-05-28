@@ -127,6 +127,7 @@ function addIndividualMappingDataProperties (id, dataProps, cb) {
     error.statusCode = 400
     return cb(error)
   }
+
   dbAccess.findById(id, (err, indMap) => {
     if (err) cb(err)
 

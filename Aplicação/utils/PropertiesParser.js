@@ -4,25 +4,29 @@ module.exports = {
   parseAnnotationProperties,
   parseName
 }
-const service = require('../services/file-service')
+// const service = require('../services/file-service')
+const async = require('async')
 const nodeAccess = require('../data-access/node-access')
 
 function parseName (input, cb) {
   let name = '.inspecificchild'
-  let i
-  for (i = 0; i < input.individualName.length; i++) {
-    name = parserAux(name, input.individualName[i], input.nodeId, cb)
-    name = `${name};`
-  }
-  cb(null, name)
+  async.each(input.individualName,
+    (toMapNodeID, cb) => {
+      name = parserAux(name, toMapNodeID, input.nodeId, cb)
+      name = `${name};`
+    },
+    (err, name) => {
+      if (err) { cb(err) }
+      cb(null, name)
+    })
 }
 
-function parserAux (name, toMapId, parentId, cb) {
+function parserAux (name, toMapId, indMapId, cb) {
   getNodeById(toMapId, (err, result) => {
-    if (err) return cb(err)
+    if (err) { return cb(err) }
+	  if (result.parent === indMapId) return name
     name = `${name}-${result.tag}`
-    if (result.parent === parentId) return name
-    parserAux(name, result.parent, parentId, cb)
+    parserAux(name, result.parent, indMapId, cb)
   })
 }
 
