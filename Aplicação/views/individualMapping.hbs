@@ -5,7 +5,7 @@
         <div class="row">
             <div class="three wide column">
                 <h5 class="ui center aligned header">
-                    <i class="circular file alternate outline icon"></i>
+                    <i class="circular sitemap alternate outline icon"></i>
                     INDIVIDUAL MAPPING
                 </h5>
             </div>
@@ -18,7 +18,7 @@
                </div>
             </div>
             <div class="three wide column">
-                <button class="ui button circular fluid basic secondary">
+                <button class="ui fluid button basic secondary">
                     SAVE
                 </button>
             </div>
@@ -35,6 +35,26 @@
                         </div>
                     </div>
                     <div class="five wide column">
+                        <h5 class="ui center aligned header">
+                            <button class="ui icon circular button basic secondary" onclick="addIndividualName();" id="add-name-btn">
+                                <i class="icon plus"></i>
+                            </button>
+                            Individual Name
+                        </h5>
+                        <div class="ui internally celled grid" id="individual-name-row" style="display:none;">
+                            <div class="row">
+                                <div class="twelve wide column">
+                                    <div id="individual-name-to-term">
+                                    </div>
+                                </div>
+                                <div class="one wide column">
+                                    <button class="ui button basic secondary" onclick="createIndividualName('{{_id}}')">
+                                        save
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
                         <div class="ui buttons black ten wide fields">
                             <button class="ui button" onclick="changeIndMappingContent('{{_id}}', 'aproperty');">annotation properties</button>
                             <button class="ui button" onclick="changeIndMappingContent('{{_id}}', 'dproperty');">data properties</button>

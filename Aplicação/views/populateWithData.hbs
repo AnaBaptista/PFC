@@ -13,22 +13,13 @@
         </div>
         <div class="eleven wide column" id="mapper-segment">
             <h5 class="ui center aligned icon header">
-                <i class="circular file alternate outline icon"></i>
+                <i class="circular sitemap alternate outline icon"></i>
                 INDIVIDUAL MAPPING
             </h5>
             <hr>
-            <div id="data-file-term" style="display: none">individual-name-to-term</div>
+            <div id="data-file-term" style="display: none">classes-to-term</div>
             <div class="ui internally celled grid">
                 <div class="eight wide column" id="create-mapping">
-                    <h5 class="ui center aligned header">
-                        <button class="ui icon circular button basic secondary" onclick="addIndividualName();" id="add-name-btn">
-                            <i class="icon plus"></i>
-                        </button>
-                        Choose one or more nodes for Individual Name
-                    </h5>
-                    <div id="individual-name-to-term">
-                    </div>
-                    <hr>
                     <h5 class="ui center aligned header">
                         Choose a node to mapper and the respective OWL class
                     </h5>
@@ -56,15 +47,23 @@
                     <h5 class="ui center aligned header">
                         Already exist
                     </h5>
-                    <div class="ui middle aligned divided list">
+                    <div class="ui middle aligned divided list" id="individual-mapping-list">
                         {{#each this.indMappings}}
-                            <div class="item">
-                                <div class="header">
-                                    <a href="/populate/data/{{../this._id}}/individual/{{_id}}">
+                            <div class="item" id="individual-mapping-{{_id}}">
+                                <div class="right floated content">
+                                    <button class="ui icon mini button basic secondary" onclick="deleteIndividualMapping('{{_id}}')">
+                                        <i class="large trash alternate outline middle aligned icon"></i>
+                                    </button>
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="/populate/data/{{../this._id}}/individual/{{_id}}">
                                         {{tag}}
                                     </a>
+                                    <div class="description">
+
+                                    </div>
+                                    {{owlClassIRI}}
                                 </div>
-                                {{owlClassIRI}}
                             </div>
                         {{/each}}
                     </div>
