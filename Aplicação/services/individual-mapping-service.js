@@ -1,13 +1,10 @@
 module.exports = {
   createIndividualMapping,
-  getAllIndividualMappings,
   getIndividualMapping,
-  updateIndividualMapping,
-  updateMapping,
+  addIndividualMappingName,
   addIndividualMappingObjectProperties,
   addIndividualMappingDataProperties,
   addIndividualMappingAnnotationProperties,
-  removeIndividualMapping,
   renderObjectProperties,
   renderDataProperties
 }
@@ -32,16 +29,11 @@ function createIndividualMapping (input, cb) {
   }
 
   if (input.tag === undefined || input.owlClassIRI === undefined || input.nodeId === undefined ||
-      input.individualName === undefined || input.specification !== false) {
-    let error = new Error('Bad Request, missing TAG or IRI or NODEID or INDIVIDUALNAME or SPACFICATION is different from false')
+       input.specification !== false) {
+    let error = new Error('Bad Request, missing TAG or IRI or NODEID, or SPECIFICATION is different from false')
     error.statusCode = 400
     return cb(error)
   }
-
-  parser.parseName(input, (err, result) => {
-    if (err) return cb(err)
-    let r = result
-  })
 
   dbAccess.sendDocToDb(collection, input, (err, id) => {
     if (err) return cb(err)
@@ -94,6 +86,30 @@ function updateIndividualMapping (id, fileList, tag, name, label, specification,
   dataAccess.updateIndividualMapping(id, individualMappingTO, (err, result) => {
     if (err) return cb(err)
     return cb(null, result)
+  })
+}
+
+function addIndividualMappingName (id, listOfNodes, cb) {
+  if (id === undefined) {
+    let error = new Error('Bad Request, missing individual mapping id')
+    error.statusCode = 400
+    return cb(error)
+  }
+  if (listOfNodes === undefined || listOfNodes.length ===0 ) {
+    let error = new Error('Bad Request, missing individualName or individualName array size is 0')
+    error.statusCode = 400
+    return cb(error)
+  }
+
+  dbAccess.findById(collection, id, (err, indMap) => {
+    if (err) cb(err)
+    parser.parseName(listOfNodes, indMap.nodeId, (err, parsedName) => {
+      if (err) return cb(err)
+      let set = {individualName: parsedName}
+      dbAccess.updateById(collection, id, set, (err) => {
+        if (err) cb(err)
+      })
+    })
   })
 }
 

@@ -8,25 +8,38 @@ module.exports = {
 const async = require('async')
 const nodeAccess = require('../data-access/node-access')
 
-function parseName (input, cb) {
-  let name = '.inspecificchild'
-  async.each(input.individualName,
-    (toMapNodeID, cb) => {
-      name = parserAux(name, toMapNodeID, input.nodeId, cb)
-      name = `${name};`
+function parseName (listOfNodes, indMapNode, cb) {
+  parser(listOfNodes, indMapNode, cb)
+}
+
+function parser (listOfNodes, indMapNode, parseCb) {
+  // creates an empty strings array to store the search results of individual names
+  let results = Array(listOfNodes.length).fill('')
+
+  async.eachOf(listOfNodes,
+    (toMapNodeID, index, callback) => {
+      parserAux(toMapNodeID, indMapNode, results, index, callback)
     },
-    (err, name) => {
-      if (err) { cb(err) }
-      cb(null, name)
+    (err) => {
+      if (err) parseCb(err)
+      let toRet = ''
+      results.forEach(string => { toRet = `${toRet}.inspecificchild${string};` })
+      toRet = toRet.slice(0, -1)
+      parseCb(null, toRet)
     })
 }
 
-function parserAux (name, toMapId, indMapId, cb) {
-  getNodeById(toMapId, (err, result) => {
-    if (err) { return cb(err) }
-	  if (result.parent === indMapId) return name
-    name = `${name}-${result.tag}`
-    parserAux(name, result.parent, indMapId, cb)
+function parserAux (toMapId, indMapId, results, index, callback) {
+  getNodeById(toMapId, (err, node) => {
+    if (err) { return callback(err) }
+
+    results[index] = `-${node.tag}${results[index]}`
+    if (node.parent === undefined) {
+      callback(
+        new Error('Failed to parse property or name, please choose another node to parse, make sure it is a child node from the node selected for individual mapping'))
+    }
+    if (node.parent !== indMapId) parserAux(node.parent, indMapId, results, index, callback)
+    else callback()
   })
 }
 
@@ -43,12 +56,6 @@ function getNodeById (nodeId, cb) {
     if (err) return cb(err)
     return cb(null, JSON.parse(result))
   })
-}
-
-function searchNode (nodeId, tree) {
-  // for(NodesTO node : tree){
-  //   if(node)
-  // }
 }
 
 // parseObjectProperties(['5af093d445193e040736e20f'], null, () => {})

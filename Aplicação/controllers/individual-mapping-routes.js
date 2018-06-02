@@ -1,12 +1,13 @@
 const router = require('express')()
 
 const service = require('../services/individual-mapping-service')
-const fileService = require('../services/file-service')
 
 module.exports = router
 
-router.post('/map/individual', createIndividual)
 router.post('/map', createMapping)
+router.post('/map/individual', createIndividual)
+
+router.post('/map/individual/:individualId/name', addIndividualMappingName)
 router.post('/map/individual/:individualId/properties/object', addIndividualMappingObjectProperties)
 router.post('/map/individual/:individualId/properties/data', addIndividualMappingDataProperties)
 router.post('/map/individual/:individualId/properties/annotation', addIndividualMappingAnnotationProperties)
@@ -19,6 +20,8 @@ router.get('/map/individual/:id/objectprops/view', renderObjectProps)
 router.get('/map/individual/:id/dataprops/view', renderDataProps)
 router.get('/map/individual/:id/annotationprops/view', renderAnnotationProps)
 
+router.delete('/map/individual/:individualId', removeIndividualMapping)
+
 /**
  * Body Parameters:
  * (Object) data
@@ -28,6 +31,26 @@ function createIndividual (req, res, next) {
   console.log('/map/individual, createIndividual')
   let input = req.body.data
   service.createIndividualMapping(input, (err, id) => {
+    if (err) return next(err)
+    res.json({_id: id})
+  })
+}
+
+/**
+ * Id's needed in path:
+ * :individualId -> this id refers to the mapping id for the mapping that was created.
+ * Will return a 400 status code if not present
+ *
+ * Body Parameters:
+ * (list) name. A list of noe id's that will make the individual's name
+ *
+ * Returns: Id for that individual mapping
+ */
+function addIndividualMappingName (req, res, next) {
+  console.log('/map/individual/:individualId/name, addIndividualMappingName')
+  let id = req.params.individualId
+  let input = req.body.individualName
+  service.addIndividualMappingName(id, input, (err, id) => {
     if (err) return next(err)
     res.json({_id: id})
   })
