@@ -108,6 +108,7 @@ function addIndividualMappingName (id, listOfNodes, cb) {
       let set = {individualName: parsedName}
       dbAccess.updateById(collection, id, set, (err) => {
         if (err) return cb(err)
+        cb()
       })
     })
   })
@@ -137,6 +138,7 @@ function addIndividualMappingObjectProperties (id, objProps, cb) {
       let set = {objectProperties: parsedProps}
       dbAccess.updateById(collection, id, set, (err) => {
         if (err) return cb(err)
+        cb()
       })
     })
   })

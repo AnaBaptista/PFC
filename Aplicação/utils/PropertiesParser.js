@@ -32,25 +32,24 @@ function parseObjectProperties (listOfProps, indMapNode, cb) {
 }
 
 const dataType = ['Integer', 'Boolean', 'Float', 'Double', 'String']
-function parseDataProperties (listOfProps, inMapNode, cb) {
-
-  let objProps = []
+function parseDataProperties (listOfProps, indMapNode, cb) {
+  let data = []
   async.each(listOfProps,
     (listEntry, callback) => {
+      if (dataType[listEntry.type] === undefined) { return cb(new Error(`Type from entry ${listEntry.} does not match one of the allowed types: 'Integer', 'Boolean', 'Float', 'Double', 'String'`)) }
       parser(listEntry.toMapNodeId, indMapNode,
         (err, parsedProp) => {
           let obj = {}
           if (err) return callback(err)
-          obj[listEntry.owlIRI] = parsedProp
-          objProps.push(obj)
+          obj[listEntry.owlIRI] = [parsedProp, listEntry.type]
+          data.push(obj)
           callback()
         })
     },
     (err) => {
       if (err) return cb(err)
-      return cb(null, objProps)
+      return cb(null, data)
     })
-
 }
 
 const labelType = ['label', 'comment', 'seeAlso', 'isDefinedBy', 'versionInfo ', 'backwardCompatibleWith', 'incompatibleWith']
