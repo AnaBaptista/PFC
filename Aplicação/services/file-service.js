@@ -16,7 +16,7 @@ const dataFileCol = 'DataFiles'
 const ontologyFileCol = 'OntologyFiles'
 
 const async = require('async')
-const listTotree = require('../utils/list-to-tree')
+const treeFunctions = require('../utils/tree-functions')
 
 function addDataFile ({name, path}, cb) {
   addFile(path, name, dataFileCol, (err, id) => {
@@ -76,14 +76,15 @@ function getDataFileNodes (ids, cb) {
   async.map(ids, (data, cbReq) => {
     dataAccess.getDataFileNodes(data, (err, nodes) => {
       if (err) return cb(err)
-      return cbReq(null, JSON.parse(nodes))
+      return cbReq(null, {dataFileId: data, nodes: JSON.parse(nodes)})
     })
   }, (err, res) => {
     if (err) return cb(err)
     let tree = []
-    res.forEach(nodes => {
-      let root = listTotree(nodes.nodesTO)
+    res.forEach(obj => {
+      let root = treeFunctions.listToTree(obj.nodes.nodesTO)
       root.parentid = '0'
+      root.dataFileId = obj.dataFileId
       tree.push(root)
     })
     return cb(null, tree)

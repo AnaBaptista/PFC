@@ -1,0 +1,63 @@
+<!-- Navbar -->
+{{> navbar}}
+<div class="ui body-content" id="mapper-content">
+    <div class="ui celled internally grid" id="mapper-grid">
+        <div class="row">
+            <div class="three wide column">
+                <h5 class="ui center aligned header">
+                    <i class="circular file alternate outline icon"></i>
+                    INDIVIDUAL MAPPING
+                </h5>
+            </div>
+            <div class="ten wide column">
+                <div>
+                    TAG: {{tag}}
+                </div>
+               <div>
+                   IRI: {{owlClassIRI}}
+               </div>
+            </div>
+            <div class="three wide column">
+                <button class="ui button circular fluid basic secondary">
+                    SAVE
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen wide column">
+                <div id="data-file-term" style="display: none"></div>
+                <div class="ui internally celled grid" id="individual-content" >
+                    <div class="five wide column" id="individual-data">
+                        <div id="individual-tree">
+                            <button class="ui circular compact icon basic button" onclick="getPopulateIndividualTree('{{popId}}','{{_id}}');">
+                                <i class="angle double down icon"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="five wide column">
+                        <div class="ui buttons black ten wide fields">
+                            <button class="ui button" onclick="changeIndMappingContent('{{_id}}', 'aproperty');">annotation properties</button>
+                            <button class="ui button" onclick="changeIndMappingContent('{{_id}}', 'dproperty');">data properties</button>
+                            <button class="ui button" onclick="changeIndMappingContent('{{_id}}', 'oproperty');">object properties</button>
+                        </div>
+                        <div id="individual-mapping-content">
+                        </div>
+                    </div>
+                    <div class="six wide column">
+                        <h5 class="ui center aligned header">
+                            Properties that you mapped
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer -->
+{{> footer}}
+
+<script>
+    $(document).ready(function() {
+        $('.dropdown').dropdown({fullTextSearch: true})
+    });
+</script>

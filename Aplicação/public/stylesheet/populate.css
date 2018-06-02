@@ -3,8 +3,7 @@
 }
 
 #mapper-segment {
-    min-height: 525px;
-    margin-top: -15px;
+    min-height: 630px;
 }
 
 #ontology-file-data {
@@ -13,7 +12,7 @@
 }
 
 #data-file-data {
-    max-height: 530px;
+    max-height: 525px;
     overflow-y: auto;
     margin-top: -15px;
     margin-left: -15px;
@@ -23,12 +22,12 @@
     min-height: 150px;
 }
 
-.classes-to, .oproperty-to, .dproperty-to, .aproperty-to, .individual-name-to {
+#classes-to-term, #individual-name-to-term {
     min-height: 30px;
 }
 
-#individual-mapping-content {
-    min-height: 250px;
+.oproperty-to, .dproperty-to, .aproperty-to {
+    min-height: 30px;
 }
 
 #individual-mapping-data {
@@ -41,4 +40,25 @@
 
 #select-dproperty{
     margin-top: 15px;
+}
+
+#create-mapping-btn {
+    margin-top: 50px;
+}
+
+#create-mapping {
+    min-height: 600px;
+}
+
+#mapper-grid {
+    margin-top: 0px;
+}
+
+#individual-content {
+    margin-top: -14px;
+    min-height: 100%;
+}
+
+#individual-mapping-content {
+    min-height: 500px;
 }

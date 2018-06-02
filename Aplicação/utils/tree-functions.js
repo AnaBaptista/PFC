@@ -41,4 +41,30 @@ function recursiveListToTree (list, parent, tree) {
   return tree
 }
 
-module.exports = listToTree
+function searchById (tree, id) {
+  let cnode
+  if (tree !== null) {
+    cnode = recursiveSearchById(tree, id)
+  }
+  return cnode
+}
+
+function recursiveSearchById (tree, id) {
+  let cnode
+  let i = 0
+  if (tree.id === id) {
+    cnode = tree
+  } else if (tree.children.length !== 0) {
+    i = 0
+    while (!cnode && i < tree.children.length) {
+      cnode = recursiveSearchById(tree.children[i], id)
+      i++
+    }
+  }
+  return cnode
+}
+
+module.exports = {
+  listToTree,
+  searchById
+}

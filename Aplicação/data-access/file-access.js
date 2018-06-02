@@ -12,8 +12,8 @@ const req = require('request')
 const fs = require('fs')
 const handleResponse = require('../utils/handle-response')
 
-const api = 'http://chaospop.sysresearch.org/chaos/wsapi'
-// const api = 'http://localhost:8080/chaos/wsapi'
+// const api = 'http://chaospop.sysresearch.org/chaos/wsapi'
+const api = 'http://localhost:8080/chaos/wsapi'
 const dataFile = `${api}/fileManager`
 const ontologyFile = `${api}/ontologyManager`
 const nodeManager = `${api}/nodeManager`

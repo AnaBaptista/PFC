@@ -2,7 +2,7 @@ module.exports = {
   sendDocToDb,
   findById,
   findByIds,
-  //updateById,
+  updateById,
   findByQuery
   //deleteById
 }
@@ -64,7 +64,7 @@ function findByIds (col, ids, cb) {
 /**
  *
  * @param col {String} collection name
- * @param id {String} document name
+ * @param id {String} document id
  * @param newValues {Object} data to update
  * @param cb {function}
  */
@@ -72,7 +72,8 @@ function updateById (col, id, newValues, cb) {
   MongoClient.connect(url, (err, client) => {
     if (err) return console.log(err)
     let query = {_id: ObjectID(id)}
-    client.db(dbName).collection(col).updateOne(query, newValues, (err, result) => {
+    let set = { $set: newValues }
+    client.db(dbName).collection(col).updateOne(query, set, (err, result) => {
       client.close()
       if (err) return cb(err)
       return cb(null, result)

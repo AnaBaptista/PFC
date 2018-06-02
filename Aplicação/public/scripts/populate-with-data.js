@@ -3,19 +3,39 @@
  * @param id {Array} populate id
  */
 function getPopulateTree (id) {
-  fetch(`/populate/data/${id}/tree`)
+  getTree(`/populate/data/${id}/tree`, 'data-file-tree')
+}
+
+/**
+ * It draws dinamically the tree that belongs to specified
+ * individual mapping
+ * @param id {String} populate id
+ * @param ind {String} individual mapping id
+ */
+function getPopulateIndividualTree (id, ind) {
+  getTree(`/populate/data/${id}/individual/${ind}/tree`, 'individual-tree')
+}
+
+/**
+ * Generic function that draws a tree into element identified by id
+ * @param path {String} path to get the tree
+ * @param id {String} html element id
+ */
+function getTree (path, id) {
+  fetch(path)
     .then(handleError)
     .then(res => res.json())
     .then(tree => {
-      document.getElementById('data-file-tree').innerText = ''
-      drawIndentedTree(tree, `data-file-tree`)
+      document.getElementById(id).innerText = ''
+      drawIndentedTree(tree, id)
     }).catch(err => console.log(err.message))
 }
 
 /**
  * This function create an individual mapping on server side
+ * @param populateId {String} populate with data id
  */
-function createIndMapping () {
+function createIndMapping (populateId) {
   let node = document.getElementById('classes-to-term').childNodes[0]
   let onto = getSelectedItems('classes-menu', '.selected')
   let indName = document.getElementById('individual-name-to-term')
@@ -53,10 +73,11 @@ function createIndMapping () {
 
   fetch(`/map/individual`, options)
     .then(handleError)
-    .then(res => res.text())
-    .then(text => {
-      let elem = document.getElementById('mapper-segment')
-      elem.innerHTML = text
+    .then(res => res.json())
+    .then(json => {
+      window.location.href = `/populate/data/${populateId}/individual/${json._id}`
+      // let elem = document.getElementById('mapper-segment')
+      // elem.innerHTML = text
     }).catch(err => console.log(err.message))
 }
 

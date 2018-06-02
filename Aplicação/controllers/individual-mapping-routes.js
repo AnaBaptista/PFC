@@ -29,16 +29,9 @@ function createIndividual (req, res, next) {
   let input = req.body.data
   service.createIndividualMapping(input, (err, id) => {
     if (err) return next(err)
-    const ctx = {
-      layout: false,
-      _id: id,
-      tag: input.tag,
-      IRI: input.owlClassIRI
-    }
-    res.render('partials/individualMapping', ctx)
+    res.json({_id: id})
   })
 }
-
 
 /**
  * Id's needed in path:

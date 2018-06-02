@@ -1,8 +1,8 @@
 <!-- Navbar -->
 {{> navbar}}
 <div class="ui body-content" id="mapper-content">
-    <div class="ui internally celled three column grid" id="mapper-grid">
-        <div id="data-file-content" class="five column">
+    <div class="ui internally celled grid" id="mapper-grid">
+        <div id="data-file-content" class="five wide column">
             <div id="data-file-data">
                 <div id="data-file-tree">
                     <button class="ui circular compact icon basic button" onclick="getPopulateTree('{{_id}}');">
@@ -11,50 +11,64 @@
                 </div>
             </div>
         </div>
-        <div class="five column">
+        <div class="eleven wide column" id="mapper-segment">
+            <h5 class="ui center aligned icon header">
+                <i class="circular file alternate outline icon"></i>
+                INDIVIDUAL MAPPING
+            </h5>
+            <hr>
             <div id="data-file-term" style="display: none">individual-name-to-term</div>
-            <div id="mapper-segment">
-                <h5 class="ui center aligned icon header">
-                    <i class="circular file alternate outline icon"></i>
-                    INDIVIDUAL MAPPING
-                </h5>
-                <hr>
-                <button class="ui button fluid basic secondary" onclick="createIndMapping();">
-                    Create
-                </button>
-                <hr>
-                <h5 class="ui center aligned header">
-                    <button class="ui icon circular button basic secondary" onclick="addIndividualName();" id="add-name-btn">
-                        <i class="icon plus"></i>
-                    </button>
-                    INDIVIDUAL NAME
-                </h5>
-                <div class="individual-name-to">
+            <div class="ui internally celled grid">
+                <div class="eight wide column" id="create-mapping">
+                    <h5 class="ui center aligned header">
+                        <button class="ui icon circular button basic secondary" onclick="addIndividualName();" id="add-name-btn">
+                            <i class="icon plus"></i>
+                        </button>
+                        Choose one or more nodes for Individual Name
+                    </h5>
                     <div id="individual-name-to-term">
                     </div>
-                </div>
-                <hr>
-                <div class="classes-to">
+                    <hr>
+                    <h5 class="ui center aligned header">
+                        Choose a node to mapper and the respective OWL class
+                    </h5>
                     <div id="classes-to-term">
                     </div>
+                    <div class="ui fluid search selection dropdown classes-menu">
+                        <input name="select-class" type="hidden">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Select class</div>
+                        <div class="menu" id="classes-menu">
+                            {{#each this.classes}}
+                                <div class="item" data-value="{{IRI}}" id="{{ontologyId}}">
+                                    {{IRI}}
+                                </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                    <h5 class="ui center aligned header" id="create-mapping-btn">
+                        <button class="ui button basic secondary" onclick="createIndMapping('{{_id}}');">
+                            CREATE
+                        </button>
+                    </h5>
                 </div>
-                <div class="ui fluid search selection dropdown classes-menu">
-                    <input name="select-class" type="hidden">
-                    <i class="dropdown icon"></i>
-                    <div class="default text">Select class</div>
-                    <div class="menu" id="classes-menu">
-                        {{#each this.classes}}
-                            <div class="item" data-value="{{IRI}}" id="{{ontologyId}}">
-                                {{IRI}}
+                <div class="eight wide column">
+                    <h5 class="ui center aligned header">
+                        Already exist
+                    </h5>
+                    <div class="ui middle aligned divided list">
+                        {{#each this.indMappings}}
+                            <div class="item">
+                                <div class="header">
+                                    <a href="/populate/data/{{../this._id}}/individual/{{_id}}">
+                                        {{tag}}
+                                    </a>
+                                </div>
+                                {{owlClassIRI}}
                             </div>
                         {{/each}}
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="six column">
-            <div class="ui buttons black fluid">
-                <button class="ui button" onclick="">Individual mappings</button>
             </div>
         </div>
     </div>
