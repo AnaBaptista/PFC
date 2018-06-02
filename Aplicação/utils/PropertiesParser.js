@@ -36,7 +36,7 @@ function parseDataProperties (listOfProps, indMapNode, cb) {
   let data = []
   async.each(listOfProps,
     (listEntry, callback) => {
-      if (dataType[listEntry.type] === undefined) { return cb(new Error(`Type from entry ${listEntry.} does not match one of the allowed types: 'Integer', 'Boolean', 'Float', 'Double', 'String'`)) }
+      // if (dataType[listEntry.type] === undefined) { return cb(new Error(`Type from entry ${listEntry.} does not match one of the allowed types: 'Integer', 'Boolean', 'Float', 'Double', 'String'`)) }
       parser(listEntry.toMapNodeId, indMapNode,
         (err, parsedProp) => {
           let obj = {}
