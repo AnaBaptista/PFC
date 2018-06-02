@@ -32,33 +32,29 @@ function getTree (path, id) {
 }
 
 /**
- * This function create an individual mapping on server side
+ * This function creates an individual mapping on server side
  * @param populateId {String} populate with data id
  */
 function createIndMapping (populateId) {
-  let node = document.getElementById('classes-to-term').childNodes[0]
+  let node = document.getElementById('classes-to-term')
   let onto = getSelectedItems('classes-menu', '.selected')
-  let indName = document.getElementById('individual-name-to-term')
 
-  if (node.childNodes.length === 0 || onto.length === 0) {
-    alertify.error('Missing data file node, ontology class or individual name')
+  if (node.childElementCount === 0 || onto.length === 0) {
+    alertify.error('Missing data file node or ontology class')
     return
   }
 
-  indName.removeChild(indName.firstChild)
-
-  let individualName = []
-  indName.childNodes.forEach(div => individualName.push(div.id))
+  node = node.childNodes[0]
+  onto = onto[0]
 
   let data = {
     data: {
-      tag: node.childNodes[0].textContent,
+      tag: node.textContent,
       nodeId: node.id,
-      owlClassIRI: onto[0].textContent,
-      ontologyFileId: onto[0].id,
+      owlClassIRI: onto.textContent,
+      ontologyFileId: onto.id,
       dataFileId: node.childNodes[1].id,
-      specification: false,
-      individualName: individualName
+      specification: false
     }
   }
 
@@ -76,32 +72,35 @@ function createIndMapping (populateId) {
     .then(res => res.json())
     .then(json => {
       window.location.href = `/populate/data/${populateId}/individual/${json._id}`
-      // let elem = document.getElementById('mapper-segment')
-      // elem.innerHTML = text
     }).catch(err => console.log(err.message))
 }
 
 /**
- * This functions add an new data property to
+ * This function adds a new data property to
  * individual mapping identified by indMapId
  * @param id {String} individual mapping id
  */
 function createDataProperty (id) {
-  let node = document.getElementById('dproperty-to-term').childNodes[0]
+  let node = document.getElementById('dproperty-to-term')
   let property = getSelectedItems('data-properties-menu', '.selected')
   let type = getSelectedItems('data-property-type-menu', '.selected')
 
-  if (property.length === 0 || type.length === 0 || node.childNodes.length === 0) {
+  if (property.length === 0 || type.length === 0 || node.childElementCount === 0) {
     alertify.error('Missing data property, type or node')
     return
   }
 
+  node.removeChild(node.firstChild)
+  let ids = []
+  node.childNodes.forEach(div => ids.push(div.id))
+
   let data = {
-    data: {
-      owlClassIRI: property[0].textContent,
-      type: type[0].textContent,
-      nodeId: node.id
-    }
+    dataProps:
+      [{
+        owlClassIRI: property[0].textContent,
+        type: type[0].textContent,
+        toMapNodeIds: ids
+      }]
   }
 
   let options = {
@@ -113,11 +112,57 @@ function createDataProperty (id) {
     body: JSON.stringify(data)
   }
 
-  // TODO: make request
-  fetch(`/map/individual/${id}/dataProperty`, options)
+  fetch(`/map/individual/${id}/properties/data`, options)
     .then(handleError)
     .then(res => res.json())
-    .then()
+    .then(json => {
+      //TODO: json ...waiting for property id
+      document.getElementById('dproperty-to-term').innerText = ''
+      alertify.success('Data property created')
+    })
+    .catch(err => console.log(err.message))
+}
+
+/**
+ * This function adds a new object property
+ * to individual mapping
+ * @param id {String} individual mapping id
+ */
+function createObjectProperty (id) {
+  let property = getSelectedItems('object-properties-menu', '.selected')
+  let node = document.getElementById('oproperty-to-term')
+
+  if (property.length === 0 || node.childElementCount === 0) {
+    alertify.error('Missing object property or node')
+    return
+  }
+
+  node = node.childNodes[0]
+  let data = {
+    objProps:
+      [{
+        owlClassIRI: property[0].textContent,
+        toMapNodeId: [node.id]
+      }]
+  }
+
+  let options = {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }
+
+  fetch(`/map/individual/${id}/properties/object`, options)
+    .then(handleError)
+    .then(res => res.json())
+    .then(json => {
+      //TODO: json ..waiting for property id
+      document.getElementById('oproperty-to-term').innerText = ''
+      alertify.success('Object property created')
+    })
     .catch(err => console.log(err.message))
 }
 
@@ -125,48 +170,11 @@ function createDataProperty (id) {
  *
  * @param id {String} individual mapping id
  */
-function createObjectProperty (id) {
-  let property = getSelectedItems('object-properties-menu', '.selected')
-  let node = document.getElementById('oproperty-to-term').childNodes[0]
-
-  if (property.length === 0 || node.childNodes.length === 0) {
-    alertify.error('Missing object property or node')
-    return
-  }
-
-  let data = {
-    data: {
-      owlClassIRI: property[0].textContent,
-      nodeId: node.id
-    }
-  }
-
-  let options = {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json, text/plain, */*',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  }
-
-  //TODO: make request
-  fetch(`/map/individual/${id}/objectProperty`, options)
-    .then(handleError)
-    .then(res => res.json())
-    .then()
-    .catch(err => console.log(err.message))
-}
-
-/**
- *
- * @param id
- */
 function createAnnotationProperty (id) {
   let annotation = getSelectedItems('annotation-properties-menu', '.selected')
-  let node = document.getElementById('aproperty-to-term').childNodes[0]
+  let node = document.getElementById('aproperty-to-term')
 
-  if (annotation.length === 0 || node.childNodes.length === 0) {
+  if (annotation.length === 0 || node.childElementCount === 0) {
     alertify.error('Missing object property or node')
     return
   }
@@ -187,21 +195,70 @@ function createAnnotationProperty (id) {
     body: JSON.stringify(data)
   }
 
-  //TODO: make request
-  fetch(`/map/individual/${id}/annotationProperty`, options)
+  // //TODO: make request
+  // fetch(`/map/individual/${id}/properties/annotation`, options)
+  //   .then(handleError)
+  //   .then(res => res.json())
+  //   .then()
+  //   .catch(err => console.log(err.message))
+}
+
+/**
+ * This functions sets the individual mapping name's
+ * @param id {String} individual mapping id
+ */
+function createIndividualName (id) {
+  let indName = document.getElementById('individual-name-to-term')
+  if (indName.childElementCount === 0) {
+    alertify.error('Missing nodes to mapper individual name')
+    return
+  }
+
+  indName.removeChild(indName.firstChild)
+  let individualName = []
+  indName.childNodes.forEach(div => individualName.push(div.id))
+
+  let data = {
+    individualName: individualName
+  }
+
+  let options = {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }
+
+  fetch(`/map/individual/${id}/name`, options)
     .then(handleError)
-    .then(res => res.json())
-    .then()
+    .then(_ => {
+      document.getElementById('individual-name-to-term').innerText = ''
+      document.getElementById('individual-name-row').style.display = 'none'
+      alertify.success('Individual name changed')
+    })
     .catch(err => console.log(err.message))
 }
 
 /**
- *
+ * This functions displays an element that permits add an
+ * individual name to individual mapping
+ */
+function addIndividualName () {
+  changeDataFileOptionsToMappingId('individual-name')
+  document.getElementById('individual-name-row').style.display = 'block'
+  document.getElementById('individual-mapping-content').innerText = ''
+}
+/**
+ *  This function changes the properties content's
  * @param id {String} invidual mapping id
  * @param type {String} property type (data, object or annotation)
  */
 function changeIndMappingContent (id, type) {
   changeDataFileOptionsToMappingId(type)
+  document.getElementById('individual-name-row').style.display = 'none'
+
   let path = (type === 'oproperty' && 'objectprops') ||
     (type === 'dproperty' && 'dataprops') ||
     (type === 'aproperty' && 'annotationprops')
@@ -230,6 +287,12 @@ function changeDataFileOptionsToMappingId (type) {
  * @param node {Object} the selected node
  */
 function changeDataFileOptionToMapping (node) {
+  let id = document.getElementById('data-file-term').innerText
+  let elem = document.getElementById(id)
+  if (!elem) {
+    alertify.warning('Nothing to mapper with this node, choose properties or name')
+    return
+  }
   let div = document.createElement('div')
   div.id = node.id
   div.innerText = node.tag
@@ -237,9 +300,8 @@ function changeDataFileOptionToMapping (node) {
   childDiv.id = node.dataFileId
   childDiv.className = 'dataFileId'
   div.appendChild(childDiv)
-  let id = document.getElementById('data-file-term').innerText
-  let elem = document.getElementById(id)
-  if (id === 'individual-name-to-term') {
+
+  if (id === 'individual-name-to-term' || id === 'dproperty-to-term') {
     elem.appendChild(div)
   } else {
     elem.replaceChild(div, elem.childNodes[0])
@@ -247,17 +309,20 @@ function changeDataFileOptionToMapping (node) {
 }
 
 /**
- * Set the individual name
+ * This function deletes an individual mapping in database
+ * and dynamically
+ * @param id {String} individual mapping id
  */
-function addIndividualName () {
-  let indName = document.getElementById('individual-name-to-term').childNodes
-
-  if (indName.length === 1) {
-    alertify.error('First, select nodes')
-    return
+function deleteIndividualMapping (id) {
+  let options = {
+    method: 'DELETE'
   }
 
-  changeDataFileOptionsToMappingId('classes')
-  document.getElementById('add-name-btn').disabled = true
-  alertify.success('Individual name changed')
+  fetch(`/map/individual/${id}`, options)
+    .then(handleError)
+    .then(_ => {
+      let toDelete = document.getElementById(`individual-mapping-${id}`)
+      let parent = toDelete.parentElement
+      parent.removeChild(toDelete)
+    }).catch(err => console.log(err.message))
 }

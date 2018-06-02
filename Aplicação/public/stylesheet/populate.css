@@ -22,11 +22,7 @@
     min-height: 150px;
 }
 
-#classes-to-term, #individual-name-to-term {
-    min-height: 30px;
-}
-
-.oproperty-to, .dproperty-to, .aproperty-to {
+#classes-to-term, #individual-name-to-term, #dproperty-to-term, #aproperty-to-term, #oproperty-to-term {
     min-height: 30px;
 }
 
@@ -61,4 +57,9 @@
 
 #individual-mapping-content {
     min-height: 500px;
+}
+
+#individual-mapping-list {
+    max-height: 330px;
+    overflow-y: auto;
 }
