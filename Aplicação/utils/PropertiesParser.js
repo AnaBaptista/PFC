@@ -32,7 +32,24 @@ function parseObjectProperties (listOfProps, indMapNode, cb) {
 }
 
 const dataType = ['Integer', 'Boolean', 'Float', 'Double', 'String']
-function parseDataProperties (listOfProps, cb) {
+function parseDataProperties (listOfProps, inMapNode, cb) {
+
+  let objProps = []
+  async.each(listOfProps,
+    (listEntry, callback) => {
+      parser(listEntry.toMapNodeId, indMapNode,
+        (err, parsedProp) => {
+          let obj = {}
+          if (err) return callback(err)
+          obj[listEntry.owlIRI] = parsedProp
+          objProps.push(obj)
+          callback()
+        })
+    },
+    (err) => {
+      if (err) return cb(err)
+      return cb(null, objProps)
+    })
 
 }
 

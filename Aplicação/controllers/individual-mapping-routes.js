@@ -99,7 +99,7 @@ function addIndividualMappingObjectProperties (req, res, next) {
  * (list) dataProps. A list of the obj properties to be mapped to this individual.
  * (list-entry) an object containing a list of pairs with the nodeid plus the iri to be associated
  * example:
- * objProps : [
+ * dataProps : [
     {
         owlIRI: 'owl iri',
         toMapNodeIds: ['123','456']

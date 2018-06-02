@@ -165,6 +165,7 @@ function addIndividualMappingDataProperties (id, dataProps, cb) {
       let set = {dataProperties: parsedProps}
       dbAccess.updateById(collection, id, set, (err) => {
         if (err) return cb(err)
+        cb()
       })
     })
   })
@@ -185,6 +186,7 @@ function addIndividualMappingAnnotationProperties (id, annotationProps, cb) {
     if (err) cb(err)
     parser.parseDataProperties(indMap, annotationProps, (err, listOfParsedProps) => {
       if (err) cb(err)
+      cb()
     })
   })
 }
