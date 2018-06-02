@@ -135,11 +135,11 @@ function addIndividualMappingDataProperties (req, res, next) {
  * example:
  * annotationProps : [
  {
-     owlIRI: 'owl iri',
+     annotation: 'label',
      toMapNodeIds: ['123','456']
  },
  {
-     owlIRI: 'owl iri',
+     annotation: 'comment',
      toMapNodeId: ['789','753']
  }
  ]
@@ -147,10 +147,10 @@ function addIndividualMappingDataProperties (req, res, next) {
  * Returns: Id for that individual mapping
  */
 function addIndividualMappingAnnotationProperties (req, res, next) {
-  console.log('/map/individual/:individualId/properties/annotation', addIndividualMappingAnnotationProperties)
+  console.log('/map/individual/:individualId/properties/annotation, addIndividualMappingAnnotationProperties')
   let id = req.params.individualId
   let annotationProps = req.body.annotationProps
-  service.addIndividualMappingProperties(id, annotationProps, (err, result) => {
+  service.addIndividualMappingAnnotationProperties(id, annotationProps, (err, result) => {
     if (err) return next(err)
     return res.json(result)
   })

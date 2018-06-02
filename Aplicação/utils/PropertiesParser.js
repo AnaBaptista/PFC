@@ -53,7 +53,26 @@ function parseDataProperties (listOfProps, indMapNode, cb) {
 }
 
 const labelType = ['label', 'comment', 'seeAlso', 'isDefinedBy', 'versionInfo ', 'backwardCompatibleWith', 'incompatibleWith']
-function parseAnnotationProperties (listOfProps) { }
+function parseAnnotationProperties (listOfProps, indMapNode, cb) {
+  // @todo talvez acrescentar um filter e passar so os 'label' pelo parser?
+  let annotation = []
+  async.each(listOfProps,
+    (listEntry, callback) => {
+      // if (labelType[listEntry.annotation] === undefined) { return cb(new Error(`Type from entry ${listEntry.} does not match one of the allowed types: 'Integer', 'Boolean', 'Float', 'Double', 'String'`)) }
+      parser(listEntry.toMapNodeId, indMapNode,
+        (err, parsedProp) => {
+          let obj = {}
+          if (err) return callback(err)
+          obj[listEntry.annotation] = parsedProp
+          annotation.push(obj)
+          callback()
+        })
+    },
+    (err) => {
+      if (err) return cb(err)
+      return cb(null, annotation)
+    })
+}
 
 function parser (listOfNodes, indMapNode, parseCb) {
   // creates an empty strings array to store the search results of individual names

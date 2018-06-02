@@ -180,15 +180,24 @@ function addIndividualMappingDataProperties (id, dataProps, cb) {
  */
 function addIndividualMappingAnnotationProperties (id, annotationProps, cb) {
   if (id === undefined) {
-    let error = new Error('Bad Request, missing individual mapping Id')
+    let error = new Error('Bad Request, missing individual mapping id')
     error.statusCode = 400
     return cb(error)
   }
-  dbAccess.findById(id, (err, indMap) => {
+  if (annotationProps === undefined || annotationProps.length === 0) {
+    let error = new Error('Bad Request, missing annotationproperties or annotationproperties array size is 0')
+    error.statusCode = 400
+    return cb(error)
+  }
+  dbAccess.findById(collection, id, (err, indMap) => {
     if (err) cb(err)
-    parser.parseDataProperties(indMap, annotationProps, (err, listOfParsedProps) => {
-      if (err) cb(err)
-      cb()
+    parser.parseAnnotationProperties(annotationProps, indMap.nodeId, (err, parsedProps) => {
+      if (err) return cb(err)
+      let set = {annotationProperties: parsedProps}
+      dbAccess.updateById(collection, id, set, (err) => {
+        if (err) return cb(err)
+        cb()
+      })
     })
   })
 }
