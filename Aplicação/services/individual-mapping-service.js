@@ -95,7 +95,7 @@ function addIndividualMappingName (id, listOfNodes, cb) {
     error.statusCode = 400
     return cb(error)
   }
-  if (listOfNodes === undefined || listOfNodes.length ===0 ) {
+  if (listOfNodes === undefined || listOfNodes.length === 0) {
     let error = new Error('Bad Request, missing individualName or individualName array size is 0')
     error.statusCode = 400
     return cb(error)
@@ -107,7 +107,7 @@ function addIndividualMappingName (id, listOfNodes, cb) {
       if (err) return cb(err)
       let set = {individualName: parsedName}
       dbAccess.updateById(collection, id, set, (err) => {
-        if (err) cb(err)
+        if (err) return cb(err)
       })
     })
   })
@@ -120,14 +120,24 @@ function addIndividualMappingName (id, listOfNodes, cb) {
  */
 function addIndividualMappingObjectProperties (id, objProps, cb) {
   if (id === undefined) {
-    let error = new Error('Bad Request, missing individual mapping Id')
+    let error = new Error('Bad Request, missing individual mapping id')
     error.statusCode = 400
     return cb(error)
   }
-  dbAccess.findById(id, (err, indMap) => {
+  if (objProps === undefined || objProps.length === 0) {
+    let error = new Error('Bad Request, missing objProps or objProps array size is 0')
+    error.statusCode = 400
+    return cb(error)
+  }
+
+  dbAccess.findById(collection, id, (err, indMap) => {
     if (err) cb(err)
-    parser.parseObjectProperties(indMap, objProps, (err, listOfParsedProps) => {
-      if (err) cb(err)
+    parser.parseObjectProperties(objProps, indMap.nodeId, (err, parsedProps) => {
+      if (err) return cb(err)
+      let set = {objectProperties: parsedProps}
+      dbAccess.updateById(collection, id, set, (err) => {
+        if (err) return cb(err)
+      })
     })
   })
 }
@@ -139,16 +149,23 @@ function addIndividualMappingObjectProperties (id, objProps, cb) {
  */
 function addIndividualMappingDataProperties (id, dataProps, cb) {
   if (id === undefined) {
-    let error = new Error('Bad Request, missing individual mapping Id')
+    let error = new Error('Bad Request, missing individual mapping id')
     error.statusCode = 400
     return cb(error)
   }
-
-  dbAccess.findById(id, (err, indMap) => {
+  if (dataProps === undefined || dataProps.length === 0) {
+    let error = new Error('Bad Request, missing dataProps or dataProps array size is 0')
+    error.statusCode = 400
+    return cb(error)
+  }
+  dbAccess.findById(collection, id, (err, indMap) => {
     if (err) cb(err)
-
-    parser.parseDataProperties(indMap, dataProps, (err, listOfParsedProps) => {
-      if (err) cb(err)
+    parser.parseDataProperties(dataProps, indMap.nodeId, (err, parsedProps) => {
+      if (err) return cb(err)
+      let set = {dataProperties: parsedProps}
+      dbAccess.updateById(collection, id, set, (err) => {
+        if (err) return cb(err)
+      })
     })
   })
 }

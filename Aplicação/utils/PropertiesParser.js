@@ -12,6 +12,33 @@ function parseName (listOfNodes, indMapNode, cb) {
   parser(listOfNodes, indMapNode, cb)
 }
 
+function parseObjectProperties (listOfProps, indMapNode, cb) {
+  let objProps = []
+  async.each(listOfProps,
+    (listEntry, callback) => {
+      parser(listEntry.toMapNodeId, indMapNode,
+        (err, parsedProp) => {
+          let obj = {}
+          if (err) return callback(err)
+          obj[listEntry.owlIRI] = parsedProp
+          objProps.push(obj)
+          callback()
+        })
+    },
+    (err) => {
+      if (err) return cb(err)
+      return cb(null, objProps)
+    })
+}
+
+const dataType = ['Integer', 'Boolean', 'Float', 'Double', 'String']
+function parseDataProperties (listOfProps, cb) {
+
+}
+
+const labelType = ['label', 'comment', 'seeAlso', 'isDefinedBy', 'versionInfo ', 'backwardCompatibleWith', 'incompatibleWith']
+function parseAnnotationProperties (listOfProps) { }
+
 function parser (listOfNodes, indMapNode, parseCb) {
   // creates an empty strings array to store the search results of individual names
   let results = Array(listOfNodes.length).fill('')
@@ -21,7 +48,7 @@ function parser (listOfNodes, indMapNode, parseCb) {
       parserAux(toMapNodeID, indMapNode, results, index, callback)
     },
     (err) => {
-      if (err) parseCb(err)
+      if (err) return parseCb(err)
       let toRet = ''
       results.forEach(string => { toRet = `${toRet}.inspecificchild${string};` })
       toRet = toRet.slice(0, -1)
@@ -32,24 +59,15 @@ function parser (listOfNodes, indMapNode, parseCb) {
 function parserAux (toMapId, indMapId, results, index, callback) {
   getNodeById(toMapId, (err, node) => {
     if (err) { return callback(err) }
-
     results[index] = `-${node.tag}${results[index]}`
-    if (node.parent === undefined) {
-      callback(
-        new Error('Failed to parse property or name, please choose another node to parse, make sure it is a child node from the node selected for individual mapping'))
-    }
+    // if (node.parent === undefined) {
+    //   return callback(
+    //     new Error('Failed to parse property or name, please choose another node to parse, make sure it is a child node from the node selected for individual mapping'))
+    // }
     if (node.parent !== indMapId) parserAux(node.parent, indMapId, results, index, callback)
     else callback()
   })
 }
-
-const dataType = ['Integer', 'Boolean', 'Float', 'Double', 'String']
-function parseDataProperties (listOfProps, cb) {}
-
-function parseObjectProperties (dataFileId, listOfProps, cb) {}
-
-const labelType = ['label', 'comment', 'seeAlso', 'isDefinedBy', 'versionInfo ', 'backwardCompatibleWith', 'incompatibleWith']
-function parseAnnotationProperties (listOfProps) { }
 
 function getNodeById (nodeId, cb) {
   nodeAccess.getNodeById(nodeId, (err, result) => {
@@ -57,5 +75,3 @@ function getNodeById (nodeId, cb) {
     return cb(null, JSON.parse(result))
   })
 }
-
-// parseObjectProperties(['5af093d445193e040736e20f'], null, () => {})

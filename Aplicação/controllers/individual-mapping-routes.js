@@ -50,7 +50,7 @@ function addIndividualMappingName (req, res, next) {
   console.log('/map/individual/:individualId/name, addIndividualMappingName')
   let id = req.params.individualId
   let input = req.body.individualName
-  service.addIndividualMappingName(id, input, (err, id) => {
+  service.addIndividualMappingName(id, input, (err) => {
     if (err) return next(err)
     res.json({_id: id})
   })
@@ -68,12 +68,12 @@ function addIndividualMappingName (req, res, next) {
  * objProps : [
     {
       owlIRI: 'owl iri',
-      toMapNodeId: '7531598426'
+      toMapNodeId: ['7531598426']
 
     },
     {
       owlIRI: 'owl iri',
-      toMapNodeId: '159753268'
+      toMapNodeId: ['159753268']
     }
   ]
  *
@@ -81,12 +81,12 @@ function addIndividualMappingName (req, res, next) {
  */
 // @todo falta redirects para ter post redirect get
 function addIndividualMappingObjectProperties (req, res, next) {
-  console.log('/map/individual/:individualId/properties/object', addIndividualMappingObjectProperties)
+  console.log('/map/individual/:individualId/properties/object, addIndividualMappingObjectProperties')
   let id = req.params.individualId
   let objProps = req.body.objProps
-  service.addIndividualMappingProperties(id, objProps, (err, result) => {
+  service.addIndividualMappingObjectProperties(id, objProps, (err) => {
     if (err) return next(err)
-    return res.json(result)
+    return res.json(id)
   })
 }
 
@@ -103,22 +103,24 @@ function addIndividualMappingObjectProperties (req, res, next) {
     {
         owlIRI: 'owl iri',
         toMapNodeIds: ['123','456']
+        type: 'Integer'
     },
     {
         owlIRI: 'owl iri',
         toMapNodeId: ['789','753']
+        type: 'String'
     }
   ]
  *
  * Returns: Id for that individual mapping
  */
 function addIndividualMappingDataProperties (req, res, next) {
-  console.log('/map/individual/:individualId/properties/data', addIndividualMappingDataProperties)
+  console.log('/map/individual/:individualId/properties/data, addIndividualMappingDataProperties')
   let id = req.params.individualId
-  let objProps = req.body.objProps
-  service.addIndividualMappingProperties(id, objProps, (err, result) => {
+  let dataProps = req.body.dataProps
+  service.addIndividualMappingDataProperties(id, dataProps, (err) => {
     if (err) return next(err)
-    return res.json(result)
+    return res.json(id)
   })
 }
 
