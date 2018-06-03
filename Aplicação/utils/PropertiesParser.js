@@ -7,18 +7,19 @@ module.exports = {
 // const service = require('../services/file-service')
 const async = require('async')
 const nodeAccess = require('../data-access/node-access')
+const idGen = require('shortid')
 
 function parseName (listOfNodes, indMapNode, cb) {
   parser(listOfNodes, indMapNode, cb)
 }
 
-function parseObjectProperties (listOfProps, indMapNode, cb) {
-  let objProps = []
+function parseObjectProperties (listOfProps, indMapNode, objProps, cb) {
+  if (objProps === undefined) objProps = []
   async.each(listOfProps,
     (listEntry, callback) => {
       parser(listEntry.toMapNodeId, indMapNode,
         (err, parsedProp) => {
-          let obj = {}
+          let obj = { id: idGen.generate()}
           if (err) return callback(err)
           obj[listEntry.owlIRI] = parsedProp
           objProps.push(obj)
@@ -32,45 +33,46 @@ function parseObjectProperties (listOfProps, indMapNode, cb) {
 }
 
 const dataType = ['Integer', 'Boolean', 'Float', 'Double', 'String']
-function parseDataProperties (listOfProps, indMapNode, cb) {
-  let data = []
+function parseDataProperties (listOfProps, indMapNode, dataProps, cb) {
+  if (dataProps === undefined) dataProps = []
   async.each(listOfProps,
     (listEntry, callback) => {
-      // if (dataType[listEntry.type] === undefined) { return cb(new Error(`Type from entry ${listEntry.} does not match one of the allowed types: 'Integer', 'Boolean', 'Float', 'Double', 'String'`)) }
+      if (!(dataType.includes(listEntry.type))) { return cb(new Error(`Type from entry ${listEntry.type} does not match one of the allowed types: 'Integer', 'Boolean', 'Float', 'Double', 'String'`)) }
       parser(listEntry.toMapNodeId, indMapNode,
         (err, parsedProp) => {
-          let obj = {}
+          let obj = { id: idGen.generate()}
           if (err) return callback(err)
           obj[listEntry.owlIRI] = [parsedProp, listEntry.type]
-          data.push(obj)
+          dataProps.push(obj)
           callback()
         })
     },
     (err) => {
       if (err) return cb(err)
-      return cb(null, data)
+      return cb(null, dataProps)
     })
 }
 
 const labelType = ['label', 'comment', 'seeAlso', 'isDefinedBy', 'versionInfo ', 'backwardCompatibleWith', 'incompatibleWith']
-function parseAnnotationProperties (listOfProps, indMapNode, cb) {
-  // @todo talvez acrescentar um filter e passar so os 'label' pelo parser?
-  let annotation = []
+function parseAnnotationProperties (listOfProps, indMapNode, annProps, cb) {
+  if (annProps === undefined) annProps = []
   async.each(listOfProps,
     (listEntry, callback) => {
-      // if (labelType[listEntry.annotation] === undefined) { return cb(new Error(`Type from entry ${listEntry.} does not match one of the allowed types: 'Integer', 'Boolean', 'Float', 'Double', 'String'`)) }
+      if (!(labelType.includes(listEntry.annotation))) {
+        return cb(new Error(`Type from entry ${listEntry.annotation} does not match one of the allowed types: 'Integer', 'Boolean', 'Float', 'Double', 'String'`))
+      }
       parser(listEntry.toMapNodeId, indMapNode,
         (err, parsedProp) => {
-          let obj = {}
+          let obj = { id: idGen.generate()}
           if (err) return callback(err)
           obj[listEntry.annotation] = parsedProp
-          annotation.push(obj)
+          annProps.push(obj)
           callback()
         })
     },
     (err) => {
       if (err) return cb(err)
-      return cb(null, annotation)
+      return cb(null, annProps)
     })
 }
 
@@ -95,10 +97,10 @@ function parserAux (toMapId, indMapId, results, index, callback) {
   getNodeById(toMapId, (err, node) => {
     if (err) { return callback(err) }
     results[index] = `-${node.tag}${results[index]}`
-    // if (node.parent === undefined) {
-    //   return callback(
-    //     new Error('Failed to parse property or name, please choose another node to parse, make sure it is a child node from the node selected for individual mapping'))
-    // }
+    if (node.parent === undefined) {
+      return callback(
+        new Error('Failed to parse property or name, please choose another node to parse, make sure it is a child node from the node selected for individual mapping'))
+    }
     if (node.parent !== indMapId) parserAux(node.parent, indMapId, results, index, callback)
     else callback()
   })

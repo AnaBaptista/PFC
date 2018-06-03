@@ -19,7 +19,7 @@ MongoClient.connect(url, (err, client) => {
 MongoClient.connect(url, (err, client) => {
   if (err) return console.log(err)
   let db = client.db('HomiDb')
-  let collection = db.collection('HomiCollection')
+  let collection = db.collection('testes')
   collection.find((err, result) => {
     console.log(result)
   })

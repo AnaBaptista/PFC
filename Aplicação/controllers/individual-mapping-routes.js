@@ -3,25 +3,20 @@ const router = require('express')()
 const service = require('../services/individual-mapping-service')
 
 module.exports = router
-
-router.post('/map', createMapping)
 router.post('/map/individual', createIndividual)
 
-router.post('/map/individual/:individualId/name', addIndividualMappingName)
-router.post('/map/individual/:individualId/properties/object', addIndividualMappingObjectProperties)
-router.post('/map/individual/:individualId/properties/data', addIndividualMappingDataProperties)
-router.post('/map/individual/:individualId/properties/annotation', addIndividualMappingAnnotationProperties)
+router.put('/map/individual/:individualId/name', putIndividualMappingName)
+router.put('/map/individual/:individualId/properties/object', putIndividualMappingObjectProperties)
+router.put('/map/individual/:individualId/properties/data', putIndividualMappingDataProperties)
+router.put('/map/individual/:individualId/properties/annotation', putIndividualMappingAnnotationProperties)
 
 router.get('/map/individual', getAllIndividualMappings)
-// router.get('/map/individual/:individualId', getIndividualMapping)
-// router.get('/map/individual/', removeIndividualMapping)
-
+router.get('/map/individual/:individualId', getIndividualMapping)
 router.get('/map/individual/:id/objectprops/view', renderObjectProps)
 router.get('/map/individual/:id/dataprops/view', renderDataProps)
 router.get('/map/individual/:id/annotationprops/view', renderAnnotationProps)
 
 router.delete('/map/individual/:individualId', removeIndividualMapping)
-
 /**
  * Body Parameters:
  * (Object) data
@@ -42,21 +37,21 @@ function createIndividual (req, res, next) {
  * Will return a 400 status code if not present
  *
  * Body Parameters:
- * (list) name. A list of noe id's that will make the individual's name
+ * (list) individualName. A list of node id's that will make the individual's name
  *
  * Returns: Id for that individual mapping
  */
-function addIndividualMappingName (req, res, next) {
+function putIndividualMappingName (req, res, next) {
   console.log('/map/individual/:individualId/name, addIndividualMappingName')
   let id = req.params.individualId
   let input = req.body.individualName
-  service.addIndividualMappingName(id, input, (err) => {
+  service.putIndividualMappingName(id, input, (err) => {
     if (err) return next(err)
     res.json({_id: id})
   })
 }
 
-/**
+/**  Adds new obj properties or update existing ones
  * Id's needed in path:
  * :individualId -> this id refers to the mapping id for the mapping that was created.
  * Will return a 400 status code if not present
@@ -65,13 +60,14 @@ function addIndividualMappingName (req, res, next) {
  * (list) objProps. A list of the obj properties to be mapped to this individual.
  * (list-entry) an object containing the owlClassIRI and toMapNodeId,  both string types
  * example:
- * objProps : [
+ * objProps : [  // if its adding a new property
     {
       owlIRI: 'owl iri',
       toMapNodeId: ['7531598426']
 
-    },
+    },        // or if its updating an existing one
     {
+      id: HyBVfiZxm,
       owlIRI: 'owl iri',
       toMapNodeId: ['159753268']
     }
@@ -80,17 +76,17 @@ function addIndividualMappingName (req, res, next) {
  * Returns: Id for that individual mapping
  */
 // @todo falta redirects para ter post redirect get
-function addIndividualMappingObjectProperties (req, res, next) {
-  console.log('/map/individual/:individualId/properties/object, addIndividualMappingObjectProperties')
+function putIndividualMappingObjectProperties (req, res, next) {
+  console.log('PUT - /map/individual/:individualId/properties/object, addIndividualMappingObjectProperties')
   let id = req.params.individualId
   let objProps = req.body.objProps
-  service.addIndividualMappingObjectProperties(id, objProps, (err) => {
+  service.putIndividualMappingObjectProperties(id, objProps, (err) => {
     if (err) return next(err)
-    return res.json(id)
+    return res.redirect(`/map/individual/${id};`)
   })
 }
 
-/**
+/** Adds new data properties or update existing ones
  * Id's needed in path:
  * :individualId -> this id refers to the mapping id for the mapping that was created.
  * Will return a 400 status code if not present
@@ -99,32 +95,33 @@ function addIndividualMappingObjectProperties (req, res, next) {
  * (list) dataProps. A list of the obj properties to be mapped to this individual.
  * (list-entry) an object containing a list of pairs with the nodeid plus the iri to be associated
  * example:
- * dataProps : [
+ * dataProps : [     // if its adding a new property
     {
         owlIRI: 'owl iri',
         toMapNodeIds: ['123','456']
         type: 'Integer'
-    },
+    }, // or if its updating an existing one
     {
+        id: HyBVfiZxm,
         owlIRI: 'owl iri',
         toMapNodeId: ['789','753']
         type: 'String'
-    }
+ }
   ]
  *
  * Returns: Id for that individual mapping
  */
-function addIndividualMappingDataProperties (req, res, next) {
+function putIndividualMappingDataProperties (req, res, next) {
   console.log('/map/individual/:individualId/properties/data, addIndividualMappingDataProperties')
   let id = req.params.individualId
   let dataProps = req.body.dataProps
-  service.addIndividualMappingDataProperties(id, dataProps, (err) => {
+  service.putIndividualMappingDataProperties(id, dataProps, (err) => {
     if (err) return next(err)
-    return res.json(id)
+    return res.redirect(`/map/individual/${id};`)
   })
 }
 
-/**
+/** Adds new annotation properties or update existing ones
  * Id's needed in path:
  * :individualId -> this id refers to the mapping id for the mapping that was created.
  * Will return a 400 status code if not present
@@ -133,26 +130,27 @@ function addIndividualMappingDataProperties (req, res, next) {
  * (list) annotationProps. A list of the annotation properties to be mapped to this individual.
  * (list-entry) an object containing a list of pairs with the nodeid plus the iri to be associated
  * example:
- * annotationProps : [
+ * annotationProps : [     // if its adding a new property
  {
      annotation: 'label',
      toMapNodeIds: ['123','456']
- },
+ }, // or if its updating an existing one
  {
+     id: HyBVfiZxm,
      annotation: 'comment',
      toMapNodeId: ['789','753']
- }
+}
  ]
  *
  * Returns: Id for that individual mapping
  */
-function addIndividualMappingAnnotationProperties (req, res, next) {
+function putIndividualMappingAnnotationProperties (req, res, next) {
   console.log('/map/individual/:individualId/properties/annotation, addIndividualMappingAnnotationProperties')
   let id = req.params.individualId
   let annotationProps = req.body.annotationProps
-  service.addIndividualMappingAnnotationProperties(id, annotationProps, (err, result) => {
+  service.putIndividualMappingAnnotationProperties(id, annotationProps, (err, result) => {
     if (err) return next(err)
-    return res.json(result)
+    return res.redirect(`/map/individual/${id};`)
   })
 }
 
@@ -202,8 +200,17 @@ function updateMapping (req, res, next) {
   })
 }
 
+function getIndividualMapping (req, res, next) {
+  console.log('GET - /map/individual/:individualId, getAllIndividualMappings')
+  let id = req.params.individualId
+  service.getIndividualMapping(id, (err, indMapping) => {
+    if (err) return next(err)
+    return res.json(indMapping)
+  })
+}
+
 function getAllIndividualMappings (req, res, next) {
-  console.log('/map/individual, getAllIndividualMappings')
+  console.log('GET - /map/individual, getAllIndividualMappings')
   service.getAllIndividualMappings((err, indMappings) => {
     if (err) return next(err)
     return res.json(indMappings)

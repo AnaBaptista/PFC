@@ -3,8 +3,8 @@ module.exports = {
   findById,
   findByIds,
   updateById,
-  findByQuery
-  //deleteById
+  findByQuery,
+  deleteById
 }
 
 /*
@@ -97,6 +97,18 @@ function findByQuery (col, query, cb) {
   MongoClient.connect(url, (err, client) => {
     if (err) return console.log(err)
     client.db(dbName).collection(col).find(query).toArray((err, result) => {
+      client.close()
+      if (err) return cb(err)
+      return cb(null, result)
+    })
+  })
+}
+
+function deleteById (col, id, cb) {
+  MongoClient.connect(url, (err, client) => {
+    if (err) return console.log(err)
+    let query = {_id: ObjectID(id)}
+    client.db(dbName).collection(col).deleteOne(query).then((err, result) => {
       client.close()
       if (err) return cb(err)
       return cb(null, result)

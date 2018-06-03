@@ -1,10 +1,12 @@
 module.exports = {
   createIndividualMapping,
   getIndividualMapping,
-  addIndividualMappingName,
-  addIndividualMappingObjectProperties,
-  addIndividualMappingDataProperties,
-  addIndividualMappingAnnotationProperties,
+  getAllIndividualMappings,
+  putIndividualMappingName,
+  putIndividualMappingObjectProperties,
+  putIndividualMappingDataProperties,
+  putIndividualMappingAnnotationProperties,
+  deleteIndividualMapping,
   renderObjectProperties,
   renderDataProperties
 }
@@ -41,19 +43,144 @@ function createIndividualMapping (input, cb) {
   })
 }
 
+function putIndividualMappingName (id, listOfNodes, cb) {
+  if (id === undefined) {
+    let error = new Error('Bad Request, missing individual mapping id')
+    error.statusCode = 400
+    return cb(error)
+  }
+  if (listOfNodes === undefined || listOfNodes.length === 0) {
+    let error = new Error('Bad Request, missing individualName or individualName array size is 0')
+    error.statusCode = 400
+    return cb(error)
+  }
+
+  dbAccess.findById(collection, id, (err, indMap) => {
+    if (err) cb(err)
+    parser.parseName(listOfNodes, indMap.nodeId, (err, parsedName) => {
+      if (err) return cb(err)
+      let set = {individualName: parsedName}
+      dbAccess.updateById(collection, id, set, (err) => {
+        if (err) return cb(err)
+        cb()
+      })
+    })
+  })
+}
+
+/**
+ * @param id
+ * @param objProps
+ * @param cb (err, results)
+ */
+function putIndividualMappingObjectProperties (id, objProps, cb) {
+  if (id === undefined) {
+    let error = new Error('Bad Request, missing individual mapping id')
+    error.statusCode = 400
+    return cb(error)
+  }
+  if (objProps === undefined || objProps.length === 0) {
+    let error = new Error('Bad Request, missing objProps or objProps array size is 0')
+    error.statusCode = 400
+    return cb(error)
+  }
+  let idsToRemove = []
+  objProps.forEach(elem => idsToRemove.push(elem.id))
+
+  dbAccess.findById(collection, id, (err, indMap) => {
+    if (err) cb(err)
+    indMap.objectProperties = indMap.objectProperties.filter(elem => !idsToRemove.includes(elem.id))
+    parser.parseObjectProperties(objProps, indMap.nodeId, indMap.objectProperties, (err, parsedProps) => {
+      if (err) return cb(err)
+      let set = {objectProperties: parsedProps}
+      dbAccess.updateById(collection, id, set, (err) => {
+        if (err) return cb(err)
+        cb(null, parsedProps)
+      })
+    })
+  })
+}
+
+/**
+ * @param id
+ * @param dataProps
+ * @param cb (err, results)
+ */
+function putIndividualMappingDataProperties (id, dataProps, cb) {
+  if (id === undefined) {
+    let error = new Error('Bad Request, missing individual mapping id')
+    error.statusCode = 400
+    return cb(error)
+  }
+  if (dataProps === undefined || dataProps.length === 0) {
+    let error = new Error('Bad Request, missing dataProps or dataProps array size is 0')
+    error.statusCode = 400
+    return cb(error)
+  }
+  let idsToRemove = []
+  dataProps.forEach(elem => idsToRemove.push(elem.id))
+  dbAccess.findById(collection, id, (err, indMap) => {
+    if (err) cb(err)
+    indMap.dataProperties = indMap.dataProperties.filter(elem => !idsToRemove.includes(elem.id))
+    parser.parseDataProperties(dataProps, indMap.nodeId, indMap.dataProperties, (err, parsedProps) => {
+      if (err) return cb(err)
+      let set = {dataProperties: parsedProps}
+      dbAccess.updateById(collection, id, set, (err) => {
+        if (err) return cb(err)
+        cb()
+      })
+    })
+  })
+}
+
+/**
+ * @param id (string)
+ * @param annotationProps (list)
+ * @param cb (err, results)
+ */
+// @todo talvez acrescentar um filter e passar so os 'label' pelo parser?
+function putIndividualMappingAnnotationProperties (id, annotationProps, cb) {
+  if (id === undefined) {
+    let error = new Error('Bad Request, missing individual mapping id')
+    error.statusCode = 400
+    return cb(error)
+  }
+  if (annotationProps === undefined || annotationProps.length === 0) {
+    let error = new Error('Bad Request, missing annotationproperties or annotationproperties array size is 0')
+    error.statusCode = 400
+    return cb(error)
+  }
+  let idsToRemove = []
+  annotationProps.forEach(elem => idsToRemove.push(elem.id))
+  dbAccess.findById(collection, id, (err, indMap) => {
+    if (err) cb(err)
+    indMap.annotationProperties = indMap.annotationProperties.filter(elem => !idsToRemove.includes(elem.id))
+    parser.parseAnnotationProperties(annotationProps, indMap.nodeId, indMap.annotationProperties, (err, parsedProps) => {
+      if (err) return cb(err)
+      let set = {annotationProperties: parsedProps}
+      dbAccess.updateById(collection, id, set, (err) => {
+        if (err) return cb(err)
+        cb()
+      })
+    })
+  })
+}
+
 /**
  * @param {function} cb(err,results)
  */
 function getAllIndividualMappings (cb) {
-  dataAccess.getAllIndividualMappings((err, results) => {
+  dbAccess.findByQuery(collection, {}, (err, results) => {
     if (err) return cb(err)
-    let obj = JSON.parse(results.toString())
-    cb(null, obj)
+    return cb(null, results)
   })
 }
 
 function getIndividualMapping (id, cb) {
-  dataAccess.getIndividualMapping()
+  dbAccess.findById(collection, id, (err, results) => {
+    if (err) return cb(err)
+    return cb(null, results)
+  })
 }
 
 /**
@@ -89,119 +216,6 @@ function updateIndividualMapping (id, fileList, tag, name, label, specification,
   })
 }
 
-function addIndividualMappingName (id, listOfNodes, cb) {
-  if (id === undefined) {
-    let error = new Error('Bad Request, missing individual mapping id')
-    error.statusCode = 400
-    return cb(error)
-  }
-  if (listOfNodes === undefined || listOfNodes.length === 0) {
-    let error = new Error('Bad Request, missing individualName or individualName array size is 0')
-    error.statusCode = 400
-    return cb(error)
-  }
-
-  dbAccess.findById(collection, id, (err, indMap) => {
-    if (err) cb(err)
-    parser.parseName(listOfNodes, indMap.nodeId, (err, parsedName) => {
-      if (err) return cb(err)
-      let set = {individualName: parsedName}
-      dbAccess.updateById(collection, id, set, (err) => {
-        if (err) return cb(err)
-        cb()
-      })
-    })
-  })
-}
-
-/**
- * @param id
- * @param objProps
- * @param cb (err, results)
- */
-function addIndividualMappingObjectProperties (id, objProps, cb) {
-  if (id === undefined) {
-    let error = new Error('Bad Request, missing individual mapping id')
-    error.statusCode = 400
-    return cb(error)
-  }
-  if (objProps === undefined || objProps.length === 0) {
-    let error = new Error('Bad Request, missing objProps or objProps array size is 0')
-    error.statusCode = 400
-    return cb(error)
-  }
-
-  dbAccess.findById(collection, id, (err, indMap) => {
-    if (err) cb(err)
-    parser.parseObjectProperties(objProps, indMap.nodeId, (err, parsedProps) => {
-      if (err) return cb(err)
-      let set = {objectProperties: parsedProps}
-      dbAccess.updateById(collection, id, set, (err) => {
-        if (err) return cb(err)
-        cb()
-      })
-    })
-  })
-}
-
-/**
- * @param id
- * @param dataProps
- * @param cb (err, results)
- */
-function addIndividualMappingDataProperties (id, dataProps, cb) {
-  if (id === undefined) {
-    let error = new Error('Bad Request, missing individual mapping id')
-    error.statusCode = 400
-    return cb(error)
-  }
-  if (dataProps === undefined || dataProps.length === 0) {
-    let error = new Error('Bad Request, missing dataProps or dataProps array size is 0')
-    error.statusCode = 400
-    return cb(error)
-  }
-  dbAccess.findById(collection, id, (err, indMap) => {
-    if (err) cb(err)
-    parser.parseDataProperties(dataProps, indMap.nodeId, (err, parsedProps) => {
-      if (err) return cb(err)
-      let set = {dataProperties: parsedProps}
-      dbAccess.updateById(collection, id, set, (err) => {
-        if (err) return cb(err)
-        cb()
-      })
-    })
-  })
-}
-
-/**
- * @param id (string)
- * @param annotationProps (list)
- * @param cb (err, results)
- */
-function addIndividualMappingAnnotationProperties (id, annotationProps, cb) {
-  if (id === undefined) {
-    let error = new Error('Bad Request, missing individual mapping id')
-    error.statusCode = 400
-    return cb(error)
-  }
-  if (annotationProps === undefined || annotationProps.length === 0) {
-    let error = new Error('Bad Request, missing annotationproperties or annotationproperties array size is 0')
-    error.statusCode = 400
-    return cb(error)
-  }
-  dbAccess.findById(collection, id, (err, indMap) => {
-    if (err) cb(err)
-    parser.parseAnnotationProperties(annotationProps, indMap.nodeId, (err, parsedProps) => {
-      if (err) return cb(err)
-      let set = {annotationProperties: parsedProps}
-      dbAccess.updateById(collection, id, set, (err) => {
-        if (err) return cb(err)
-        cb()
-      })
-    })
-  })
-}
-
 /**
  * @param id
  * @param outputOntologyFileName
@@ -214,10 +228,9 @@ function addIndividualMappingAnnotationProperties (id, annotationProps, cb) {
 function updateMapping (id, outputOntologyFileName, outputOntologyNamespace, fileList, directOntologyImports, individualMappings, cb) {
 }
 
-function removeIndividualMapping (id, cb) {
-  dataAccess.removeIndividualMapping(id, (err, result) => {
-    if (err) cb(err)
-    return cb(null, result)
+function deleteIndividualMapping (id, cb) {
+  dbAccess.deleteById(collection, id, (err) => {
+    if (err) return cb(err)
   })
 }
 
