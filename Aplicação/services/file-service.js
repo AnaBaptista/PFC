@@ -16,19 +16,25 @@ const dataFileCol = 'DataFiles'
 const ontologyFileCol = 'OntologyFiles'
 
 const async = require('async')
-const treeFunctions = require('../utils/tree-functions')
 
 function addDataFile ({name, path}, cb) {
-  addFile(path, name, dataFileCol, (err, id) => {
+  addFile(path, name, dataFileCol, (err, ids) => {
     if (err) return cb(err)
-    cb(null, {_id: id})
+    dataAccess.getDataFileNodes(ids.chaosid, (err, nodes) => {
+      if (err) return cb(err)
+      nodes = JSON.parse(nodes)
+      db.updateById(dataFileCol, ids.id, {nodes: nodes.nodesTO}, (err) => {
+        if (err) return cb(err)
+        cb(null, {_id: ids.id})
+      })
+    })
   })
 }
 
 function addOntologyFile ({name, path}, cb) {
-  addFile(path, name, ontologyFileCol, (err, id) => {
+  addFile(path, name, ontologyFileCol, (err, ids) => {
     if (err) return cb(err)
-    cb(null, {_id: id})
+    cb(null, {_id: ids.id})
   })
 }
 
@@ -44,7 +50,7 @@ function addFile (path, name, col, cb) {
       if (err) return cb(err)
       db.sendDocToDb(col, {name: name, chaosid: chaosid}, (err, id) => {
         if (err) return cb(err)
-        cb(null, id)
+        cb(null, {id: id, chaosid: chaosid})
       })
     })
   })
@@ -80,14 +86,11 @@ function getDataFileNodes (ids, cb) {
     })
   }, (err, res) => {
     if (err) return cb(err)
-    let tree = []
+    let nodes = []
     res.forEach(obj => {
-      let root = treeFunctions.listToTree(obj.nodes.nodesTO)
-      root.parentid = '0'
-      root.dataFileId = obj.dataFileId
-      tree.push(root)
+      nodes.push({dataFileId: obj.dataFileId, nodes: obj.nodes.nodesTO})
     })
-    return cb(null, tree)
+    return cb(null, nodes)
   })
 }
 

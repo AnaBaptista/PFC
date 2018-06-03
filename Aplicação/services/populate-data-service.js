@@ -58,7 +58,9 @@ function getPopulateDataFiles (id, cb) {
         return {
           _id: file._id.toString(),
           name: file.name,
-          chaosid: file.chaosid}
+          chaosid: file.chaosid,
+          nodes: file.nodes
+        }
       })
       cb(null, files)
     })
@@ -73,16 +75,25 @@ function getPopulateTree (id, cb) {
     } else {
       getPopulateDataFiles(id, (err, files) => {
         if (err) return cb(err)
-        fileService.getDataFileNodes(files.map(o => o.chaosid), (err, tree) => {
+        let tree = getPopulateTreeAux(files)
+        db.updateById(populates, id, {tree: tree}, (err) => {
           if (err) return cb(err)
-          db.updateById(populates, id, {tree: tree}, (err) => {
-            if (err) return cb(err)
-            cb(null, tree)
-          })
+          cb(null, tree)
         })
       })
     }
   })
+}
+
+function getPopulateTreeAux (files) {
+  let tree = []
+  files.forEach(file => {
+    let root = treeFunctions.listToTree(file.nodes)
+    root.parentid = '0'
+    root.dataFileId = file.chaosid
+    tree.push(root)
+  })
+  return tree
 }
 
 function getPopulateIndividual (id, ind, cb) {

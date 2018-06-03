@@ -231,10 +231,13 @@ function createIndividualName (id) {
     body: JSON.stringify(data)
   }
 
+  document.getElementById('individual-name-btn').style.display = 'none'
   fetch(`/map/individual/${id}/name`, options)
     .then(handleError)
-    .then(_ => {
+    .then(res => res.json())
+    .then(json => {
       document.getElementById('individual-name-to-term').innerText = ''
+      document.getElementById('individual-name-btn').style.display = 'inline'
       document.getElementById('individual-name-row').style.display = 'none'
       alertify.success('Individual name changed')
     })
