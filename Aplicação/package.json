@@ -21,6 +21,7 @@
     "path": "^0.12.7",
     "promise": "^8.0.1",
     "request": "^2.85.0",
+    "shortid": "^2.2.8",
     "standard": "^11.0.1"
   },
   "engines": {

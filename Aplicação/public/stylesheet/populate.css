@@ -63,3 +63,8 @@
     max-height: 330px;
     overflow-y: auto;
 }
+
+#classes-list {
+    max-height: 350px;
+    overflow-y: auto;
+}

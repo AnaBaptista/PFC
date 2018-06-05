@@ -1,13 +1,10 @@
 module.exports = {
   addPopulate,
-  getPopulate,
-  getPopulateOntologyFiles,
-  getPopulateDataFiles,
-  getPopulateTree,
-  getPopulateIndividualTree,
-  getPopulateIndividual,
-  renderPopulateWithData,
-  renderPopulateWithoutData
+  getPopulateDataTree,
+  getPopulateDataIndividualTree,
+  getPopulateDataIndividual,
+  getPopulateNonDataIndividual,
+  renderPopulate
 }
 const fileService = require('../services/file-service')
 const treeFunctions = require('../utils/tree-functions')
@@ -67,7 +64,7 @@ function getPopulateDataFiles (id, cb) {
   })
 }
 
-function getPopulateTree (id, cb) {
+function getPopulateDataTree (id, cb) {
   getPopulate(id, (err, pop) => {
     if (err) return cb(err)
     if (pop.tree) {
@@ -96,9 +93,10 @@ function getPopulateTreeAux (files) {
   return tree
 }
 
-function getPopulateIndividual (id, ind, cb) {
+function getPopulateDataIndividual (id, ind, cb) {
   db.findById(individual, ind, (err, indMap) => {
     if (err) return cb(err)
+    // TODO: add the individual in populate when its created
     getPopulate(id, (err, pop) => {
       if (err) return cb(err)
       let find = pop.indMappings.find(obj => obj._id === ind)
@@ -116,7 +114,7 @@ function getPopulateIndividual (id, ind, cb) {
   })
 }
 
-function getPopulateIndividualTree (id, ind, cb) {
+function getPopulateDataIndividualTree (id, ind, cb) {
   getPopulate(id, (err, pop) => {
     if (err) return cb(err)
     db.findById(individual, ind, (err, indMap) => {
@@ -130,7 +128,27 @@ function getPopulateIndividualTree (id, ind, cb) {
   })
 }
 
-function renderPopulateWithData (id, cb) {
+function getPopulateNonDataIndividual (id, ind, cb) {
+  db.findById(individual, ind, (err, indObj) => {
+    if (err) return cb(err)
+    getPopulate(id, (err, pop) => {
+      if (err) return cb(err)
+      let find = pop.indMappings.find(obj => obj._id === ind)
+      if (!find) {
+        let indMappings = pop.indMappings
+        indMappings.push({_id: ind, owlClassIRI: indObj.owlClassIRI})
+        db.updateById(populates, id, {indMappings: indMappings}, (err) => {
+          if (err) return cb(err)
+          cb(null, indObj)
+        })
+      } else {
+        cb(null, indObj)
+      }
+    })
+  })
+}
+
+function renderPopulate (id, cb) {
   getPopulateOntologyFiles(id, (err, files) => {
     if (err) return cb(err)
     getPopulate(id, (err, pop) => {
@@ -145,11 +163,5 @@ function renderPopulateWithData (id, cb) {
         cb(null, ctx)
       })
     })
-  })
-}
-
-function renderPopulateWithoutData(id, cb) {
-  getPopulateOntologyFiles(id, (err, files) => {
-
   })
 }

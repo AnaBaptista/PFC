@@ -99,12 +99,12 @@ function createDataProperty (id) {
       [{
         owlClassIRI: property[0].textContent,
         type: type[0].textContent,
-        toMapNodeIds: ids
+        toMapNodeId: ids
       }]
   }
 
   let options = {
-    method: 'POST',
+    method: 'PUT',
     headers: {
       'Accept': 'application/json, text/plain, */*',
       'Content-Type': 'application/json'
@@ -147,7 +147,7 @@ function createObjectProperty (id) {
   }
 
   let options = {
-    method: 'POST',
+    method: 'PUT',
     headers: {
       'Accept': 'application/json, text/plain, */*',
       'Content-Type': 'application/json'
@@ -170,6 +170,7 @@ function createObjectProperty (id) {
  *
  * @param id {String} individual mapping id
  */
+// TODO: are ontology file properties? version, comeent (ontology file), label (owl class)
 function createAnnotationProperty (id) {
   let annotation = getSelectedItems('annotation-properties-menu', '.selected')
   let node = document.getElementById('aproperty-to-term')
@@ -187,7 +188,7 @@ function createAnnotationProperty (id) {
   }
 
   let options = {
-    method: 'POST',
+    method: 'PUT',
     headers: {
       'Accept': 'application/json, text/plain, */*',
       'Content-Type': 'application/json'
@@ -223,7 +224,7 @@ function createIndividualName (id) {
   }
 
   let options = {
-    method: 'POST',
+    method: 'PUT',
     headers: {
       'Accept': 'application/json, text/plain, */*',
       'Content-Type': 'application/json'

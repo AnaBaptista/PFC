@@ -1,22 +1,61 @@
 <!-- Navbar -->
 {{> navbar}}
-<div class="ui body-content" id="populate-content">
-    <div class="ui grid" id="mapper-grid">
-        <div id="ontology-file-content" class="column">
-            <div id="ontology-file">
-                <div class="ui buttons black fluid">
-                    <button class="ui button" onclick="getOntologyFileData('{{ontologyFileId}}', 'classes', 'ontology-file-data');">Classes</button>
-                    <button class="ui button" onclick="getOntologyFileData('{{ontologyFileId}}', 'objectproperties');">Object Properties</button>
-                    <button class="ui button" onclick="getOntologyFileData('{{ontologyFileId}}', 'dataproperties');">Data Properties</button>
-                </div>
-                <div id="ontology-file-data" class="left aligned">
-                </div>
+<div class="ui body-content" id="mapper-content">
+    <div class="ui internally celled grid" id="mapper-grid">
+        <div class="eight wide column" id="classes-segment">
+            <h5 class="ui center aligned icon header">
+                <i class="circular sitemap alternate outline icon"></i>
+                ONTOLOGY CLASSES
+            </h5>
+            <hr>
+            <div class="ui middle aligned divided list" id="classes-list">
+                {{#each this.classes}}
+                    <div class="item" id="{{IRI}}-{{ontologyId}}" onclick="changeIndividual('{{ontologyId}}', '{{IRI}}')">
+                        {{IRI}}
+                    </div>
+                {{/each}}
             </div>
+            <divide />
+            <h5 class="ui center aligned header">
+                Choose a node to mapper and the respective OWL class
+            </h5>
+            <div id="classes-to-individual">
+            </div>
+            <h5 class="ui center aligned header" id="create-individual-btn">
+                <button class="ui button basic secondary" onclick="createIndividual('{{_id}}');">
+                    CREATE
+                </button>
+            </h5>
         </div>
-        <div id="populating" class="column">
-            POPULATING
+        <div class="eight wide column">
+            <div class="ui middle aligned divided list" id="individual-list">
+                {{#each this.indMappings}}
+                    <div class="item" id="individual-{{_id}}">
+                        <div class="right floated content">
+                            <button class="ui icon mini button basic secondary" onclick="deleteIndividual('{{_id}}')">
+                                <i class="large trash alternate outline middle aligned icon"></i>
+                            </button>
+                        </div>
+                        <div class="content">
+                            <a class="header" href="/populate/nondata/{{../this._id}}/individual/{{_id}}">
+                                {{tag}}
+                            </a>
+                            <div class="description">
+
+                            </div>
+                            {{owlClassIRI}}
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
         </div>
     </div>
 </div>
 <!-- Footer -->
 {{> footer}}
+
+<script>
+    $(document).ready(function() {
+        $('.dropdown').dropdown({fullTextSearch: true})
+    });
+</script>

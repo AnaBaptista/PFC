@@ -5,11 +5,13 @@ module.exports = router
 
 router.post('/populate', addPopulate)
 
-router.get('/populate/nondata/:id', getPopulateWithoutData)
 router.get('/populate/data/:id', getPopulateWithData)
-router.get('/populate/data/:id/tree', getPopulateTree)
-router.get('/populate/data/:id/individual/:ind', getPopulateIndividual)
-router.get('/populate/data/:id/individual/:ind/tree', getPopulateIndividualTree)
+router.get('/populate/data/:id/tree', getPopulateDataTree)
+router.get('/populate/data/:id/individual/:ind', getPopulateDataIndividual)
+router.get('/populate/data/:id/individual/:ind/tree', getPopulateDataIndividualTree)
+
+router.get('/populate/nondata/:id', getPopulateWithoutData)
+router.get('/populate/nondate/:id/individual/:ind', getPopulateNonDataIndividual)
 
 const service = require('../services/populate-data-service')
 
@@ -23,7 +25,7 @@ function addPopulate (req, res, next) {
 
 function getPopulateWithoutData (req, res, next) {
   let id = req.params.id
-  service.renderPopulateWithoutData(id, (err, pop) => {
+  service.renderPopulate(id, (err, pop) => {
     if (err) return next(err)
     res.render('popolateWithoutData', pop)
   })
@@ -31,38 +33,51 @@ function getPopulateWithoutData (req, res, next) {
 
 function getPopulateWithData (req, res, next) {
   let id = req.params.id
-  service.renderPopulateWithData(id, (err, pop) => {
+  service.renderPopulate(id, (err, pop) => {
     if (err) return next(err)
     res.render('populateWithData', pop)
   })
 }
 
-function getPopulateTree (req, res, next) {
+function getPopulateDataTree (req, res, next) {
   let id = req.params.id
-  service.getPopulateTree(id, (err, tree) => {
+  service.getPopulateDataTree(id, (err, tree) => {
     if (err) return next(err)
     res.json(tree)
   })
 }
 
-function getPopulateIndividual (req, res, next) {
+function getPopulateDataIndividual (req, res, next) {
   let ind = req.params.ind
   let id = req.params.id
-  service.getPopulateIndividual(id, ind, (err, individual) => {
+  service.getPopulateDataIndividual(id, ind, (err, individual) => {
     if (err) return next(err)
     let ctx = {
-      popId: req.params.id
+      popId: id
     }
     Object.assign(ctx, individual)
     res.render('individualMapping', ctx)
   })
 }
 
-function getPopulateIndividualTree (req, res, next) {
+function getPopulateDataIndividualTree (req, res, next) {
   let id = req.params.id
   let ind = req.params.ind
-  service.getPopulateIndividualTree(id, ind, (err, tree) => {
+  service.getPopulateDataIndividualTree(id, ind, (err, tree) => {
     if (err) return next(err)
     res.json(tree)
+  })
+}
+
+function getPopulateNonDataIndividual (req, res, next) {
+  let id = req.params.id
+  let ind = req.params.ind
+  service.getPopulateNonDataIndividual(id, ind, (err, individual) => {
+    if (err) return next(err)
+    let ctx = {
+      popId: id
+    }
+    Object.assign(ctx, individual)
+    res.render('individual', ctx)
   })
 }

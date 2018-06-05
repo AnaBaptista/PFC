@@ -80,9 +80,10 @@ function putIndividualMappingObjectProperties (req, res, next) {
   console.log('PUT - /map/individual/:individualId/properties/object, addIndividualMappingObjectProperties')
   let id = req.params.individualId
   let objProps = req.body.objProps
-  service.putIndividualMappingObjectProperties(id, objProps, (err) => {
+  service.putIndividualMappingObjectProperties(id, objProps, (err, props) => {
     if (err) return next(err)
-    return res.redirect(`/map/individual/${id};`)
+    // return res.redirect(`/map/individual/${id};`)
+    res.json(props)
   })
 }
 
@@ -115,9 +116,10 @@ function putIndividualMappingDataProperties (req, res, next) {
   console.log('/map/individual/:individualId/properties/data, addIndividualMappingDataProperties')
   let id = req.params.individualId
   let dataProps = req.body.dataProps
-  service.putIndividualMappingDataProperties(id, dataProps, (err) => {
+  service.putIndividualMappingDataProperties(id, dataProps, (err, props) => {
     if (err) return next(err)
-    return res.redirect(`/map/individual/${id};`)
+    //return res.redirect(`/map/individual/${id};`)
+    res.json(props)
   })
 }
 
@@ -220,7 +222,7 @@ function getAllIndividualMappings (req, res, next) {
 function removeIndividualMapping (req, res, next) {
   console.log('/map/individual/, removeIndividualMapping')
   let id = req.body.id
-  service.removeIndividualMapping(id, (err, result) => {
+  service.deleteIndividualMapping(id, (err, result) => {
     if (err) return next(err)
     return res.json(result)
   })
