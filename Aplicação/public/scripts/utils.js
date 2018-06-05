@@ -11,3 +11,14 @@ function getSelectedItems (id, selector) {
   return filtersElems
 }
 
+function getFetchOptions (method, data) {
+  let options = {
+    method: `${method}`,
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }
+  return options
+}

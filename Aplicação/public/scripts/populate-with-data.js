@@ -35,7 +35,7 @@ function getTree (path, id) {
  * This function creates an individual mapping on server side
  * @param populateId {String} populate with data id
  */
-function createIndMapping (populateId) {
+function createIndividualMapping (populateId) {
   let node = document.getElementById('classes-to-term')
   let onto = getSelectedItems('classes-menu', '.selected')
 
@@ -58,14 +58,7 @@ function createIndMapping (populateId) {
     }
   }
 
-  let options = {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json, text/plain, */*',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  }
+  let options = getFetchOptions('POST', data)
 
   fetch(`/map/individual`, options)
     .then(handleError)
@@ -103,14 +96,7 @@ function createDataProperty (id) {
       }]
   }
 
-  let options = {
-    method: 'PUT',
-    headers: {
-      'Accept': 'application/json, text/plain, */*',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  }
+  let options = getFetchOptions('PUT', data)
 
   fetch(`/map/individual/${id}/properties/data`, options)
     .then(handleError)
@@ -146,14 +132,7 @@ function createObjectProperty (id) {
       }]
   }
 
-  let options = {
-    method: 'PUT',
-    headers: {
-      'Accept': 'application/json, text/plain, */*',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  }
+  let options = getFetchOptions('PUT', data)
 
   fetch(`/map/individual/${id}/properties/object`, options)
     .then(handleError)
@@ -187,14 +166,7 @@ function createAnnotationProperty (id) {
     }
   }
 
-  let options = {
-    method: 'PUT',
-    headers: {
-      'Accept': 'application/json, text/plain, */*',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  }
+  let options = getFetchOptions('PUT', data)
 
   // //TODO: make request
   // fetch(`/map/individual/${id}/properties/annotation`, options)
@@ -223,14 +195,7 @@ function createIndividualName (id) {
     individualName: individualName
   }
 
-  let options = {
-    method: 'PUT',
-    headers: {
-      'Accept': 'application/json, text/plain, */*',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  }
+  let options = getFetchOptions('PUT', data)
 
   document.getElementById('individual-name-btn').style.display = 'none'
   fetch(`/map/individual/${id}/name`, options)
@@ -266,7 +231,9 @@ function changeIndMappingContent (id, type) {
   let path = (type === 'oproperty' && 'objectprops') ||
     (type === 'dproperty' && 'dataprops') ||
     (type === 'aproperty' && 'annotationprops')
+
   let url = `/map/individual/${id}/${path}/view`
+
   fetch(url)
     .then(handleError)
     .then(res => res.text())
@@ -318,11 +285,7 @@ function changeDataFileOptionToMapping (node) {
  * @param id {String} individual mapping id
  */
 function deleteIndividualMapping (id) {
-  let options = {
-    method: 'DELETE'
-  }
-
-  fetch(`/map/individual/${id}`, options)
+  fetch(`/map/individual/${id}`, {method: 'DELETE'})
     .then(handleError)
     .then(_ => {
       let toDelete = document.getElementById(`individual-mapping-${id}`)

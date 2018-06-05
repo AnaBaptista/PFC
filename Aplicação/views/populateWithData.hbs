@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <h5 class="ui center aligned header" id="create-mapping-btn">
-                        <button class="ui button basic secondary" onclick="createIndMapping('{{_id}}');">
+                        <button class="ui button basic secondary" onclick="createIndividualMapping('{{_id}}');">
                             CREATE
                         </button>
                     </h5>
@@ -60,9 +60,8 @@
                                         {{tag}}
                                     </a>
                                     <div class="description">
-
+                                        {{owlClassIRI}}
                                     </div>
-                                    {{owlClassIRI}}
                                 </div>
                             </div>
                         {{/each}}

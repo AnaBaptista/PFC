@@ -65,6 +65,15 @@
 }
 
 #classes-list {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+#properties-list {
     max-height: 350px;
     overflow-y: auto;
+}
+
+#classes-to-individual {
+    min-height: 25px;
 }

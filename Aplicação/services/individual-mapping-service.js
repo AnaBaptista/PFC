@@ -24,18 +24,18 @@ const fileService = require('../services/file-service')
  * @param {function} cb(err, status, id from result)
  */
 function createIndividualMapping (input, cb) {
-  if (input.ontologyFileId === undefined || input.dataFileId === undefined) {
-    let error = new Error('Bad Request, missing ontology or data file Id\'s')
-    error.statusCode = 400
-    return cb(error)
-  }
-
-  if (input.tag === undefined || input.owlClassIRI === undefined || input.nodeId === undefined ||
-       input.specification !== false) {
-    let error = new Error('Bad Request, missing TAG or IRI or NODEID, or SPECIFICATION is different from false')
-    error.statusCode = 400
-    return cb(error)
-  }
+  // if (input.ontologyFileId === undefined || input.dataFileId === undefined) {
+  //   let error = new Error('Bad Request, missing ontology or data file Id\'s')
+  //   error.statusCode = 400
+  //   return cb(error)
+  // }
+  //
+  // if (input.tag === undefined || input.owlClassIRI === undefined || input.nodeId === undefined ||
+  //      input.specification !== false) {
+  //   let error = new Error('Bad Request, missing TAG or IRI or NODEID, or SPECIFICATION is different from false')
+  //   error.statusCode = 400
+  //   return cb(error)
+  // }
 
   dbAccess.sendDocToDb(collection, input, (err, id) => {
     if (err) return cb(err)

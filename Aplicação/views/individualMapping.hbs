@@ -67,6 +67,25 @@
                         <h5 class="ui center aligned header">
                             Properties that you mapped
                         </h5>
+                        <div class="ui middle aligned divided list" id="properties-list">
+                            {{#each this.properties}}
+                                <div class="item" id="property-{{id}}">
+                                    <div class="right floated content">
+                                        <button class="ui icon mini button basic secondary" onclick="deleteIndividualMappingProperty('{{id}}', '{{type}}')">
+                                            <i class="large trash alternate outline middle aligned icon"></i>
+                                        </button>
+                                    </div>
+                                    <div class="content">
+                                        <a class="header">
+                                            {{owlClassIRI}}
+                                        </a>
+                                        <div class="description">
+                                            {{nodes}}
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/each}}
+                        </div>
                     </div>
                 </div>
             </div>

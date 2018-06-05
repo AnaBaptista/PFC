@@ -105,13 +105,41 @@ function getPopulateDataIndividual (id, ind, cb) {
         indMappings.push({_id: ind, tag: indMap.tag, owlClassIRI: indMap.owlClassIRI})
         db.updateById(populates, id, {indMappings: indMappings}, (err) => {
           if (err) return cb(err)
-          cb(null, indMap)
+          getIndividualMappingProperties(indMap, cb)
         })
       } else {
-        cb(null, indMap)
+        getIndividualMappingProperties(indMap, cb)
       }
     })
   })
+}
+
+// TODO: split(;).split(.)(lastIndex) to get node tag
+function getIndividualMappingProperties (indMap, cb) {
+  let dataProperties = (indMap.dataProperties === undefined && []) ||
+    indMap.dataProperties.map(obj => {
+      let keys = Object.keys(obj)
+      return {
+        id: obj.id,
+        owlClassIRI: keys[1],
+        nodes: obj[keys[1]][0],
+        type: 'Data'
+      }
+    })
+  let objectProperties = (indMap.objectProperties === undefined && []) ||
+    indMap.objectProperties.map(obj => {
+      let keys = Object.keys(obj)
+      return {
+        id: obj.id,
+        owlClassIRI: keys[1],
+        nodes: obj[keys[1]][0],
+        type: 'Object'
+      }
+    })
+  let properties = []
+  properties = properties.concat(dataProperties).concat(objectProperties)
+  indMap.properties = properties
+  cb(null, indMap)
 }
 
 function getPopulateDataIndividualTree (id, ind, cb) {
@@ -136,7 +164,7 @@ function getPopulateNonDataIndividual (id, ind, cb) {
       let find = pop.indMappings.find(obj => obj._id === ind)
       if (!find) {
         let indMappings = pop.indMappings
-        indMappings.push({_id: ind, owlClassIRI: indObj.owlClassIRI})
+        indMappings.push({_id: ind, owlClassIRI: indObj.owlClassIRI, individualName: indObj.individualName})
         db.updateById(populates, id, {indMappings: indMappings}, (err) => {
           if (err) return cb(err)
           cb(null, indObj)

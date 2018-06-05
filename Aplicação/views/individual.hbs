@@ -13,6 +13,9 @@
                <div>
                    IRI: {{owlClassIRI}}
                </div>
+                <div>
+                    Individual Name: {{individualName}}
+                </div>
             </div>
             <div class="three wide column">
                 <button class="ui fluid button basic secondary">
@@ -25,8 +28,9 @@
                 <div class="ui internally celled grid" id="individual-content" >
                     <div class="eight wide column">
                         <div class="ui buttons black ten wide fields">
-                            <button class="ui button" onclick="changeIndContent('{{_id}}', 'dproperty');">data properties</button>
-                            <button class="ui button" onclick="changeIndContent('{{_id}}', 'oproperty');">object properties</button>
+                            <button class="ui button" onclick="changeIndividualContent('{{_id}}', 'aproperty');">annotation properties</button>
+                            <button class="ui button" onclick="changeIndividualContent('{{_id}}', 'dproperty');">data properties</button>
+                            <button class="ui button" onclick="changeIndividualContent('{{_id}}', 'oproperty');">object properties</button>
                         </div>
                         <div id="individual-mapping-content">
                         </div>
@@ -35,6 +39,7 @@
                         <h5 class="ui center aligned header">
                             Properties that you mapped
                         </h5>
+
                     </div>
                 </div>
             </div>

@@ -11,7 +11,7 @@ router.get('/populate/data/:id/individual/:ind', getPopulateDataIndividual)
 router.get('/populate/data/:id/individual/:ind/tree', getPopulateDataIndividualTree)
 
 router.get('/populate/nondata/:id', getPopulateWithoutData)
-router.get('/populate/nondate/:id/individual/:ind', getPopulateNonDataIndividual)
+router.get('/populate/nondata/:id/individual/:ind', getPopulateNonDataIndividual)
 
 const service = require('../services/populate-data-service')
 
@@ -27,7 +27,7 @@ function getPopulateWithoutData (req, res, next) {
   let id = req.params.id
   service.renderPopulate(id, (err, pop) => {
     if (err) return next(err)
-    res.render('popolateWithoutData', pop)
+    res.render('populateWithoutData', pop)
   })
 }
 
