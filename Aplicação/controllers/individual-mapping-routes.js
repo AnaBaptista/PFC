@@ -82,7 +82,6 @@ function putIndividualMappingObjectProperties (req, res, next) {
   let objProps = req.body.objProps
   service.putIndividualMappingObjectProperties(id, objProps, (err, props) => {
     if (err) return next(err)
-    // return res.redirect(`/map/individual/${id};`)
     res.json(props)
   })
 }
@@ -118,7 +117,6 @@ function putIndividualMappingDataProperties (req, res, next) {
   let dataProps = req.body.dataProps
   service.putIndividualMappingDataProperties(id, dataProps, (err, props) => {
     if (err) return next(err)
-    //return res.redirect(`/map/individual/${id};`)
     res.json(props)
   })
 }
@@ -150,9 +148,9 @@ function putIndividualMappingAnnotationProperties (req, res, next) {
   console.log('/map/individual/:individualId/properties/annotation, addIndividualMappingAnnotationProperties')
   let id = req.params.individualId
   let annotationProps = req.body.annotationProps
-  service.putIndividualMappingAnnotationProperties(id, annotationProps, (err, result) => {
+  service.putIndividualMappingAnnotationProperties(id, annotationProps, (err, props) => {
     if (err) return next(err)
-    return res.redirect(`/map/individual/${id};`)
+    res.json(props)
   })
 }
 

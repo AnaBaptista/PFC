@@ -84,18 +84,18 @@ function putIndividualMappingObjectProperties (id, objProps, cb) {
     error.statusCode = 400
     return cb(error)
   }
-  // let idsToRemove = []
-  // objProps.forEach(elem => idsToRemove.push(elem.id))
+  let idsToRemove = []
+  objProps.forEach(elem => idsToRemove.push(elem.id))
 
   dbAccess.findById(collection, id, (err, indMap) => {
     if (err) cb(err)
-    if (indMap.objectProperties === undefined) {
-      indMap.objectProperties = []
-    }
-    // indMap.objectProperties = indMap.objectProperties.filter(elem => !idsToRemove.includes(elem.id))
-    parser.parseObjectProperties(objProps, indMap.nodeId, indMap.objectProperties, indMap.dataFileId, (err, parsedProps) => {
+    parser.parseObjectProperties(objProps, indMap.nodeId, indMap.dataFileId, (err, parsedProps) => {
       if (err) return cb(err)
-      let set = {objectProperties: parsedProps}
+
+      indMap.objectProperties = (indMap.objectProperties === undefined && []) ||
+        indMap.objectProperties.filter(elem => !idsToRemove.includes(elem.id))
+
+      let set = {objectProperties: indMap.objectProperties.concat(parsedProps)}
       dbAccess.updateById(collection, id, set, (err) => {
         if (err) return cb(err)
         cb(null, parsedProps)
@@ -120,20 +120,21 @@ function putIndividualMappingDataProperties (id, dataProps, cb) {
     error.statusCode = 400
     return cb(error)
   }
-  // let idsToRemove = []
-  // dataProps.forEach(elem => idsToRemove.push(elem.id))
+  let idsToRemove = []
+  dataProps.forEach(elem => idsToRemove.push(elem.id))
+
   dbAccess.findById(collection, id, (err, indMap) => {
     if (err) cb(err)
-    if (indMap.objectProperties === undefined) {
-      indMap.objectProperties = []
-    }
-    // indMap.dataProperties = indMap.dataProperties.filter(elem => !idsToRemove.includes(elem.id))
-    parser.parseDataProperties(dataProps, indMap.nodeId, indMap.dataProperties, indMap.dataFileId, (err, parsedProps) => {
+    parser.parseDataProperties(dataProps, indMap.nodeId, indMap.dataFileId, (err, parsedProps) => {
       if (err) return cb(err)
-      let set = {dataProperties: parsedProps}
+
+      indMap.dataProperties = (indMap.dataProperties === undefined && []) ||
+        indMap.dataProperties.filter(elem => !idsToRemove.includes(elem.id))
+
+      let set = {dataProperties: indMap.dataProperties.concat(parsedProps)}
       dbAccess.updateById(collection, id, set, (err) => {
         if (err) return cb(err)
-        cb(null, set)
+        cb(null, parsedProps)
       })
     })
   })
@@ -156,14 +157,19 @@ function putIndividualMappingAnnotationProperties (id, annotationProps, cb) {
     error.statusCode = 400
     return cb(error)
   }
+
   let idsToRemove = []
   annotationProps.forEach(elem => idsToRemove.push(elem.id))
+
   dbAccess.findById(collection, id, (err, indMap) => {
     if (err) cb(err)
-    indMap.annotationProperties = indMap.annotationProperties.filter(elem => !idsToRemove.includes(elem.id))
-    parser.parseAnnotationProperties(annotationProps, indMap.nodeId, indMap.annotationProperties, indMap.dataFileId, (err, parsedProps) => {
+    parser.parseAnnotationProperties(annotationProps, indMap.nodeId, indMap.dataFileId, (err, parsedProps) => {
       if (err) return cb(err)
-      let set = {annotationProperties: parsedProps}
+
+      indMap.annotationProperties = (indMap.annotationProperties === undefined && []) ||
+        indMap.annotationProperties.filter(elem => !idsToRemove.includes(elem.id))
+
+      let set = {annotationProperties: indMap.annotationProperties.concat(parsedProps)}
       dbAccess.updateById(collection, id, set, (err) => {
         if (err) return cb(err)
         cb()

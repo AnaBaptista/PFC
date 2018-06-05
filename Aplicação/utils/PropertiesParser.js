@@ -16,8 +16,8 @@ function parseName (listOfNodes, indMapNode, dataFileId, cb) {
   })
 }
 
-function parseObjectProperties (listOfProps, indMapNode, objProps, dataFileId, cb) {
-  // if (objProps === undefined) objProps = []
+function parseObjectProperties (listOfProps, indMapNode, dataFileId, cb) {
+  let objProps = []
   getNodesFromFile(dataFileId, (err, nodes) => {
     if (err) return cb(err)
     async.each(listOfProps,
@@ -39,8 +39,8 @@ function parseObjectProperties (listOfProps, indMapNode, objProps, dataFileId, c
 }
 
 const dataType = ['Integer', 'Boolean', 'Float', 'Double', 'String']
-function parseDataProperties (listOfProps, indMapNode, dataProps, dataFileId, cb) {
-  // if (dataProps === undefined) dataProps = []
+function parseDataProperties (listOfProps, indMapNode, dataFileId, cb) {
+  let dataProps = []
   getNodesFromFile(dataFileId, (err, nodes) => {
     if (err) return cb(err)
     async.each(listOfProps,
@@ -65,8 +65,8 @@ function parseDataProperties (listOfProps, indMapNode, dataProps, dataFileId, cb
 }
 
 const labelType = ['label', 'comment', 'seeAlso', 'isDefinedBy', 'versionInfo ', 'backwardCompatibleWith', 'incompatibleWith']
-function parseAnnotationProperties (listOfProps, indMapNode, annProps, dataFileId, cb) {
-  if (annProps === undefined) annProps = []
+function parseAnnotationProperties (listOfProps, indMapNode, dataFileId, cb) {
+  let annProps = []
   getNodesFromFile(dataFileId, (err, nodes) => {
     async.each(listOfProps,
       (listEntry, callback) => {
