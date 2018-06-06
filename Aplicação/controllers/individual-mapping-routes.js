@@ -12,9 +12,9 @@ router.put('/map/individual/:individualId/properties/annotation', putIndividualM
 
 router.get('/map/individual', getAllIndividualMappings)
 router.get('/map/individual/:individualId', getIndividualMapping)
-router.get('/map/individual/:id/objectprops/view', renderObjectProps)
-router.get('/map/individual/:id/dataprops/view', renderDataProps)
-router.get('/map/individual/:id/annotationprops/view', renderAnnotationProps)
+router.get('/map/individual/:id/properties/object/view', renderObjectProps)
+router.get('/map/individual/:id/properties/data/view', renderDataProps)
+router.get('/map/individual/:id/properties/annotation/view', renderAnnotationProps)
 
 router.delete('/map/individual/:individualId', removeIndividualMapping)
 /**
@@ -45,9 +45,9 @@ function putIndividualMappingName (req, res, next) {
   console.log('/map/individual/:individualId/name, addIndividualMappingName')
   let id = req.params.individualId
   let input = req.body.individualName
-  service.putIndividualMappingName(id, input, (err) => {
+  service.putIndividualMappingName(id, input, (err, name) => {
     if (err) return next(err)
-    res.json({_id: id})
+    res.json(name)
   })
 }
 
@@ -248,10 +248,10 @@ function renderDataProps (req, res, next) {
 
 function renderAnnotationProps (req, res, next) {
   let id = req.params.id
-  const ctx = {
-    layout: false,
-    _id: id,
-    aproperties: ['Label', 'Comment', 'VersionInfo']
-  }
-  res.render('partials/individualMapAnnotationProps', ctx)
+  service.renderAnnotationProperties(id, (err, props) => {
+    if (err) return next(err)
+    const ctx = {layout: false, _id: id}
+    Object.assign(ctx, props)
+    res.render('partials/individualMapAnnotationProps', ctx)
+  })
 }

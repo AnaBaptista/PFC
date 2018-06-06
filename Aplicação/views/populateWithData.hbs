@@ -5,7 +5,7 @@
         <div id="data-file-content" class="five wide column">
             <div id="data-file-data">
                 <div id="data-file-tree">
-                    <button class="ui circular compact icon basic button" onclick="getPopulateTree('{{_id}}');">
+                    <button class="ui circular compact icon basic button" onclick="getPopulateTree('{{_id}}');" title="Click to show the populate tree ">
                         <i class="angle double down icon"></i>
                     </button>
                 </div>
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <h5 class="ui center aligned header" id="create-mapping-btn">
-                        <button class="ui button basic secondary" onclick="createIndividualMapping('{{_id}}');">
+                        <button class="ui button basic secondary" onclick="createIndividualMapping('{{_id}}');" title="Click to create an individual mapping">
                             CREATE
                         </button>
                     </h5>
@@ -51,7 +51,7 @@
                         {{#each this.indMappings}}
                             <div class="item" id="individual-mapping-{{_id}}">
                                 <div class="right floated content">
-                                    <button class="ui icon mini button basic secondary" onclick="deleteIndividualMapping('{{_id}}')">
+                                    <button class="ui icon mini button basic secondary" onclick="deleteIndividualMapping('{{_id}}')" title="Click to delete this individual mapping">
                                         <i class="large trash alternate outline middle aligned icon"></i>
                                     </button>
                                 </div>

@@ -33,7 +33,7 @@ function getPopulate (id, cb) {
 function getPopulateOntologyFiles (id, cb) {
   getPopulate(id, (err, res) => {
     if (err) return cb(err)
-    db.findByIds(ontologyFiles, res.ontologyFiles, (err, oFiles) => {
+    db.findByIds(ontologyFiles, res.ontologyFiles.map(o => o.id), (err, oFiles) => {
       if (err) return cb(err)
       let files = oFiles.map(file => {
         return {
@@ -49,7 +49,7 @@ function getPopulateOntologyFiles (id, cb) {
 function getPopulateDataFiles (id, cb) {
   getPopulate(id, (err, res) => {
     if (err) return cb(err)
-    db.findByIds(dataFiles, res.dataFiles, (err, dFiles) => {
+    db.findByIds(dataFiles, res.dataFiles.map(d => d.id), (err, dFiles) => {
       if (err) return cb(err)
       let files = dFiles.map(file => {
         return {
@@ -105,41 +105,13 @@ function getPopulateDataIndividual (id, ind, cb) {
         indMappings.push({_id: ind, tag: indMap.tag, owlClassIRI: indMap.owlClassIRI})
         db.updateById(populates, id, {indMappings: indMappings}, (err) => {
           if (err) return cb(err)
-          getIndividualMappingProperties(indMap, cb)
+          cb(null, indMap)
         })
       } else {
-        getIndividualMappingProperties(indMap, cb)
+        cb(null, indMap)
       }
     })
   })
-}
-
-// TODO: split(;).split(.)(lastIndex) to get node tag
-function getIndividualMappingProperties (indMap, cb) {
-  let dataProperties = (indMap.dataProperties === undefined && []) ||
-    indMap.dataProperties.map(obj => {
-      let keys = Object.keys(obj)
-      return {
-        id: obj.id,
-        owlClassIRI: keys[1],
-        nodes: obj[keys[1]][0],
-        type: 'Data'
-      }
-    })
-  let objectProperties = (indMap.objectProperties === undefined && []) ||
-    indMap.objectProperties.map(obj => {
-      let keys = Object.keys(obj)
-      return {
-        id: obj.id,
-        owlClassIRI: keys[1],
-        nodes: obj[keys[1]][0],
-        type: 'Object'
-      }
-    })
-  let properties = []
-  properties = properties.concat(dataProperties).concat(objectProperties)
-  indMap.properties = properties
-  cb(null, indMap)
 }
 
 function getPopulateDataIndividualTree (id, ind, cb) {

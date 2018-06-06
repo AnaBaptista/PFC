@@ -1,6 +1,7 @@
 /**
  *
  * @param id {String} dropdown id
+ * @param selector {String} (filtered or selected)
  * @returns {Array} all selected files present in the dropdown
  */
 function getSelectedItems (id, selector) {
@@ -11,6 +12,12 @@ function getSelectedItems (id, selector) {
   return filtersElems
 }
 
+/**
+ * This function constructs the request options and returns it
+ * @param method {String}
+ * @param data {Object} request body
+ * @returns {{method: string, headers: {Accept: string, 'Content-Type': string}, body: string}}
+ */
 function getFetchOptions (method, data) {
   let options = {
     method: `${method}`,

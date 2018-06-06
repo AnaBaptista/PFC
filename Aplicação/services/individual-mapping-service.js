@@ -8,7 +8,8 @@ module.exports = {
   putIndividualMappingAnnotationProperties,
   deleteIndividualMapping,
   renderObjectProperties,
-  renderDataProperties
+  renderDataProperties,
+  renderAnnotationProperties
 }
 
 const dataAccess = require('../data-access/individual-mapping-access')
@@ -62,7 +63,7 @@ function putIndividualMappingName (id, listOfNodes, cb) {
       let set = {individualName: parsedName}
       dbAccess.updateById(collection, id, set, (err) => {
         if (err) return cb(err)
-        cb()
+        cb(null, parsedName)
       })
     })
   })
@@ -172,7 +173,7 @@ function putIndividualMappingAnnotationProperties (id, annotationProps, cb) {
       let set = {annotationProperties: indMap.annotationProperties.concat(parsedProps)}
       dbAccess.updateById(collection, id, set, (err) => {
         if (err) return cb(err)
-        cb()
+        cb(null, parsedProps)
       })
     })
   })
@@ -251,7 +252,25 @@ function renderObjectProperties (id, cb) {
     if (err) return cb(err)
     fileService.getOntologyFileObjectProperties(pop.ontologyFileId, (err, props) => {
       if (err) return cb(err)
-      cb(null, {oproperties: props})
+      dbAccess.findById(collection, id, (err, indMap) => {
+        if (err) return cb(err)
+        let obj = {
+          oproperties: props,
+          objectProperties: []
+        }
+        if (indMap.objectProperties) {
+          obj['objectProperties'] = indMap.objectProperties.map(obj => {
+            let keys = Object.keys(obj)
+            return {
+              id: obj.id,
+              name: keys[1],
+              nodes: obj[keys[1]],
+              type: 'Object'
+            }
+          })
+        }
+        cb(null, obj)
+      })
     })
   })
 }
@@ -260,11 +279,46 @@ function renderDataProperties (id, cb) {
     if (err) return cb(err)
     fileService.getOntologyFileDataProperties(pop.ontologyFileId, (err, props) => {
       if (err) return cb(err)
-      let obj = {
-        dproperties: props,
-        dpropertyTypes: ['String', 'Integer', 'Float', 'Double', 'Boolean']
-      }
-      cb(null, obj)
+      dbAccess.findById(collection, id, (err, indMap) => {
+        if (err) return cb(err)
+        let obj = {
+          dproperties: props,
+          dpropertyTypes: ['String', 'Integer', 'Float', 'Double', 'Boolean'],
+          dataProperties: []
+        }
+        if (indMap.dataProperties) {
+          obj['dataProperties'] = indMap.dataProperties.map(obj => {
+            let keys = Object.keys(obj)
+            return {
+              id: obj.id,
+              name: keys[1],
+              nodes: obj[keys[1]][0]
+            }
+          })
+        }
+        cb(null, obj)
+      })
     })
+  })
+}
+
+function renderAnnotationProperties (id, cb) {
+  const obj = {
+    aproperties: ['label', 'comment', 'seeAlso'],
+    annotationProperties: []
+  }
+  dbAccess.findById(collection, id, (err, indMap) => {
+    if (err) return cb(err)
+    if (indMap.annotationProperties) {
+      obj['annotationProperties'] = indMap.annotationProperties.map(obj => {
+        let keys = Object.keys(obj)
+        return {
+          id: obj.id,
+          name: keys[1],
+          nodes: obj[keys[1]]
+        }
+      })
+    }
+    cb(null, obj)
   })
 }

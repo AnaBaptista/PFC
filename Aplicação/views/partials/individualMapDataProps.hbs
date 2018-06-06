@@ -1,28 +1,56 @@
-<h5 class="ui center aligned header" id="property-header">
-    DATA PROPERTIES
-    <button class="ui button mini basic secondary right floated" onclick="createDataProperty('{{_id}}');">
-        ADD
-    </button>
-</h5>
-<div id="dproperty-to-term">
-</div>
-<div class="ui fluid selection dropdown">
-    <input name="select-dproperty-type" type="hidden">
-    <i class="dropdown icon"></i>
-    <div class="default text">Select data property type</div>
-    <div class="menu" id="data-property-type-menu">
-    {{#each this.dpropertyTypes}}
-        <div class="item" data-value="{{this}}">{{this}}</div>
-    {{/each}}
+<div class="eight wide column">
+    <h5 class="ui center aligned header" id="property-header">
+        DATA PROPERTIES
+        <div class="ui buttons right floated">
+            <button class="ui icon tiny button basic secondary" onclick="clearDataFileNodeToMapping()" title="Click to clean selected nodes">
+                <i class="icon trash outline"></i>
+            </button>
+            <button class="ui icon tiny button basic secondary" onclick="createDataProperty('{{_id}}')" title="Click to save selected nodes as data property">
+                <i class="icon save outline"></i>
+            </button>
+        </div>
+    </h5>
+    <div id="data-property-to-term">
+    </div>
+    <div class="ui fluid selection dropdown">
+        <input name="select-dproperty-type" type="hidden">
+        <i class="dropdown icon"></i>
+        <div class="default text">Select data property type</div>
+        <div class="menu" id="data-property-type-menu">
+            {{#each this.dpropertyTypes}}
+                <div class="item" data-value="{{this}}">{{this}}</div>
+            {{/each}}
+        </div>
+    </div>
+    <div class="ui fluid search selection dropdown" id="select-dproperty">
+        <input name="select-dproperty" type="hidden">
+        <i class="dropdown icon"></i>
+        <div class="default text">Select data properties</div>
+        <div class="menu" id="data-properties-menu">
+            {{#each this.dproperties}}
+                <div class="item" data-value="{{this}}">{{this}}</div>
+            {{/each}}
+        </div>
     </div>
 </div>
-<div class="ui fluid search selection dropdown" id="select-dproperty">
-    <input name="select-dproperty" type="hidden">
-    <i class="dropdown icon"></i>
-    <div class="default text">Select data properties</div>
-    <div class="menu" id="data-properties-menu">
-        {{#each this.dproperties}}
-            <div class="item" data-value="{{this}}">{{this}}</div>
+<div class="eight wide column">
+    <div class="ui middle aligned divided list" id="properties-list">
+        {{#each this.dataProperties}}
+            <div class="item" id="property-{{id}}">
+                <div class="right floated content">
+                    <button class="ui icon mini button basic secondary" onclick="deleteIndividualMappingProperty('{{id}}', '{{type}}')">
+                        <i class="large trash alternate outline middle aligned icon"></i>
+                    </button>
+                </div>
+                <div class="content">
+                    <div class="header">
+                        {{name}}
+                    </div>
+                    <div class="description">
+                        {{nodes}}
+                    </div>
+                </div>
+            </div>
         {{/each}}
     </div>
 </div>

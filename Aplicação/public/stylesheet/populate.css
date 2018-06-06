@@ -22,7 +22,8 @@
     min-height: 150px;
 }
 
-#classes-to-term, #individual-name-to-term, #dproperty-to-term, #aproperty-to-term, #oproperty-to-term {
+#classes-to-term, #individual-name-to-term, #data-property-to-term,
+#annotation-property-to-term, #object-property-to-term {
     min-height: 30px;
 }
 
@@ -70,10 +71,19 @@
 }
 
 #properties-list {
-    max-height: 350px;
+    margin-top: -20px;
+    max-height: 250px;
     overflow-y: auto;
 }
 
 #classes-to-individual {
     min-height: 25px;
+}
+
+#individual-name {
+    min-width: 20px;
+}
+
+#individual-mapping-divider {
+    min-width: 800px;
 }

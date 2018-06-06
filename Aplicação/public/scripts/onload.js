@@ -21,8 +21,6 @@ window.onload = function () {
   document.getElementById('ontology-file-input').addEventListener('change', () => {
     changeFileInputLabel('ontology-file')
   })
-
-  $('.dropdown').dropdown({fullTextSearch: true})
 }
 
 /**

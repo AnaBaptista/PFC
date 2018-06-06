@@ -1,18 +1,46 @@
-<h5 class="ui center aligned header" id="property-header">
-    ANNOTATION PROPERTIES
-    <button class="ui button mini basic secondary right floated" onclick="createAnnotationProperty('{{_id}}');">
-        ADD
-    </button>
-</h5>
-<div id="aproperty-to-term">
+<div class="eight wide column">
+    <h5 class="ui center aligned header" id="property-header">
+        ANNOTATION PROPERTIES
+        <div class="ui buttons right floated">
+            <button class="ui icon tiny button basic secondary" onclick="clearDataFileNodeToMapping()" title="Click to clean selected nodes">
+                <i class="icon trash outline"></i>
+            </button>
+            <button class="ui icon tiny button basic secondary" onclick="createAnnotationProperty('{{_id}}')" title="Click to save selected nodes as annotation property">
+                <i class="icon save outline"></i>
+            </button>
+        </div>
+    </h5>
+    <div id="annotation-property-to-term">
+    </div>
+    <div class="ui fluid search selection dropdown">
+        <input name="select-aproperty" type="hidden">
+        <i class="dropdown icon"></i>
+        <div class="default text">Select annotation properties</div>
+        <div class="menu" id="annotation-properties-menu">
+            {{#each this.aproperties}}
+                <div class="item" data-value="{{this}}">{{this}}</div>
+            {{/each}}
+        </div>
+    </div>
 </div>
-<div class="ui fluid search selection dropdown">
-    <input name="select-aproperty" type="hidden">
-    <i class="dropdown icon"></i>
-    <div class="default text">Select annotation properties</div>
-    <div class="menu" id="annotation-properties-menu">
-        {{#each this.aproperties}}
-            <div class="item" data-value="{{this}}">{{this}}</div>
+<div class="eight wide column">
+    <div class="ui middle aligned divided list" id="properties-list">
+        {{#each this.annotationProperties}}
+            <div class="item" id="property-{{id}}">
+                <div class="right floated content">
+                    <button class="ui icon mini button basic secondary" onclick="deleteIndividualMappingProperty('{{id}}', '{{type}}')">
+                        <i class="large trash alternate outline middle aligned icon"></i>
+                    </button>
+                </div>
+                <div class="content">
+                    <div class="header">
+                        {{name}}
+                    </div>
+                    <div class="description">
+                        {{nodes}}
+                    </div>
+                </div>
+            </div>
         {{/each}}
     </div>
 </div>
