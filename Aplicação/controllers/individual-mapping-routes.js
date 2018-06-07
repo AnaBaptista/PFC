@@ -25,7 +25,8 @@ router.delete('/map/individual/:individualId', removeIndividualMapping)
 function createIndividual (req, res, next) {
   console.log('/map/individual, createIndividual')
   let input = req.body.data
-  service.createIndividualMapping(input, (err, id) => {
+  let popId = req.body.populateId
+  service.createIndividualMapping(input, popId, (err, id) => {
     if (err) return next(err)
     res.json({_id: id})
   })
@@ -219,10 +220,11 @@ function getAllIndividualMappings (req, res, next) {
 
 function removeIndividualMapping (req, res, next) {
   console.log('/map/individual/, removeIndividualMapping')
-  let id = req.body.id
-  service.deleteIndividualMapping(id, (err, result) => {
+  let id = req.params.individualId
+  let populateId = req.query.populateId
+  service.deleteIndividualMapping(id, populateId, (err) => {
     if (err) return next(err)
-    return res.json(result)
+    res.end()
   })
 }
 

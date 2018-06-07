@@ -16,7 +16,8 @@ function createIndividual (populateId) {
       owlClassIRI: IRI,
       ontologyFileId: ontoId,
       individualName: name
-    }
+    },
+    populateId: populateId
   }
 
   let options = getFetchOptions('POST', data)

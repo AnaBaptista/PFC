@@ -51,7 +51,7 @@
                         {{#each this.indMappings}}
                             <div class="item" id="individual-mapping-{{_id}}">
                                 <div class="right floated content">
-                                    <button class="ui icon mini button basic secondary" onclick="deleteIndividualMapping('{{_id}}')" title="Click to delete this individual mapping">
+                                    <button class="ui icon mini button basic secondary" onclick="deleteIndividualMapping('{{_id}}', '{{../this._id}}')" title="Click to delete this individual mapping">
                                         <i class="large trash alternate outline middle aligned icon"></i>
                                     </button>
                                 </div>

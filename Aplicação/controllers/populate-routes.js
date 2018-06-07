@@ -13,8 +13,11 @@ router.get('/populate/data/:id/individual/:ind/tree', getPopulateDataIndividualT
 router.get('/populate/nondata/:id', getPopulateWithoutData)
 router.get('/populate/nondata/:id/individual/:ind', getPopulateNonDataIndividual)
 
-const service = require('../services/populate-data-service')
+const service = require('../services/populate-service')
 
+/**
+ * GENERIC POPULATE
+ */
 function addPopulate (req, res, next) {
   let data = req.body.data
   service.addPopulate(data, (err, id) => {
@@ -23,13 +26,9 @@ function addPopulate (req, res, next) {
   })
 }
 
-function getPopulateWithoutData (req, res, next) {
-  let id = req.params.id
-  service.renderPopulate(id, (err, pop) => {
-    if (err) return next(err)
-    res.render('populateWithoutData', pop)
-  })
-}
+/**
+ * POPULATE WITH DATA
+ */
 
 function getPopulateWithData (req, res, next) {
   let id = req.params.id
@@ -50,7 +49,7 @@ function getPopulateDataTree (req, res, next) {
 function getPopulateDataIndividual (req, res, next) {
   let ind = req.params.ind
   let id = req.params.id
-  service.getPopulateDataIndividual(id, ind, (err, individual) => {
+  service.getPopulateDataIndividual(ind, (err, individual) => {
     if (err) return next(err)
     let ctx = {
       popId: id
@@ -66,6 +65,18 @@ function getPopulateDataIndividualTree (req, res, next) {
   service.getPopulateDataIndividualTree(id, ind, (err, tree) => {
     if (err) return next(err)
     res.json(tree)
+  })
+}
+
+/**
+ * POPULATE WITHOUT DATA
+ */
+
+function getPopulateWithoutData (req, res, next) {
+  let id = req.params.id
+  service.renderPopulate(id, (err, pop) => {
+    if (err) return next(err)
+    res.render('populateWithoutData', pop)
   })
 }
 

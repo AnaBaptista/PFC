@@ -24,69 +24,73 @@
             </div>
         </div>
         <div class="row">
-            <div class="five wide column" id="individual-data">
-                <div id="individual-tree">
-                    <button class="ui circular compact icon basic button" onclick="getPopulateIndividualTree('{{popId}}','{{_id}}');" title="Click to show the individual mapping tree ">
-                        <i class="angle double down icon"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="eleven wide column">
-                <div id="data-file-term" style="display: none"></div>
-                <div class="ui internally celled grid" id="individual-content" >
-                    <div class="row">
-                        <div class="eight wide column">
-                            <h5 class="ui center aligned header">
-                                <button class="ui fluid button basic" onclick="showIndividualNameContent();" id="add-name-btn" title="Click to show or hide individual name content">
-                                    Individual Name
-                                </button>
-                            </h5>
-                            <div class="ui grid" id="individual-name-row" style="display:none;">
-                                <div class="row">
-                                    <div class="eleven wide column">
-                                        <div id="individual-name-to-term">
-                                        </div>
-                                    </div>
-                                    <div class="five wide column">
-                                        <div class="ui buttons">
-                                            <button class="ui icon button basic secondary" onclick="clearDataFileNodeToMapping()" title="Click to clean selected nodes">
-                                                <i class="icon trash outline"></i>
-                                            </button>
-                                            <button class="ui icon button basic secondary" id="individual-name-btn" onclick="createIndividualName('{{_id}}')" title="Click to save selected nodes as name">
-                                                <i class="icon save outline"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="eight wide column">
-                            <h5 class="ui center aligned header">
-                                Individual Name
-                            </h5>
-                            <div id="individual-name">
-                                {{individualName}}
-                            </div>
+            <div class="ui internally celled grid">
+                <div class="five wide column">
+                    <div id="individual-data">
+                        <div id="individual-tree">
+                            <button class="ui circular compact icon basic button" onclick="getPopulateIndividualTree('{{popId}}','{{_id}}');" title="Click to show the individual mapping tree ">
+                                <i class="angle double down icon"></i>
+                            </button>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="sixteen wide column">
-                            <div class="ui grid">
-                                <div class="row">
-                                    <div class="eight wide column">
-                                        <div class="ui buttons black ten wide fields">
-                                            <button class="ui button" onclick="changeIndividualMappingContent('{{_id}}', 'annotation');" title="Click to mapper annotation properties">annotation properties</button>
-                                            <button class="ui button" onclick="changeIndividualMappingContent('{{_id}}', 'data');" title="Click to mapper object properties">data properties</button>
-                                            <button class="ui button" onclick="changeIndividualMappingContent('{{_id}}', 'object');" title="Click to mapper data properties">object properties</button>
+                </div>
+                <div class="eleven wide column">
+                    <div id="data-file-term" style="display: none"></div>
+                    <div class="ui internally celled grid" id="individual-content" >
+                        <div class="row">
+                            <div class="eight wide column">
+                                <h5 class="ui center aligned header">
+                                    <button class="ui fluid button basic" onclick="showIndividualNameContent();" id="add-name-btn" title="Click to show or hide individual name content">
+                                        Individual Name
+                                    </button>
+                                </h5>
+                                <div class="ui grid" id="individual-name-row" style="display:none;">
+                                    <div class="row">
+                                        <div class="eleven wide column">
+                                            <div id="individual-name-to-term">
+                                            </div>
+                                        </div>
+                                        <div class="five wide column">
+                                            <div class="ui buttons">
+                                                <button class="ui icon button basic secondary" onclick="clearDataFileNodeToMapping()" title="Click to clean selected nodes">
+                                                    <i class="icon trash outline"></i>
+                                                </button>
+                                                <button class="ui icon button basic secondary" id="individual-name-btn" onclick="createIndividualName('{{_id}}')" title="Click to save selected nodes as name">
+                                                    <i class="icon save outline"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="eight wide column">
-                                        <h5 class="ui center aligned header">
-                                            Properties that you mapped
-                                        </h5>
-                                    </div>
                                 </div>
-                                <div class="row" id="individual-mapping-content">
+                            </div>
+                            <div class="eight wide column">
+                                <h5 class="ui center aligned header">
+                                    Individual Name
+                                </h5>
+                                <div id="individual-name">
+                                    {{individualName}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="sixteen wide column">
+                                <div class="ui grid">
+                                    <div class="row">
+                                        <div class="eight wide column">
+                                            <div class="ui buttons black ten wide fields">
+                                                <button class="ui button" onclick="changeIndividualMappingContent('{{_id}}', 'annotation');" title="Click to mapper annotation properties">annotation properties</button>
+                                                <button class="ui button" onclick="changeIndividualMappingContent('{{_id}}', 'data');" title="Click to mapper object properties">data properties</button>
+                                                <button class="ui button" onclick="changeIndividualMappingContent('{{_id}}', 'object');" title="Click to mapper data properties">object properties</button>
+                                            </div>
+                                        </div>
+                                        <div class="eight wide column">
+                                            <h5 class="ui center aligned header">
+                                                Properties that you mapped
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="individual-mapping-content">
+                                    </div>
                                 </div>
                             </div>
                         </div>

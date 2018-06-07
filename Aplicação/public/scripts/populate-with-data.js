@@ -22,7 +22,8 @@ function createIndividualMapping (populateId) {
       ontologyFileId: onto.id,
       dataFileId: node.childNodes[1].id,
       specification: false
-    }
+    },
+    populateId: populateId
   }
 
   let options = getFetchOptions('POST', data)
@@ -40,13 +41,14 @@ function createIndividualMapping (populateId) {
  * and dynamically
  * @param id {String} individual mapping id
  */
-function deleteIndividualMapping (id) {
-  fetch(`/map/individual/${id}`, {method: 'DELETE'})
+function deleteIndividualMapping (id, populateId) {
+  fetch(`/map/individual/${id}?populateId=${populateId}`, {method: 'DELETE'})
     .then(handleError)
     .then(_ => {
       let toDelete = document.getElementById(`individual-mapping-${id}`)
       let parent = toDelete.parentElement
       parent.removeChild(toDelete)
+      alertify.message('Individual mapping deleted')
     }).catch(err => console.log(err.message))
 }
 
@@ -206,9 +208,12 @@ function createIndividualName (id) {
 function showIndividualNameContent () {
   let currDisplay =  document.getElementById('individual-name-row').style.display
   let nextDisplay = (currDisplay === 'block' && 'none') || 'block'
-  document.getElementById('data-file-term').innerText = `individual-name-to-term`
-  document.getElementById('individual-name-row').style.display =  nextDisplay
+  document.getElementById('data-file-term').innerText = (nextDisplay === 'block' && `individual-name-to-term`) || ''
+  document.getElementById('individual-name-row').style.display = nextDisplay
   document.getElementById('individual-mapping-content').innerText = ''
+  if (nextDisplay === 'none') {
+    document.getElementById('individual-name-to-term').innerText = ''
+  }
 }
 
 /**

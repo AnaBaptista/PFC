@@ -1,5 +1,7 @@
 module.exports = {
   addPopulate,
+  addIndividualToPopulate,
+  deleteIndividualFromPopulate,
   getPopulateDataTree,
   getPopulateDataIndividualTree,
   getPopulateDataIndividual,
@@ -7,14 +9,17 @@ module.exports = {
   renderPopulate
 }
 const fileService = require('../services/file-service')
+const individualService = require('../services/individual-mapping-service')
 const treeFunctions = require('../utils/tree-functions')
 
 const db = require('../data-access/mongodb-access')
 const populates = 'Populates'
 const ontologyFiles = 'OntologyFiles'
 const dataFiles = 'DataFiles'
-const individual = 'IndividualMappings'
 
+/**
+ * GENERIC POPULATE
+ */
 function addPopulate (data, cb) {
   data.indMappings = []
   db.sendDocToDb(populates, data, (err, id) => {
@@ -27,6 +32,47 @@ function getPopulate (id, cb) {
   db.findById(populates, id, (err, res) => {
     if (err) return cb(err)
     cb(null, res)
+  })
+}
+
+function addIndividualToPopulate (id, ind, cb) {
+  getPopulate(id, (err, pop) => {
+    if (err) return cb(err)
+    let indMappings = (pop.indMappings === undefined && []) || pop.indMappings
+    indMappings.push(ind)
+    db.updateById(populates, id, {indMappings: indMappings}, (err) => {
+      if (err) return cb(err)
+      cb()
+    })
+  })
+}
+
+function deleteIndividualFromPopulate (id, ind, cb) {
+  getPopulate(id, (err, pop) => {
+    if (err) return cb(err)
+    let indMappings = pop.indMappings.filter(individual => individual._id !== ind)
+    db.updateById(populates, id, {indMappings: indMappings}, (err) => {
+      if (err) return cb(err)
+      cb()
+    })
+  })
+}
+
+function renderPopulate (id, cb) {
+  getPopulateOntologyFiles(id, (err, files) => {
+    if (err) return cb(err)
+    getPopulate(id, (err, pop) => {
+      if (err) return cb(err)
+      fileService.getOntologyFileClasses(files.map(onto => onto.chaosid), (err, classes) => {
+        if (err) return cb(err)
+        let ctx = {
+          classes: classes,
+          _id: id,
+          indMappings: pop.indMappings
+        }
+        cb(null, ctx)
+      })
+    })
   })
 }
 
@@ -45,6 +91,10 @@ function getPopulateOntologyFiles (id, cb) {
     })
   })
 }
+
+/**
+ * POPULATE WITH DATA
+ */
 
 function getPopulateDataFiles (id, cb) {
   getPopulate(id, (err, res) => {
@@ -93,75 +143,34 @@ function getPopulateTreeAux (files) {
   return tree
 }
 
-function getPopulateDataIndividual (id, ind, cb) {
-  db.findById(individual, ind, (err, indMap) => {
+function getPopulateDataIndividual (ind, cb) {
+  individualService.getIndividualMapping(ind, (err, individual) => {
     if (err) return cb(err)
-    // TODO: add the individual in populate when its created
-    getPopulate(id, (err, pop) => {
-      if (err) return cb(err)
-      let find = pop.indMappings.find(obj => obj._id === ind)
-      if (!find) {
-        let indMappings = pop.indMappings
-        indMappings.push({_id: ind, tag: indMap.tag, owlClassIRI: indMap.owlClassIRI})
-        db.updateById(populates, id, {indMappings: indMappings}, (err) => {
-          if (err) return cb(err)
-          cb(null, indMap)
-        })
-      } else {
-        cb(null, indMap)
-      }
-    })
+    cb(null, individual)
   })
 }
 
 function getPopulateDataIndividualTree (id, ind, cb) {
   getPopulate(id, (err, pop) => {
     if (err) return cb(err)
-    db.findById(individual, ind, (err, indMap) => {
+    individualService.getIndividualMapping(ind, (err, individual) => {
       if (err) return cb(err)
-      let tree = pop.tree.find(obj => obj.dataFileId === indMap.dataFileId)
+      let tree = pop.tree.find(obj => obj.dataFileId === individual.dataFileId)
       let indtree = []
-      let aux = treeFunctions.searchById(tree, indMap.nodeId)
+      let aux = treeFunctions.searchById(tree, individual.nodeId)
       indtree.push(aux)
       cb(null, indtree)
     })
   })
 }
 
-function getPopulateNonDataIndividual (id, ind, cb) {
-  db.findById(individual, ind, (err, indObj) => {
-    if (err) return cb(err)
-    getPopulate(id, (err, pop) => {
-      if (err) return cb(err)
-      let find = pop.indMappings.find(obj => obj._id === ind)
-      if (!find) {
-        let indMappings = pop.indMappings
-        indMappings.push({_id: ind, owlClassIRI: indObj.owlClassIRI, individualName: indObj.individualName})
-        db.updateById(populates, id, {indMappings: indMappings}, (err) => {
-          if (err) return cb(err)
-          cb(null, indObj)
-        })
-      } else {
-        cb(null, indObj)
-      }
-    })
-  })
-}
+/**
+ * POPULATE WITHOUT DATA
+ */
 
-function renderPopulate (id, cb) {
-  getPopulateOntologyFiles(id, (err, files) => {
+function getPopulateNonDataIndividual (id, ind, cb) {
+  individualService.getIndividualMapping(ind, (err, individual) => {
     if (err) return cb(err)
-    getPopulate(id, (err, pop) => {
-      if (err) return cb(err)
-      fileService.getOntologyFileClasses(files.map(onto => onto.chaosid), (err, classes) => {
-        if (err) return cb(err)
-        let ctx = {
-          classes: classes,
-          _id: id,
-          indMappings: pop.indMappings
-        }
-        cb(null, ctx)
-      })
-    })
+    cb(null, individual)
   })
 }

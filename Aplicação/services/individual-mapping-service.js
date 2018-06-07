@@ -19,12 +19,13 @@ const parser = require('../utils/PropertiesParser')
 const collection = 'IndividualMappings'
 
 const fileService = require('../services/file-service')
+const populateService = require('./populate-service')
 
 /**
  * @param input {tag: , nodeId: , owlClassIRI: , ontologyFileId: , dataFileId:}
  * @param {function} cb(err, status, id from result)
  */
-function createIndividualMapping (input, cb) {
+function createIndividualMapping (input, populateId, cb) {
   // if (input.ontologyFileId === undefined || input.dataFileId === undefined) {
   //   let error = new Error('Bad Request, missing ontology or data file Id\'s')
   //   error.statusCode = 400
@@ -40,7 +41,11 @@ function createIndividualMapping (input, cb) {
 
   dbAccess.sendDocToDb(collection, input, (err, id) => {
     if (err) return cb(err)
-    return cb(null, id)
+    input._id = id
+    populateService.addIndividualToPopulate(populateId, input, (err) => {
+      if (err) return cb(err)
+      cb(null, id)
+    })
   })
 }
 
@@ -241,9 +246,14 @@ function updateIndividualMapping (id, fileList, tag, name, label, specification,
 function updateMapping (id, outputOntologyFileName, outputOntologyNamespace, fileList, directOntologyImports, individualMappings, cb) {
 }
 
-function deleteIndividualMapping (id, cb) {
+// TODO: deletar no chaos pop, se existir
+function deleteIndividualMapping (id, populateId, cb) {
   dbAccess.deleteById(collection, id, (err) => {
     if (err) return cb(err)
+    populateService.deleteIndividualFromPopulate(populateId, id, (err) => {
+      if (err) return cb(err)
+      cb()
+    })
   })
 }
 

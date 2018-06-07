@@ -108,7 +108,7 @@ function deleteById (col, id, cb) {
   MongoClient.connect(url, (err, client) => {
     if (err) return console.log(err)
     let query = {_id: ObjectID(id)}
-    client.db(dbName).collection(col).deleteOne(query).then((err, result) => {
+    client.db(dbName).collection(col).deleteOne(query, (err, result) => {
       client.close()
       if (err) return cb(err)
       return cb(null, result)

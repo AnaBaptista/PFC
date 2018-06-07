@@ -11,7 +11,7 @@
     overflow-y:auto;
 }
 
-#data-file-data {
+#data-file-data{
     max-height: 525px;
     overflow-y: auto;
     margin-top: -15px;
@@ -86,4 +86,11 @@
 
 #individual-mapping-divider {
     min-width: 800px;
+}
+
+#individual-data {
+    max-height: 450px;
+    overflow-y: auto;
+    margin-top: -15px;
+    margin-left: -15px;
 }
