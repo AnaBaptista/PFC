@@ -7,6 +7,7 @@ router.post('/populate', addPopulate)
 
 router.get('/populate/data/:id', getPopulateWithData)
 router.get('/populate/data/:id/tree', getPopulateDataTree)
+router.get('/populate/data/:id/mapping', getPopulateDataMapping)
 router.get('/populate/data/:id/individual/:ind', getPopulateDataIndividual)
 router.get('/populate/data/:id/individual/:ind/tree', getPopulateDataIndividualTree)
 
@@ -43,6 +44,14 @@ function getPopulateDataTree (req, res, next) {
   service.getPopulateDataTree(id, (err, tree) => {
     if (err) return next(err)
     res.json(tree)
+  })
+}
+
+function getPopulateDataMapping (req, res, next) {
+  let id = req.params.id
+  service.getPopulateDataMapping(id, (err, map) => {
+    if (err) return next(err)
+    res.render('populateWithDataMapping', map)
   })
 }
 

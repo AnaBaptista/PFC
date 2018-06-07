@@ -7,7 +7,8 @@ const express = require('express')
 const app = express()
 
 const fileRouter = require('./controllers/file-routes')
-const mappingRouter = require('./controllers/individual-mapping-routes')
+const mappingRouter = require('./controllers/mapping-routes')
+const individualMappingRouter = require('./controllers/individual-mapping-routes')
 const index = require('./controllers/index-routes')
 const populateRouter = require('./controllers/populate-routes')
 
@@ -25,6 +26,7 @@ app.use(fileRouter)
 app.use(mappingRouter)
 app.use(index)
 app.use(populateRouter)
+app.use(individualMappingRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

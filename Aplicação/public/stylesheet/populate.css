@@ -39,8 +39,12 @@
     margin-top: 15px;
 }
 
-#create-mapping-btn {
+#create-individual-mapping-btn {
     margin-top: 50px;
+}
+#create-mapping-btn {
+    margin-top: 100px;
+    margin-left: 280px;
 }
 
 #create-mapping {
@@ -93,4 +97,12 @@
     overflow-y: auto;
     margin-top: -15px;
     margin-left: -15px;
+}
+
+#individuals-to-mapping-list {
+    min-height: 300px;
+    max-height: 450px;
+    overflow-y: auto;
+    min-width: 650px;
+    max-width: 700px;
 }

@@ -1,7 +1,9 @@
 module.exports = {
   createIndividualMapping,
+  updateIndividualMapping,
   getIndividualMapping,
   getAllIndividualMappings,
+  getIndividualMappingByIds,
   putIndividualMappingName,
   putIndividualMappingObjectProperties,
   putIndividualMappingDataProperties,
@@ -9,7 +11,8 @@ module.exports = {
   deleteIndividualMapping,
   renderObjectProperties,
   renderDataProperties,
-  renderAnnotationProperties
+  renderAnnotationProperties,
+  propertyArrayToPropertyMap
 }
 
 const dataAccess = require('../data-access/individual-mapping-access')
@@ -26,23 +29,23 @@ const populateService = require('./populate-service')
  * @param {function} cb(err, status, id from result)
  */
 function createIndividualMapping (input, populateId, cb) {
-  // if (input.ontologyFileId === undefined || input.dataFileId === undefined) {
-  //   let error = new Error('Bad Request, missing ontology or data file Id\'s')
-  //   error.statusCode = 400
-  //   return cb(error)
-  // }
-  //
-  // if (input.tag === undefined || input.owlClassIRI === undefined || input.nodeId === undefined ||
-  //      input.specification !== false) {
-  //   let error = new Error('Bad Request, missing TAG or IRI or NODEID, or SPECIFICATION is different from false')
-  //   error.statusCode = 400
-  //   return cb(error)
-  // }
+  if (input.ontologyFileId === undefined || input.dataFileId === undefined) {
+    let error = new Error('Bad Request, missing ontology or data file Id\'s')
+    error.statusCode = 400
+    return cb(error)
+  }
+
+  if (input.tag === undefined || input.owlClassIRI === undefined || input.nodeId === undefined ||
+       input.specification !== false) {
+    let error = new Error('Bad Request, missing TAG or IRI or NODEID, or SPECIFICATION is different from false')
+    error.statusCode = 400
+    return cb(error)
+  }
 
   dbAccess.sendDocToDb(collection, input, (err, id) => {
     if (err) return cb(err)
-    input._id = id
-    populateService.addIndividualToPopulate(populateId, input, (err) => {
+    let obj = {_id: id, tag: input.tag, owlClassIRI: input.owlClassIRI}
+    populateService.addIndividualToPopulate(populateId, obj, (err) => {
       if (err) return cb(err)
       cb(null, id)
     })
@@ -201,49 +204,74 @@ function getIndividualMapping (id, cb) {
   })
 }
 
-/**
- * @param id
- * @param fileList
- * @param tag
- * @param name
- * @param label
- * @param specification
- * @param IRI
- * @param dataProps
- * @param objProps
- * @param cb(err, result)
- */
-function updateIndividualMapping (id, fileList, tag, name, label, specification, IRI, dataProps, objProps, cb) {
-  let listOfDataProps = parser.parseDataProperties(dataProps)
-  let listOfObjProps = parser.parseObjectProperties(objProps)
-
-  let individualMappingTO = {
-    _id: id,
-    dataFileIds: fileList,
-    tag: tag,
-    individualName: name,
-    individualLabel: label,
-    owlClassIRI: IRI,
-    specification: specification,
-    objectProperties: listOfObjProps,
-    dataProperties: listOfDataProps
-  }
-  dataAccess.updateIndividualMapping(id, individualMappingTO, (err, result) => {
+function getIndividualMappingByIds (ids, cb) {
+  dbAccess.findByIds(collection, ids, (err, results) => {
     if (err) return cb(err)
-    return cb(null, result)
+    cb(null, results)
   })
 }
 
 /**
- * @param id
- * @param outputOntologyFileName
- * @param outputOntologyNamespace
- * @param fileList
- * @param directOntologyImports
- * @param individualMappings
- * @param cb (err, result)
+ *
+ * @param id {String} individual mapping id
+ * @param cb {Function}
  */
-function updateMapping (id, outputOntologyFileName, outputOntologyNamespace, fileList, directOntologyImports, individualMappings, cb) {
+function updateIndividualMapping (id, cb) {
+  dbAccess.findById(collection, id, (err, individual) => {
+    if (err) return cb(err)
+    let individualMapping = {
+      tag: individual.tag,
+      dataFileIds: [individual.dataFileId],
+      individualName: individual.individualName,
+      owlClassIRI: individual.owlClassIRI,
+      specification: individual.specification,
+      annotationProperties: {},
+      objectProperties: {},
+      dataProperties: {}
+    }
+    // individual.annotationProperties.forEach(p => {
+    //   let keys = Object.keys(p)
+    //   individualMapping.annotationProperties[keys[1]] = p[keys[1]]
+    // })
+    // individual.objectProperties.forEach(p => {
+    //   let keys = Object.keys(p)
+    //   individualMapping.objectProperties[keys[1]] = p[keys[1]]
+    // })
+    // individual.dataProperties.forEach(p => {
+    //   let keys = Object.keys(p)
+    //   individualMapping.dataProperties[keys[1]] = p[keys[1]]
+    // })
+    //
+    propertyArrayToPropertyMap(individualMapping.annotationProperties, individual.annotationProperties)
+    propertyArrayToPropertyMap(individualMapping.dataProperties, individual.dataProperties)
+    propertyArrayToPropertyMap(individualMapping.objectProperties, individual.objectProperties)
+
+    if (individual.chaosid) {
+      individualMapping._id = individual.chaosid
+      dataAccess.updateIndividualMapping(individualMapping, (err) => {
+        if (err) return cb(err)
+        cb()
+      })
+    } else {
+      dataAccess.sendIndividualMappingToChaos(individualMapping, (err, res) => {
+        if (err) return cb(err)
+        dbAccess.updateById(collection, id, {chaosid: res}, (err) => {
+          if (err) return cb(err)
+          cb()
+        })
+      })
+    }
+  })
+}
+
+function propertyArrayToPropertyMap (object, array) {
+  if (array === undefined) {
+    return
+  }
+  array.forEach(p => {
+    let keys = Object.keys(p)
+    object[keys[1]] = p[keys[1]]
+  })
 }
 
 // TODO: deletar no chaos pop, se existir

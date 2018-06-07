@@ -5,6 +5,7 @@ const service = require('../services/individual-mapping-service')
 module.exports = router
 router.post('/map/individual', createIndividual)
 
+router.put('/map/individual/:individualId', putIndividualMapping)
 router.put('/map/individual/:individualId/name', putIndividualMappingName)
 router.put('/map/individual/:individualId/properties/object', putIndividualMappingObjectProperties)
 router.put('/map/individual/:individualId/properties/data', putIndividualMappingDataProperties)
@@ -29,6 +30,14 @@ function createIndividual (req, res, next) {
   service.createIndividualMapping(input, popId, (err, id) => {
     if (err) return next(err)
     res.json({_id: id})
+  })
+}
+
+function putIndividualMapping (req, res, next) {
+  let id = req.params.individualId
+  service.updateIndividualMapping(id, (err) => {
+    if (err) return next(err)
+    res.end()
   })
 }
 
@@ -152,52 +161,6 @@ function putIndividualMappingAnnotationProperties (req, res, next) {
   service.putIndividualMappingAnnotationProperties(id, annotationProps, (err, props) => {
     if (err) return next(err)
     res.json(props)
-  })
-}
-
-/**
- * @todo
- * Creates an Empty Individual and returns it or its id (?)
- */
-function createMapping (req, res, next) {
-  console.log('/map, createMapping')
-  service.createEmptyMapping((err, result) => {
-    if (err) return next(err)
-    else res.json(result)
-  })
-}
-
-/**
- * Id's needed in path:
- * :mappingId -> this id refers to the mapping id for the mapping that was created.
- * Will return 400 if not present
- *
- * Body Parameters:
- * (string) outputOntologyFileName. The name of the output file
- * (string) outputOntologyNamespace. The namespace of the output file
- * (string) fileList. A list containing the ids of the indput files (?)
- * (string) directOntologyImports. The ontology imports
- * (list) individualMappings. A list containing the id's for the individual mappings to be mapped now
- *
- * Returns: Id for that mapping
- */
-function updateMapping (req, res, next) {
-  console.log('/map/:mappingId, updateMapping')
-  let id = req.params.mappingId
-  if (id === undefined) {
-    res.statusCode = 400
-    res.json('Id needed')
-    return
-  }
-  let outputOntologyFileName = req.body.outputOntologyFileName
-  let outputOntologyNamespace = req.body.outputOntologyNamespace
-  let fileList = req.body.fileList
-  let directOntologyImports = req.body.directOntologyImports
-  let individualMappings = req.body.individualMappings
-
-  service.updateMapping(id, outputOntologyFileName, outputOntologyNamespace, fileList, directOntologyImports, individualMappings, (err, result) => {
-    if (err) return next(err)
-    return res.json(result)
   })
 }
 

@@ -37,10 +37,18 @@
                             {{/each}}
                         </div>
                     </div>
-                    <h5 class="ui center aligned header" id="create-mapping-btn">
+                    <h5 class="ui center aligned header" id="create-individual-mapping-btn">
                         <button class="ui button basic secondary" onclick="createIndividualMapping('{{_id}}');" title="Click to create an individual mapping">
-                            CREATE
+                            Create individual mapping
                         </button>
+                    </h5>
+                    <hr>
+                    <h5 class="ui center aligned header" id="create-individual-mapping-btn">
+                        <a href="/populate/data/{{_id}}/mapping">
+                            <button class="ui button basic secondary" title="Click to create a mapping">
+                                Create mapping
+                            </button>
+                        </a>
                     </h5>
                 </div>
                 <div class="eight wide column">

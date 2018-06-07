@@ -3,6 +3,7 @@ module.exports = {
   addIndividualToPopulate,
   deleteIndividualFromPopulate,
   getPopulateDataTree,
+  getPopulateDataMapping,
   getPopulateDataIndividualTree,
   getPopulateDataIndividual,
   getPopulateNonDataIndividual,
@@ -141,6 +142,21 @@ function getPopulateTreeAux (files) {
     tree.push(root)
   })
   return tree
+}
+
+function getPopulateDataMapping (id, cb) {
+  getPopulate(id, (err, pop) => {
+    if (err) return cb(err)
+    if (pop.indMappings) {
+      individualService.getIndividualMappingByIds(pop.indMappings.map(i => i._id), (err, results) => {
+        if (err) return cb(err)
+        let indMappings = results.filter(i => i.chaosid)
+        cb(null, {indMappings: indMappings, _id: id})
+      })
+    } else {
+      cb(null, [])
+    }
+  })
 }
 
 function getPopulateDataIndividual (ind, cb) {

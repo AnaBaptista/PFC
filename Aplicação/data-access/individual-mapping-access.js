@@ -1,5 +1,4 @@
 module.exports = {
-  createIndividualMapping,
   sendIndividualMappingToChaos,
   getAllIndividualMappings,
   getIndividualMapping,
@@ -15,8 +14,6 @@ const handleResponse = require('../utils/handle-response')
 // const api = 'http://chaospop.sysresearch.org/chaos/wsapi'
 const api = 'http://localhost:8080/chaos/wsapi'
 const individualMappingManager = `${api}/individualMappingManager`
-// const mappingManager = `${api}/mappingManager`
-
 
 /**
  * @param {string} id
@@ -34,7 +31,6 @@ function sendIndividualMappingToChaos (individualMapping, cb) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(individualMapping)
-
   }
   req.post(options, (err, res) => {
     if (err) return cb(err)
@@ -64,11 +60,14 @@ function getIndividualMapping (id, cb) {
  * @param newIndividual
  * @param cb
  */
-function updateIndividualMapping (id, newIndividual, cb) {
-  let url = `${individualMappingManager}/replaceIndividualMappings`
+function updateIndividualMapping (newIndividual, cb) {
+  let url = `${individualMappingManager}/replaceIndividualMapping`
   let options = {
     url: url,
-    individualMappingTO: newIndividual
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newIndividual)
   }
   req.post(options, (err, res) => {
     if (err) return cb(err)
@@ -89,8 +88,4 @@ function removeIndividualMapping (id, cb) {
     if (err) return cb(err)
     return cb(null, res)
   })
-}
-
-function createIndividualMapping (indMap, cb) {
-  //TODO: add individual to chaos pop
 }

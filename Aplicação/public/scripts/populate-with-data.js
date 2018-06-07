@@ -52,6 +52,14 @@ function deleteIndividualMapping (id, populateId) {
     }).catch(err => console.log(err.message))
 }
 
+
+function saveIndividualMappingInChaosPop (id) {
+  fetch(`/map/individual/${id}`, {method: 'PUT'})
+    .then(handleError)
+    .then(_ => {
+      alertify.success('Individual Mapping updated on ChaosPop')
+    })
+}
 /**
  * This function adds a new object property
  * to individual mapping
@@ -236,4 +244,47 @@ function changeIndividualMappingContent (id, type) {
       elem.innerHTML = text
       $('.dropdown').dropdown({fullTextSearch: true})
     }).catch(err => console.log(err.message))
+}
+
+function createMapping (id) {
+  let elem = document.getElementById('individuals-to-mapping-list')
+  let children = [].slice.call(elem.children)
+  let selectedChildren = []
+
+  children.forEach(c => {
+    let input = c.children[0]
+    if (input.checked) {
+      selectedChildren.push(input.name)
+    }
+  })
+
+  let name = document.getElementById('mapping-name').value
+
+  if (selectedChildren.length === 0) {
+    alertify.message('Select some individual mappings')
+    return
+  }
+
+  if (name.length === 0) {
+    alertify.message('Choose an output file name')
+    return
+  }
+
+
+  let data = {
+    data: {
+      indMappings: selectedChildren,
+      populateId: id,
+      name: name
+    }
+  }
+  let options = getFetchOptions('POST', data)
+
+  fetch('/map', options)
+    .then(handleError)
+    .then(_ => {
+      alertify.success('Mapping created')
+      window.location.href = `/populate/data/${id}`
+    })
+  console.log('teste')
 }
