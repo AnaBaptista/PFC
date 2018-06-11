@@ -74,7 +74,7 @@ function renderObjectProperties (req, res, next) {
   let populateId = req.query.populateId
   service.renderObjectProperties(id, populateId, (err, props) => {
     if (err) return next(err)
-    const ctx = {layout: false, _id: id}
+    const ctx = {layout: false, _id: id, populateId: populateId}
     Object.assign(ctx, props)
     res.render('partials/individualObjectProps', ctx)
   })
