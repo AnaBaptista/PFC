@@ -1,13 +1,11 @@
 <div class="eight wide column">
     <h5 class="ui center aligned header" id="property-header">
         ANNOTATION PROPERTIES
-        <div class="ui buttons right floated">
-            <button class="ui icon tiny button basic secondary" onclick="createIndividualAnnotationProperty('{{_id}}')" title="Click to save selected nodes as annotation property">
-                <i class="icon save outline"></i>
-            </button>
-        </div>
+        <button class="ui button mini basic secondary right floated" onclick="createIndividualAnnotationProperty('{{_id}}')">
+            ADD
+        </button>
     </h5>
-    <div class="ui labeled input fluid">
+    <div class="ui labeled input fluid" id="property-input">
         <div class="ui label">
             Annotation property value:
         </div>
@@ -35,10 +33,10 @@
                 </div>
                 <div class="content">
                     <div class="header">
-                        {{name}}
+                        {{annotation}}
                     </div>
                     <div class="description">
-                        {{nodes}}
+                        {{value}}
                     </div>
                 </div>
             </div>

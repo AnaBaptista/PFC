@@ -11,6 +11,7 @@ const mappingRouter = require('./controllers/mapping-routes')
 const individualMappingRouter = require('./controllers/individual-mapping-routes')
 const index = require('./controllers/index-routes')
 const populateRouter = require('./controllers/populate-routes')
+const individualRouter = require('./controllers/individual-routes')
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')
@@ -26,6 +27,7 @@ app.use(fileRouter)
 app.use(mappingRouter)
 app.use(index)
 app.use(populateRouter)
+app.use(individualRouter)
 app.use(individualMappingRouter)
 
 // catch 404 and forward to error handler

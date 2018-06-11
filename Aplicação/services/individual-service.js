@@ -13,6 +13,7 @@ const collection = 'IndividualMappings'
 
 const populateService = require('./populate-service')
 const fileService = require('./file-service')
+const idGen = require('shortid')
 
 function createIndividual (individual, populateId, cb) {
   db.sendDocToDb(collection, individual, (err, id) => {
@@ -39,6 +40,11 @@ function putIndividualAnnotationProperties (id, props, cb) {
     indMap.annotationProperties = (indMap.annotationProperties === undefined && []) ||
       indMap.annotationProperties.filter(elem => !idsToRemove.includes(elem.id))
 
+    props.forEach(elem => {
+      if (!elem.id) {
+        elem.id = idGen.generate()
+      }
+    })
     let set = {annotationProperties: indMap.annotationProperties.concat(props)}
     db.updateById(collection, id, set, (err) => {
       if (err) return cb(err)
@@ -61,6 +67,11 @@ function putIndividualDataProperties (id, props, cb) {
     indMap.dataProperties = (indMap.dataProperties === undefined && []) ||
       indMap.dataProperties.filter(elem => !idsToRemove.includes(elem.id))
 
+    props.forEach(elem => {
+      if (!elem.id) {
+        elem.id = idGen.generate()
+      }
+    })
     let set = {dataProperties: indMap.dataProperties.concat(props)}
     db.updateById(collection, id, set, (err) => {
       if (err) return cb(err)
@@ -82,6 +93,12 @@ function putIndividualObjectProperties (id, props, cb) {
     if (err) cb(err)
     indMap.objectProperties = (indMap.objectProperties === undefined && []) ||
       indMap.objectProperties.filter(elem => !idsToRemove.includes(elem.id))
+
+    props.forEach(elem => {
+      if (!elem.id) {
+        elem.id = idGen.generate()
+      }
+    })
 
     let set = {objectProperties: indMap.objectProperties.concat(props)}
     db.updateById(collection, id, set, (err) => {
@@ -106,9 +123,9 @@ function renderAnnotationProperties (id, cb) {
 }
 
 function renderDataProperties (id, cb) {
-  db.findById(collection, id, (err, pop) => {
+  db.findById(collection, id, (err, ind) => {
     if (err) return cb(err)
-    fileService.getOntologyFileDataProperties(pop.ontologyFileId, (err, props) => {
+    fileService.getOntologyFileDataProperties(ind.ontologyFileId, (err, props) => {
       if (err) return cb(err)
       db.findById(collection, id, (err, indMap) => {
         if (err) return cb(err)
@@ -126,22 +143,26 @@ function renderDataProperties (id, cb) {
   })
 }
 
-function renderObjectProperties (id, cb) {
-  db.findById(collection, id, (err, pop) => {
+function renderObjectProperties (id, popId, cb) {
+  db.findById(collection, id, (err, ind) => {
     if (err) return cb(err)
-    fileService.getOntologyFileObjectProperties(pop.ontologyFileId, (err, props) => {
+    fileService.getOntologyFileObjectProperties(ind.ontologyFileId, (err, props) => {
       if (err) return cb(err)
       db.findById(collection, id, (err, indMap) => {
         if (err) return cb(err)
         let obj = {
           oproperties: props,
-          objectProperties: [],
-          indMappings: pop.indMappings
+          objectProperties: []
         }
         if (indMap.objectProperties) {
-
+          obj['objectProperties'] = indMap.objectProperties
         }
-        cb(null, obj)
+        populateService.getPopulate(popId, (err, pop) => {
+          if (err) return cb(err)
+          let individuals = (pop.indMappings !== undefined && pop.indMappings) || []
+          obj.individuals = individuals.filter(i => i._id !== id)
+          cb(null, obj)
+        })
       })
     })
   })

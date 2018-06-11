@@ -1,26 +1,49 @@
-<h5 class="ui center aligned header" id="property-header">
-    OBJECT PROPERTIES
-    <button class="ui button mini basic secondary right floated">
-        ADD
-    </button>
-</h5>
-<div class="ui fluid search selection dropdown">
-    <input name="select-oproperty" type="hidden">
-    <i class="dropdown icon"></i>
-    <div class="default text">Select an individual</div>
-    <div class="menu" id="object-properties-menu">
-        {{#each this.individuals}}
-            <div class="item" data-value="{{this}}">{{this}}</div>
-        {{/each}}
+<div class="eight wide column">
+    <h5 class="ui center aligned header" id="property-header">
+        OBJECT PROPERTIES
+        <button class="ui button mini basic secondary right floated" onclick="createIndividualObjectProperty('{{_id}}')">
+            ADD
+        </button>
+    </h5>
+    <div class="ui fluid search selection dropdown">
+        <input name="select-oproperty" type="hidden">
+        <i class="dropdown icon"></i>
+        <div class="default text">Select an object property</div>
+        <div class="menu" id="object-properties-menu">
+            {{#each this.oproperties}}
+                <div class="item" data-value="{{this}}">{{this}}</div>
+            {{/each}}
+        </div>
+    </div>
+    <div class="ui fluid search selection dropdown" id="select-individual">
+        <input name="select-individual" type="hidden">
+        <i class="dropdown icon"></i>
+        <div class="default text">Select an individual</div>
+        <div class="menu" id="individuals-menu">
+            {{#each this.individuals}}
+                <div class="item" id="{{_id}}">{{individualName}}</div>
+            {{/each}}
+        </div>
     </div>
 </div>
-<div class="ui fluid search selection dropdown">
-    <input name="select-oproperty" type="hidden">
-    <i class="dropdown icon"></i>
-    <div class="default text">Select an object property</div>
-    <div class="menu" id="object-properties-menu">
-        {{#each this.oproperties}}
-            <div class="item" data-value="{{this}}">{{this}}</div>
+<div class="eight wide column">
+    <div class="ui middle aligned divided list" id="properties-list">
+        {{#each this.objectProperties}}
+            <div class="item" id="property-{{id}}">
+                <div class="right floated content">
+                    <button class="ui icon mini button basic secondary" onclick="deleteIndividualProperty('{{id}}', '{{type}}')">
+                        <i class="large trash alternate outline middle aligned icon"></i>
+                    </button>
+                </div>
+                <div class="content">
+                    <div class="header">
+                        {{value.name}}
+                    </div>
+                    <div class="description">
+                        {{owlClassIRI}}
+                    </div>
+                </div>
+            </div>
         {{/each}}
     </div>
 </div>

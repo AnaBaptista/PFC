@@ -22,7 +22,7 @@ function createIndividual (populateId) {
 
   let options = getFetchOptions('POST', data)
 
-  fetch(`/map/individual`, options)
+  fetch(`/individual`, options)
     .then(handleError)
     .then(res => res.json())
     .then(json => {
@@ -43,25 +43,12 @@ function deleteIndividual (id) {
     method: 'DELETE'
   }
 
-  fetch(`/map/individual/${id}`, options)
+  fetch(`/individual/${id}`, options)
     .then(handleError)
     .then(_ => {
       let toDelete = document.getElementById(`individual-mapping-${id}`)
       let parent = toDelete.parentElement
       parent.removeChild(toDelete)
-    }).catch(err => console.log(err.message))
-}
-
-function changeIndividualContent (id, type) {
-  let url = `/individual/${id}/properties/${type}/view`
-
-  fetch(url)
-    .then(handleError)
-    .then(res => res.text())
-    .then(text => {
-      let elem = document.getElementById('individual-content')
-      elem.innerHTML = text
-      $('.dropdown').dropdown({fullTextSearch: true})
     }).catch(err => console.log(err.message))
 }
 
@@ -101,8 +88,29 @@ function createIndividualDataProperty (id) {
         value: value
       }]
   }
-
   createIndividualProperty(data, id, 'data')
+}
+
+function createIndividualObjectProperty (id) {
+  let property = getSelectedItems('object-properties-menu', '.selected')
+  let value = getSelectedItems('individuals-menu', '.selected')
+
+  if (property.length === 0 || value.length === 0) {
+    alertify.error('Missing object property or object value')
+    return
+  }
+
+  let data = {
+    objProps:
+      [{
+        owlClassIRI: property[0].textContent,
+        value: {
+          id: value[0].id,
+          name: value[0].textContent
+        }
+      }]
+  }
+  createIndividualProperty(data, id, 'object')
 }
 
 function createIndividualProperty (data, id, type) {
@@ -116,4 +124,17 @@ function createIndividualProperty (data, id, type) {
       alertify.success(`${type} property created`)
     })
     .catch(err => console.log(err.message))
+}
+
+function changeIndividualContent (id, type, popId) {
+  let url = (type === 'object' && `/individual/${id}/properties/${type}/view?populateId=${popId}`) ||
+    `/individual/${id}/properties/${type}/view`
+  fetch(url)
+    .then(handleError)
+    .then(res => res.text())
+    .then(text => {
+      let elem = document.getElementById('individual-properties-content')
+      elem.innerHTML = text
+      $('.dropdown').dropdown({fullTextSearch: true})
+    }).catch(err => console.log(err.message))
 }

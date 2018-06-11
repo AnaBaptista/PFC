@@ -3,7 +3,7 @@ const service = require('../services/individual-service')
 
 module.exports = router
 
-router.post('/map/individual', createIndividual)
+router.post('/individual', createIndividual)
 
 router.put('/individual/:id/properties/annotation', putIndividualAnnotationProperties)
 router.put('/individual/:id/properties/data', putIndividualDataProperties)
@@ -71,7 +71,8 @@ function renderDataProperties (req, res, next) {
 
 function renderObjectProperties (req, res, next) {
   let id = req.params.id
-  service.renderObjectProperties(id, (err, props) => {
+  let populateId = req.query.populateId
+  service.renderObjectProperties(id, populateId, (err, props) => {
     if (err) return next(err)
     const ctx = {layout: false, _id: id}
     Object.assign(ctx, props)

@@ -23,15 +23,15 @@
                 </button>
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="individual-row">
             <div class="sixteen wide column">
-                <div class="ui internally celled grid" id="individual-content" >
+                <div class="ui grid">
                     <div class="row">
                         <div class="eight wide column">
                             <div class="ui buttons black ten wide fields">
                                 <button class="ui button" onclick="changeIndividualContent('{{_id}}', 'annotation');">annotation properties</button>
                                 <button class="ui button" onclick="changeIndividualContent('{{_id}}', 'data');">data properties</button>
-                                <button class="ui button" onclick="changeIndividualContent('{{_id}}', 'object');">object properties</button>
+                                <button class="ui button" onclick="changeIndividualContent('{{_id}}', 'object', '{{popId}}');">object properties</button>
                             </div>
                         </div>
                         <div class="eight wide column">
@@ -40,7 +40,7 @@
                             </h5>
                         </div>
                     </div>
-                    <div class="row" id="individual-content">
+                    <div class="row" id="individual-properties-content">
 
                     </div>
                 </div>

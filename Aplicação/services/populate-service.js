@@ -1,5 +1,6 @@
 module.exports = {
   addPopulate,
+  getPopulate,
   addIndividualToPopulate,
   createOutputFile,
   deleteIndividualFromPopulate,
@@ -52,7 +53,12 @@ function createOutputFile (id, cb) {
         if (err) return cb(err)
         dataAccess.processBatch(batchId, (err, res) => {
           if (err) return cb(err)
-          cb(null, res)
+          let outputFileId = JSON.parse(res)
+          let set = {outputFileId: outputFileId}
+          db.updateById(populates, id, set, (err) => {
+            if (err) return cb(err)
+            cb()
+          })
         })
       })
     }
