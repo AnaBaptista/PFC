@@ -6,7 +6,7 @@ const db = require('../data-access/mongodb-access')
 const dataAcces = require('../data-access/mapping-access')
 const populates = 'Populates'
 const individualMappings = 'IndividualMappings'
-const namespace = 'http://sysresearch.org/ontologies/'
+const namespace = 'http://chaospop.sysresearch.org/ontologies/'
 
 function createMapping (data, cb) {
   db.findById(populates, data.populateId, (err, pop) => {

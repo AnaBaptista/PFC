@@ -229,19 +229,6 @@ function updateIndividualMapping (id, cb) {
       objectProperties: {},
       dataProperties: {}
     }
-    // individual.annotationProperties.forEach(p => {
-    //   let keys = Object.keys(p)
-    //   individualMapping.annotationProperties[keys[1]] = p[keys[1]]
-    // })
-    // individual.objectProperties.forEach(p => {
-    //   let keys = Object.keys(p)
-    //   individualMapping.objectProperties[keys[1]] = p[keys[1]]
-    // })
-    // individual.dataProperties.forEach(p => {
-    //   let keys = Object.keys(p)
-    //   individualMapping.dataProperties[keys[1]] = p[keys[1]]
-    // })
-    //
     propertyArrayToPropertyMap(individualMapping.annotationProperties, individual.annotationProperties)
     propertyArrayToPropertyMap(individualMapping.dataProperties, individual.dataProperties)
     propertyArrayToPropertyMap(individualMapping.objectProperties, individual.objectProperties)
@@ -274,13 +261,23 @@ function propertyArrayToPropertyMap (object, array) {
   })
 }
 
-// TODO: deletar no chaos pop, se existir
+
 function deleteIndividualMapping (id, populateId, cb) {
-  dbAccess.deleteById(collection, id, (err) => {
+  dbAccess.findById(collection, id, (err, ind) => {
     if (err) return cb(err)
-    populateService.deleteIndividualFromPopulate(populateId, id, (err) => {
+    dbAccess.deleteById(collection, id, (err) => {
       if (err) return cb(err)
-      cb()
+      populateService.deleteIndividualFromPopulate(populateId, id, (err) => {
+        if (err) return cb(err)
+        if (ind.chaosid) {
+          dataAccess.removeIndividualMapping(ind.chaosid, (err) => {
+            if (err) return cb(err)
+            cb()
+          })
+        } else {
+          cb()
+        }
+      })
     })
   })
 }

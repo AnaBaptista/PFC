@@ -5,7 +5,7 @@
             <button class="ui icon tiny button basic secondary" onclick="clearDataFileNodeToMapping()" title="Click to clean selected nodes">
                 <i class="icon trash outline"></i>
             </button>
-            <button class="ui icon tiny button basic secondary" onclick="createObjectProperty('{{_id}}')" title="Click to save selected nodes as object property">
+            <button class="ui icon tiny button basic secondary" onclick="createIndividualMappingObjectProperty('{{_id}}')" title="Click to save selected nodes as object property">
                 <i class="icon save outline"></i>
             </button>
         </div>
@@ -25,7 +25,7 @@
 </div>
 <div class="eight wide column">
     <div class="ui middle aligned divided list" id="properties-list">
-        {{#each this.dataProperties}}
+        {{#each this.objectProperties}}
             <div class="item" id="property-{{id}}">
                 <div class="right floated content">
                     <button class="ui icon mini button basic secondary" onclick="deleteIndividualMappingProperty('{{id}}', '{{type}}')">

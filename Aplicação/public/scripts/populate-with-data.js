@@ -65,7 +65,7 @@ function saveIndividualMappingInChaosPop (id) {
  * to individual mapping
  * @param id {String} individual mapping id
  */
-function createObjectProperty (id) {
+function createIndividualMappingObjectProperty (id) {
   let property = getSelectedItems('object-properties-menu', '.selected')
   let node = document.getElementById('object-property-to-term')
 
@@ -83,7 +83,7 @@ function createObjectProperty (id) {
       }]
   }
 
-  createProperty(data, id, 'object')
+  createIndividualMappingProperty(data, id, 'object')
 }
 
 /**
@@ -91,7 +91,7 @@ function createObjectProperty (id) {
  * individual mapping identified by indMapId
  * @param id {String} individual mapping id
  */
-function createDataProperty (id) {
+function createIndividualMappingDataProperty (id) {
   let node = document.getElementById('data-property-to-term')
   let property = getSelectedItems('data-properties-menu', '.selected')
   let type = getSelectedItems('data-property-type-menu', '.selected')
@@ -117,7 +117,7 @@ function createDataProperty (id) {
       }]
   }
 
-  createProperty(data, id, 'data')
+  createIndividualMappingProperty(data, id, 'data')
 }
 
 /**
@@ -125,12 +125,12 @@ function createDataProperty (id) {
  * @param id {String} individual mapping id
  */
 // Label, Comment and SeeAlso (nodes)
-function createAnnotationProperty (id) {
+function createIndividualMappingAnnotationProperty (id) {
   let annotation = getSelectedItems('annotation-properties-menu', '.selected')
   let node = document.getElementById('annotation-property-to-term')
 
   if (annotation.length === 0 || node.childElementCount === 0) {
-    alertify.error('Missing object property or node')
+    alertify.error('Missing annotation property or node')
     return
   }
 
@@ -148,7 +148,7 @@ function createAnnotationProperty (id) {
     }]
   }
 
-  createProperty(data, id, 'annotation')
+  createIndividualMappingProperty(data, id, 'annotation')
 }
 
 /**
@@ -158,7 +158,7 @@ function createAnnotationProperty (id) {
  * @param id {String} individual mapping id
  * @param type {String} property type (data, annotation or object)
  */
-function createProperty (data, id, type) {
+function createIndividualMappingProperty (data, id, type) {
   let options = getFetchOptions('PUT', data)
 
   fetch(`/map/individual/${id}/properties/${type}`, options)
@@ -175,7 +175,7 @@ function createProperty (data, id, type) {
  * This functions sets the individual mapping name's
  * @param id {String} individual mapping id
  */
-function createIndividualName (id) {
+function createIndividualMappingName (id) {
   let indName = document.getElementById('individual-name-to-term')
   if (indName.childElementCount === 0) {
     alertify.error('Missing nodes to mapper individual name')
@@ -213,7 +213,7 @@ function createIndividualName (id) {
  * This functions displays an element that permits add an
  * individual name to individual mapping
  */
-function showIndividualNameContent () {
+function showIndividualMappingNameContent () {
   let currDisplay =  document.getElementById('individual-name-row').style.display
   let nextDisplay = (currDisplay === 'block' && 'none') || 'block'
   document.getElementById('data-file-term').innerText = (nextDisplay === 'block' && `individual-name-to-term`) || ''
@@ -284,6 +284,16 @@ function createMapping (id) {
     .then(handleError)
     .then(_ => {
       alertify.success('Mapping created')
+      window.location.href = `/populate/data/${id}`
+    })
+  console.log('teste')
+}
+
+function generateOutputFile (id) {
+  fetch(`/populate/${id}/output`, {method: 'PUT'})
+    .then(handleError)
+    .then(_ => {
+      alertify.success('File created')
       window.location.href = `/populate/data/${id}`
     })
   console.log('teste')

@@ -50,6 +50,13 @@
                             </button>
                         </a>
                     </h5>
+                    {{#if chaosid}}
+                        <h5 class="ui center aligned header">
+                            <button class="ui button basic secondary" title="Click to generate output file" onclick="generateOutputFile('{{_id}}')">
+                                Output file
+                            </button>
+                        </h5>
+                    {{/if}}
                 </div>
                 <div class="eight wide column">
                     <h5 class="ui center aligned header">

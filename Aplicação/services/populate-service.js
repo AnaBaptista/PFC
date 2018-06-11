@@ -1,6 +1,7 @@
 module.exports = {
   addPopulate,
   addIndividualToPopulate,
+  createOutputFile,
   deleteIndividualFromPopulate,
   getPopulateDataTree,
   getPopulateDataMapping,
@@ -12,7 +13,7 @@ module.exports = {
 const fileService = require('../services/file-service')
 const individualService = require('../services/individual-mapping-service')
 const treeFunctions = require('../utils/tree-functions')
-
+const dataAccess = require('../data-access/populate-access')
 const db = require('../data-access/mongodb-access')
 const populates = 'Populates'
 const ontologyFiles = 'OntologyFiles'
@@ -33,6 +34,28 @@ function getPopulate (id, cb) {
   db.findById(populates, id, (err, res) => {
     if (err) return cb(err)
     cb(null, res)
+  })
+}
+
+function createOutputFile (id, cb) {
+  db.findById(populates, id, (err, pop) => {
+    if (!pop.chaosid) {
+      let error = new Error('Create the mapping first')
+      error.statusCode = 400
+      return cb(error)
+    } else {
+      let data = {
+        mappingIds: [pop.chaosid]
+      }
+      dataAccess.createBatch(data, (err, batchId) => {
+        batchId = JSON.parse(batchId)
+        if (err) return cb(err)
+        dataAccess.processBatch(batchId, (err, res) => {
+          if (err) return cb(err)
+          cb(null, res)
+        })
+      })
+    }
   })
 }
 
@@ -70,6 +93,9 @@ function renderPopulate (id, cb) {
           classes: classes,
           _id: id,
           indMappings: pop.indMappings
+        }
+        if (pop.chaosid) {
+          ctx.chaosid = pop.chaosid
         }
         cb(null, ctx)
       })

@@ -52,6 +52,68 @@ function deleteIndividual (id) {
     }).catch(err => console.log(err.message))
 }
 
-function changeIndividualContent (id, property) {
+function changeIndividualContent (id, type) {
+  let url = `/individual/${id}/properties/${type}/view`
 
+  fetch(url)
+    .then(handleError)
+    .then(res => res.text())
+    .then(text => {
+      let elem = document.getElementById('individual-content')
+      elem.innerHTML = text
+      $('.dropdown').dropdown({fullTextSearch: true})
+    }).catch(err => console.log(err.message))
+}
+
+function createIndividualAnnotationProperty (id) {
+  let annotation = getSelectedItems('annotation-properties-menu', '.selected')
+  let value = document.getElementById('individual-annotation-property').value
+
+  if (annotation.length === 0 || value.length === 0) {
+    alertify.error('Missing annotation property or value')
+    return
+  }
+
+  let data = {
+    annotationProps: [{
+      annotation: annotation[0].textContent,
+      value: value
+    }]
+  }
+  createIndividualProperty(data, id, 'annotation')
+}
+
+function createIndividualDataProperty (id) {
+  let property = getSelectedItems('data-properties-menu', '.selected')
+  let type = getSelectedItems('data-property-type-menu', '.selected')
+  let value = document.getElementById('individual-data-property').value
+
+  if (property.length === 0 || type.length === 0 || value.length === 0) {
+    alertify.error('Missing data property, type or value')
+    return
+  }
+
+  let data = {
+    dataProps:
+      [{
+        owlClassIRI: property[0].textContent,
+        type: type[0].textContent,
+        value: value
+      }]
+  }
+
+  createIndividualProperty(data, id, 'data')
+}
+
+function createIndividualProperty (data, id, type) {
+  let options = getFetchOptions('PUT', data)
+
+  fetch(`/individual/${id}/properties/${type}`, options)
+    .then(handleError)
+    .then(res => res.json())
+    .then(json => {
+      location.reload()
+      alertify.success(`${type} property created`)
+    })
+    .catch(err => console.log(err.message))
 }

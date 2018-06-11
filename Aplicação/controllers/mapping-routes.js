@@ -7,10 +7,7 @@ router.put('/map/:id', updateMapping)
 
 const service = require('../services/mapping-service')
 
-/**
-  * @todo
-  * Creates an Empty Individual and returns it or its id (?)
-*/
+
 function createMapping (req, res, next) {
   console.log('/map, createMapping')
   let data = req.body.data

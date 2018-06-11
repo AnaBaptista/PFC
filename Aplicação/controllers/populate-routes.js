@@ -5,6 +5,8 @@ module.exports = router
 
 router.post('/populate', addPopulate)
 
+router.put('/populate/:id/output', createOutputFile)
+
 router.get('/populate/data/:id', getPopulateWithData)
 router.get('/populate/data/:id/tree', getPopulateDataTree)
 router.get('/populate/data/:id/mapping', getPopulateDataMapping)
@@ -24,6 +26,14 @@ function addPopulate (req, res, next) {
   service.addPopulate(data, (err, id) => {
     if (err) return next(err)
     res.json({id: id})
+  })
+}
+
+function createOutputFile (req, res, next) {
+  let id = req.params.id
+  service.createOutputFile(id, (err, out) => {
+    if (err) return next(err)
+    res.end()
   })
 }
 

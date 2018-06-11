@@ -26,19 +26,21 @@
         <div class="row">
             <div class="sixteen wide column">
                 <div class="ui internally celled grid" id="individual-content" >
-                    <div class="eight wide column">
-                        <div class="ui buttons black ten wide fields">
-                            <button class="ui button" onclick="changeIndividualContent('{{_id}}', 'aproperty');">annotation properties</button>
-                            <button class="ui button" onclick="changeIndividualContent('{{_id}}', 'dproperty');">data properties</button>
-                            <button class="ui button" onclick="changeIndividualContent('{{_id}}', 'oproperty');">object properties</button>
+                    <div class="row">
+                        <div class="eight wide column">
+                            <div class="ui buttons black ten wide fields">
+                                <button class="ui button" onclick="changeIndividualContent('{{_id}}', 'annotation');">annotation properties</button>
+                                <button class="ui button" onclick="changeIndividualContent('{{_id}}', 'data');">data properties</button>
+                                <button class="ui button" onclick="changeIndividualContent('{{_id}}', 'object');">object properties</button>
+                            </div>
                         </div>
-                        <div id="individual-mapping-content">
+                        <div class="eight wide column">
+                            <h5 class="ui center aligned header">
+                                Properties that you mapped
+                            </h5>
                         </div>
                     </div>
-                    <div class="eight wide column">
-                        <h5 class="ui center aligned header">
-                            Properties that you mapped
-                        </h5>
+                    <div class="row" id="individual-content">
 
                     </div>
                 </div>
