@@ -7,7 +7,6 @@ router.put('/map/:id', updateMapping)
 
 const service = require('../services/mapping-service')
 
-
 function createMapping (req, res, next) {
   console.log('/map, createMapping')
   let data = req.body.data

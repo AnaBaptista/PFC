@@ -6,8 +6,8 @@ const req = require('request')
 const handleResponse = require('../utils/handle-response')
 
 // ChaosPop requests
-// const api = 'http://chaospop.sysresearch.org/chaos/wsapi'
-const api = 'http://localhost:8080/chaos/wsapi'
+ const api = 'http://chaospop.sysresearch.org/chaos/wsapi'
+//const api = 'http://localhost:8080/chaos/wsapi'
 const mappingManager = `${api}/mappingManager`
 
 function createMapping (mapping, cb) {

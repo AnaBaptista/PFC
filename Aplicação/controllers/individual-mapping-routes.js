@@ -3,8 +3,8 @@ const router = require('express')()
 const service = require('../services/individual-mapping-service')
 
 module.exports = router
-router.post('/map/individual', createIndividual)
 
+router.post('/map/individual', createIndividual)
 router.put('/map/individual/:individualId', putIndividualMapping)
 router.put('/map/individual/:individualId/name', putIndividualMappingName)
 router.put('/map/individual/:individualId/properties/object', putIndividualMappingObjectProperties)
