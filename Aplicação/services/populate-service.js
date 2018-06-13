@@ -8,6 +8,7 @@ module.exports = {
   getPopulateDataMapping,
   getPopulateDataIndividualTree,
   getPopulateDataIndividual,
+  getPopulateNonDataMapping,
   getPopulateNonDataIndividual,
   renderPopulate
 }
@@ -125,6 +126,20 @@ function getPopulateOntologyFiles (id, cb) {
   })
 }
 
+function getPopulateMapping (id, cb) {
+  getPopulate(id, (err, pop) => {
+    if (err) return cb(err)
+    if (pop.indMappings) {
+      individualService.getIndividualMappingByIds(pop.indMappings.map(i => i._id), (err, results) => {
+        if (err) return cb(err)
+        cb(null, results)
+      })
+    } else {
+      cb(null, [])
+    }
+  })
+}
+
 /**
  * POPULATE WITH DATA
  */
@@ -177,18 +192,23 @@ function getPopulateTreeAux (files) {
 }
 
 function getPopulateDataMapping (id, cb) {
-  getPopulate(id, (err, pop) => {
+  getPopulateMapping(id, (err, results) => {
     if (err) return cb(err)
-    if (pop.indMappings) {
-      individualService.getIndividualMappingByIds(pop.indMappings.map(i => i._id), (err, results) => {
-        if (err) return cb(err)
-        let indMappings = results.filter(i => i.chaosid)
-        cb(null, {indMappings: indMappings, _id: id})
-      })
-    } else {
-      cb(null, [])
-    }
+    let indMappings = results.filter(i => i.chaosid)
+    cb(null, {indMappings: indMappings, _id: id})
   })
+  // getPopulate(id, (err, pop) => {
+  //   if (err) return cb(err)
+  //   if (pop.indMappings) {
+  //     individualService.getIndividualMappingByIds(pop.indMappings.map(i => i._id), (err, results) => {
+  //       if (err) return cb(err)
+  //       let indMappings = results.filter(i => i.chaosid)
+  //       cb(null, {indMappings: indMappings, _id: id})
+  //     })
+  //   } else {
+  //     cb(null, [])
+  //   }
+  // })
 }
 
 function getPopulateDataIndividual (ind, cb) {
@@ -215,6 +235,12 @@ function getPopulateDataIndividualTree (id, ind, cb) {
 /**
  * POPULATE WITHOUT DATA
  */
+function getPopulateNonDataMapping (id, cb) {
+  getPopulateMapping(id, (err, results) => {
+    if (err) return cb(err)
+    cb(null, {individuals: results, _id: id})
+  })
+}
 
 function getPopulateNonDataIndividual (id, ind, cb) {
   individualService.getIndividualMapping(ind, (err, individual) => {

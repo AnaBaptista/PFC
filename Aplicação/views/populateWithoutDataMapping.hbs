@@ -1,19 +1,19 @@
 <!-- Navbar -->
-{{> navbar  backward=(concat '/populate/data/' _id)}}
+{{> navbar  backward=(concat '/populate/nondata/' _id)}}
 
 <div class="ui body-content">
     <h4 class="ui center aligned icon header">
         <i class="circular sitemap alternate outline icon"></i>
-        Populate with data: mapping
+        Populate without data: mapping
     </h4>
     <div class="ui internally celled grid">
         <div class="eight wide column">
-            <h5>Choose some individual mappings to create an mapping:</h5>
+            <h5>Choose some individuals to create an mapping:</h5>
             <div class="ui middle aligned divided list" id="individuals-to-mapping-list">
-                {{#each this.indMappings}}
+                {{#each this.individuals}}
                     <div class="ui checkbox">
                         <input name="{{_id}}" type="checkbox">
-                        <label><b>{{tag}}</b>: {{owlClassIRI}}</label>
+                        <label><b>{{individualName}}</b>: {{owlClassIRI}}</label>
                     </div>
                 {{/each}}
             </div>
@@ -26,7 +26,7 @@
                 <input placeholder="Output file name" type="text" id="mapping-name">
             </div>
             <div id="create-mapping-btn">
-                <button class="ui big basic secondary compact button" onclick="createMapping('{{_id}}')">
+                <button class="ui big basic secondary compact button">
                     Create
                 </button>
             </div>

@@ -12,22 +12,22 @@
     </h5>
     <div id="data-property-to-term">
     </div>
-    <div class="ui fluid selection dropdown">
-        <input name="select-dproperty-type" type="hidden">
-        <i class="dropdown icon"></i>
-        <div class="default text">Select data property type</div>
-        <div class="menu" id="data-property-type-menu">
-            {{#each this.dpropertyTypes}}
-                <div class="item" data-value="{{this}}">{{this}}</div>
-            {{/each}}
-        </div>
-    </div>
     <div class="ui fluid search selection dropdown" id="select-dproperty">
         <input name="select-dproperty" type="hidden">
         <i class="dropdown icon"></i>
         <div class="default text">Select data properties</div>
         <div class="menu" id="data-properties-menu">
             {{#each this.dproperties}}
+                <div class="item" data-value="{{this}}">{{this}}</div>
+            {{/each}}
+        </div>
+    </div>
+    <div class="ui fluid selection dropdown">
+        <input name="select-dproperty-type" type="hidden">
+        <i class="dropdown icon"></i>
+        <div class="default text">Select data property type</div>
+        <div class="menu" id="data-property-type-menu">
+            {{#each this.dpropertyTypes}}
                 <div class="item" data-value="{{this}}">{{this}}</div>
             {{/each}}
         </div>

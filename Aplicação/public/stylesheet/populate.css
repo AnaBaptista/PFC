@@ -35,8 +35,12 @@
     margin-top: 15px;
 }
 
-#select-dproperty, #select-individual{
+#select-individual{
     margin-top: 15px;
+}
+
+#select-dproperty {
+    margin-bottom: 15px;
 }
 
 #create-individual-mapping-btn {
@@ -70,8 +74,7 @@
 }
 
 #classes-list {
-    max-height: 250px;
-    overflow-y: auto;
+   margin-top: 15px;
 }
 
 #properties-list {
@@ -113,4 +116,8 @@
 
 #property-input {
     margin-bottom: 15px;
+}
+
+#classes-segment {
+    min-height: 500px;
 }

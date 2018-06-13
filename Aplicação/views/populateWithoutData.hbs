@@ -1,42 +1,47 @@
 <!-- Navbar -->
-{{> navbar}}
+{{> navbar backward='/'}}
 <div class="ui body-content" id="mapper-content">
     <div class="ui internally celled grid" id="mapper-grid">
         <div class="eight wide column" id="classes-segment">
             <h5 class="ui center aligned icon header">
                 <i class="circular sitemap alternate outline icon"></i>
-                ONTOLOGY CLASSES
+                INDIVIDUAL
             </h5>
             <hr>
             <h5 class="ui center aligned header">
                 Choose an OWL class and write a TAG to create an individual
             </h5>
-            <div class="ui internally celled grid">
-                <div class="row">
-                    <div class="twelve wide column">
-                        <div id="classes-to-individual">
-                        </div>
-                        <div class="ui labeled input">
-                            <div class="ui label">
-                                Name
-                            </div>
-                            <input id="individual-name" placeholder="Individual name" type="text">
-                        </div>
-                    </div>
-                    <div class="one wide column">
-                        <button class="ui button basic secondary" onclick="createIndividual('{{_id}}');">
-                            CREATE
-                        </button>
-                    </div>
+            <div id="classes-to-individual">
+            </div>
+            <div class="ui labeled input fluid">
+                <div class="ui label">
+                    Name
+                </div>
+                <input id="individual-name" placeholder="Individual name" type="text">
+            </div>
+            <div class="ui fluid search selection dropdown classses-menu" id="classes-list">
+                <input name="select-class" type="hidden">
+                <i class="dropdown icon"></i>
+                <div class="default text">Select class</div>
+                <div class="menu" id="individual-classes-menu">
+                    {{#each this.classes}}
+                        <div class="item" id="{{ontologyId}}">{{IRI}}</div>
+                    {{/each}}
                 </div>
             </div>
-            <div class="ui middle aligned divided selection list" id="classes-list">
-                {{#each this.classes}}
-                    <div class="item" id="{{IRI}}-{{ontologyId}}" onclick="changeIndividual('{{ontologyId}}', '{{IRI}}')">
-                        {{IRI}}
-                    </div>
-                {{/each}}
-            </div>
+            <h5 class="ui center aligned header" id="create-individual-mapping-btn">
+                <button class="ui button basic secondary" onclick="createIndividual('{{_id}}');" title="Click to create an individual">
+                    Create individual
+                </button>
+            </h5>
+            <hr>
+            <h5 class="ui center aligned header" id="create-individual-mapping-btn">
+                <a href="/populate/nondata/{{_id}}/mapping">
+                    <button class="ui button basic secondary" title="Click to create a mapping">
+                        Create mapping
+                    </button>
+                </a>
+            </h5>
         </div>
         <div class="eight wide column">
             <div class="ui middle aligned divided list" id="individual-list">
@@ -51,9 +56,6 @@
                             <a class="header" href="/populate/nondata/{{../this._id}}/individual/{{_id}}">
                                 {{individualName}}
                             </a>
-                            <div class="description">
-
-                            </div>
                             {{owlClassIRI}}
                         </div>
                     </div>

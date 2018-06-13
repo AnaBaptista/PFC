@@ -1,5 +1,5 @@
 <!-- Navbar -->
-{{> navbar}}
+{{> navbar backward=(concat '/populate/nondata/' popId)}}
 <div class="ui body-content" id="mapper-content">
     <div class="ui celled internally grid" id="mapper-grid">
         <div class="row">
@@ -16,11 +16,6 @@
                 <div>
                     Individual Name: {{individualName}}
                 </div>
-            </div>
-            <div class="three wide column">
-                <button class="ui fluid button basic secondary">
-                    SAVE
-                </button>
             </div>
         </div>
         <div class="row" id="individual-row">

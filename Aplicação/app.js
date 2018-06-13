@@ -22,6 +22,15 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
 
 hbs.registerPartials(`${__dirname}/views/partials`)
+hbs.registerHelper('concat', function () {
+  let outStr = ''
+  for (let arg in arguments) {
+    if (typeof arguments[arg] !== 'object') {
+      outStr += arguments[arg]
+    }
+  }
+  return outStr
+})
 
 app.use(fileRouter)
 app.use(mappingRouter)
