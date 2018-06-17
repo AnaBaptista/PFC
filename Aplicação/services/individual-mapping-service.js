@@ -261,7 +261,6 @@ function propertyArrayToPropertyMap (object, array) {
   })
 }
 
-
 function deleteIndividualMapping (id, populateId, cb) {
   dbAccess.findById(collection, id, (err, ind) => {
     if (err) return cb(err)

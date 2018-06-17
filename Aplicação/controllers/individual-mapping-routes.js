@@ -13,18 +13,20 @@ router.put('/map/individual/:individualId/properties/annotation', putIndividualM
 
 router.get('/map/individual', getAllIndividualMappings)
 router.get('/map/individual/:individualId', getIndividualMapping)
+// @todo passar as props para mongo db
 router.get('/map/individual/:id/properties/object/view', renderObjectProps)
 router.get('/map/individual/:id/properties/data/view', renderDataProps)
 router.get('/map/individual/:id/properties/annotation/view', renderAnnotationProps)
 
 router.delete('/map/individual/:individualId', removeIndividualMapping)
+
 /**
  * Body Parameters:
  * (Object) data
  *  data = {tag: , nodeId: , owlClassIRI: , ontologyFileId: , dataFileId:}
  */
 function createIndividual (req, res, next) {
-  console.log('/map/individual, createIndividual')
+  console.log('POST -> /map/individual, createIndividual')
   let input = req.body.data
   let popId = req.body.populateId
   service.createIndividualMapping(input, popId, (err, id) => {
@@ -34,6 +36,7 @@ function createIndividual (req, res, next) {
 }
 
 function putIndividualMapping (req, res, next) {
+  console.log('GET -> /individual/:id/properties/annotation/view, renderAnnotationProperties')
   let id = req.params.individualId
   service.updateIndividualMapping(id, (err) => {
     if (err) return next(err)
@@ -71,21 +74,20 @@ function putIndividualMappingName (req, res, next) {
  * (list-entry) an object containing the owlClassIRI and toMapNodeId,  both string types
  * example:
  * objProps : [  // if its adding a new property
-    {
-      owlIRI: 'owl iri',
-      toMapNodeId: ['7531598426']
+ {
+   owlIRI: 'owl iri',
+   toMapNodeId: ['7531598426']
 
-    },        // or if its updating an existing one
-    {
-      id: HyBVfiZxm,
-      owlIRI: 'owl iri',
-      toMapNodeId: ['159753268']
-    }
-  ]
+ },        // or if its updating an existing one
+ {
+   id: HyBVfiZxm,
+   owlIRI: 'owl iri',
+   toMapNodeId: ['159753268']
+ }
+ ]
  *
  * Returns: Id for that individual mapping
  */
-// @todo falta redirects para ter post redirect get
 function putIndividualMappingObjectProperties (req, res, next) {
   console.log('PUT - /map/individual/:individualId/properties/object, addIndividualMappingObjectProperties')
   let id = req.params.individualId
@@ -106,18 +108,18 @@ function putIndividualMappingObjectProperties (req, res, next) {
  * (list-entry) an object containing a list of pairs with the nodeid plus the iri to be associated
  * example:
  * dataProps : [     // if its adding a new property
-    {
-        owlIRI: 'owl iri',
-        toMapNodeIds: ['123','456']
-        type: 'Integer'
-    }, // or if its updating an existing one
-    {
-        id: HyBVfiZxm,
-        owlIRI: 'owl iri',
-        toMapNodeId: ['789','753']
-        type: 'String'
- }
-  ]
+ {
+     owlIRI: 'owl iri',
+     toMapNodeIds: ['123','456']
+     type: 'Integer'
+ }, // or if its updating an existing one
+ {
+     id: HyBVfiZxm,
+     owlIRI: 'owl iri',
+     toMapNodeId: ['789','753']
+     type: 'String'
+}
+ ]
  *
  * Returns: Id for that individual mapping
  */
@@ -192,6 +194,7 @@ function removeIndividualMapping (req, res, next) {
 }
 
 function renderObjectProps (req, res, next) {
+  console.log('GET -> /map/individual/:id/properties/object/view, renderObjectProps')
   let id = req.params.id
   service.renderObjectProperties(id, (err, props) => {
     if (err) return next(err)
@@ -202,6 +205,7 @@ function renderObjectProps (req, res, next) {
 }
 
 function renderDataProps (req, res, next) {
+  console.log('GET -> /map/individual/:id/properties/data/view, renderDataProps')
   let id = req.params.id
   service.renderDataProperties(id, (err, props) => {
     if (err) return next(err)
@@ -212,6 +216,7 @@ function renderDataProps (req, res, next) {
 }
 
 function renderAnnotationProps (req, res, next) {
+  console.log('GET -> /map/individual/:id/properties/annotation/view, renderAnnotationProps')
   let id = req.params.id
   service.renderAnnotationProperties(id, (err, props) => {
     if (err) return next(err)

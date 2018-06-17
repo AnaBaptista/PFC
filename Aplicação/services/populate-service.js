@@ -4,6 +4,7 @@ module.exports = {
   addIndividualToPopulate,
   createOutputFile,
   deleteIndividualFromPopulate,
+  beginProcessOfPopulateWithoutData,
   getPopulateDataTree,
   getPopulateDataMapping,
   getPopulateDataIndividualTree,
@@ -13,13 +14,19 @@ module.exports = {
   renderPopulate
 }
 const fileService = require('../services/file-service')
-const individualService = require('../services/individual-mapping-service')
+const indMapService = require('../services/individual-mapping-service')
 const treeFunctions = require('../utils/tree-functions')
+const fakeFileMaker = require('../utils/FakeFileMaker')
 const dataAccess = require('../data-access/populate-access')
 const db = require('../data-access/mongodb-access')
+
+const async = require('async')
+const fs = require('fs')
+
 const populates = 'Populates'
 const ontologyFiles = 'OntologyFiles'
 const dataFiles = 'DataFiles'
+const indMapping = 'IndividualMappings'
 
 /**
  * GENERIC POPULATE
@@ -119,7 +126,8 @@ function getPopulateOntologyFiles (id, cb) {
         return {
           _id: file._id.toString(),
           name: file.name,
-          chaosid: file.chaosid}
+          chaosid: file.chaosid
+        }
       })
       cb(null, files)
     })
@@ -130,7 +138,7 @@ function getPopulateMapping (id, cb) {
   getPopulate(id, (err, pop) => {
     if (err) return cb(err)
     if (pop.indMappings) {
-      individualService.getIndividualMappingByIds(pop.indMappings.map(i => i._id), (err, results) => {
+      indMapService.getIndividualMappingByIds(pop.indMappings.map(i => i._id), (err, results) => {
         if (err) return cb(err)
         cb(null, results)
       })
@@ -200,7 +208,7 @@ function getPopulateDataMapping (id, cb) {
   // getPopulate(id, (err, pop) => {
   //   if (err) return cb(err)
   //   if (pop.indMappings) {
-  //     individualService.getIndividualMappingByIds(pop.indMappings.map(i => i._id), (err, results) => {
+  //     indMapService.getIndividualMappingByIds(pop.indMappings.map(i => i._id), (err, results) => {
   //       if (err) return cb(err)
   //       let indMappings = results.filter(i => i.chaosid)
   //       cb(null, {indMappings: indMappings, _id: id})
@@ -212,7 +220,7 @@ function getPopulateDataMapping (id, cb) {
 }
 
 function getPopulateDataIndividual (ind, cb) {
-  individualService.getIndividualMapping(ind, (err, individual) => {
+  indMapService.getIndividualMapping(ind, (err, individual) => {
     if (err) return cb(err)
     cb(null, individual)
   })
@@ -221,7 +229,7 @@ function getPopulateDataIndividual (ind, cb) {
 function getPopulateDataIndividualTree (id, ind, cb) {
   getPopulate(id, (err, pop) => {
     if (err) return cb(err)
-    individualService.getIndividualMapping(ind, (err, individual) => {
+    indMapService.getIndividualMapping(ind, (err, individual) => {
       if (err) return cb(err)
       let tree = pop.tree.find(obj => obj.dataFileId === individual.dataFileId)
       let indtree = []
@@ -235,6 +243,84 @@ function getPopulateDataIndividualTree (id, ind, cb) {
 /**
  * POPULATE WITHOUT DATA
  */
+
+function beginProcessOfPopulateWithoutData (listOfIds, cb) {
+  async.map(listOfIds,
+    (id, next) => {
+      db.findById(indMapping, id, (err, results) => {
+        if (err) return next(err)
+        next(null, results)
+      })
+    },
+    (err, listOfIndividuals) => {
+      if (err) return cb(err)
+      return postFakeFile(listOfIndividuals, cb)
+    })
+}
+
+function postFakeFile (listOfIndividuals, cb) {
+  if (listOfIndividuals[0].dataFileId !== undefined) saveToDBAndChaos(listOfIndividuals, cb)
+  else {
+    fakeFileMaker(listOfIndividuals, (err, name, path) => {
+      if (err) return cb(err)
+      fileService.addDataFile({name, path}, (err, id) => {
+        if (err) return cb(err)
+        listOfIndividuals.forEach(individual => parseIndividualToInMap(individual, id._id.toString()))
+        fs.unlink(path, (err) => {
+          if (err) return cb(err)
+        })
+        saveToDBAndChaos(listOfIndividuals, cb)
+      })
+    })
+  }
+}
+
+function parseIndividualToInMap (individual, dataFileId) {
+  individual.tag = `_${individual._id.toString()}`
+  let base = `.inspecificchild-_${individual._id.toString()}`
+  individual.individualName = `${base}-individualName`
+  individual.dataFileId = dataFileId
+  individual.specification = false
+  if (individual.dataProperties !== undefined) {
+    individual.dataProperties.forEach(prop => {
+      prop[prop.owlClassIRI] = [`${base}-${prop.id}`, prop.type]
+      delete prop.owlClassIRI
+      delete prop.type
+      delete prop.value
+    })
+  }
+  if (individual.objectProperties !== undefined) {
+    individual.objectProperties.forEach(prop => {
+      prop['id'] = prop.value.id
+      prop[prop.owlClassIRI] = `${base}-_${prop.value.id}`
+      delete prop.owlClassIRI
+      delete prop.value
+    })
+  }
+  if (individual.annotationProperties !== undefined) {
+    individual.annotationProperties.forEach(prop => {
+      prop[prop.annotation] = `${base}-${prop.id}`
+      delete prop.annotation
+      delete prop.value
+    })
+  }
+}
+
+function saveToDBAndChaos (listOfIndividuals, cb) {
+  async.each(listOfIndividuals, (indMap, next) => {
+    db.updateById(indMapping, indMap._id.toString(), indMap, (err) => {
+      if (err) return next(err)
+      indMapService.updateIndividualMapping(indMap._id.toString(), (err) => {
+        if (err) return next(err)
+        next()
+      })
+    })
+  }, (err) => {
+    if (err) return cb(err)
+    return cb()
+  })
+}
+
 function getPopulateNonDataMapping (id, cb) {
   getPopulateMapping(id, (err, results) => {
     if (err) return cb(err)
@@ -243,7 +329,7 @@ function getPopulateNonDataMapping (id, cb) {
 }
 
 function getPopulateNonDataIndividual (id, ind, cb) {
-  individualService.getIndividualMapping(ind, (err, individual) => {
+  indMapService.getIndividualMapping(ind, (err, individual) => {
     if (err) return cb(err)
     cb(null, individual)
   })

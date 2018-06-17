@@ -1,5 +1,6 @@
 module.exports = {
   createIndividual,
+  //putIndividualInChaosPop,
   putIndividualAnnotationProperties,
   putIndividualDataProperties,
   putIndividualObjectProperties,
@@ -42,7 +43,9 @@ function putIndividualAnnotationProperties (id, props, cb) {
 
     props.forEach(elem => {
       if (!elem.id) {
-        elem.id = idGen.generate()
+        let id = idGen.generate()
+        while (id.indexOf('-') > -1) id = idGen.generate()
+        elem.id = id
       }
     })
     let set = {annotationProperties: indMap.annotationProperties.concat(props)}
@@ -69,7 +72,9 @@ function putIndividualDataProperties (id, props, cb) {
 
     props.forEach(elem => {
       if (!elem.id) {
-        elem.id = idGen.generate()
+        let id = idGen.generate()
+        while (id.indexOf('-') > -1) id = idGen.generate()
+        elem.id = id
       }
     })
     let set = {dataProperties: indMap.dataProperties.concat(props)}
@@ -96,7 +101,9 @@ function putIndividualObjectProperties (id, props, cb) {
 
     props.forEach(elem => {
       if (!elem.id) {
-        elem.id = idGen.generate()
+        let id = idGen.generate()
+        while (id.indexOf('-') > -1) id = idGen.generate()
+        elem.id = id
       }
     })
 

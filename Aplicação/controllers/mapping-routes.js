@@ -8,7 +8,7 @@ router.put('/map/:id', updateMapping)
 const service = require('../services/mapping-service')
 
 function createMapping (req, res, next) {
-  console.log('/map, createMapping')
+  console.log('POST -> /map, createMapping')
   let data = req.body.data
   service.createMapping(data, (err) => {
     if (err) return next(err)
@@ -31,7 +31,7 @@ function createMapping (req, res, next) {
  * Returns: Id for that mapping
  */
 function updateMapping (req, res, next) {
-  console.log('/map/:mappingId, updateMapping')
+  console.log('PUT -> /map/:mappingId, updateMapping')
   let id = req.params.mappingId
   if (id === undefined) {
     res.statusCode = 400

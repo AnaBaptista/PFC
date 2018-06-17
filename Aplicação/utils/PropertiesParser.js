@@ -132,4 +132,3 @@ function getNodesFromFile (id, cb) {
     cb(null, files[0].nodes)
   })
 }
-
