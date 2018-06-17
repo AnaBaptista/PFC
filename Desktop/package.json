@@ -1,0 +1,19 @@
+{
+  "name": "desktop-app",
+  "version": "1.0.0",
+  "description": "Hybrid Ontology Mapping Interface - Desktop Version",
+  "main": "main.js",
+  "homepage": "http://localhost:8000/",
+  "author": "Ana Baptista, Eliane Almeida",
+  "license": "ISC",
+  "scripts": {
+    "start": "npm install && electron ." 
+  },
+  "devDependencies": {
+    "electron": "^2.0.2",
+    "electron-builder": "^20.15.1"
+  },
+  "dependencies": {
+    "path": "^0.12.7"
+  }
+}

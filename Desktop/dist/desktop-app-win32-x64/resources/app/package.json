@@ -1,0 +1,50 @@
+{
+  "name": "desktop-app",
+  "version": "1.0.0",
+  "description": "Hybrid Ontology Mapping Interface - Desktop Version",
+  "main": "main.js",
+  "author": "Ana Baptista, Eliane Almeida",
+  "license": "ISC",
+  "scripts": {
+    "postinstall": "install-app-deps",
+    "start": "npm install && electron .",
+    "pack": "build --dir --x64",
+    "dist": "build"
+    
+  },
+  "build": {
+    "appId": "yourappid",
+    "category": "your.app.category.type",
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "win": {
+      "target": "squirrel",
+      "icon": "build/icon.ico"
+    }
+},
+  "devDependencies": {
+    "electron": "^2.0.2",
+    "electron-builder": "^20.15.1"
+  },
+  "dependencies": {
+    "path": "^0.12.7"
+  }
+}
