@@ -1,5 +1,5 @@
 <!-- Navbar -->
-{{> navbar backward='/'}}
+{{> navbar backward='/populate'}}
 <div class="ui body-content" id="mapper-content">
     <div class="ui internally celled grid" id="mapper-grid">
         <div id="data-file-content" class="five wide column">
@@ -31,9 +31,7 @@
                         <div class="default text">Select class</div>
                         <div class="menu" id="classes-menu">
                             {{#each this.classes}}
-                                <div class="item" data-value="{{IRI}}" id="{{ontologyId}}">
-                                    {{IRI}}
-                                </div>
+                                <div class="item" data-value="{{IRI}}" id="{{ontologyId}}">{{IRI}}</div>
                             {{/each}}
                         </div>
                     </div>

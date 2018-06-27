@@ -7,8 +7,7 @@
 }
 
 #files-content-column {
-    min-height: 350px;
-    margin-top: -10px;
+    min-height: 650px;
 }
 
 .files-dropdown {
@@ -16,10 +15,5 @@
 }
 
 #mapper-options {
-    min-width: 400px;
-    margin-left: 200px;
-}
-
-#populates-column {
-    min-height: 550px;
+    padding-top: 150px;
 }

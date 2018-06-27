@@ -11,7 +11,8 @@ module.exports = {
   getPopulateDataIndividual,
   getPopulateNonDataMapping,
   getPopulateNonDataIndividual,
-  renderPopulate
+  renderPopulate,
+  getPopulates
 }
 const fileService = require('../services/file-service')
 const indMapService = require('../services/individual-mapping-service')
@@ -43,6 +44,26 @@ function getPopulate (id, cb) {
   db.findById(populates, id, (err, res) => {
     if (err) return cb(err)
     cb(null, res)
+  })
+}
+
+function getPopulates (cb) {
+  db.findByQuery(populates, {}, (err, pops) => {
+    if (err) return cb(err)
+    let populates = []
+    pops.forEach(pop => {
+      let populate = {
+        _id: pop._id.toString(),
+        ontologyFiles: pop.ontologyFiles.map(file => file.name),
+        type: 'without data'
+      }
+      if (pop.dataFiles) {
+        populate.dataFiles = pop.dataFiles.map(file => file.name)
+        populate['type'] = 'with data'
+      }
+      populates.push(populate)
+    })
+    cb(null, {populates: populates})
   })
 }
 
@@ -97,40 +118,40 @@ function deleteIndividualFromPopulate (id, ind, cb) {
 }
 
 function renderPopulate (id, cb) {
-  getPopulateOntologyFiles(id, (err, files) => {
+  getPopulate(id, (err, pop) => {
     if (err) return cb(err)
-    getPopulate(id, (err, pop) => {
+    let ontIds = pop.ontologyFiles.map(file => file.id)
+    getPopulateOntologyFiles(ontIds, (err, files) => {
       if (err) return cb(err)
-      fileService.getOntologyFileClasses(files.map(onto => onto.chaosid), (err, classes) => {
-        if (err) return cb(err)
-        let ctx = {
-          classes: classes,
-          _id: id,
-          indMappings: pop.indMappings
-        }
-        if (pop.chaosid) {
-          ctx.chaosid = pop.chaosid
-        }
-        cb(null, ctx)
+      let classes = []
+      files.forEach(f => {
+        classes = classes.concat(f.classes.map(c => { return {ontologyId: f._id, IRI: c} }))
       })
+      let ctx = {
+        classes: classes,
+        _id: id,
+        indMappings: pop.indMappings
+      }
+      if (pop.chaosid) {
+        ctx.chaosid = pop.chaosid
+      }
+      cb(null, ctx)
     })
   })
 }
 
-function getPopulateOntologyFiles (id, cb) {
-  getPopulate(id, (err, res) => {
+function getPopulateOntologyFiles (ids, cb) {
+  db.findByIds(ontologyFiles, ids, (err, oFiles) => {
     if (err) return cb(err)
-    db.findByIds(ontologyFiles, res.ontologyFiles.map(o => o.id), (err, oFiles) => {
-      if (err) return cb(err)
-      let files = oFiles.map(file => {
-        return {
-          _id: file._id.toString(),
-          name: file.name,
-          chaosid: file.chaosid
-        }
-      })
-      cb(null, files)
+    let files = oFiles.map(file => {
+      return {
+        _id: file._id.toString(),
+        name: file.name,
+        chaosid: file.chaosid,
+        classes: file.classes
+      }
     })
+    cb(null, files)
   })
 }
 
@@ -152,21 +173,18 @@ function getPopulateMapping (id, cb) {
  * POPULATE WITH DATA
  */
 
-function getPopulateDataFiles (id, cb) {
-  getPopulate(id, (err, res) => {
+function getPopulateDataFiles (ids, cb) {
+  db.findByIds(dataFiles, ids, (err, dFiles) => {
     if (err) return cb(err)
-    db.findByIds(dataFiles, res.dataFiles.map(d => d.id), (err, dFiles) => {
-      if (err) return cb(err)
-      let files = dFiles.map(file => {
-        return {
-          _id: file._id.toString(),
-          name: file.name,
-          chaosid: file.chaosid,
-          nodes: file.nodes
-        }
-      })
-      cb(null, files)
+    let files = dFiles.map(file => {
+      return {
+        _id: file._id.toString(),
+        name: file.name,
+        chaosid: file.chaosid,
+        nodes: file.nodes
+      }
     })
+    cb(null, files)
   })
 }
 
@@ -176,7 +194,7 @@ function getPopulateDataTree (id, cb) {
     if (pop.tree) {
       return cb(null, pop.tree)
     } else {
-      getPopulateDataFiles(id, (err, files) => {
+      getPopulateDataFiles(pop.dataFiles.map(d => d.id), (err, files) => {
         if (err) return cb(err)
         let tree = getPopulateTreeAux(files)
         db.updateById(populates, id, {tree: tree}, (err) => {

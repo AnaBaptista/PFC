@@ -121,3 +121,8 @@
 #classes-segment {
     min-height: 500px;
 }
+
+#populates-table {
+    max-height: 500px;
+    overflow-y: auto;
+}

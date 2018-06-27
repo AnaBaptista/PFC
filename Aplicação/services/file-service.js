@@ -34,7 +34,13 @@ function addDataFile ({name, path}, cb) {
 function addOntologyFile ({name, path}, cb) {
   addFile(path, name, ontologyFileCol, (err, ids) => {
     if (err) return cb(err)
-    cb(null, {_id: ids.id})
+    dataAccess.getOntologyFileClasses(ids.chaosid, (err, classes) => {
+      if (err) return cb(err)
+      db.updateById(ontologyFileCol, ids.id, {classes: JSON.parse(classes)}, (err) => {
+        if (err) return cb(err)
+        cb(null, {_id: ids.id})
+      })
+    })
   })
 }
 
@@ -94,22 +100,10 @@ function getDataFileNodes (ids, cb) {
   })
 }
 
-function getOntologyFileClasses (ids, cb) {
-  async.map(ids, (ont, cbReq) => {
-    dataAccess.getOntologyFileClasses(ont, (err, classes) => {
-      if (err) return cb(err)
-      return cbReq(null, {classes: JSON.parse(classes), id: ont})
-    })
-  }, (err, res) => {
+function getOntologyFileClasses (id, cb) {
+  dataAccess.getOntologyFileClasses(id, (err, classes) => {
     if (err) return cb(err)
-    let classes = []
-    res.forEach(obj => {
-      let map = (obj.classes).map(c => {
-        return {IRI: c, ontologyId: obj.id}
-      })
-      classes = classes.concat(map)
-    })
-    cb(null, classes)
+    return cb(null, {classes: JSON.parse(classes)})
   })
 }
 

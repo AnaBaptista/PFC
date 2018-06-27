@@ -34,6 +34,18 @@ body {
     }
 }
 
+::-webkit-scrollbar {
+    background-color: transparent;
+    width: 0px;
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+::-webkit-scrollbar-track-piece {
+    background-color: transparent;
+    -webkit-border-radius: 6px;
+}
+
 /*.index-body {*/
     /*background-image: url('/images/home-bg.png');*/
     /*background-size: cover;*/

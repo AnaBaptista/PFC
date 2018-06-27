@@ -1,0 +1,42 @@
+<!-- Navbar -->
+{{> navbar backward='/'}}
+<div>
+    <h4>Populates that already exist</h4>
+    <div class="ui relaxed divided list" id="populates-table">
+        {{#each populates}}
+            <div class="item">
+                <i class="large sitemap middle aligned icon"></i>
+                <div class="content">
+                    {{#if dataFiles}}
+                        <a href="/populate/data/{{_id}}" class="header">{{type}}</a>
+                    {{else}}
+                        <a href="/populate/nondata/{{_id}}" class="header">{{type}}</a>
+                    {{/if}}
+                    <div class="description">
+                        Ontology Files:
+                        <div class="ui horizontal list">
+                            {{#each ontologyFiles}}
+                                <div class="item">
+                                    {{this}}
+                                </div>
+                            {{/each}}
+                        </div>
+                        <div></div>
+                        {{#if dataFiles}}
+                            Data Files:
+                            <div class="ui horizontal list">
+                                {{#each dataFiles}}
+                                    <div class="item">
+                                        {{this}}
+                                    </div>
+                                {{/each}}
+                            </div>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>
+<!-- Footer -->
+{{> footer}}

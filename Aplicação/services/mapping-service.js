@@ -17,7 +17,7 @@ function createMapping (data, cb) {
       let mapping = {
         outputOntologyFileName: data.name,
         outputOntologyNamespace: `${namespace}${data.name}.owl#`,
-        individualMappings: indMappings.map(i => i.chaosid),
+        individualMappings: indMappings.map(i => JSON.parse(i.chaosid)),
         fileNames: [],
         directOntologyImports: []
       }

@@ -6,6 +6,7 @@ module.exports = router
 // populate routes
 router.post('/populate', addPopulate)
 router.put('/populate/:id/output', createOutputFile)
+router.get('/populate', getPopulates)
 // data routes
 router.get('/populate/data/:id', getPopulateWithData)
 router.get('/populate/data/:id/tree', getPopulateDataTree)
@@ -139,5 +140,13 @@ function getPopulateNonDataIndividual (req, res, next) {
     }
     Object.assign(ctx, individual)
     res.render('individual', ctx)
+  })
+}
+
+function getPopulates (req, res, next) {
+  console.log('GET -> /populate')
+  service.getPopulates((err, pops) => {
+    if (err) return next(err)
+    res.render('populates', pops)
   })
 }
