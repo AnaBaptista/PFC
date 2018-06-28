@@ -1,4 +1,28 @@
 /**
+ * This function submits all selected files and renders
+ * the populateWithData view
+ */
+function populateOntologyWithData () {
+  let oFiles = getSelectedItems('ontology-file-menu', '.filtered')
+    .map(o => { return {id: o.id, name: o.innerText} })
+  let dFiles = getSelectedItems('data-file-menu', '.filtered')
+    .map(d => { return {id: d.id, name: d.innerText} })
+
+  if (oFiles.length === 0 || dFiles.length === 0) {
+    alertify.error('Missing data files or ontology files')
+    return
+  }
+
+  let data = {
+    data: {
+      dataFiles: dFiles,
+      ontologyFiles: oFiles
+    }
+  }
+  populate('/populate/data', data)
+}
+
+/**
  * This function creates an individual mapping on server side
  * @param populateId {String} populate with data id
  */
@@ -26,14 +50,7 @@ function createIndividualMapping (populateId) {
     populateId: populateId
   }
 
-  let options = getFetchOptions('POST', data)
-
-  fetch(`/map/individual`, options)
-    .then(handleError)
-    .then(res => res.json())
-    .then(json => {
-      window.location.href = `/populate/data/${populateId}/individual/${json._id}`
-    }).catch(err => console.log(err.message))
+  genericCreateIndividual('data', data, populateId)
 }
 
 /**

@@ -29,7 +29,7 @@
                     {{/each}}
                 </div>
             </div>
-            <h5 class="ui center aligned header" id="create-individual-mapping-btn">
+            <h5 class="ui center aligned header" id="create-individual-btn">
                 <button class="ui button basic secondary" onclick="createIndividual('{{_id}}');" title="Click to create an individual">
                     Create individual
                 </button>
@@ -48,7 +48,7 @@
                 {{#each this.indMappings}}
                     <div class="item" id="individual-{{_id}}">
                         <div class="right floated content">
-                            <button class="ui icon mini button basic secondary" onclick="deleteIndividual('{{_id}}')">
+                            <button class="ui icon mini button basic secondary" onclick="deleteIndividual('{{_id}}', '{{../this._id}}')">
                                 <i class="large trash alternate outline middle aligned icon"></i>
                             </button>
                         </div>

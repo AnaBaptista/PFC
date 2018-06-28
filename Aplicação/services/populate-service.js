@@ -14,10 +14,14 @@ module.exports = {
   renderPopulate,
   getPopulates
 }
-const fileService = require('../services/file-service')
-const indMapService = require('../services/individual-mapping-service')
+
+const fileService = require('./file-service')
+const genericIndividual = require('./generic-individual-service')
+const indMapService = require('./individual-mapping-service')
+
 const treeFunctions = require('../utils/tree-functions')
 const fakeFileMaker = require('../utils/FakeFileMaker')
+
 const dataAccess = require('../data-access/populate-access')
 const db = require('../data-access/mongodb-access')
 
@@ -159,7 +163,7 @@ function getPopulateMapping (id, cb) {
   getPopulate(id, (err, pop) => {
     if (err) return cb(err)
     if (pop.indMappings) {
-      indMapService.getIndividualMappingByIds(pop.indMappings.map(i => i._id), (err, results) => {
+      genericIndividual.getIndividualByIds(pop.indMappings.map(i => i._id), (err, results) => {
         if (err) return cb(err)
         cb(null, results)
       })
@@ -238,7 +242,7 @@ function getPopulateDataMapping (id, cb) {
 }
 
 function getPopulateDataIndividual (ind, cb) {
-  indMapService.getIndividualMapping(ind, (err, individual) => {
+  genericIndividual.getIndividual(ind, (err, individual) => {
     if (err) return cb(err)
     cb(null, individual)
   })
@@ -247,7 +251,7 @@ function getPopulateDataIndividual (ind, cb) {
 function getPopulateDataIndividualTree (id, ind, cb) {
   getPopulate(id, (err, pop) => {
     if (err) return cb(err)
-    indMapService.getIndividualMapping(ind, (err, individual) => {
+    genericIndividual.getIndividual(ind, (err, individual) => {
       if (err) return cb(err)
       let tree = pop.tree.find(obj => obj.dataFileId === individual.dataFileId)
       let indtree = []
@@ -347,7 +351,7 @@ function getPopulateNonDataMapping (id, cb) {
 }
 
 function getPopulateNonDataIndividual (id, ind, cb) {
-  indMapService.getIndividualMapping(ind, (err, individual) => {
+  genericIndividual.getIndividual(ind, (err, individual) => {
     if (err) return cb(err)
     cb(null, individual)
   })

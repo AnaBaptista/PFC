@@ -5,20 +5,18 @@ const service = require('../services/individual-mapping-service')
 module.exports = router
 
 router.post('/map/individual', createIndividual)
-router.put('/map/individual/:individualId', putIndividualMapping)
-router.put('/map/individual/:individualId/name', putIndividualMappingName)
-router.put('/map/individual/:individualId/properties/object', putIndividualMappingObjectProperties)
-router.put('/map/individual/:individualId/properties/data', putIndividualMappingDataProperties)
-router.put('/map/individual/:individualId/properties/annotation', putIndividualMappingAnnotationProperties)
 
-router.get('/map/individual', getAllIndividualMappings)
-router.get('/map/individual/:individualId', getIndividualMapping)
-// @todo passar as props para mongo db
+router.put('/map/individual/:id', putIndividualMapping)
+router.put('/map/individual/:id/name', putIndividualMappingName)
+router.put('/map/individual/:id/properties/object', putIndividualMappingObjectProperties)
+router.put('/map/individual/:id/properties/data', putIndividualMappingDataProperties)
+router.put('/map/individual/:id/properties/annotation', putIndividualMappingAnnotationProperties)
+
 router.get('/map/individual/:id/properties/object/view', renderObjectProps)
 router.get('/map/individual/:id/properties/data/view', renderDataProps)
 router.get('/map/individual/:id/properties/annotation/view', renderAnnotationProps)
 
-router.delete('/map/individual/:individualId', removeIndividualMapping)
+router.delete('/map/individual/:id', removeIndividualMapping)
 
 /**
  * Body Parameters:
@@ -36,8 +34,8 @@ function createIndividual (req, res, next) {
 }
 
 function putIndividualMapping (req, res, next) {
-  console.log('GET -> /individual/:id/properties/annotation/view, renderAnnotationProperties')
-  let id = req.params.individualId
+  console.log('PUT -> /map/individual/:id, putIndividualMapping')
+  let id = req.params.id
   service.updateIndividualMapping(id, (err) => {
     if (err) return next(err)
     res.end()
@@ -56,7 +54,7 @@ function putIndividualMapping (req, res, next) {
  */
 function putIndividualMappingName (req, res, next) {
   console.log('/map/individual/:individualId/name, addIndividualMappingName')
-  let id = req.params.individualId
+  let id = req.params.id
   let input = req.body.individualName
   service.putIndividualMappingName(id, input, (err, name) => {
     if (err) return next(err)
@@ -90,7 +88,7 @@ function putIndividualMappingName (req, res, next) {
  */
 function putIndividualMappingObjectProperties (req, res, next) {
   console.log('PUT - /map/individual/:individualId/properties/object, addIndividualMappingObjectProperties')
-  let id = req.params.individualId
+  let id = req.params.id
   let objProps = req.body.objProps
   service.putIndividualMappingObjectProperties(id, objProps, (err, props) => {
     if (err) return next(err)
@@ -125,7 +123,7 @@ function putIndividualMappingObjectProperties (req, res, next) {
  */
 function putIndividualMappingDataProperties (req, res, next) {
   console.log('/map/individual/:individualId/properties/data, addIndividualMappingDataProperties')
-  let id = req.params.individualId
+  let id = req.params.id
   let dataProps = req.body.dataProps
   service.putIndividualMappingDataProperties(id, dataProps, (err, props) => {
     if (err) return next(err)
@@ -158,7 +156,7 @@ function putIndividualMappingDataProperties (req, res, next) {
  */
 function putIndividualMappingAnnotationProperties (req, res, next) {
   console.log('/map/individual/:individualId/properties/annotation, addIndividualMappingAnnotationProperties')
-  let id = req.params.individualId
+  let id = req.params.id
   let annotationProps = req.body.annotationProps
   service.putIndividualMappingAnnotationProperties(id, annotationProps, (err, props) => {
     if (err) return next(err)
@@ -166,26 +164,9 @@ function putIndividualMappingAnnotationProperties (req, res, next) {
   })
 }
 
-function getIndividualMapping (req, res, next) {
-  console.log('GET - /map/individual/:individualId, getAllIndividualMappings')
-  let id = req.params.individualId
-  service.getIndividualMapping(id, (err, indMapping) => {
-    if (err) return next(err)
-    return res.json(indMapping)
-  })
-}
-
-function getAllIndividualMappings (req, res, next) {
-  console.log('GET - /map/individual, getAllIndividualMappings')
-  service.getAllIndividualMappings((err, indMappings) => {
-    if (err) return next(err)
-    return res.json(indMappings)
-  })
-}
-
 function removeIndividualMapping (req, res, next) {
   console.log('/map/individual/, removeIndividualMapping')
-  let id = req.params.individualId
+  let id = req.params.id
   let populateId = req.query.populateId
   service.deleteIndividualMapping(id, populateId, (err) => {
     if (err) return next(err)

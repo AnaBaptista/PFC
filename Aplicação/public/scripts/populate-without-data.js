@@ -1,3 +1,28 @@
+/**
+ * This function submits all selected ontology files and renders
+ * the populateWithoutData view
+ */
+function populateOntologyWithoutData () {
+  let oFiles = getSelectedItems('ontology-file-menu', '.filtered')
+    .map(o => { return {id: o.id, name: o.innerText} })
+
+  if (oFiles.length === 0) {
+    alertify.error('Missing ontology files')
+    return
+  }
+
+  let data = {
+    data: {
+      ontologyFiles: oFiles
+    }
+  }
+  populate('/populate/nondata', data)
+}
+
+/**
+ * This function creates an individual and renders it
+ * @param populateId {String} populate id
+ */
 function createIndividual (populateId) {
   let elem = getSelectedItems('individual-classes-menu', '.selected')
   let name = document.getElementById('individual-name').value
@@ -17,28 +42,21 @@ function createIndividual (populateId) {
     },
     populateId: populateId
   }
-
-  let options = getFetchOptions('POST', data)
-
-  fetch(`/individual`, options)
-    .then(handleError)
-    .then(res => res.json())
-    .then(json => {
-      window.location.href = `/populate/nondata/${populateId}/individual/${json._id}`
-    }).catch(err => console.log(err.message))
+  genericCreateIndividual('nondata', data, populateId)
 }
 
-function deleteIndividual (id) {
+function deleteIndividual (id, populateId) {
   let options = {
     method: 'DELETE'
   }
 
-  fetch(`/individual/${id}`, options)
+  fetch(`/individual/${id}?populateId=${populateId}`, options)
     .then(handleError)
     .then(_ => {
-      let toDelete = document.getElementById(`individual-mapping-${id}`)
+      let toDelete = document.getElementById(`individual-${id}`)
       let parent = toDelete.parentElement
       parent.removeChild(toDelete)
+      alertify.message('Individual deleted')
     }).catch(err => console.log(err.message))
 }
 

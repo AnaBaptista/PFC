@@ -36,9 +36,20 @@ function addOntologyFile ({name, path}, cb) {
     if (err) return cb(err)
     dataAccess.getOntologyFileClasses(ids.chaosid, (err, classes) => {
       if (err) return cb(err)
-      db.updateById(ontologyFileCol, ids.id, {classes: JSON.parse(classes)}, (err) => {
+      getOntologyFileDataProperties(ids.chaosid, (err, dataProps) => {
         if (err) return cb(err)
-        cb(null, {_id: ids.id})
+        getOntologyFileObjectProperties(ids.chaosid, (err, objProps) => {
+          if (err) return cb(err)
+          let update = {
+            classes: JSON.parse(classes),
+            dataProperties: dataProps,
+            objectProperties: objProps
+          }
+          db.updateById(ontologyFileCol, ids.id, update, (err) => {
+            if (err) return cb(err)
+            cb(null, {_id: ids.id})
+          })
+        })
       })
     })
   })

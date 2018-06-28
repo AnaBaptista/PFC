@@ -207,6 +207,7 @@ function changeDataFileNodeToMapping (node) {
   if (incrementIds.includes(id)) {
     elem.appendChild(div)
   } else {
+    //todo: error when clear nodes, fixe it
     elem.replaceChild(div, elem.childNodes[0])
   }
 }

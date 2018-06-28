@@ -1,18 +1,14 @@
 module.exports = {
   createIndividualMapping,
   updateIndividualMapping,
-  getIndividualMapping,
-  getAllIndividualMappings,
-  getIndividualMappingByIds,
-  putIndividualMappingName,
-  putIndividualMappingObjectProperties,
-  putIndividualMappingDataProperties,
-  putIndividualMappingAnnotationProperties,
   deleteIndividualMapping,
-  renderObjectProperties,
+  putIndividualMappingName,
+  putIndividualMappingAnnotationProperties,
+  putIndividualMappingDataProperties,
+  putIndividualMappingObjectProperties,
   renderDataProperties,
   renderAnnotationProperties,
-  propertyArrayToPropertyMap
+  renderObjectProperties
 }
 
 const dataAccess = require('../data-access/individual-mapping-access')
@@ -21,8 +17,7 @@ const parser = require('../utils/PropertiesParser')
 
 const collection = 'IndividualMappings'
 
-const fileService = require('../services/file-service')
-const populateService = require('./populate-service')
+const service = require('./generic-individual-service')
 
 /**
  * @param input {tag: , nodeId: , owlClassIRI: , ontologyFileId: , dataFileId:}
@@ -42,172 +37,10 @@ function createIndividualMapping (input, populateId, cb) {
     return cb(error)
   }
 
-  dbAccess.sendDocToDb(collection, input, (err, id) => {
+  let obj = {tag: input.tag, owlClassIRI: input.owlClassIRI}
+  service.createIndividual(input, populateId, obj, (err, id) => {
     if (err) return cb(err)
-    let obj = {_id: id, tag: input.tag, owlClassIRI: input.owlClassIRI}
-    populateService.addIndividualToPopulate(populateId, obj, (err) => {
-      if (err) return cb(err)
-      cb(null, id)
-    })
-  })
-}
-
-function putIndividualMappingName (id, listOfNodes, cb) {
-  if (id === undefined) {
-    let error = new Error('Bad Request, missing individual mapping id')
-    error.statusCode = 400
-    return cb(error)
-  }
-  if (listOfNodes === undefined || listOfNodes.length === 0) {
-    let error = new Error('Bad Request, missing individualName or individualName array size is 0')
-    error.statusCode = 400
-    return cb(error)
-  }
-
-  dbAccess.findById(collection, id, (err, indMap) => {
-    if (err) cb(err)
-    parser.parseName(listOfNodes, indMap.nodeId, indMap.dataFileId, (err, parsedName) => {
-      if (err) return cb(err)
-      let set = {individualName: parsedName}
-      dbAccess.updateById(collection, id, set, (err) => {
-        if (err) return cb(err)
-        cb(null, parsedName)
-      })
-    })
-  })
-}
-
-/**
- * @param id
- * @param objProps
- * @param cb (err, results)
- */
-function putIndividualMappingObjectProperties (id, objProps, cb) {
-  if (id === undefined) {
-    let error = new Error('Bad Request, missing individual mapping id')
-    error.statusCode = 400
-    return cb(error)
-  }
-  if (objProps === undefined || objProps.length === 0) {
-    let error = new Error('Bad Request, missing objProps or objProps array size is 0')
-    error.statusCode = 400
-    return cb(error)
-  }
-  let idsToRemove = []
-  objProps.forEach(elem => idsToRemove.push(elem.id))
-
-  dbAccess.findById(collection, id, (err, indMap) => {
-    if (err) cb(err)
-    parser.parseObjectProperties(objProps, indMap.nodeId, indMap.dataFileId, (err, parsedProps) => {
-      if (err) return cb(err)
-
-      indMap.objectProperties = (indMap.objectProperties === undefined && []) ||
-        indMap.objectProperties.filter(elem => !idsToRemove.includes(elem.id))
-
-      let set = {objectProperties: indMap.objectProperties.concat(parsedProps)}
-      dbAccess.updateById(collection, id, set, (err) => {
-        if (err) return cb(err)
-        cb(null, parsedProps)
-      })
-    })
-  })
-}
-
-/**
- * @param id
- * @param dataProps
- * @param cb (err, results)
- */
-function putIndividualMappingDataProperties (id, dataProps, cb) {
-  if (id === undefined) {
-    let error = new Error('Bad Request, missing individual mapping id')
-    error.statusCode = 400
-    return cb(error)
-  }
-  if (dataProps === undefined || dataProps.length === 0) {
-    let error = new Error('Bad Request, missing dataProps or dataProps array size is 0')
-    error.statusCode = 400
-    return cb(error)
-  }
-  let idsToRemove = []
-  dataProps.forEach(elem => idsToRemove.push(elem.id))
-
-  dbAccess.findById(collection, id, (err, indMap) => {
-    if (err) cb(err)
-    parser.parseDataProperties(dataProps, indMap.nodeId, indMap.dataFileId, (err, parsedProps) => {
-      if (err) return cb(err)
-
-      indMap.dataProperties = (indMap.dataProperties === undefined && []) ||
-        indMap.dataProperties.filter(elem => !idsToRemove.includes(elem.id))
-
-      let set = {dataProperties: indMap.dataProperties.concat(parsedProps)}
-      dbAccess.updateById(collection, id, set, (err) => {
-        if (err) return cb(err)
-        cb(null, parsedProps)
-      })
-    })
-  })
-}
-
-/**
- * @param id (string)
- * @param annotationProps (list)
- * @param cb (err, results)
- */
-// @todo talvez acrescentar um filter e passar so os 'label' pelo parser?
-function putIndividualMappingAnnotationProperties (id, annotationProps, cb) {
-  if (id === undefined) {
-    let error = new Error('Bad Request, missing individual mapping id')
-    error.statusCode = 400
-    return cb(error)
-  }
-  if (annotationProps === undefined || annotationProps.length === 0) {
-    let error = new Error('Bad Request, missing annotationproperties or annotationproperties array size is 0')
-    error.statusCode = 400
-    return cb(error)
-  }
-
-  let idsToRemove = []
-  annotationProps.forEach(elem => idsToRemove.push(elem.id))
-
-  dbAccess.findById(collection, id, (err, indMap) => {
-    if (err) cb(err)
-    parser.parseAnnotationProperties(annotationProps, indMap.nodeId, indMap.dataFileId, (err, parsedProps) => {
-      if (err) return cb(err)
-
-      indMap.annotationProperties = (indMap.annotationProperties === undefined && []) ||
-        indMap.annotationProperties.filter(elem => !idsToRemove.includes(elem.id))
-
-      let set = {annotationProperties: indMap.annotationProperties.concat(parsedProps)}
-      dbAccess.updateById(collection, id, set, (err) => {
-        if (err) return cb(err)
-        cb(null, parsedProps)
-      })
-    })
-  })
-}
-
-/**
- * @param {function} cb(err,results)
- */
-function getAllIndividualMappings (cb) {
-  dbAccess.findByQuery(collection, {}, (err, results) => {
-    if (err) return cb(err)
-    return cb(null, results)
-  })
-}
-
-function getIndividualMapping (id, cb) {
-  dbAccess.findById(collection, id, (err, results) => {
-    if (err) return cb(err)
-    return cb(null, results)
-  })
-}
-
-function getIndividualMappingByIds (ids, cb) {
-  dbAccess.findByIds(collection, ids, (err, results) => {
-    if (err) return cb(err)
-    cb(null, results)
+    cb(null, id)
   })
 }
 
@@ -262,89 +95,82 @@ function propertyArrayToPropertyMap (object, array) {
 }
 
 function deleteIndividualMapping (id, populateId, cb) {
-  dbAccess.findById(collection, id, (err, ind) => {
-    if (err) return cb(err)
-    dbAccess.deleteById(collection, id, (err) => {
+  service.deleteIndividual(id, populateId, cb)
+}
+
+function putIndividualMappingName (id, listOfNodes, cb) {
+  if (id === undefined) {
+    let error = new Error('Bad Request, missing individual mapping id')
+    error.statusCode = 400
+    return cb(error)
+  }
+  if (listOfNodes === undefined || listOfNodes.length === 0) {
+    let error = new Error('Bad Request, missing individualName or individualName array size is 0')
+    error.statusCode = 400
+    return cb(error)
+  }
+
+  dbAccess.findById(collection, id, (err, indMap) => {
+    if (err) cb(err)
+    parser.parseName(listOfNodes, indMap.nodeId, indMap.dataFileId, (err, parsedName) => {
       if (err) return cb(err)
-      populateService.deleteIndividualFromPopulate(populateId, id, (err) => {
+      let set = {individualName: parsedName}
+      dbAccess.updateById(collection, id, set, (err) => {
         if (err) return cb(err)
-        if (ind.chaosid) {
-          dataAccess.removeIndividualMapping(ind.chaosid, (err) => {
-            if (err) return cb(err)
-            cb()
-          })
-        } else {
-          cb()
-        }
+        cb(null, parsedName)
       })
     })
   })
 }
 
-function renderObjectProperties (id, cb) {
-  dbAccess.findById(collection, id, (err, pop) => {
-    if (err) return cb(err)
-    fileService.getOntologyFileObjectProperties(pop.ontologyFileId, (err, props) => {
+/**
+ * @param id (string)
+ * @param annotationProps (list)
+ * @param cb (err, results)
+ */
+// @todo talvez acrescentar um filter e passar so os 'label' pelo parser?
+function putIndividualMappingAnnotationProperties (id, annotationProps, cb) {
+  service.putIndividualAnnotationProperties(id, annotationProps, (props, ret, indMap) => {
+    parser.parseAnnotationProperties(props, indMap.nodeId, indMap.dataFileId, (err, parsedProps) => {
       if (err) return cb(err)
-      dbAccess.findById(collection, id, (err, indMap) => {
-        if (err) return cb(err)
-        let obj = {
-          oproperties: props,
-          objectProperties: []
-        }
-        if (indMap.objectProperties) {
-          obj['objectProperties'] = indMap.objectProperties.map(obj => {
-            let keys = Object.keys(obj)
-            return {
-              id: obj.id,
-              name: keys[1],
-              nodes: obj[keys[1]],
-              type: 'Object'
-            }
-          })
-        }
-        cb(null, obj)
-      })
+      ret(parsedProps)
     })
-  })
+  }, cb)
 }
-function renderDataProperties (id, cb) {
-  dbAccess.findById(collection, id, (err, pop) => {
-    if (err) return cb(err)
-    fileService.getOntologyFileDataProperties(pop.ontologyFileId, (err, props) => {
+
+/**
+ * @param id
+ * @param dataProps
+ * @param cb (err, results)
+ */
+function putIndividualMappingDataProperties (id, dataProps, cb) {
+  service.putIndividualDataProperties(id, dataProps, (props, ret, indMap) => {
+    parser.parseDataProperties(props, indMap.nodeId, indMap.dataFileId, (err, parsedProps) => {
       if (err) return cb(err)
-      dbAccess.findById(collection, id, (err, indMap) => {
-        if (err) return cb(err)
-        let obj = {
-          dproperties: props,
-          dpropertyTypes: ['String', 'Integer', 'Float', 'Double', 'Boolean'],
-          dataProperties: []
-        }
-        if (indMap.dataProperties) {
-          obj['dataProperties'] = indMap.dataProperties.map(obj => {
-            let keys = Object.keys(obj)
-            return {
-              id: obj.id,
-              name: keys[1],
-              nodes: obj[keys[1]][0]
-            }
-          })
-        }
-        cb(null, obj)
-      })
+      ret(parsedProps)
     })
-  })
+  }, cb)
+}
+
+/**
+ * @param id
+ * @param objProps
+ * @param cb (err, results)
+ */
+function putIndividualMappingObjectProperties (id, objProps, cb) {
+  service.putIndividualObjectProperties(id, objProps, (props, ret, indMap) => {
+    parser.parseObjectProperties(props, indMap.nodeId, indMap.dataFileId, (err, parsedProps) => {
+      if (err) return cb(err)
+      ret(parsedProps)
+    })
+  }, cb)
 }
 
 function renderAnnotationProperties (id, cb) {
-  const obj = {
-    aproperties: ['label', 'comment', 'seeAlso'],
-    annotationProperties: []
-  }
-  dbAccess.findById(collection, id, (err, indMap) => {
+  service.renderAnnotationProperties(id, (err, object) => {
     if (err) return cb(err)
-    if (indMap.annotationProperties) {
-      obj['annotationProperties'] = indMap.annotationProperties.map(obj => {
+    if (object.annotationProperties.length > 0) {
+      object.annotationProperties = object.annotationProperties.map(obj => {
         let keys = Object.keys(obj)
         return {
           id: obj.id,
@@ -353,6 +179,41 @@ function renderAnnotationProperties (id, cb) {
         }
       })
     }
-    cb(null, obj)
+    cb(null, object)
+  })
+}
+
+function renderDataProperties (id, cb) {
+  service.renderDataProperties(id, (err, object) => {
+    if (err) return cb(err)
+    if (object.dataProperties.length > 0) {
+      object.dataProperties = object.dataProperties.map(obj => {
+        let keys = Object.keys(obj)
+        return {
+          id: obj.id,
+          name: keys[1],
+          nodes: obj[keys[1]][0]
+        }
+      })
+    }
+    cb(null, object)
+  })
+}
+
+function renderObjectProperties (id, cb) {
+  service.renderObjectProperties(id, (err, object) => {
+    if (err) return cb(err)
+    if (object.objectProperties.length > 0) {
+      object.objectProperties = object.objectProperties.map(obj => {
+        let keys = Object.keys(obj)
+        return {
+          id: obj.id,
+          name: keys[1],
+          nodes: obj[keys[1]],
+          type: 'Object'
+        }
+      })
+    }
+    cb(null, object)
   })
 }

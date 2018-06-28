@@ -5,6 +5,7 @@ module.exports = router
 
 router.post('/individual', createIndividual)
 
+router.put('/individual/:id', putIndividual)
 router.put('/individual/:id/properties/annotation', putIndividualAnnotationProperties)
 router.put('/individual/:id/properties/data', putIndividualDataProperties)
 router.put('/individual/:id/properties/object', putIndividualObjectProperties)
@@ -12,6 +13,8 @@ router.put('/individual/:id/properties/object', putIndividualObjectProperties)
 router.get('/individual/:id/properties/annotation/view', renderAnnotationProperties)
 router.get('/individual/:id/properties/data/view', renderDataProperties)
 router.get('/individual/:id/properties/object/view', renderObjectProperties)
+
+router.delete('/individual/:id', removeIndividual)
 
 function createIndividual (req, res, next) {
   console.log('POST -> /individual, createIndividual')
@@ -21,6 +24,11 @@ function createIndividual (req, res, next) {
     if (err) return next(err)
     res.json({_id: id})
   })
+}
+
+//TODO
+function putIndividual (req, res, next) {
+
 }
 
 function putIndividualAnnotationProperties (req, res, next) {
@@ -84,5 +92,14 @@ function renderObjectProperties (req, res, next) {
     const ctx = {layout: false, _id: id, populateId: populateId}
     Object.assign(ctx, props)
     res.render('partials/individualObjectProps', ctx)
+  })
+}
+
+function removeIndividual (req, res, next) {
+  let id = req.params.id
+  let populateId = req.query.populateId
+  service.deleteIndividual(id, populateId, (err) => {
+    if (err) return next(err)
+    res.end()
   })
 }
