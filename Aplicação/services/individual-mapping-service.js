@@ -75,7 +75,7 @@ function updateIndividualMapping (id, cb) {
     } else {
       dataAccess.sendIndividualMappingToChaos(individualMapping, (err, res) => {
         if (err) return cb(err)
-        dbAccess.updateById(collection, id, {chaosid: res}, (err) => {
+        dbAccess.updateById(collection, id, {chaosid: JSON.parse(res)}, (err) => {
           if (err) return cb(err)
           cb()
         })
