@@ -21,7 +21,12 @@ function populate (path, data) {
     }).catch(err => console.log(err.message))
 }
 
-
+/**
+ * It creates an individual or individualMapping
+ * @param type {String} data or nondata
+ * @param data {Object} Individual to create
+ * @param populateId {String} populate id to add the individual created
+ */
 function genericCreateIndividual (type, data, populateId) {
   let path = (type === 'data' && '/map/individual') || '/individual'
 
@@ -33,5 +38,5 @@ function genericCreateIndividual (type, data, populateId) {
     .then(json => {
       window.location.href = `/populate/${type}/${populateId}/individual/${json._id}`
     }).catch(err => console.log(err.message))
-
 }
+

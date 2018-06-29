@@ -1,7 +1,8 @@
 module.exports = {
   addPopulate,
-  getPopulate,
   addIndividualToPopulate,
+  getPopulate,
+  getPopulates,
   createOutputFile,
   deleteIndividualFromPopulate,
   beginProcessOfPopulateWithoutData,
@@ -11,8 +12,7 @@ module.exports = {
   getPopulateDataIndividual,
   getPopulateNonDataMapping,
   getPopulateNonDataIndividual,
-  renderPopulate,
-  getPopulates
+  renderPopulate
 }
 
 const fileService = require('./file-service')
@@ -65,6 +65,9 @@ function getPopulates (cb) {
         populate.dataFiles = pop.dataFiles.map(file => file.name)
         populate['type'] = 'with data'
       }
+      if (pop.chaosid) {
+        populate.chaosid = pop.chaosid
+      }
       populates.push(populate)
     })
     cb(null, {populates: populates})
@@ -87,7 +90,7 @@ function createOutputFile (id, cb) {
         dataAccess.processBatch(batchId, (err, res) => {
           if (err) return cb(err)
           let outputFileId = JSON.parse(res)
-          let set = {outputFileId: outputFileId}
+          let set = {outputFileId: outputFileId[0]}
           db.updateById(populates, id, set, (err) => {
             if (err) return cb(err)
             cb()
@@ -227,18 +230,6 @@ function getPopulateDataMapping (id, cb) {
     let indMappings = results.filter(i => i.chaosid)
     cb(null, {indMappings: indMappings, _id: id})
   })
-  // getPopulate(id, (err, pop) => {
-  //   if (err) return cb(err)
-  //   if (pop.indMappings) {
-  //     indMapService.getIndividualMappingByIds(pop.indMappings.map(i => i._id), (err, results) => {
-  //       if (err) return cb(err)
-  //       let indMappings = results.filter(i => i.chaosid)
-  //       cb(null, {indMappings: indMappings, _id: id})
-  //     })
-  //   } else {
-  //     cb(null, [])
-  //   }
-  // })
 }
 
 function getPopulateDataIndividual (ind, cb) {
@@ -249,16 +240,23 @@ function getPopulateDataIndividual (ind, cb) {
 }
 
 function getPopulateDataIndividualTree (id, ind, cb) {
-  getPopulate(id, (err, pop) => {
+  genericIndividual.getIndividual(ind, (err, individual) =>  {
     if (err) return cb(err)
-    genericIndividual.getIndividual(ind, (err, individual) => {
-      if (err) return cb(err)
-      let tree = pop.tree.find(obj => obj.dataFileId === individual.dataFileId)
-      let indtree = []
-      let aux = treeFunctions.searchById(tree, individual.nodeId)
-      indtree.push(aux)
-      cb(null, indtree)
-    })
+    if (individual.indTree) {
+      cb(null, individual.indTree)
+    } else {
+      getPopulate(id, (err, pop) => {
+        if (err) return cb(err)
+        let tree = pop.tree.find(obj => obj.dataFileId === individual.dataFileId)
+        let indTree = []
+        let aux = treeFunctions.searchById(tree, individual.nodeId)
+        indTree.push(aux)
+        db.updateById(indMapping, individual._id, {indTree: indTree}, (err) => {
+          if (err) return cb(err)
+          cb(null, indTree)
+        })
+      })
+    }
   })
 }
 
@@ -287,11 +285,14 @@ function postFakeFile (listOfIndividuals, cb) {
       if (err) return cb(err)
       fileService.addDataFile({name, path}, (err, id) => {
         if (err) return cb(err)
-        listOfIndividuals.forEach(individual => parseIndividualToInMap(individual, id._id.toString()))
-        fs.unlink(path, (err) => {
+        db.findById(dataFiles, id._id, (err, file) => {
           if (err) return cb(err)
+          listOfIndividuals.forEach(individual => parseIndividualToInMap(individual, file.chaosid))
+          fs.unlink(path, (err) => {
+            if (err) return cb(err)
+          })
+          saveToDBAndChaos(listOfIndividuals, cb)
         })
-        saveToDBAndChaos(listOfIndividuals, cb)
       })
     })
   }

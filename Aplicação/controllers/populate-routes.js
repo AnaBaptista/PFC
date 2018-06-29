@@ -7,14 +7,14 @@ module.exports = router
 router.post('/populate', addPopulate)
 router.put('/populate/:id/output', createOutputFile)
 router.get('/populate', getPopulates)
-// data routes
+// populate with data routes
 router.get('/populate/data/:id', getPopulateWithData)
 router.get('/populate/data/:id/tree', getPopulateDataTree)
 router.get('/populate/data/:id/mapping', getPopulateDataMapping)
 router.get('/populate/data/:id/individual/:ind', getPopulateDataIndividual)
 router.get('/populate/data/:id/individual/:ind/tree', getPopulateDataIndividualTree)
-// nondata routes
-router.put('/populate/:id/finalizeIndividual', finalizeIndividual)
+// populate without data routes
+router.put('/populate/nondata/:id/finalizeIndividual', finalizeIndividual)
 router.get('/populate/nondata/:id', getPopulateWithoutData)
 router.get('/populate/nondata/:id/mapping', getPopulateNonDataMapping)
 router.get('/populate/nondata/:id/individual/:ind', getPopulateNonDataIndividual)
@@ -39,6 +39,14 @@ function createOutputFile (req, res, next) {
   service.createOutputFile(id, (err, out) => {
     if (err) return next(err)
     res.end()
+  })
+}
+
+function getPopulates (req, res, next) {
+  console.log('GET -> /populate')
+  service.getPopulates((err, pops) => {
+    if (err) return next(err)
+    res.render('populates', pops)
   })
 }
 
@@ -88,7 +96,7 @@ function getPopulateDataIndividual (req, res, next) {
 }
 
 function getPopulateDataIndividualTree (req, res, next) {
-  console.log('/populate/data/:id/individual/:ind/tree, getPopulateDataIndividualTree')
+  console.log('GET -> /populate/data/:id/individual/:ind/tree, getPopulateDataIndividualTree')
   let id = req.params.id
   let ind = req.params.ind
   service.getPopulateDataIndividualTree(id, ind, (err, tree) => {
@@ -103,7 +111,7 @@ function getPopulateDataIndividualTree (req, res, next) {
 
 // receives a list of individual mappings id's to be inserted into chaos pop and etc
 function finalizeIndividual (req, res, next) {
-  console.log('PUT -> /populate/:id/finalizeIndividual, finalizeIndividual')
+  console.log('PUT -> /populate/nondata/:id/finalizeIndividual, finalizeIndividual')
   let indMapIds = req.body.list
   service.beginProcessOfPopulateWithoutData(indMapIds, (err) => {
     if (err) return next(err)
@@ -140,13 +148,5 @@ function getPopulateNonDataIndividual (req, res, next) {
     }
     Object.assign(ctx, individual)
     res.render('individual', ctx)
-  })
-}
-
-function getPopulates (req, res, next) {
-  console.log('GET -> /populate')
-  service.getPopulates((err, pops) => {
-    if (err) return next(err)
-    res.render('populates', pops)
   })
 }

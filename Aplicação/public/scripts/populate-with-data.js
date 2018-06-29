@@ -287,7 +287,6 @@ function createMapping (id) {
     return
   }
 
-
   let data = {
     data: {
       indMappings: selectedChildren,
@@ -301,9 +300,8 @@ function createMapping (id) {
     .then(handleError)
     .then(_ => {
       alertify.success('Mapping created')
-      window.location.href = `/populate/data/${id}`
+      window.location.href = `/populate`
     })
-  console.log('teste')
 }
 
 function generateOutputFile (id) {
@@ -311,7 +309,7 @@ function generateOutputFile (id) {
     .then(handleError)
     .then(_ => {
       alertify.success('File created')
-      window.location.href = `/populate/data/${id}`
+      window.location.href = `/populate`
     })
   console.log('teste')
 }

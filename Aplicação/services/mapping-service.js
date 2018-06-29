@@ -6,6 +6,7 @@ const db = require('../data-access/mongodb-access')
 const dataAcces = require('../data-access/mapping-access')
 const populates = 'Populates'
 const individualMappings = 'IndividualMappings'
+const ontologies = 'OntologyFiles'
 const namespace = 'http://chaospop.sysresearch.org/ontologies/'
 
 function createMapping (data, cb) {
@@ -21,21 +22,23 @@ function createMapping (data, cb) {
         fileNames: [],
         directOntologyImports: []
       }
-
-      indMappings.forEach(i => {
-        if (!mapping.fileNames.includes(i.dataFileId)) {
-          mapping.fileNames.push(i.dataFileId)
-        }
-        if (!mapping.directOntologyImports.includes(i.ontologyFileId)) {
-          mapping.directOntologyImports.push(i.ontologyFileId)
-        }
-      })
-
-      dataAcces.createMapping(mapping, (err, id) => {
-        if (err) return cb(err)
-        db.updateById(populates, data.populateId, {chaosid: id}, (err) => {
+      db.findByIds(ontologies, indMappings.map(i => i.ontologyFileId), (err, files) => {
+        indMappings.forEach(i => {
+          if (!mapping.fileNames.includes(i.dataFileId)) {
+            mapping.fileNames.push(i.dataFileId)
+          }
+        })
+        files.forEach(f => {
+          if (!mapping.directOntologyImports.includes(f.chaosid)) {
+            mapping.directOntologyImports.push(f.chaosid)
+          }
+        })
+        dataAcces.createMapping(mapping, (err, id) => {
           if (err) return cb(err)
-          cb()
+          db.updateById(populates, data.populateId, {chaosid: id}, (err) => {
+            if (err) return cb(err)
+            cb()
+          })
         })
       })
     })

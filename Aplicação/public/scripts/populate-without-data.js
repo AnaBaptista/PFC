@@ -146,3 +146,54 @@ function changeIndividualContent (id, type, popId) {
       $('.dropdown').dropdown({fullTextSearch: true})
     }).catch(err => console.log(err.message))
 }
+
+function finalizeMapping (popId) {
+  let elem = document.getElementById('individuals-nondata-to-mapping-list')
+  let children = [].slice.call(elem.children)
+  let selectedChildren = []
+
+  children.forEach(c => {
+    let input = c.children[0]
+    if (input.checked) {
+      selectedChildren.push(input.name)
+    }
+  })
+
+  let name = document.getElementById('mapping-name').value
+
+  if (name.length === 0) {
+    alertify.message('Choose an output file name')
+    return
+  }
+
+  if (selectedChildren.length === 0) {
+    alertify.message('Select some individual mappings')
+    return
+  }
+
+  let data = {
+    list: selectedChildren
+  }
+  let options = getFetchOptions('PUT', data)
+
+  fetch(`/populate/nondata/${popId}/finalizeIndividual`, options)
+    .then(handleError)
+    .then(res => res.json())
+    .then(ids => {
+      let data = {
+        data: {
+          indMappings: selectedChildren,
+          populateId: popId,
+          name: name
+        }
+      }
+      let options = getFetchOptions('POST', data)
+
+      fetch('/map', options)
+        .then(handleError)
+        .then(_ => {
+          alertify.success('Mapping created')
+          window.location.href = `/populate`
+        })
+    })
+}
