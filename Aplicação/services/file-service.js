@@ -6,7 +6,9 @@ module.exports = {
   getOntologyFileObjectProperties,
   getOntologyFileDataProperties,
   getOntologyFiles,
-  getDataFiles
+  getDataFiles,
+  deleteDataFile,
+  deleteOntologyFile
 }
 
 const dataAccess = require('../data-access/file-access')
@@ -131,5 +133,30 @@ function getOntologyFileDataProperties (id, cb) {
     if (err) return cb(err)
     let obj = JSON.parse(res.toString())
     return cb(null, obj)
+  })
+}
+
+function deleteDataFile (id, cb) {
+  deleteFile(dataFileCol, id, (err, chaosid) => {
+    if (err) return cb(err)
+    dataAccess.deleteDataFile(chaosid, cb)
+  })
+}
+
+function deleteOntologyFile (id, cb) {
+  deleteFile(ontologyFileCol, id, (err, chaosid) => {
+    if (err) return cb(err)
+    cb()
+    // dataAccess.deleteOntologyFile(chaosid, cb)
+  })
+}
+
+function deleteFile (col, id, cb) {
+  db.findById(col, id, (err, file) => {
+    if (err) return cb(err)
+    db.deleteById(col, id, (err) => {
+      if (err) return cb(err)
+      return cb(null, file.chaosid)
+    })
   })
 }

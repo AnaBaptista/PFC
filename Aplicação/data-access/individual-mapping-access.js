@@ -1,9 +1,7 @@
 module.exports = {
   sendIndividualMappingToChaos,
-  getAllIndividualMappings,
-  getIndividualMapping,
   updateIndividualMapping,
-  removeIndividualMapping
+  deleteIndividualMapping
 }
 
 // Basic HTTP request
@@ -39,22 +37,6 @@ function sendIndividualMappingToChaos (individualMapping, cb) {
 }
 
 /**
- * @param {function} cb(err, result)
- */
-
-function getAllIndividualMappings (cb) {
-  let url = `${individualMappingManager}/getAllIndividualMappings`
-  req(url, (err, res) => {
-    if (err) return cb(err)
-    handleResponse(res, cb)
-  })
-}
-
-function getIndividualMapping (id, cb) {
-  let url = `${individualMappingManager}/getIndividualMappings`
-}
-
-/**
  *
  * @param id
  * @param newIndividual
@@ -75,12 +57,12 @@ function updateIndividualMapping (newIndividual, cb) {
   })
 }
 
-function removeIndividualMapping (id, cb) {
+function deleteIndividualMapping (id, cb) {
   let url = `${individualMappingManager}/removeIndividualMapping`
   let options = {
     url: url,
     form: {
-      ids: id
+      ids: JSON.stringify(id)
     }
   }
 

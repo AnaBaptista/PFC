@@ -5,7 +5,9 @@ module.exports = {
   getOntologyFiles,
   getOntologyFileClasses,
   getOntologyFileObjectProperties,
-  getOntologyFileDataProperties
+  getOntologyFileDataProperties,
+  deleteDataFile,
+  deleteOntologyFile
 }
 
 const req = require('request')
@@ -106,6 +108,36 @@ function getOntologyFileDataProperties (id, cb) {
       ontologyId: id
     }
   }
+  req.post(options, (err, res) => {
+    if (err) return cb(err)
+    handleResponse(res, cb)
+  })
+}
+
+function deleteDataFile (id, cb) {
+  let url = `${dataFile}/removeFile`
+
+  let options = {
+    url: url,
+    body: JSON.stringify([id])
+  }
+
+  req.post(options, (err, res) => {
+    if (err) return cb(err)
+    handleResponse(res, cb)
+  })
+}
+
+function deleteOntologyFile (id, cb) {
+  let url = `${ontologyFile}/removeOntologyFiles`
+
+  let options = {
+    url: url,
+    form: {
+      ontologyIds: JSON.stringify([id])
+    }
+  }
+
   req.post(options, (err, res) => {
     if (err) return cb(err)
     handleResponse(res, cb)

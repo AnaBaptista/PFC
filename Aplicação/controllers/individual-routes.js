@@ -14,7 +14,7 @@ router.get('/individual/:id/properties/annotation/view', renderAnnotationPropert
 router.get('/individual/:id/properties/data/view', renderDataProperties)
 router.get('/individual/:id/properties/object/view', renderObjectProperties)
 
-router.delete('/individual/:id', removeIndividual)
+router.delete('/individual/:id', deleteIndividual)
 
 function createIndividual (req, res, next) {
   console.log('POST -> /individual, createIndividual')
@@ -95,7 +95,7 @@ function renderObjectProperties (req, res, next) {
   })
 }
 
-function removeIndividual (req, res, next) {
+function deleteIndividual (req, res, next) {
   let id = req.params.id
   let populateId = req.query.populateId
   service.deleteIndividual(id, populateId, (err) => {

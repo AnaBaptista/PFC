@@ -12,6 +12,9 @@ router.post('/ontologyFile', multipartMiddleware, addOntologyFile)
 router.get('/dataFile', getDataFiles)
 router.get('/ontologyFile', getOntologyFiles)
 
+router.delete('/dataFile/:id', deleteDataFile)
+router.delete('/ontologyFile/:id', deleteOntologyFile)
+
 function addDataFile (req, res, next) {
   console.log('POST -> /dataFile, addDataFile')
   let file = req.files['file']
@@ -46,3 +49,18 @@ function getOntologyFiles (req, res, next) {
   })
 }
 
+function deleteDataFile (req, res, next) {
+  let id = req.params.id
+  service.deleteDataFile(id, (err) => {
+    if (err) return next(err)
+    res.end()
+  })
+}
+
+function deleteOntologyFile (req, res, next) {
+  let id = req.params.id
+  service.deleteOntologyFile(id, (err) => {
+    if (err) return next(err)
+    res.end()
+  })
+}

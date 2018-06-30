@@ -57,50 +57,41 @@ function createIndividualMapping (populateId) {
  * This function deletes an individual mapping in database
  * and dynamically
  * @param id {String} individual mapping id
+ * @param populateId {String} populate id that individual belongs
  */
 function deleteIndividualMapping (id, populateId) {
-  fetch(`/map/individual/${id}?populateId=${populateId}`, {method: 'DELETE'})
-    .then(handleError)
-    .then(_ => {
-      let toDelete = document.getElementById(`individual-mapping-${id}`)
-      let parent = toDelete.parentElement
-      parent.removeChild(toDelete)
-      alertify.message('Individual mapping deleted')
-    }).catch(err => console.log(err.message))
+  genericDeleteIndividual(`/map/individual/${id}?populateId=${populateId}`, `individual-mapping-${id}`)
 }
 
-
-function saveIndividualMappingInChaosPop (id) {
-  fetch(`/map/individual/${id}`, {method: 'PUT'})
-    .then(handleError)
-    .then(_ => {
-      alertify.success('Individual Mapping updated on ChaosPop')
-    })
-}
 /**
- * This function adds a new object property
- * to individual mapping
+ *
  * @param id {String} individual mapping id
  */
-function createIndividualMappingObjectProperty (id) {
-  let property = getSelectedItems('object-properties-menu', '.selected')
-  let node = document.getElementById('object-property-to-term')
+// Label, Comment and SeeAlso (nodes)
+function createIndividualMappingAnnotationProperty (id) {
+  let annotation = getSelectedItems('annotation-properties-menu', '.selected')
+  let node = document.getElementById('annotation-property-to-term')
 
-  if (property.length === 0 || node.childElementCount === 0) {
-    alertify.error('Missing object property or node')
+  if (annotation.length === 0 || node.childElementCount === 0) {
+    alertify.error('Missing annotation property or node')
     return
   }
 
-  node = node.childNodes[0]
+  let ids = []
+  node.childNodes.forEach(div => {
+    if (div.nodeName !== '#text') {
+      ids.push(div.id)
+    }
+  })
+
   let data = {
-    objProps:
-      [{
-        owlClassIRI: property[0].textContent,
-        toMapNodeId: [node.id]
-      }]
+    annotationProps: [{
+      annotation: annotation[0].textContent,
+      toMapNodeId: ids
+    }]
   }
 
-  createIndividualMappingProperty(data, id, 'object')
+  createIndividualMappingProperty(data, id, 'annotation')
 }
 
 /**
@@ -138,34 +129,29 @@ function createIndividualMappingDataProperty (id) {
 }
 
 /**
- *
+ * This function adds a new object property
+ * to individual mapping
  * @param id {String} individual mapping id
  */
-// Label, Comment and SeeAlso (nodes)
-function createIndividualMappingAnnotationProperty (id) {
-  let annotation = getSelectedItems('annotation-properties-menu', '.selected')
-  let node = document.getElementById('annotation-property-to-term')
+function createIndividualMappingObjectProperty (id) {
+  let property = getSelectedItems('object-properties-menu', '.selected')
+  let node = document.getElementById('object-property-to-term')
 
-  if (annotation.length === 0 || node.childElementCount === 0) {
-    alertify.error('Missing annotation property or node')
+  if (property.length === 0 || node.childElementCount === 0) {
+    alertify.error('Missing object property or node')
     return
   }
 
-  let ids = []
-  node.childNodes.forEach(div => {
-    if (div.nodeName !== '#text') {
-      ids.push(div.id)
-    }
-  })
-
+  node = node.childNodes[0]
   let data = {
-    annotationProps: [{
-      annotation: annotation[0].textContent,
-      toMapNodeId: ids
-    }]
+    objProps:
+      [{
+        owlClassIRI: property[0].textContent,
+        toMapNodeId: [node.id]
+      }]
   }
 
-  createIndividualMappingProperty(data, id, 'annotation')
+  createIndividualMappingProperty(data, id, 'object')
 }
 
 /**
@@ -312,4 +298,17 @@ function generateOutputFile (id) {
       window.location.href = `/populate`
     })
   console.log('teste')
+}
+
+
+/**
+ * This function save the individual mapping on ChaosPop
+ * @param id {String} individual id
+ */
+function saveIndividualMappingInChaosPop (id) {
+  fetch(`/map/individual/${id}`, {method: 'PUT'})
+    .then(handleError)
+    .then(_ => {
+      alertify.success('Individual Mapping updated on ChaosPop')
+    })
 }

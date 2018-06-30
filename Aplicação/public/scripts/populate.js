@@ -22,6 +22,20 @@ function populate (path, data) {
 }
 
 /**
+ * This function deletes the populate identified by id
+ * @param id {String} populate id
+ */
+function deletePopulate (id) {
+  fetch (`/populate/${id}`, {method: 'DELETE'})
+    .then(_ => {
+      let toDelete = document.getElementById(id)
+      let parent = toDelete.parentElement
+      parent.removeChild(toDelete)
+      alertify.message('Populate deleted')
+    }).catch(err => console.log(err.message))
+}
+
+/**
  * It creates an individual or individualMapping
  * @param type {String} data or nondata
  * @param data {Object} Individual to create
@@ -40,3 +54,17 @@ function genericCreateIndividual (type, data, populateId) {
     }).catch(err => console.log(err.message))
 }
 
+/**
+ * It deletes an individual (individual mapping or individual)
+ * @param path {String} endpoint to delete the specified individual
+ * @param id {String} individual id
+ */
+function genericDeleteIndividual (path, id) {
+  fetch (path, {method: 'DELETE'})
+    .then(_ => {
+      let toDelete = document.getElementById(id)
+      let parent = toDelete.parentElement
+      parent.removeChild(toDelete)
+      alertify.message('Individual deleted')
+    }).catch(err => console.log(err.message))
+}

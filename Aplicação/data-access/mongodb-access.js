@@ -4,7 +4,8 @@ module.exports = {
   findByIds,
   updateById,
   findByQuery,
-  deleteById
+  deleteById,
+  deleteByIds
 }
 
 /*
@@ -81,12 +82,6 @@ function updateById (col, id, newValues, cb) {
   })
 }
 
-/* function handleMongoResult (client, err, result, cb) {
-  client.close()
-  if (err) return cb(err)
-  return cb(null, result.insertedId.toString())
-} */
-
 /**
  *
  * @param col {String} collection id
@@ -109,6 +104,19 @@ function deleteById (col, id, cb) {
     if (err) return console.log(err)
     let query = {_id: ObjectID(id)}
     client.db(dbName).collection(col).deleteOne(query, (err, result) => {
+      client.close()
+      if (err) return cb(err)
+      return cb(null, result)
+    })
+  })
+}
+
+function deleteByIds (col, ids, cb) {
+  MongoClient.connect(url, (err, client) => {
+    if (err) return console.log(err)
+    ids = ids.map(id => ObjectID(id))
+    let query = {_id: {$in: ids}}
+    client.db(dbName).collection(col).remove(query, (err, result) => {
       client.close()
       if (err) return cb(err)
       return cb(null, result)

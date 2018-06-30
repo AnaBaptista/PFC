@@ -1,6 +1,7 @@
 module.exports = {
   createBatch,
-  processBatch
+  processBatch,
+  deleteBatch
 }
 
 const req = require('request')
@@ -34,6 +35,19 @@ function processBatch (batchId, cb) {
     form: {
       id: batchId
     }
+  }
+
+  req.post(options, (err, res) => {
+    if (err) return cb(err)
+    handleResponse(res, cb)
+  })
+}
+
+function deleteBatch (batchId, cb) {
+  let url = `${batchManager}/removeBatch`
+  let options = {
+    url: url,
+    body: JSON.stringify([batchId])
   }
 
   req.post(options, (err, res) => {

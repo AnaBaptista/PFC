@@ -16,7 +16,7 @@ router.get('/map/individual/:id/properties/object/view', renderObjectProps)
 router.get('/map/individual/:id/properties/data/view', renderDataProps)
 router.get('/map/individual/:id/properties/annotation/view', renderAnnotationProps)
 
-router.delete('/map/individual/:id', removeIndividualMapping)
+router.delete('/map/individual/:id', deleteIndividualMapping)
 
 /**
  * Body Parameters:
@@ -164,8 +164,8 @@ function putIndividualMappingAnnotationProperties (req, res, next) {
   })
 }
 
-function removeIndividualMapping (req, res, next) {
-  console.log('/map/individual/, removeIndividualMapping')
+function deleteIndividualMapping (req, res, next) {
+  console.log('/map/individual/, deleteIndividualMapping')
   let id = req.params.id
   let populateId = req.query.populateId
   service.deleteIndividualMapping(id, populateId, (err) => {

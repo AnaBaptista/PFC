@@ -45,20 +45,16 @@ function createIndividual (populateId) {
   genericCreateIndividual('nondata', data, populateId)
 }
 
+/**
+ * This function deletes an individual in database
+ * and dynamically
+ * @param id {String} individual id
+ * @param populateId {String} populate id that individual belongs
+ */
 function deleteIndividual (id, populateId) {
-  let options = {
-    method: 'DELETE'
-  }
-
-  fetch(`/individual/${id}?populateId=${populateId}`, options)
-    .then(handleError)
-    .then(_ => {
-      let toDelete = document.getElementById(`individual-${id}`)
-      let parent = toDelete.parentElement
-      parent.removeChild(toDelete)
-      alertify.message('Individual deleted')
-    }).catch(err => console.log(err.message))
+  genericDeleteIndividual(`/individual/${id}?populateId=${populateId}`, `individual-${id}`)
 }
+
 
 function createIndividualAnnotationProperty (id) {
   let annotation = getSelectedItems('annotation-properties-menu', '.selected')

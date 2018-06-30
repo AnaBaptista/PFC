@@ -1,5 +1,6 @@
 module.exports = {
-  createMapping
+  createMapping,
+  deleteMapping
 }
 
 const req = require('request')
@@ -20,6 +21,21 @@ function createMapping (mapping, cb) {
     },
     body: JSON.stringify(mapping)
   }
+  req.post(options, (err, res) => {
+    if (err) return cb(err)
+    handleResponse(res, cb)
+  })
+}
+function deleteMapping (id, cb) {
+  let url = `${mappingManager}/removeMapping`
+
+  let options = {
+    url: url,
+    form: {
+      ids: JSON.stringify([id])
+    }
+  }
+
   req.post(options, (err, res) => {
     if (err) return cb(err)
     handleResponse(res, cb)

@@ -1,5 +1,6 @@
 module.exports = {
-  createMapping
+  createMapping,
+  deleteMapping
 }
 
 const db = require('../data-access/mongodb-access')
@@ -18,7 +19,7 @@ function createMapping (data, cb) {
       let mapping = {
         outputOntologyFileName: data.name,
         outputOntologyNamespace: `${namespace}${data.name}.owl#`,
-        individualMappings: indMappings.map(i => JSON.parse(i.chaosid)),
+        individualMappings: indMappings.map(i => i.chaosid),
         fileNames: [],
         directOntologyImports: []
       }
@@ -43,4 +44,8 @@ function createMapping (data, cb) {
       })
     })
   })
+}
+
+function deleteMapping (id, cb) {
+  dataAcces.deleteMapping(id, cb)
 }

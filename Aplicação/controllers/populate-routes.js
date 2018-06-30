@@ -7,6 +7,7 @@ module.exports = router
 router.post('/populate', addPopulate)
 router.put('/populate/:id/output', createOutputFile)
 router.get('/populate', getPopulates)
+router.delete('/populate/:id', deletePopulate)
 // populate with data routes
 router.get('/populate/data/:id', getPopulateWithData)
 router.get('/populate/data/:id/tree', getPopulateDataTree)
@@ -47,6 +48,14 @@ function getPopulates (req, res, next) {
   service.getPopulates((err, pops) => {
     if (err) return next(err)
     res.render('populates', pops)
+  })
+}
+
+function deletePopulate (req, res, next) {
+  let id = req.params.id
+  service.deletePopulate(id, (err) => {
+    if (err) return next(err)
+    res.end()
   })
 }
 

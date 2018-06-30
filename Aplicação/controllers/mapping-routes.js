@@ -31,8 +31,8 @@ function createMapping (req, res, next) {
  * Returns: Id for that mapping
  */
 function updateMapping (req, res, next) {
-  console.log('PUT -> /map/:mappingId, updateMapping')
-  let id = req.params.mappingId
+  console.log('PUT -> /map/:id, updateMapping')
+  let id = req.params.id
   if (id === undefined) {
     res.statusCode = 400
     res.json('Id needed')

@@ -47,8 +47,7 @@
     margin-top: 200px;
 }
 #create-mapping-btn {
-    margin-top: 100px;
-    margin-left: 280px;
+    padding-top: 35px;
 }
 
 #create-mapping {
@@ -102,20 +101,10 @@
     margin-left: -15px;
 }
 
-#individuals-to-mapping-list {
-    min-height: 300px;
-    max-height: 450px;
-    overflow-y: auto;
-    min-width: 650px;
-    max-width: 700px;
-}
-
-#individuals-nondata-to-mapping-list {
+#individuals-to-mapping-list, #individuals-nondata-to-mapping-list {
     min-height: 250px;
-    max-height: 300px;
+    max-height: 250px;
     overflow-y: auto;
-    min-width: 650px;
-    max-width: 700px;
 }
 
 #individual-row {
@@ -133,4 +122,8 @@
 #populates-table {
     max-height: 500px;
     overflow-y: auto;
+}
+
+#create-mapping-content {
+    padding-left: 100px;
 }

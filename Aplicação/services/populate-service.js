@@ -3,6 +3,7 @@ module.exports = {
   addIndividualToPopulate,
   getPopulate,
   getPopulates,
+  deletePopulate,
   createOutputFile,
   deleteIndividualFromPopulate,
   beginProcessOfPopulateWithoutData,
@@ -18,6 +19,7 @@ module.exports = {
 const fileService = require('./file-service')
 const genericIndividual = require('./generic-individual-service')
 const indMapService = require('./individual-mapping-service')
+const mappingService = require('./mapping-service')
 
 const treeFunctions = require('../utils/tree-functions')
 const fakeFileMaker = require('../utils/FakeFileMaker')
@@ -74,6 +76,36 @@ function getPopulates (cb) {
   })
 }
 
+function deletePopulate (id, cb) {
+  getPopulate(id, (err, pop) => {
+    if (err) return cb(err)
+    let indIds = pop.indMappings.map(i => i._id)
+    db.findByIds(indMapping, indIds, (err, indMaps) => {
+      if (err) return cb(err)
+      let chaosIds = []
+      indMaps.forEach(i => {
+        if (i.chaosid) {
+          chaosIds.push(i.chaosid)
+        }
+      })
+      db.deleteByIds(indMapping, indIds, (err) => {
+        if (err) return cb(err)
+        genericIndividual.deleteIndividualsByIdOnChaosPop(chaosIds, (err) => {
+          if (err) return cb(err)
+          if (pop.chaosid) {
+            mappingService.deleteMapping(pop.chaosid, (err) => {
+              if (err) return cb(err)
+              pop.batchId ? dataAccess.deleteBatch(pop.batchId, cb) : cb()
+            })
+          } else {
+            cb()
+          }
+        })
+      })
+    })
+  })
+}
+
 function createOutputFile (id, cb) {
   db.findById(populates, id, (err, pop) => {
     if (!pop.chaosid) {
@@ -90,7 +122,7 @@ function createOutputFile (id, cb) {
         dataAccess.processBatch(batchId, (err, res) => {
           if (err) return cb(err)
           let outputFileId = JSON.parse(res)
-          let set = {outputFileId: outputFileId[0]}
+          let set = {outputFileId: outputFileId[0], batchId: batchId}
           db.updateById(populates, id, set, (err) => {
             if (err) return cb(err)
             cb()

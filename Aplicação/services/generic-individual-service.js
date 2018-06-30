@@ -1,6 +1,7 @@
 module.exports = {
   createIndividual,
   deleteIndividual,
+  deleteIndividualsByIdOnChaosPop,
   getIndividual,
   getIndividualByIds,
   putIndividualAnnotationProperties,
@@ -38,7 +39,7 @@ function deleteIndividual (id, populateId, cb) {
       populateService.deleteIndividualFromPopulate(populateId, id, (err) => {
         if (err) return cb(err)
         if (ind.chaosid) {
-          dataAccess.removeIndividualMapping(ind.chaosid, (err) => {
+          dataAccess.deleteIndividualMapping([ind.chaosid], (err) => {
             if (err) return cb(err)
             cb()
           })
@@ -48,6 +49,10 @@ function deleteIndividual (id, populateId, cb) {
       })
     })
   })
+}
+
+function deleteIndividualsByIdOnChaosPop (ids, cb) {
+  dataAccess.deleteIndividualMapping(ids, cb)
 }
 
 function getIndividual (id, cb) {
