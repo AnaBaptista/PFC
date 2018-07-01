@@ -76,7 +76,7 @@
    margin-top: 15px;
 }
 
-#properties-list {
+#object-properties-list, #data-properties-list, #annotation-properties-list {
     margin-top: -20px;
     max-height: 250px;
     overflow-y: auto;

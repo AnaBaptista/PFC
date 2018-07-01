@@ -22,7 +22,7 @@ const indMapService = require('./individual-mapping-service')
 const mappingService = require('./mapping-service')
 
 const treeFunctions = require('../utils/tree-functions')
-const fakeFileMaker = require('../utils/FakeFileMaker')
+const fakeFileMaker = require('../utils/fake-file-maker')
 
 const dataAccess = require('../data-access/populate-access')
 const db = require('../data-access/mongodb-access')
@@ -80,29 +80,32 @@ function deletePopulate (id, cb) {
   getPopulate(id, (err, pop) => {
     if (err) return cb(err)
     let indIds = pop.indMappings.map(i => i._id)
-    db.findByIds(indMapping, indIds, (err, indMaps) => {
-      if (err) return cb(err)
-      let chaosIds = []
-      indMaps.forEach(i => {
-        if (i.chaosid) {
-          chaosIds.push(i.chaosid)
-        }
-      })
-      db.deleteByIds(indMapping, indIds, (err) => {
+    if (indIds.length !== 0) {
+      db.findByIds(indMapping, indIds, (err, indMaps) => {
         if (err) return cb(err)
-        genericIndividual.deleteIndividualsByIdOnChaosPop(chaosIds, (err) => {
+        let chaosIds = indMaps.filter(i => i.chaosid).map(i => i.chaosid)
+        db.deleteByIds(indMapping, indIds, (err) => {
           if (err) return cb(err)
-          if (pop.chaosid) {
-            mappingService.deleteMapping(pop.chaosid, (err) => {
-              if (err) return cb(err)
-              pop.batchId ? dataAccess.deleteBatch(pop.batchId, cb) : cb()
-            })
-          } else {
-            cb()
-          }
+          genericIndividual.deleteIndividualsByIdOnChaosPop(chaosIds, (err) => {
+            if (err) return cb(err)
+            if (pop.chaosid) {
+              mappingService.deleteMapping(pop.chaosid, (err) => {
+                if (err) return cb(err)
+                pop.batchId
+                  ? dataAccess.deleteBatch(pop.batchId, (err) => {
+                    if (err) return cb(err)
+                    db.deleteById(populates, id, cb)
+                  }) : db.deleteById(populates, id, cb)
+              })
+            } else {
+              return db.deleteById(populates, id, cb)
+            }
+          })
         })
       })
-    })
+    } else {
+      db.deleteById(populates, id, cb)
+    }
   })
 }
 
@@ -320,9 +323,9 @@ function postFakeFile (listOfIndividuals, cb) {
         db.findById(dataFiles, id._id, (err, file) => {
           if (err) return cb(err)
           listOfIndividuals.forEach(individual => parseIndividualToInMap(individual, file.chaosid))
-          fs.unlink(path, (err) => {
-            if (err) return cb(err)
-          })
+          // fs.unlink(path, (err) => {
+          //   if (err) return cb(err)
+          // })
           saveToDBAndChaos(listOfIndividuals, cb)
         })
       })

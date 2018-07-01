@@ -7,6 +7,7 @@ module.exports = {
   putIndividualAnnotationProperties,
   putIndividualDataProperties,
   putIndividualObjectProperties,
+  deleteIndividualProperty,
   renderAnnotationProperties,
   renderDataProperties,
   renderObjectProperties
@@ -52,7 +53,7 @@ function deleteIndividual (id, populateId, cb) {
 }
 
 function deleteIndividualsByIdOnChaosPop (ids, cb) {
-  dataAccess.deleteIndividualMapping(ids, cb)
+  ids.length !== 0 ? dataAccess.deleteIndividualMapping(ids, cb) : cb()
 }
 
 function getIndividual (id, cb) {
@@ -148,6 +149,21 @@ function putIndividualObjectProperties (id, props, func, cb) {
         cb(null, newProps)
       })
     }, indMap)
+  })
+}
+
+function deleteIndividualProperty (id, propertyId, type, cb) {
+  db.findById(collection, id, (err, indMap) => {
+    if (err) return cb(err)
+    let field = `${type}Properties`
+    indMap[field] = indMap[field].filter(p => p.id !== propertyId)
+    let set = (type === 'object' && {objectProperties: indMap[field]}) ||
+      (type === 'data' && {dataProperties: indMap[field]}) ||
+      (type === 'annotation' && {annotationProperties: indMap[field]})
+    db.updateById(collection, id, set, (err) => {
+      if (err) return cb(err)
+      cb(null, indMap)
+    })
   })
 }
 

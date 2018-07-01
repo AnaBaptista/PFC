@@ -6,6 +6,7 @@ module.exports = {
   putIndividualMappingAnnotationProperties,
   putIndividualMappingDataProperties,
   putIndividualMappingObjectProperties,
+  deleteIndividualMappingProperty,
   renderDataProperties,
   renderAnnotationProperties,
   renderObjectProperties
@@ -13,7 +14,7 @@ module.exports = {
 
 const dataAccess = require('../data-access/individual-mapping-access')
 const dbAccess = require('../data-access/mongodb-access')
-const parser = require('../utils/PropertiesParser')
+const parser = require('../utils/properties-parser')
 
 const collection = 'IndividualMappings'
 
@@ -135,7 +136,10 @@ function putIndividualMappingAnnotationProperties (id, annotationProps, cb) {
       if (err) return cb(err)
       ret(parsedProps)
     })
-  }, cb)
+  }, (err, props) => {
+    if (err) return cb(err)
+    cb(null, parseObjectAndAnnotationProperties(props, 'annotation'))
+  })
 }
 
 /**
@@ -149,7 +153,10 @@ function putIndividualMappingDataProperties (id, dataProps, cb) {
       if (err) return cb(err)
       ret(parsedProps)
     })
-  }, cb)
+  }, (err, props) => {
+    if (err) return cb(err)
+    cb(null, parseDataProperties(props))
+  })
 }
 
 /**
@@ -163,21 +170,28 @@ function putIndividualMappingObjectProperties (id, objProps, cb) {
       if (err) return cb(err)
       ret(parsedProps)
     })
-  }, cb)
+  }, (err, props) => {
+    if (err) return cb(err)
+    cb(null, parseObjectAndAnnotationProperties(props, 'object'))
+  })
+}
+
+function deleteIndividualMappingProperty (id, propertyId, type, cb) {
+  service.deleteIndividualProperty(id, propertyId, type, (err, indMap) => {
+    if (err) return cb(err)
+    if (indMap.chaosid) {
+      updateIndividualMapping(id, cb)
+    } else {
+      cb(null)
+    }
+  })
 }
 
 function renderAnnotationProperties (id, cb) {
   service.renderAnnotationProperties(id, (err, object) => {
     if (err) return cb(err)
     if (object.annotationProperties.length > 0) {
-      object.annotationProperties = object.annotationProperties.map(obj => {
-        let keys = Object.keys(obj)
-        return {
-          id: obj.id,
-          name: keys[1],
-          nodes: obj[keys[1]]
-        }
-      })
+      object.annotationProperties = parseObjectAndAnnotationProperties(object.annotationProperties, 'annotation')
     }
     cb(null, object)
   })
@@ -187,14 +201,7 @@ function renderDataProperties (id, cb) {
   service.renderDataProperties(id, (err, object) => {
     if (err) return cb(err)
     if (object.dataProperties.length > 0) {
-      object.dataProperties = object.dataProperties.map(obj => {
-        let keys = Object.keys(obj)
-        return {
-          id: obj.id,
-          name: keys[1],
-          nodes: obj[keys[1]][0]
-        }
-      })
+      object.dataProperties = parseDataProperties(object.dataProperties)
     }
     cb(null, object)
   })
@@ -204,16 +211,32 @@ function renderObjectProperties (id, cb) {
   service.renderObjectProperties(id, (err, object) => {
     if (err) return cb(err)
     if (object.objectProperties.length > 0) {
-      object.objectProperties = object.objectProperties.map(obj => {
-        let keys = Object.keys(obj)
-        return {
-          id: obj.id,
-          name: keys[1],
-          nodes: obj[keys[1]],
-          type: 'Object'
-        }
-      })
+      object.objectProperties = parseObjectAndAnnotationProperties(object.objectProperties, 'object')
     }
     cb(null, object)
+  })
+}
+
+function parseObjectAndAnnotationProperties (props, type) {
+  return props.map(obj => {
+    let keys = Object.keys(obj)
+    return {
+      id: obj.id,
+      name: keys[1],
+      nodes: obj[keys[1]],
+      type: type
+    }
+  })
+}
+
+function parseDataProperties (props) {
+  return props.map(obj => {
+    let keys = Object.keys(obj)
+    return {
+      id: obj.id,
+      name: keys[1],
+      nodes: obj[keys[1]][0],
+      type: 'data'
+    }
   })
 }

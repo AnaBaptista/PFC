@@ -36,7 +36,7 @@ function createMapping (data, cb) {
         })
         dataAcces.createMapping(mapping, (err, id) => {
           if (err) return cb(err)
-          db.updateById(populates, data.populateId, {chaosid: id}, (err) => {
+          db.updateById(populates, data.populateId, {chaosid: JSON.parse(id)}, (err) => {
             if (err) return cb(err)
             cb()
           })

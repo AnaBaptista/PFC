@@ -1,0 +1,17 @@
+{{#each props}}
+    <div class="item" id="property-{{id}}">
+      <div class="right floated content">
+        <button class="ui icon mini button basic secondary" onclick="deleteIndividualMappingProperty('{{../this._id}}', '{{id}}', '{{type}}')">
+          <i class="large trash alternate outline middle aligned icon"></i>
+        </button>
+      </div>
+      <div class="content">
+        <div class="header">
+          {{name}}
+        </div>
+        <div class="description">
+          {{nodes}}
+        </div>
+      </div>
+    </div>
+{{/each}}
