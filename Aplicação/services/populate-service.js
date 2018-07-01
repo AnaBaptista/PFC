@@ -108,6 +108,7 @@ function deletePopulate (id, cb) {
 
 function createOutputFile (id, cb) {
   db.findById(populates, id, (err, pop) => {
+    if (err) cb(err)
     if (!pop.chaosid) {
       let error = new Error('Create the mapping first')
       error.statusCode = 400
@@ -272,7 +273,7 @@ function getPopulateDataIndividual (ind, cb) {
 }
 
 function getPopulateDataIndividualTree (id, ind, cb) {
-  genericIndividual.getIndividual(ind, (err, individual) =>  {
+  genericIndividual.getIndividual(ind, (err, individual) => {
     if (err) return cb(err)
     if (individual.indTree) {
       cb(null, individual.indTree)
@@ -337,6 +338,7 @@ function parseIndividualToInMap (individual, dataFileId) {
   individual.dataFileId = dataFileId
   individual.specification = false
   if (individual.dataProperties !== undefined) {
+    individual.originalDataProps = individual.dataProperties
     individual.dataProperties.forEach(prop => {
       prop[prop.owlClassIRI] = [`${base}-${prop.id}`, prop.type]
       delete prop.owlClassIRI
@@ -345,6 +347,7 @@ function parseIndividualToInMap (individual, dataFileId) {
     })
   }
   if (individual.objectProperties !== undefined) {
+    individual.originalObjProps = individual.objectProperties
     individual.objectProperties.forEach(prop => {
       prop['id'] = prop.value.id
       prop[prop.owlClassIRI] = `${base}-_${prop.value.id}`
@@ -353,6 +356,7 @@ function parseIndividualToInMap (individual, dataFileId) {
     })
   }
   if (individual.annotationProperties !== undefined) {
+    individual.originalAnnProps = individual.annotationProperties
     individual.annotationProperties.forEach(prop => {
       prop[prop.annotation] = `${base}-${prop.id}`
       delete prop.annotation

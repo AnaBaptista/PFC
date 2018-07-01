@@ -2,8 +2,10 @@ const router = require('express')()
 
 module.exports = router
 
+router.get('/map/:id', getMapping)
 router.post('/map', createMapping)
 router.put('/map/:id', updateMapping)
+router.delete('/map/:id', deleteMapping)
 
 const service = require('../services/mapping-service')
 
@@ -11,6 +13,23 @@ function createMapping (req, res, next) {
   console.log('POST -> /map, createMapping')
   let data = req.body.data
   service.createMapping(data, (err) => {
+    if (err) return next(err)
+    res.end()
+  })
+}
+
+function getMapping (req, res, next) {
+  console.log('GET -> /map, getMapping')
+  let data = req.params.id
+  service.getMapping(data, (err) => {
+    if (err) return next(err)
+    res.end()
+  })
+}
+function deleteMapping (req, res, next) {
+  console.log('DELETE -> /map, deleteMapping')
+  let data = req.body.data
+  service.deleteMapping(data, (err) => {
     if (err) return next(err)
     res.end()
   })

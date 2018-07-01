@@ -1,6 +1,7 @@
 module.exports = {
   createMapping,
-  deleteMapping
+  deleteMapping,
+  getMapping
 }
 
 const req = require('request')
@@ -41,3 +42,19 @@ function deleteMapping (id, cb) {
     handleResponse(res, cb)
   })
 }
+function getMapping (id, cb) {
+  let url = `${mappingManager}/getMapping`
+
+  let options = {
+    url: url,
+    form: {
+      id:id
+    }
+  }
+
+  req.post(options, (err, res) => {
+    if (err) return cb(err)
+    handleResponse(res, cb)
+  })
+}
+

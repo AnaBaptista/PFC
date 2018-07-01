@@ -1,6 +1,7 @@
 module.exports = {
   createMapping,
-  deleteMapping
+  deleteMapping,
+  getMapping
 }
 
 const db = require('../data-access/mongodb-access')
@@ -48,4 +49,8 @@ function createMapping (data, cb) {
 
 function deleteMapping (id, cb) {
   dataAcces.deleteMapping(id, cb)
+}
+
+function getMapping (id, cb) {
+  dataAcces.getMapping(id, cb)
 }
