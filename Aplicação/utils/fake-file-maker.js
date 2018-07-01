@@ -10,9 +10,9 @@ function makeFakeFile (listOfIndividuals, cb) {
   let xml = new XMLWriter(true)
   xml.startDocument()
   xml.startElement('XML')
-  // xml.startElement('start')
+  xml.startElement('root')
   listOfIndividuals.forEach(individual => processIndividual(individual, xml))
-  // xml.endElement()
+  xml.endElement()
   xml.endDocument()
   let filename = idGen.generate()
   let path = `${__dirname}/tempFiles/${filename}.xml`
