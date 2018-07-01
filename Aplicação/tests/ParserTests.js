@@ -1,5 +1,5 @@
 testeParser()
-const Parser = require('../utils/PropertiesParser')
+const Parser = require('../utils/properties-parser')
 
 function testeParser () {
   let objProps = [

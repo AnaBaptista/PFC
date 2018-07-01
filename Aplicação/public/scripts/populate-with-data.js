@@ -166,12 +166,24 @@ function createIndividualMappingProperty (data, id, type) {
 
   fetch(`/map/individual/${id}/properties/${type}`, options)
     .then(handleError)
-    .then(res => res.json())
-    .then(json => {
-      location.reload()
+    .then(res => res.text())
+    .then(html => {
       alertify.success(`${type} property created`)
+      let list = document.getElementById(`${type}-properties-list`)
+      list.insertAdjacentHTML('beforeend', html)
     })
     .catch(err => console.log(err.message))
+}
+
+function deleteIndividualMappingProperty (id, pId, type) {
+  fetch(`/map/individual/${id}/properties/${pId}?type=${type}`, {method: 'DELETE'})
+    .then(handleError)
+    .then(_ => {
+      let elem = document.getElementById(`property-${pId}`)
+      let parent = elem.parentElement
+      parent.removeChild(elem)
+      alertify.success(`${type} property deleted`)
+    })
 }
 
 /**

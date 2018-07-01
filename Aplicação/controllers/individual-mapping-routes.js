@@ -17,6 +17,7 @@ router.get('/map/individual/:id/properties/data/view', renderDataProps)
 router.get('/map/individual/:id/properties/annotation/view', renderAnnotationProps)
 
 router.delete('/map/individual/:id', deleteIndividualMapping)
+router.delete('/map/individual/:id/properties/:pid', deleteIndividualMappingProperty)
 
 /**
  * Body Parameters:
@@ -92,7 +93,9 @@ function putIndividualMappingObjectProperties (req, res, next) {
   let objProps = req.body.objProps
   service.putIndividualMappingObjectProperties(id, objProps, (err, props) => {
     if (err) return next(err)
-    res.json(props)
+    let ctx = {layout: false}
+    Object.assign(ctx, {props: props, _id: id})
+    res.render('partials/individualMappingProps', ctx)
   })
 }
 
@@ -127,7 +130,9 @@ function putIndividualMappingDataProperties (req, res, next) {
   let dataProps = req.body.dataProps
   service.putIndividualMappingDataProperties(id, dataProps, (err, props) => {
     if (err) return next(err)
-    res.json(props)
+    let ctx = {layout: false}
+    Object.assign(ctx, {props: props, _id: id})
+    res.render('partials/individualMappingProps', ctx)
   })
 }
 
@@ -160,7 +165,9 @@ function putIndividualMappingAnnotationProperties (req, res, next) {
   let annotationProps = req.body.annotationProps
   service.putIndividualMappingAnnotationProperties(id, annotationProps, (err, props) => {
     if (err) return next(err)
-    res.json(props)
+    let ctx = {layout: false}
+    Object.assign(ctx, {props: props, _id: id})
+    res.render('partials/individualMappingProps', ctx)
   })
 }
 
@@ -169,6 +176,17 @@ function deleteIndividualMapping (req, res, next) {
   let id = req.params.id
   let populateId = req.query.populateId
   service.deleteIndividualMapping(id, populateId, (err) => {
+    if (err) return next(err)
+    res.end()
+  })
+}
+
+function deleteIndividualMappingProperty (req, res, next) {
+  console.log('DELETE -> /map/individual/, deleteIndividualMappingProperty')
+  let type = req.query.type
+  let id = req.params.id
+  let propId = req.params.pid
+  service.deleteIndividualMappingProperty(id, propId, type, (err) => {
     if (err) return next(err)
     res.end()
   })
