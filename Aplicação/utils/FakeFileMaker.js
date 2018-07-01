@@ -25,7 +25,7 @@ function makeFakeFile (listOfIndividuals, cb) {
 // @todo acrescentar um _ nos ids todos
 function processIndividual (individual, xml) {
   xml.startElement(`_${individual._id.toString()}`)
-  xml.writeElement('individualName', individual.individualName)
+  xml.writeElement('individualName', individual.originalIndividualName)
   if (individual.dataProperties !== undefined) { individual.dataProperties.forEach(prop => xml.writeElement(prop.id, prop.value)) }
   if (individual.objectProperties !== undefined) { individual.objectProperties.forEach(prop => xml.writeElement(`_${prop.value.id}`, prop.value.name)) }
   if (individual.annotationProperties !== undefined) { individual.annotationProperties.forEach(prop => xml.writeElement(prop.id, prop.value)) }
