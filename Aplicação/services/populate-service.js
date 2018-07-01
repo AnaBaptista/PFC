@@ -341,7 +341,6 @@ function parseIndividualToInMap (individual, dataFileId) {
   individual.dataFileId = dataFileId
   individual.specification = false
   if (individual.dataProperties !== undefined) {
-    individual.originalDataProps = individual.dataProperties
     individual.dataProperties.forEach(prop => {
       prop[prop.owlClassIRI] = [`${base}-${prop.id}`, prop.type]
       delete prop.owlClassIRI
@@ -350,7 +349,6 @@ function parseIndividualToInMap (individual, dataFileId) {
     })
   }
   if (individual.objectProperties !== undefined) {
-    individual.originalObjProps = individual.objectProperties
     individual.objectProperties.forEach(prop => {
       prop['id'] = prop.value.id
       prop[prop.owlClassIRI] = `${base}-_${prop.value.id}`
@@ -359,7 +357,6 @@ function parseIndividualToInMap (individual, dataFileId) {
     })
   }
   if (individual.annotationProperties !== undefined) {
-    individual.originalAnnProps = individual.annotationProperties
     individual.annotationProperties.forEach(prop => {
       prop[prop.annotation] = `${base}-${prop.id}`
       delete prop.annotation
