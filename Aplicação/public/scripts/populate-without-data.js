@@ -38,7 +38,7 @@ function createIndividual (populateId) {
     data: {
       owlClassIRI: elem.textContent,
       ontologyFileId: elem.id,
-      individualName: name
+      originalIndividualName: name
     },
     populateId: populateId
   }

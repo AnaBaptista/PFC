@@ -11,11 +11,14 @@ module.exports = {
 
 const service = require('./generic-individual-service')
 const populateService = require('./populate-service')
+const db = require('../data-access/mongodb-access')
 
 const idGen = require('shortid')
 
+const collection = 'IndividualMappings'
+
 function createIndividual (individual, populateId, cb) {
-  let obj = {individualName: individual.individualName, owlClassIRI: individual.owlClassIRI}
+  let obj = {originalIndividual: individual.originalIndividualName, owlClassIRI: individual.owlClassIRI}
   service.createIndividual(individual, populateId, obj, (err, id) => {
     if (err) return cb(err)
     cb(null, id)
@@ -35,7 +38,10 @@ function putIndividualAnnotationProperties (id, props, cb) {
         elem.id = id
       }
     })
-    ret(newProps)
+    db.updateById(collection, id, {originalAnnotationProps: newProps}, (err) => {
+      if (err) return cb(err)
+      ret(newProps)
+    })
   }, cb)
 }
 
@@ -48,7 +54,10 @@ function putIndividualDataProperties (id, props, cb) {
         elem.id = id
       }
     })
-    ret(newProps)
+    db.updateById(collection, id, {originalDataProps: newProps}, (err) => {
+      if (err) return cb(err)
+      ret(newProps)
+    })
   }, cb)
 }
 
@@ -61,20 +70,23 @@ function putIndividualObjectProperties (id, props, cb) {
         elem.id = id
       }
     })
-    ret(newProps)
+    db.updateById(collection, id, {originalObjectProps: newProps}, (err) => {
+      if (err) return cb(err)
+      ret(newProps)
+    })
   }, cb)
 }
 
 function renderAnnotationProperties (id, cb) {
-  service.renderAnnotationProperties(id, cb)
+  service.renderAnnotationProperties(id, 'originalAnnotationProps', cb)
 }
 
 function renderDataProperties (id, cb) {
-  service.renderDataProperties(id, cb)
+  service.renderDataProperties(id, 'originalDataProps', cb)
 }
 
 function renderObjectProperties (id, popId, cb) {
-  service.renderObjectProperties(id, (err, object) => {
+  service.renderObjectProperties(id, 'originalObjectProps', (err, object) => {
     if (err) return cb(err)
     populateService.getPopulate(popId, (err, pop) => {
       if (err) return cb(err)

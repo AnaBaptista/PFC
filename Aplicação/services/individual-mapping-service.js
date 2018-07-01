@@ -188,7 +188,7 @@ function deleteIndividualMappingProperty (id, propertyId, type, cb) {
 }
 
 function renderAnnotationProperties (id, cb) {
-  service.renderAnnotationProperties(id, (err, object) => {
+  service.renderAnnotationProperties(id, 'annotationProperties', (err, object) => {
     if (err) return cb(err)
     if (object.annotationProperties.length > 0) {
       object.annotationProperties = parseObjectAndAnnotationProperties(object.annotationProperties, 'annotation')
@@ -198,7 +198,7 @@ function renderAnnotationProperties (id, cb) {
 }
 
 function renderDataProperties (id, cb) {
-  service.renderDataProperties(id, (err, object) => {
+  service.renderDataProperties(id, 'dataProperties', (err, object) => {
     if (err) return cb(err)
     if (object.dataProperties.length > 0) {
       object.dataProperties = parseDataProperties(object.dataProperties)
@@ -208,7 +208,7 @@ function renderDataProperties (id, cb) {
 }
 
 function renderObjectProperties (id, cb) {
-  service.renderObjectProperties(id, (err, object) => {
+  service.renderObjectProperties(id, 'objectProperties', (err, object) => {
     if (err) return cb(err)
     if (object.objectProperties.length > 0) {
       object.objectProperties = parseObjectAndAnnotationProperties(object.objectProperties, 'object')

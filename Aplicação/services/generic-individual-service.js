@@ -167,7 +167,7 @@ function deleteIndividualProperty (id, propertyId, type, cb) {
   })
 }
 
-function renderAnnotationProperties (id, cb) {
+function renderAnnotationProperties (id, field, cb) {
   const obj = {
     aproperties: ['label', 'comment', 'seeAlso'],
     annotationProperties: []
@@ -175,13 +175,13 @@ function renderAnnotationProperties (id, cb) {
   db.findById(collection, id, (err, indMap) => {
     if (err) return cb(err)
     if (indMap.annotationProperties) {
-      obj['annotationProperties'] = indMap.annotationProperties
+      obj['annotationProperties'] = indMap[field]
     }
     cb(null, obj)
   })
 }
 
-function renderDataProperties (id, cb) {
+function renderDataProperties (id, field, cb) {
   db.findById(collection, id, (err, indMap) => {
     if (err) return cb(err)
     db.findById(ontoFiles, indMap.ontologyFileId, (err, file) => {
@@ -192,14 +192,14 @@ function renderDataProperties (id, cb) {
         dataProperties: []
       }
       if (indMap.dataProperties) {
-        obj['dataProperties'] = indMap.dataProperties
+        obj['dataProperties'] = indMap[field]
       }
       cb(null, obj)
     })
   })
 }
 
-function renderObjectProperties (id, cb) {
+function renderObjectProperties (id, field, cb) {
   db.findById(collection, id, (err, indMap) => {
     if (err) return cb(err)
     db.findById(ontoFiles, indMap.ontologyFileId, (err, file) => {
@@ -209,7 +209,7 @@ function renderObjectProperties (id, cb) {
         objectProperties: []
       }
       if (indMap.objectProperties) {
-        obj['objectProperties'] = indMap.objectProperties
+        obj['objectProperties'] = indMap[field]
       }
       cb(null, obj)
     })
