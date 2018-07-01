@@ -323,10 +323,12 @@ function postFakeFile (listOfIndividuals, cb) {
         if (err) return cb(err)
         db.findById(dataFiles, id._id, (err, file) => {
           if (err) return cb(err)
-          listOfIndividuals.forEach(individual => parseIndividualToInMap(individual, file.chaosid))
-          // fs.unlink(path, (err) => {
-          //   if (err) return cb(err)
-          // })
+          listOfIndividuals.forEach(individual =>
+            parseIndividualToInMap(individual, file.chaosid, file.nodes.filter(node => node.tag === `_${individual._id.toString()}`))
+          )
+          fs.unlink(path, (err) => {
+            if (err) return cb(err)
+          })
           saveToDBAndChaos(listOfIndividuals, cb)
         })
       })
@@ -334,11 +336,12 @@ function postFakeFile (listOfIndividuals, cb) {
   }
 }
 
-function parseIndividualToInMap (individual, dataFileId) {
+function parseIndividualToInMap (individual, dataFileId, nodeId) {
   individual.tag = `_${individual._id.toString()}`
   let base = `.inspecificchild-_${individual._id.toString()}`
   individual.individualName = `${base}-individualName`
   individual.dataFileId = dataFileId
+  individual.nodeId = nodeId
   individual.specification = false
   if (individual.dataProperties !== undefined) {
     individual.dataProperties.forEach(prop => {
