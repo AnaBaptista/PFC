@@ -18,7 +18,7 @@ const idGen = require('shortid')
 const collection = 'IndividualMappings'
 
 function createIndividual (individual, populateId, cb) {
-  let obj = {originalIndividual: individual.originalIndividualName, owlClassIRI: individual.owlClassIRI}
+  let obj = {originalIndividualName: individual.originalIndividualName, owlClassIRI: individual.owlClassIRI}
   service.createIndividual(individual, populateId, obj, (err, id) => {
     if (err) return cb(err)
     cb(null, id)
@@ -30,7 +30,7 @@ function deleteIndividual (id, populateId, cb) {
 }
 
 function putIndividualAnnotationProperties (id, props, cb) {
-  service.putIndividualAnnotationProperties(id, props, (newProps, ret) => {
+  service.putIndividualAnnotationProperties(id, props, (newProps, ret, indMap) => {
     newProps.forEach(elem => {
       if (!elem.id) {
         let id = idGen.generate()
@@ -38,7 +38,8 @@ function putIndividualAnnotationProperties (id, props, cb) {
         elem.id = id
       }
     })
-    db.updateById(collection, id, {originalAnnotationProps: newProps}, (err) => {
+    let originalProps = indMap.originalAnnotationProps ? indMap.originalAnnotationProps : []
+    db.updateById(collection, id, {originalAnnotationProps: originalProps.concat(newProps)}, (err) => {
       if (err) return cb(err)
       ret(newProps)
     })
@@ -46,7 +47,7 @@ function putIndividualAnnotationProperties (id, props, cb) {
 }
 
 function putIndividualDataProperties (id, props, cb) {
-  service.putIndividualDataProperties(id, props, (newProps, ret) => {
+  service.putIndividualDataProperties(id, props, (newProps, ret, indMap) => {
     newProps.forEach(elem => {
       if (!elem.id) {
         let id = idGen.generate()
@@ -54,7 +55,8 @@ function putIndividualDataProperties (id, props, cb) {
         elem.id = id
       }
     })
-    db.updateById(collection, id, {originalDataProps: newProps}, (err) => {
+    let originalProps = indMap.originalDataProps ? indMap.originalDataProps : []
+    db.updateById(collection, id, {originalDataProps: originalProps.concat(newProps)}, (err) => {
       if (err) return cb(err)
       ret(newProps)
     })
@@ -62,7 +64,7 @@ function putIndividualDataProperties (id, props, cb) {
 }
 
 function putIndividualObjectProperties (id, props, cb) {
-  service.putIndividualObjectProperties(id, props, (newProps, ret) => {
+  service.putIndividualObjectProperties(id, props, (newProps, ret, indMap) => {
     newProps.forEach(elem => {
       if (!elem.id) {
         let id = idGen.generate()
@@ -70,7 +72,8 @@ function putIndividualObjectProperties (id, props, cb) {
         elem.id = id
       }
     })
-    db.updateById(collection, id, {originalObjectProps: newProps}, (err) => {
+    let originalProps = indMap.originalObjectProps ? indMap.originalObjectProps : []
+    db.updateById(collection, id, {originalObjectProps: originalProps.concat(newProps)}, (err) => {
       if (err) return cb(err)
       ret(newProps)
     })

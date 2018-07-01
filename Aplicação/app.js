@@ -1,7 +1,7 @@
 'use strict'
 
 const path = require('path')
-const hbs = require('hbs')
+const hbs = require('./utils/handlebars-helpers')
 const bodyParser = require('body-parser')
 const express = require('express')
 const app = express()
@@ -22,15 +22,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
 
 hbs.registerPartials(`${__dirname}/views/partials`)
-hbs.registerHelper('concat', function () {
-  let outStr = ''
-  for (let arg in arguments) {
-    if (typeof arguments[arg] !== 'object') {
-      outStr += arguments[arg]
-    }
-  }
-  return outStr
-})
 
 app.use(fileRouter)
 app.use(mappingRouter)

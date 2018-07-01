@@ -1,7 +1,7 @@
 <div class="eight wide column">
     <h5 class="ui center aligned header" id="property-header">
         OBJECT PROPERTIES
-        <button class="ui button mini basic secondary right floated" onclick="createIndividualObjectProperty('{{_id}}')">
+        <button class="ui button mini basic secondary right floated" onclick="createIndividualObjectProperty('{{_id}}', '{{populateId}}')">
             ADD
         </button>
     </h5>
@@ -27,23 +27,7 @@
     </div>
 </div>
 <div class="eight wide column">
-    <div class="ui middle aligned divided list" id="properties-list">
-        {{#each this.objectProperties}}
-            <div class="item" id="property-{{id}}">
-                <div class="right floated content">
-                    <button class="ui icon mini button basic secondary" onclick="deleteIndividualProperty('{{id}}', '{{type}}')">
-                        <i class="large trash alternate outline middle aligned icon"></i>
-                    </button>
-                </div>
-                <div class="content">
-                    <a class="header" href="/populate/nondata/{{../this/populateId}}/individual/{{value.id}}">
-                        {{value.name}}
-                    </a>
-                    <div class="description">
-                        {{owlClassIRI}}
-                    </div>
-                </div>
-            </div>
-        {{/each}}
+    <div class="ui middle aligned divided list" id="object-properties-list">
+        {{> individualProps props=this.objectProperties _id=this._id type='object' populateId=this.populateId}}
     </div>
 </div>

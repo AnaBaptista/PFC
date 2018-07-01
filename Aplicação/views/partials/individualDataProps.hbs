@@ -33,23 +33,7 @@
     </div>
 </div>
 <div class="eight wide column">
-    <div class="ui middle aligned divided list" id="properties-list">
-        {{#each this.dataProperties}}
-            <div class="item" id="property-{{id}}">
-                <div class="right floated content">
-                    <button class="ui icon mini button basic secondary" onclick="deleteIndividualMappingProperty('{{id}}', '{{type}}')">
-                        <i class="large trash alternate outline middle aligned icon"></i>
-                    </button>
-                </div>
-                <div class="content">
-                    <div class="header">
-                        {{value}}
-                    </div>
-                    <div class="description">
-                        {{owlClassIRI}}
-                    </div>
-                </div>
-            </div>
-        {{/each}}
+    <div class="ui middle aligned divided list" id="data-properties-list">
+       {{> individualProps props=this.dataProperties _id=this._id type='data'}}
     </div>
 </div>

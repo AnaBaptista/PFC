@@ -1,13 +1,13 @@
 <!-- Navbar -->
 {{> navbar backward='/populate'}}
 <div class="ui body-content" id="mapper-content">
+    <h5 class="ui center aligned icon header">
+        <i class="circular sitemap alternate outline icon"></i>
+        INDIVIDUAL
+    </h5>
+    <hr>
     <div class="ui internally celled grid" id="mapper-grid">
         <div class="eight wide column" id="classes-segment">
-            <h5 class="ui center aligned icon header">
-                <i class="circular sitemap alternate outline icon"></i>
-                INDIVIDUAL
-            </h5>
-            <hr>
             <h5 class="ui center aligned header">
                 Choose an OWL class and write a TAG to create an individual
             </h5>
@@ -36,6 +36,7 @@
             </h5>
         </div>
         <div class="eight wide column">
+            <h5>Alredy exist</h5>
             <div class="ui middle aligned divided list" id="individual-list">
                 {{#each this.indMappings}}
                     <div class="item" id="individual-{{_id}}">

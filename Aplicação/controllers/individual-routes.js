@@ -37,7 +37,9 @@ function putIndividualAnnotationProperties (req, res, next) {
   let data = req.body.annotationProps
   service.putIndividualAnnotationProperties(id, data, (err, props) => {
     if (err) return next(err)
-    res.json(props)
+    let ctx = {layout: false, type: 'annotation'}
+    Object.assign(ctx, {props: props, _id: id})
+    res.render('partials/individualProps', ctx)
   })
 }
 
@@ -47,7 +49,9 @@ function putIndividualDataProperties (req, res, next) {
   let data = req.body.dataProps
   service.putIndividualDataProperties(id, data, (err, props) => {
     if (err) return next(err)
-    res.json(props)
+    let ctx = {layout: false, type: 'data'}
+    Object.assign(ctx, {props: props, _id: id})
+    res.render('partials/individualProps', ctx)
   })
 }
 
@@ -55,9 +59,12 @@ function putIndividualObjectProperties (req, res, next) {
   console.log('PUT -> /individual/:id/properties/object, putIndividualObjectProperties')
   let id = req.params.id
   let data = req.body.objProps
+  let populateId = req.body.populateId
   service.putIndividualObjectProperties(id, data, (err, props) => {
     if (err) return next(err)
-    res.json(props)
+    let ctx = {layout: false, type: 'object'}
+    Object.assign(ctx, {props: props, _id: id, populateId: populateId})
+    res.render('partials/individualProps', ctx)
   })
 }
 

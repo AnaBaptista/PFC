@@ -55,7 +55,11 @@ function deleteIndividual (id, populateId) {
   genericDeleteIndividual(`/individual/${id}?populateId=${populateId}`, `individual-${id}`)
 }
 
-
+/**
+ * This functions create a new annotion property
+ * in specified individual
+ * @param id {String} individual id
+ */
 function createIndividualAnnotationProperty (id) {
   let annotation = getSelectedItems('annotation-properties-menu', '.selected')
   let value = document.getElementById('individual-annotation-property').value
@@ -74,6 +78,11 @@ function createIndividualAnnotationProperty (id) {
   createIndividualProperty(data, id, 'annotation')
 }
 
+/**
+ * This function adds a new data property to
+ * individual identified by id
+ * @param id {String} individual id
+ */
 function createIndividualDataProperty (id) {
   let property = getSelectedItems('data-properties-menu', '.selected')
   let type = getSelectedItems('data-property-type-menu', '.selected')
@@ -95,7 +104,13 @@ function createIndividualDataProperty (id) {
   createIndividualProperty(data, id, 'data')
 }
 
-function createIndividualObjectProperty (id) {
+/**
+ * This function adds a new object property
+ * to individual identified by id
+ * @param id {String} individual mapping id
+ * @param populateId {String} populate id
+ */
+function createIndividualObjectProperty (id, populateId) {
   let property = getSelectedItems('object-properties-menu', '.selected')
   let value = getSelectedItems('individuals-menu', '.selected')
 
@@ -112,84 +127,49 @@ function createIndividualObjectProperty (id) {
           id: value[0].id,
           name: value[0].textContent
         }
-      }]
+      }],
+    populateId: populateId
   }
   createIndividualProperty(data, id, 'object')
 }
 
+/**
+ * Generic function that creates a property
+ * in specified individual mapping
+ * @param data {Object} property to create
+ * @param id {String} individual mapping id
+ * @param type {String} property type (data, annotation or object)
+ */
 function createIndividualProperty (data, id, type) {
-  let options = getFetchOptions('PUT', data)
-
-  fetch(`/individual/${id}/properties/${type}`, options)
-    .then(handleError)
-    .then(res => res.json())
-    .then(json => {
-      location.reload()
-      alertify.success(`${type} property created`)
-    })
-    .catch(err => console.log(err.message))
+  genericCreateIndividualProperty(`/individual/${id}/properties/${type}`, data, type)
 }
 
+/**
+ * This function change the individual properties content's
+ * @param id {String} individual id
+ * @param type {String} property type (annotation, data or object)
+ * @param popId {String} populate id that the individual belongs to
+ */
 function changeIndividualContent (id, type, popId) {
   let url = (type === 'object' && `/individual/${id}/properties/${type}/view?populateId=${popId}`) ||
     `/individual/${id}/properties/${type}/view`
-  fetch(url)
-    .then(handleError)
-    .then(res => res.text())
-    .then(text => {
-      let elem = document.getElementById('individual-properties-content')
-      elem.innerHTML = text
-      $('.dropdown').dropdown({fullTextSearch: true})
-    }).catch(err => console.log(err.message))
+  genericChangeIndividualContent(url, 'individual-properties-content')
 }
 
-function finalizeMapping (popId) {
-  let elem = document.getElementById('individuals-nondata-to-mapping-list')
-  let children = [].slice.call(elem.children)
-  let selectedChildren = []
-
-  children.forEach(c => {
-    let input = c.children[0]
-    if (input.checked) {
-      selectedChildren.push(input.name)
+/**
+ * This function finalizes all individuals from populate
+ * and after creates a mapping
+ * @param populateId {String} populate id
+ */
+function finalizeMapping (populateId) {
+  let promise = (elems) => {
+    let data = {
+      list: elems
     }
-  })
-
-  let name = document.getElementById('mapping-name').value
-
-  if (name.length === 0) {
-    alertify.message('Choose an output file name')
-    return
+    let options = getFetchOptions('PUT', data)
+    return fetch(`/populate/nondata/${populateId}/finalizeIndividual`, options)
+      .then(handleError)
+      .then(_ => Promise.resolve())
   }
-
-  if (selectedChildren.length === 0) {
-    alertify.message('Select some individual mappings')
-    return
-  }
-
-  let data = {
-    list: selectedChildren
-  }
-  let options = getFetchOptions('PUT', data)
-
-  fetch(`/populate/nondata/${popId}/finalizeIndividual`, options)
-    .then(handleError)
-    .then(res => res.json())
-    .then(ids => {
-      let data = {
-        data: {
-          indMappings: selectedChildren,
-          populateId: popId,
-          name: name
-        }
-      }
-      let options = getFetchOptions('POST', data)
-
-      fetch('/map', options)
-        .then(handleError)
-        .then(_ => {
-          alertify.success('Mapping created')
-          window.location.href = `/populate`
-        })
-    })
+  genericCreateMapping(populateId, 'individuals-nondata-to-mapping-list', promise)
 }

@@ -23,23 +23,7 @@
     </div>
 </div>
 <div class="eight wide column">
-    <div class="ui middle aligned divided list" id="properties-list">
-        {{#each this.annotationProperties}}
-            <div class="item" id="property-{{id}}">
-                <div class="right floated content">
-                    <button class="ui icon mini button basic secondary" onclick="deleteIndividualProperty('{{id}}', '{{type}}')">
-                        <i class="large trash alternate outline middle aligned icon"></i>
-                    </button>
-                </div>
-                <div class="content">
-                    <div class="header">
-                        {{annotation}}
-                    </div>
-                    <div class="description">
-                        {{value}}
-                    </div>
-                </div>
-            </div>
-        {{/each}}
+    <div class="ui middle aligned divided list" id="annotation-properties-list">
+        {{> individualProps props=this.annotationProperties _id=this._id type='annotation'}}
     </div>
 </div>

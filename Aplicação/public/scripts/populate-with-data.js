@@ -64,10 +64,10 @@ function deleteIndividualMapping (id, populateId) {
 }
 
 /**
- *
+ * This functions create a new annotion property
+ * in specified individual mapping
  * @param id {String} individual mapping id
  */
-// Label, Comment and SeeAlso (nodes)
 function createIndividualMappingAnnotationProperty (id) {
   let annotation = getSelectedItems('annotation-properties-menu', '.selected')
   let node = document.getElementById('annotation-property-to-term')
@@ -96,7 +96,7 @@ function createIndividualMappingAnnotationProperty (id) {
 
 /**
  * This function adds a new data property to
- * individual mapping identified by indMapId
+ * individual mapping identified by id
  * @param id {String} individual mapping id
  */
 function createIndividualMappingDataProperty (id) {
@@ -130,7 +130,7 @@ function createIndividualMappingDataProperty (id) {
 
 /**
  * This function adds a new object property
- * to individual mapping
+ * to individual mapping by id
  * @param id {String} individual mapping id
  */
 function createIndividualMappingObjectProperty (id) {
@@ -162,28 +162,29 @@ function createIndividualMappingObjectProperty (id) {
  * @param type {String} property type (data, annotation or object)
  */
 function createIndividualMappingProperty (data, id, type) {
-  let options = getFetchOptions('PUT', data)
-
-  fetch(`/map/individual/${id}/properties/${type}`, options)
-    .then(handleError)
-    .then(res => res.text())
-    .then(html => {
-      alertify.success(`${type} property created`)
-      let list = document.getElementById(`${type}-properties-list`)
-      list.insertAdjacentHTML('beforeend', html)
-    })
-    .catch(err => console.log(err.message))
+  genericCreateIndividualProperty(`/map/individual/${id}/properties/${type}`, data, type)
 }
 
-function deleteIndividualMappingProperty (id, pId, type) {
-  fetch(`/map/individual/${id}/properties/${pId}?type=${type}`, {method: 'DELETE'})
-    .then(handleError)
-    .then(_ => {
-      let elem = document.getElementById(`property-${pId}`)
-      let parent = elem.parentElement
-      parent.removeChild(elem)
-      alertify.success(`${type} property deleted`)
-    })
+/**
+ *  This function changes the properties content's
+ * @param id {String} invidual mapping id
+ * @param type {String} property type (data, object or annotation)
+ */
+function changeIndividualMappingContent (id, type) {
+  document.getElementById('individual-name-row').style.display = 'none'
+  document.getElementById('individual-name-to-term').innerText = ''
+  document.getElementById('data-file-term').innerText = `${type}-property-to-term`
+
+  let url = `/map/individual/${id}/properties/${type}/view`
+  genericChangeIndividualContent(url, 'individual-mapping-content')
+}
+
+/**
+ * This function create a mapping
+ * @param populateId {String} populate id
+ */
+function createMapping (populateId) {
+  genericCreateMapping(populateId, 'individuals-to-mapping-list', (_) => Promise.resolve())
 }
 
 /**
@@ -229,7 +230,7 @@ function createIndividualMappingName (id) {
  * individual name to individual mapping
  */
 function showIndividualMappingNameContent () {
-  let currDisplay =  document.getElementById('individual-name-row').style.display
+  let currDisplay = document.getElementById('individual-name-row').style.display
   let nextDisplay = (currDisplay === 'block' && 'none') || 'block'
   document.getElementById('data-file-term').innerText = (nextDisplay === 'block' && `individual-name-to-term`) || ''
   document.getElementById('individual-name-row').style.display = nextDisplay
@@ -240,80 +241,6 @@ function showIndividualMappingNameContent () {
 }
 
 /**
- *  This function changes the properties content's
- * @param id {String} invidual mapping id
- * @param type {String} property type (data, object or annotation)
- */
-function changeIndividualMappingContent (id, type) {
-  document.getElementById('individual-name-row').style.display = 'none'
-  document.getElementById('individual-name-to-term').innerText = ''
-  document.getElementById('data-file-term').innerText = `${type}-property-to-term`
-
-  let url = `/map/individual/${id}/properties/${type}/view`
-
-  fetch(url)
-    .then(handleError)
-    .then(res => res.text())
-    .then(text => {
-      let elem = document.getElementById('individual-mapping-content')
-      elem.innerHTML = text
-      $('.dropdown').dropdown({fullTextSearch: true})
-    }).catch(err => console.log(err.message))
-}
-
-function createMapping (id) {
-  let elem = document.getElementById('individuals-to-mapping-list')
-  let children = [].slice.call(elem.children)
-  let selectedChildren = []
-
-  children.forEach(c => {
-    let input = c.children[0]
-    if (input.checked) {
-      selectedChildren.push(input.name)
-    }
-  })
-
-  let name = document.getElementById('mapping-name').value
-
-  if (selectedChildren.length === 0) {
-    alertify.message('Select some individual mappings')
-    return
-  }
-
-  if (name.length === 0) {
-    alertify.message('Choose an output file name')
-    return
-  }
-
-  let data = {
-    data: {
-      indMappings: selectedChildren,
-      populateId: id,
-      name: name
-    }
-  }
-  let options = getFetchOptions('POST', data)
-
-  fetch('/map', options)
-    .then(handleError)
-    .then(_ => {
-      alertify.success('Mapping created')
-      window.location.href = `/populate`
-    })
-}
-
-function generateOutputFile (id) {
-  fetch(`/populate/${id}/output`, {method: 'PUT'})
-    .then(handleError)
-    .then(_ => {
-      alertify.success('File created')
-      window.location.href = `/populate`
-    })
-  console.log('teste')
-}
-
-
-/**
  * This function save the individual mapping on ChaosPop
  * @param id {String} individual id
  */
@@ -322,5 +249,23 @@ function saveIndividualMappingInChaosPop (id) {
     .then(handleError)
     .then(_ => {
       alertify.success('Individual Mapping updated on ChaosPop')
+    })
+}
+
+/**
+ * This functions removes the specified property
+ * from individual mapping
+ * @param id {id} individual mapping id
+ * @param propertyId {String} property id
+ * @param type {String} property type (annotation, data or object)
+ */
+function deleteIndividualMappingProperty (id, propertyId, type) {
+  fetch(`/map/individual/${id}/properties/${propertyId}?type=${type}`, {method: 'DELETE'})
+    .then(handleError)
+    .then(_ => {
+      let elem = document.getElementById(`property-${propertyId}`)
+      let parent = elem.parentElement
+      parent.removeChild(elem)
+      alertify.success(`${type} property deleted`)
     })
 }
