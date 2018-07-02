@@ -1,10 +1,15 @@
 'use strict'
 
+const isntFork = process.send === undefined
+const config = (isntFork && require('./configuration/config')) || require('./configuration/config-electron')
+module.exports = {config: config}
+
 const path = require('path')
 const hbs = require('./utils/handlebars-helpers')
 const bodyParser = require('body-parser')
 const express = require('express')
-const app = express()
+const logger = require('morgan')
+var debug = require('debug')('HOMI')
 
 const fileRouter = require('./controllers/file-routes')
 const mappingRouter = require('./controllers/mapping-routes')
@@ -13,15 +18,20 @@ const index = require('./controllers/index-routes')
 const populateRouter = require('./controllers/populate-routes')
 const individualRouter = require('./controllers/individual-routes')
 
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'hbs')
-app.set('port', (process.env.PORT || 3000))
+const app = express()
 
+app.set('views', `${config.dirname}/views`)
+
+app.set('view engine', 'hbs')
+app.set('port', (process.env.PORT || 8000))
+
+app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(express.static(path.join(__dirname, 'public')))
 
-hbs.registerPartials(`${__dirname}/views/partials`)
+app.use(express.static(`${config.dirname}/public`))
+
+hbs.registerPartials(`${config.dirname}/views/partials`)
 
 app.use(fileRouter)
 app.use(mappingRouter)
@@ -49,5 +59,6 @@ app.use(function (err, req, res, next) {
 })
 
 app.listen(app.get('port'), () => {
-  console.log(`listening on port: ${app.get('port')}`)
+  debug(`Listening on port: ${app.get('port')}`)
+  debug(config)
 })

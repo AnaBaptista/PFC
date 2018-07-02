@@ -12,7 +12,8 @@ module.exports = {
  * MongoDb Requests
  */
 const MongoClient = require('mongodb').MongoClient
-const url = 'mongodb://localhost:27017'
+let { config } = require('../app')
+let url = config.mongoDb
 const dbName = 'HomiDb'
 const ObjectID = require('mongodb').ObjectID
 
