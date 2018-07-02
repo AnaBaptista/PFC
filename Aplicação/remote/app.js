@@ -20,7 +20,9 @@ const individualRouter = require('./controllers/individual-routes')
 
 const app = express()
 
-app.set('views', `${config.dirname}/views`)
+let dirname = __dirname
+console.log(dirname)
+app.set('views', path.join(dirname, 'views'))
 
 app.set('view engine', 'hbs')
 app.set('port', (process.env.PORT || 8000))
@@ -29,9 +31,9 @@ app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
-app.use(express.static(`${config.dirname}/public`))
+app.use(express.static(path.join(dirname, 'public')))
 
-hbs.registerPartials(`${config.dirname}/views/partials`)
+hbs.registerPartials(path.join(dirname, 'views/partials'))
 
 app.use(fileRouter)
 app.use(mappingRouter)

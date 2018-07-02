@@ -1,39 +1,20 @@
 {
   "name": "app",
   "version": "1.0.0",
-  "description": "Hybrid Ontology Mapping Interface",
-  "main": "app.js",
-  "scripts": {
-    "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Ana Carolina Baptista, Eliane Almeida",
+  "description": "Hybrid Ontology Mapping Interface - Desktop Version",
+  "main": "desktopapp.js",
+  "homepage": "http://localhost:8000/",
+  "author": "Ana Baptista, Eliane Almeida",
   "license": "ISC",
-  "dependencies": {
-    "alertifyjs": "^1.11.1",
-    "async": "^2.6.0",
-    "body-parser": "^1.18.2",
-    "connect-multiparty": "^2.1.0",
-    "d3": "^5.4.0",
-    "debug": "^3.1.0",
-    "electron": "~2.0.2",
-    "express": "^4.16.3",
-    "fs": "0.0.1-security",
-    "hbs": "^4.0.1",
-    "helper-concat": "^0.3.0",
-    "jquery": "^3.3.1",
-    "mongodb": "^3.1.0-beta4",
-    "morgan": "^1.9.0",
-    "path": "^0.12.7",
-    "promise": "^8.0.1",
-    "request": "^2.85.0",
-    "save": "^2.3.2",
-    "shortid": "^2.2.8",
-    "standard": "^11.0.1",
-    "string-to-stream": "^1.1.1",
-    "xml-writer": "^1.7.0"
+  "scripts": {
+    "start": "npm install && electron desktopapp.js"
   },
-  "engines": {
-    "node": "6.11.3"
+  "devDependencies": {
+    "electron": "~2.0.2",
+    "electron-builder": "~20.15.1"
+  },
+  "dependencies": {
+    "electron-installer-windows": "~1.1.0",
+    "path": "~0.12.7"
   }
 }

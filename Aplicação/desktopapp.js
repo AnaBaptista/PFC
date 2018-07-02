@@ -1,6 +1,6 @@
 const {app, BrowserWindow} = require('electron')
 const fork = require('child_process').fork
-const config = require('../configuration/config-electron')
+const config = require('./remote/configuration/config-electron')
 
 let win
 
@@ -25,7 +25,7 @@ function createChildProccess () {
     env: env
   }
 
-  const childProccess = fork('../app.js', [], Object.create(options))
+  const childProccess = fork('./remote/app.js', [], Object.create(options))
 }
 
 app.on('ready', createWindow)
