@@ -336,12 +336,12 @@ function postFakeFile (listOfIndividuals, cb) {
   }
 }
 
-function parseIndividualToInMap (individual, dataFileId, nodeId) {
+function parseIndividualToInMap (individual, dataFileId, node) {
   individual.tag = `_${individual._id.toString()}`
   let base = `.inspecificchild-_${individual._id.toString()}`
   individual.individualName = `${base}-individualName`
   individual.dataFileId = dataFileId
-  individual.nodeId = nodeId
+  individual.nodeId = node._id.toString()
   individual.specification = false
   if (individual.dataProperties !== undefined) {
     individual.dataProperties.forEach(prop => {
