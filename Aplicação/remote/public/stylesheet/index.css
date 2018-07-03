@@ -7,7 +7,7 @@
 }
 
 #files-content-column {
-    min-height: 650px;
+    min-height: 700px;
 }
 
 .files-dropdown {
@@ -16,4 +16,8 @@
 
 #mapper-options {
     padding-top: 150px;
+}
+
+.non-404-error {
+    margin-top: -0px;
 }

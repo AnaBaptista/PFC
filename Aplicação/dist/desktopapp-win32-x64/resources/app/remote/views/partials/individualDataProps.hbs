@@ -1,0 +1,39 @@
+<div class="eight wide column">
+    <h5 class="ui center aligned header" id="property-header">
+        DATA PROPERTIES
+        <button class="ui button mini basic secondary right floated" onclick="createIndividualDataProperty('{{_id}}')" title="Click to save the data property">
+            ADD
+        </button>
+    </h5>
+    <div class="ui labeled input fluid" id="property-input">
+        <div class="ui label">
+            Data property value:
+        </div>
+        <input id="individual-data-property" placeholder="Value" type="text">
+    </div>
+    <div class="ui fluid search selection dropdown" id="select-dproperty">
+        <input name="select-dproperty" type="hidden">
+        <i class="dropdown icon"></i>
+        <div class="default text">Select data properties</div>
+        <div class="menu" id="data-properties-menu">
+            {{#each this.dproperties}}
+                <div class="item" data-value="{{this}}">{{this}}</div>
+            {{/each}}
+        </div>
+    </div>
+    <div class="ui fluid selection dropdown">
+        <input name="select-dproperty-type" type="hidden">
+        <i class="dropdown icon"></i>
+        <div class="default text">Select data property type</div>
+        <div class="menu" id="data-property-type-menu">
+            {{#each this.dpropertyTypes}}
+                <div class="item" data-value="{{this}}">{{this}}</div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+<div class="eight wide column">
+    <div class="ui middle aligned divided list" id="data-properties-list">
+       {{> individualProps props=this.dataProperties _id=this._id type='data'}}
+    </div>
+</div>

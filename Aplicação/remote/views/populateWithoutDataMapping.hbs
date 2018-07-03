@@ -8,9 +8,9 @@
     </h4>
     <div id="create-mapping-content">
         <h5>Choose some individuals to create an mapping:</h5>
-        <div class="ui middle aligned divided list" id="individuals-nondata-to-mapping-list">
+        <div class="ui middle aligned list" id="individuals-nondata-to-mapping-list">
             {{#each this.individuals}}
-                <div class="ui checkbox">
+                <div class="ui item checkbox" title="Select/deselect this individual">
                     <input name="{{_id}}" type="checkbox">
                     <label><b>{{originalIndividualName}}</b>: {{owlClassIRI}}</label>
                 </div>
@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="six wide column" id="create-mapping-btn">
-                <button class="ui medium basic secondary compact button" onclick="finalizeMapping('{{_id}}')">
+                <button class="ui medium basic secondary compact button" onclick="finalizeMapping('{{_id}}')" title="Click to create mapping">
                     SUBMIT
                 </button>
             </div>

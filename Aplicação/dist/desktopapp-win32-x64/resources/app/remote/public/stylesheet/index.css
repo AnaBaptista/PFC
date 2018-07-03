@@ -1,0 +1,19 @@
+.ui.action.input input[type="file"] {
+    display: none;
+}
+
+#files-content {
+    margin-top: -50px;
+}
+
+#files-content-column {
+    min-height: 650px;
+}
+
+.files-dropdown {
+    margin-top: 15px;
+}
+
+#mapper-options {
+    padding-top: 150px;
+}

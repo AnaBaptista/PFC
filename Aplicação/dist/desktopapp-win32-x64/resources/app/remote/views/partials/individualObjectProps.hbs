@@ -1,0 +1,33 @@
+<div class="eight wide column">
+    <h5 class="ui center aligned header" id="property-header">
+        OBJECT PROPERTIES
+        <button class="ui button mini basic secondary right floated" onclick="createIndividualObjectProperty('{{_id}}', '{{populateId}}')">
+            ADD
+        </button>
+    </h5>
+    <div class="ui fluid search selection dropdown">
+        <input name="select-oproperty" type="hidden">
+        <i class="dropdown icon"></i>
+        <div class="default text">Select an object property</div>
+        <div class="menu" id="object-properties-menu">
+            {{#each this.oproperties}}
+                <div class="item" data-value="{{this}}">{{this}}</div>
+            {{/each}}
+        </div>
+    </div>
+    <div class="ui fluid search selection dropdown" id="select-individual">
+        <input name="select-individual" type="hidden">
+        <i class="dropdown icon"></i>
+        <div class="default text">Select an individual</div>
+        <div class="menu" id="individuals-menu">
+            {{#each this.individuals}}
+                <div class="item" id="{{_id}}">{{originalIndividualName}}</div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+<div class="eight wide column">
+    <div class="ui middle aligned divided list" id="object-properties-list">
+        {{> individualProps props=this.objectProperties _id=this._id type='object' populateId=this.populateId}}
+    </div>
+</div>

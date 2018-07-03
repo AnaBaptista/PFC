@@ -341,7 +341,7 @@ function parseIndividualToInMap (individual, dataFileId, node) {
   let base = `.inspecificchild-_${individual._id.toString()}`
   individual.individualName = `${base}-individualName`
   individual.dataFileId = dataFileId
-  individual.nodeId = node._id.toString()
+  individual.nodeId = node[0]._id.toString()
   individual.specification = false
   if (individual.dataProperties !== undefined) {
     individual.dataProperties.forEach(prop => {

@@ -81,7 +81,7 @@ function drawIndentedTree (root, id) {
   update(root)
 
   function update (source) {
-    // Compute the flattened node list. TODO use d3.layout.hierarchy.
+    // Compute the flattened node list.
     let nodes = tree.nodes(root)
 
     let height = Math.max(minHeight, nodes.length * barHeight + margin.top + margin.bottom)

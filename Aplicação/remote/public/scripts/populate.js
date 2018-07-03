@@ -150,7 +150,7 @@ function genericCreateMapping (populateId, elemId, promise) {
       .then(handleError)
       .then(_ => {
         alertify.success('Mapping created')
-        window.location.href = '/location'
+        window.location.href = '/populate'
       })
   })
 }
