@@ -6,7 +6,7 @@ process.env['DEBUG'] = 'HOMI::Server'
  * Verify if it's running from electron
  */
 const isntFork = process.send === undefined
-const config = (isntFork && require('./configuration/config')) || require('./configuration/config-electron')
+const config = (isntFork && require('./config/config')) || require('./config/config-electron')
 module.exports = {config: config}
 
 const path = require('path')
@@ -27,18 +27,18 @@ const app = express()
 /**
  * Configuration
  */
-let dirname = __dirname
-app.set('views', path.join(dirname, 'views'))
+debug(config)
+app.set('views', path.join(__dirname, `views`))
 app.set('view engine', 'hbs')
 app.set('port', (process.env.PORT || 8000))
-hbs.registerPartials(path.join(dirname, 'views/partials'))
+hbs.registerPartials(path.join(__dirname, 'views/partials'))
 
 /**
  * Middlewares and routes
  */
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(express.static(path.join(dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public')))
 
 app.use(fileRouter)
 app.use(mappingRouter)

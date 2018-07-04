@@ -1,6 +1,6 @@
 const {app, BrowserWindow} = require('electron')
 const fork = require('child_process').fork
-const config = require('./remote/configuration/config-electron')
+const config = require('./config/config-electron')
 
 let win
 let childProcess
@@ -26,12 +26,13 @@ function createChildProccess () {
     env: env
   }
 
-  childProccess = fork('./remote/app.js', [], Object.create(options))
+  childProccess = fork('./app.js', [], Object.create(options))
 }
 
 app.on('ready', createWindow)
 app.on('window-all-closed', () => {
-  console.log('Killed process')
- // childProcess.kill('SIGHUP')
+  if (childProcess !== undefined) {
+    childProcess.kill('SIGHUP')
+  }
   app.quit()
 })

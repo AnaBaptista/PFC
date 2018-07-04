@@ -14,61 +14,47 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="populateWithoutDataMapping.hbs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/remote/views/populateWithoutDataMapping.hbs">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="36" selection-start-line="12" selection-start-column="36" selection-end-line="12" selection-end-column="36" />
+            <state relative-caret-position="493">
+              <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="populateWithDataMapping.hbs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/remote/views/populateWithDataMapping.hbs">
+      <file leaf-file-name="config.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="43">
-              <caret line="10" column="37" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
+            <state relative-caret-position="34">
+              <caret line="2" column="47" selection-start-line="2" selection-start-column="47" selection-end-line="2" selection-end-column="47" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="populate-service.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/remote/services/populate-service.js">
+      <file leaf-file-name="config-electron.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/config-electron.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-59">
-              <caret line="331" column="44" selection-start-line="331" selection-start-column="27" selection-end-line="331" selection-end-column="44" />
+            <state relative-caret-position="34">
+              <caret line="2" column="57" selection-start-line="2" selection-start-column="57" selection-end-line="2" selection-end-column="57" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="individual-service.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/remote/services/individual-service.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="individual-mapping-service.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/remote/services/individual-mapping-service.js">
+      <file leaf-file-name="desktopapp.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/desktopapp.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="55" column="25" selection-start-line="55" selection-start-column="8" selection-end-line="55" selection-end-column="25" />
+            <state relative-caret-position="476">
+              <caret line="28" column="25" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="populate-with-data.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/remote/public/scripts/populate-with-data.js">
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="186" column="16" selection-start-line="186" selection-start-column="16" selection-end-line="186" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="populate.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/remote/public/scripts/populate.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="116" column="9" selection-start-line="116" selection-start-column="9" selection-end-line="116" selection-end-column="9" />
+            <state relative-caret-position="119">
+              <caret line="7" column="29" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -78,7 +64,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/desktopapp.js" />
         <option value="$PROJECT_DIR$/remote/public/scripts/submit-file.js" />
         <option value="$PROJECT_DIR$/remote/views/layout.hbs" />
         <option value="$PROJECT_DIR$/remote/views/index.hbs" />
@@ -92,7 +77,6 @@
         <option value="$PROJECT_DIR$/remote/public/scripts/populate-without-data.js" />
         <option value="$PROJECT_DIR$/remote/controllers/index-routes.js" />
         <option value="$PROJECT_DIR$/remote/views/error.hbs" />
-        <option value="$PROJECT_DIR$/remote/app.js" />
         <option value="$PROJECT_DIR$/remote/utils/tree-functions.js" />
         <option value="$PROJECT_DIR$/remote/utils/handle-response.js" />
         <option value="$PROJECT_DIR$/remote/utils/handlebars-helpers.js" />
@@ -115,30 +99,34 @@
         <option value="$PROJECT_DIR$/remote/views/populateWithoutDataMapping.hbs" />
         <option value="$PROJECT_DIR$/remote/views/populateWithDataMapping.hbs" />
         <option value="$PROJECT_DIR$/remote/services/populate-service.js" />
+        <option value="$PROJECT_DIR$/remote/config.js" />
+        <option value="$PROJECT_DIR$/config-electron.js" />
+        <option value="$PROJECT_DIR$/remote/app.js" />
+        <option value="$PROJECT_DIR$/remote/package.json" />
+        <option value="$PROJECT_DIR$/desktopapp.js" />
+        <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/config/config.js" />
+        <option value="$PROJECT_DIR$/config/config-electron.js" />
+        <option value="$PROJECT_DIR$/package.json" />
       </list>
     </option>
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER">
-    <package-json value="$PROJECT_DIR$/package.json" />
-  </component>
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="NodeModulesDirectoryManager">
-    <handled-path value="$PROJECT_DIR$/dist/desktopapp-win32-x64/resources/app/node_modules" />
-    <handled-path value="$PROJECT_DIR$/dist/desktopapp-win32-x64/resources/app/remote/node_modules" />
     <handled-path value="$PROJECT_DIR$/node_modules" />
-    <handled-path value="$PROJECT_DIR$/remote/node_modules" />
   </component>
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths>
-      <path value="$PROJECT_DIR$/dist/desktopapp-win32-x64/resources/app/package.json" />
-      <path value="$PROJECT_DIR$/dist/desktopapp-win32-x64/resources/app/remote/package.json" />
       <path value="$PROJECT_DIR$/package.json" />
-      <path value="$PROJECT_DIR$/remote/package.json" />
     </packageJsonPaths>
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
@@ -158,43 +146,6 @@
               <item name="Aplicação" type="b2602c69:ProjectViewProjectNode" />
               <item name="Aplicação" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Aplicação" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Aplicação" type="462c0819:PsiDirectoryNode" />
-              <item name="remote" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Aplicação" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Aplicação" type="462c0819:PsiDirectoryNode" />
-              <item name="remote" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Aplicação" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Aplicação" type="462c0819:PsiDirectoryNode" />
-              <item name="remote" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="scripts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Aplicação" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Aplicação" type="462c0819:PsiDirectoryNode" />
-              <item name="remote" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="stylesheet" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Aplicação" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Aplicação" type="462c0819:PsiDirectoryNode" />
-              <item name="remote" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Aplicação" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Aplicação" type="462c0819:PsiDirectoryNode" />
-              <item name="remote" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -210,6 +161,14 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="standardjs.codestyle.accepted" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\ISEL\1718\SV1718\PS\Projeto\PFC\Aplicação\remote\config" />
+      <recent name="D:\ISEL\1718\SV1718\PS\Projeto\PFC\Aplicação" />
+      <recent name="D:\ISEL\1718\SV1718\PS\Projeto\PFC\Aplicação\remote" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -223,10 +182,16 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Node.js.app.js (1)">
+    <configuration name="app.js (1)" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="app.js" working-dir="$PROJECT_DIR$" />
     <configuration name="app.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="app.js" working-dir="$PROJECT_DIR$/remote" />
+    <list>
+      <item itemvalue="Node.js.app.js" />
+      <item itemvalue="Node.js.app.js (1)" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Node.js.app.js (1)" />
         <item itemvalue="Node.js.app.js" />
       </list>
     </recent_temporary>
@@ -243,12 +208,15 @@
       <updated>1530567290676</updated>
       <workItem from="1530567293922" duration="1422000" />
       <workItem from="1530568995796" duration="167000" />
-      <workItem from="1530618750646" duration="14743000" />
+      <workItem from="1530618750646" duration="15338000" />
+      <workItem from="1530735680170" duration="2765000" />
+      <workItem from="1530738686717" duration="269000" />
+      <workItem from="1530739357504" duration="289000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16332000" />
+    <option name="totallyTimeSpent" value="20250000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -267,20 +235,20 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32913387" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.32913387" />
-      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32913387" />
-      <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32913387" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.32913387" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info id="npm" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -295,332 +263,84 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/remote/public/scripts/onload.js">
+    <entry file="file://$PROJECT_DIR$/remote/public/scripts/index.js" />
+    <entry file="file://$PROJECT_DIR$/remote/node_modules/mongodb/lib/mongo_client.js" />
+    <entry file="file://$PROJECT_DIR$/remote/data-access/mongodb-access.js" />
+    <entry file="file://$PROJECT_DIR$/remote/controllers/file-routes.js" />
+    <entry file="file://$PROJECT_DIR$/remote/controllers/individual-mapping-routes.js" />
+    <entry file="file://$PROJECT_DIR$/remote/controllers/individual-routes.js" />
+    <entry file="file://$PROJECT_DIR$/remote/services/mapping-service.js" />
+    <entry file="file://$PROJECT_DIR$/remote/controllers/mapping-routes.js" />
+    <entry file="file://$PROJECT_DIR$/remote/public/scripts/populate-without-data.js" />
+    <entry file="file://$PROJECT_DIR$/remote/views/error.hbs" />
+    <entry file="file://$PROJECT_DIR$/remote/controllers/populate-routes.js" />
+    <entry file="file://$PROJECT_DIR$/remote/utils/tree-functions.js" />
+    <entry file="file://$PROJECT_DIR$/remote/utils/handle-response.js" />
+    <entry file="file://$PROJECT_DIR$/remote/utils/handlebars-helpers.js" />
+    <entry file="file://$PROJECT_DIR$/remote/utils/properties-parser.js" />
+    <entry file="file://$PROJECT_DIR$/remote/views/layout.hbs" />
+    <entry file="file://$PROJECT_DIR$/remote/controllers/index-routes.js" />
+    <entry file="file://$PROJECT_DIR$/remote/public/scripts/tree.js" />
+    <entry file="file://$PROJECT_DIR$/dist/desktopapp-win32-x64/resources/app/remote/views/index.hbs" />
+    <entry file="file://$PROJECT_DIR$/remote/public/stylesheet/body.css" />
+    <entry file="file://$PROJECT_DIR$/remote/public/stylesheet/index.css" />
+    <entry file="file://$PROJECT_DIR$/remote/views/partials/navbar.hbs" />
+    <entry file="file://$PROJECT_DIR$/remote/views/partials/individualObjectProps.hbs" />
+    <entry file="file://$PROJECT_DIR$/remote/views/partials/individualMappingProps.hbs" />
+    <entry file="file://$PROJECT_DIR$/remote/views/partials/individualMapObjectProps.hbs" />
+    <entry file="file://$PROJECT_DIR$/remote/views/partials/individualMapDataProps.hbs" />
+    <entry file="file://$PROJECT_DIR$/remote/views/partials/individualMapAnnotationProps.hbs" />
+    <entry file="file://$PROJECT_DIR$/remote/views/partials/individualDataProps.hbs" />
+    <entry file="file://$PROJECT_DIR$/remote/views/partials/individualProps.hbs" />
+    <entry file="file://$PROJECT_DIR$/remote/views/partials/individualAnnotationProps.hbs" />
+    <entry file="file://$PROJECT_DIR$/remote/views/index.hbs" />
+    <entry file="file://$PROJECT_DIR$/remote/views/individual.hbs" />
+    <entry file="file://$PROJECT_DIR$/remote/views/individualMapping.hbs" />
+    <entry file="file://$PROJECT_DIR$/remote/views/populates.hbs" />
+    <entry file="file://$PROJECT_DIR$/remote/views/populateWithData.hbs" />
+    <entry file="file://$PROJECT_DIR$/remote/views/populateWithoutData.hbs" />
+    <entry file="file://$PROJECT_DIR$/remote/public/scripts/populate.js" />
+    <entry file="file://$PROJECT_DIR$/remote/public/scripts/populate-with-data.js" />
+    <entry file="file://$PROJECT_DIR$/remote/views/populateWithoutDataMapping.hbs" />
+    <entry file="file://$PROJECT_DIR$/remote/views/populateWithDataMapping.hbs" />
+    <entry file="file://$PROJECT_DIR$/remote/services/populate-service.js" />
+    <entry file="file://$PROJECT_DIR$/remote/services/individual-mapping-service.js" />
+    <entry file="file://$PROJECT_DIR$/remote/config/config-electron.js" />
+    <entry file="file://$PROJECT_DIR$/remote/config/config.js" />
+    <entry file="file://$PROJECT_DIR$/remote/app.js" />
+    <entry file="file://$PROJECT_DIR$/remote/package.json" />
+    <entry file="file://$PROJECT_DIR$/desktopapp.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="32" column="1" lean-forward="true" selection-start-column="16" selection-end-line="32" selection-end-column="1" />
+        <state relative-caret-position="476">
+          <caret line="28" column="25" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/remote/public/scripts/index.js">
+    <entry file="file://$PROJECT_DIR$/config/config.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1156">
-          <caret line="68" column="43" selection-start-line="68" selection-start-column="43" selection-end-line="68" selection-end-column="43" />
+        <state relative-caret-position="34">
+          <caret line="2" column="47" selection-start-line="2" selection-start-column="47" selection-end-line="2" selection-end-column="47" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/remote/node_modules/mongodb/lib/mongo_client.js">
+    <entry file="file://$PROJECT_DIR$/config/config-electron.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="74">
-          <caret line="361" selection-start-line="361" selection-end-line="361" />
+        <state relative-caret-position="34">
+          <caret line="2" column="57" selection-start-line="2" selection-start-column="57" selection-end-line="2" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/data-access/mongodb-access.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="14" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/desktopapp.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="34" column="3" selection-start-line="34" selection-start-column="3" selection-end-line="34" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/controllers/file-routes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="20" column="24" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/controllers/individual-mapping-routes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-34">
-          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/controllers/individual-routes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/services/mapping-service.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="2" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/controllers/mapping-routes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/public/scripts/populate-without-data.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2873">
-          <caret line="169" column="58" lean-forward="true" selection-start-line="169" selection-start-column="58" selection-end-line="169" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/views/error.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="20" lean-forward="true" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/controllers/populate-routes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2108">
-          <caret line="124" column="17" selection-start-line="124" selection-start-column="17" selection-end-line="124" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/public/images/home-bg.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/public/favicon.ico">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/utils/tree-functions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-62">
-          <caret line="49" column="55" selection-start-line="49" selection-start-column="55" selection-end-line="49" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/utils/handle-response.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="28" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/utils/handlebars-helpers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="3" lean-forward="true" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/utils/properties-parser.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1810" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/views/layout.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="43" column="12" selection-start-line="43" selection-start-column="12" selection-end-line="43" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="34" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/controllers/index-routes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="1" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/public/scripts/tree.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="83" column="39" selection-start-line="83" selection-start-column="39" selection-end-line="83" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/public/stylesheet/d3.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dist/desktopapp-win32-x64/resources/app/remote/views/index.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="68" selection-start-line="18" selection-start-column="68" selection-end-line="18" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/public/stylesheet/body.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="482">
-          <caret line="46" column="1" selection-start-line="46" selection-start-column="1" selection-end-line="46" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/public/stylesheet/index.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/public/stylesheet/populate.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/views/partials/navbar.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="67" selection-start-line="8" selection-start-column="67" selection-end-line="8" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/views/partials/individualObjectProps.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="3" column="178" selection-start-line="3" selection-start-column="178" selection-end-line="3" selection-end-column="178" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/views/partials/individualMappingProps.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="179" selection-start-line="3" selection-start-column="179" selection-end-line="3" selection-end-column="179" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/views/partials/individualMapObjectProps.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-115">
-          <caret line="7" column="142" selection-start-line="7" selection-start-column="142" selection-end-line="7" selection-end-column="142" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/views/partials/individualMapDataProps.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-285">
-          <caret line="7" column="140" selection-start-line="7" selection-start-column="140" selection-end-line="7" selection-end-column="140" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/views/partials/individualMapAnnotationProps.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-115">
-          <caret line="7" column="146" selection-start-line="7" selection-start-column="146" selection-end-line="7" selection-end-column="146" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/views/partials/individualDataProps.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-336">
-          <caret line="3" column="142" selection-start-line="3" selection-start-column="139" selection-end-line="3" selection-end-column="142" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/views/partials/individualProps.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="29" column="127" selection-start-line="29" selection-start-column="127" selection-end-line="29" selection-end-column="127" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/views/partials/individualAnnotationProps.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-166">
-          <caret line="3" column="149" selection-start-line="3" selection-start-column="149" selection-end-line="3" selection-end-column="149" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/views/index.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-523">
-          <caret line="30" column="50" lean-forward="true" selection-start-line="30" selection-start-column="50" selection-end-line="30" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/views/individual.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-149">
-          <caret line="28" column="154" selection-start-line="28" selection-start-column="154" selection-end-line="28" selection-end-column="154" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/views/individualMapping.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-625">
-          <caret line="57" column="189" selection-start-line="57" selection-start-column="185" selection-end-line="57" selection-end-column="189" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/views/populates.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-693">
-          <caret line="8" column="140" lean-forward="true" selection-start-line="8" selection-start-column="140" selection-end-line="8" selection-end-column="140" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/views/populateWithData.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-901">
-          <caret line="7" column="150" lean-forward="true" selection-start-line="7" selection-start-column="150" selection-end-line="7" selection-end-column="150" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/views/populateWithoutData.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-255" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/public/scripts/populate.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="116" column="9" selection-start-line="116" selection-start-column="9" selection-end-line="116" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/public/scripts/populate-with-data.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="186" column="16" selection-start-line="186" selection-start-column="16" selection-end-line="186" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/views/populateWithoutDataMapping.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="36" selection-start-line="12" selection-start-column="36" selection-end-line="12" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/views/populateWithDataMapping.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="43">
-          <caret line="10" column="37" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/services/populate-service.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-59">
-          <caret line="331" column="44" selection-start-line="331" selection-start-column="27" selection-end-line="331" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/services/individual-service.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/remote/services/individual-mapping-service.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="55" column="25" selection-start-line="55" selection-start-column="8" selection-end-line="55" selection-end-column="25" />
+        <state relative-caret-position="119">
+          <caret line="7" column="29" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
         </state>
       </provider>
     </entry>
