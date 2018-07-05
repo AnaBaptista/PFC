@@ -1,6 +1,6 @@
-const {app, BrowserWindow} = require('electron')
-const fork = require('child_process').fork
-const config = require('./config/config-electron')
+const {app, BrowserWindow} = require('electron'),
+  fork = require('child_process').fork,
+  url =  'http://localhost:8000/'
 
 let win
 let childProcess
@@ -8,8 +8,11 @@ let childProcess
 function createWindow () {
   createChildProccess()
   win = new BrowserWindow({title: 'Hybrid Ontology Mapping Interface', show: false})
-  win.loadURL('http://localhost:8000/')
+  win.loadURL(url)
   win.setMenu(null)
+  win.on('closed', () => {
+      win = null
+  })
   win.once('ready-to-show', () => {
     win.show()
     win.focus()
@@ -17,6 +20,7 @@ function createWindow () {
 }
 
 function createChildProccess () {
+  const config = require('./config/config-electron')
   let env = {
     dirname: __dirname,
     config: config,
@@ -26,7 +30,7 @@ function createChildProccess () {
     env: env
   }
 
-  childProccess = fork('./app.js', [], Object.create(options))
+  childProccess = fork('./bin/www', [], Object.create(options))
 }
 
 app.on('ready', createWindow)
@@ -35,4 +39,11 @@ app.on('window-all-closed', () => {
     childProcess.kill('SIGHUP')
   }
   app.quit()
+})
+
+
+app.on('activate', function () {
+    if (win === null) {
+        createWindow()
+    }
 })

@@ -1,19 +1,19 @@
 'use strict'
 
 process.env['DEBUG'] = 'HOMI::Server'
-
+const debug = require('debug')('HOMI::Server')
 /**
  * Verify if it's running from electron
  */
 const isntFork = process.send === undefined
 const config = (isntFork && require('./config/config')) || require('./config/config-electron')
+debug(config)
 module.exports = {config: config}
 
 const path = require('path')
 const hbs = require('./utils/handlebars-helpers')
 const bodyParser = require('body-parser')
 const express = require('express')
-const debug = require('debug')('HOMI::Server')
 
 const fileRouter = require('./controllers/file-routes')
 const mappingRouter = require('./controllers/mapping-routes')
@@ -27,10 +27,8 @@ const app = express()
 /**
  * Configuration
  */
-debug(config)
 app.set('views', path.join(__dirname, `views`))
 app.set('view engine', 'hbs')
-app.set('port', (process.env.PORT || 8000))
 hbs.registerPartials(path.join(__dirname, 'views/partials'))
 
 /**
@@ -72,6 +70,11 @@ app.use(function (err, req, res, next) {
 /**
  * Listen on port
  */
-app.listen(app.get('port'), () => {
-  debug(`Listening on port: ${app.get('port')}`)
-})
+// app.set('port', (process.env.PORT || 8000))
+// app.listen(app.get('port'), () => {
+//   debug(`Listening on port: ${app.get('port')}`)
+// })
+
+module.exports = {
+    app: app
+}
