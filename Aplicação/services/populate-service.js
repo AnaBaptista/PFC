@@ -5,6 +5,7 @@ module.exports = {
   getPopulates,
   deletePopulate,
   createOutputFile,
+  deleteBatch,
   deleteIndividualFromPopulate,
   beginProcessOfPopulateWithoutData,
   getPopulateDataTree,
@@ -92,7 +93,7 @@ function deletePopulate (id, cb) {
               mappingService.deleteMapping(pop.chaosid, (err) => {
                 if (err) return cb(err)
                 pop.batchId
-                  ? dataAccess.deleteBatch(pop.batchId, (err) => {
+                  ? deleteBatch(pop.batchId, (err) => {
                     if (err) return cb(err)
                     db.deleteById(populates, id, cb)
                   }) : db.deleteById(populates, id, cb)
@@ -106,6 +107,13 @@ function deletePopulate (id, cb) {
     } else {
       db.deleteById(populates, id, cb)
     }
+  })
+}
+
+function deleteBatch (id, cb) {
+  dataAccess.deleteBatch(id, (err) => {
+    if (err) return cb(err)
+    cb()
   })
 }
 
@@ -338,14 +346,14 @@ function postFakeFile (listOfIndividuals, cb) {
 
 function parseIndividualToInMap (individual, dataFileId, node) {
   individual.tag = `_${individual._id.toString()}`
-  let base = `.inspecificchild-_${individual._id.toString()}`
-  individual.individualName = `${base}-individualName`
+  let base = `.inspecificchild-`
+  individual.individualName = `${base}individualName`
   individual.dataFileId = dataFileId
   individual.nodeId = node[0]._id.toString()
   individual.specification = false
   if (individual.dataProperties !== undefined) {
     individual.dataProperties.forEach(prop => {
-      prop[prop.owlClassIRI] = [`${base}-${prop.id}`, prop.type]
+      prop[prop.owlClassIRI] = [`${base}${prop.id}`, prop.type]
       delete prop.owlClassIRI
       delete prop.type
       delete prop.value
@@ -354,14 +362,14 @@ function parseIndividualToInMap (individual, dataFileId, node) {
   if (individual.objectProperties !== undefined) {
     individual.objectProperties.forEach(prop => {
       prop['id'] = prop.value.id
-      prop[prop.owlClassIRI] = `${base}-_${prop.value.id}`
+      prop[prop.owlClassIRI] = `${base}_${prop.value.id}`
       delete prop.owlClassIRI
       delete prop.value
     })
   }
   if (individual.annotationProperties !== undefined) {
     individual.annotationProperties.forEach(prop => {
-      prop[prop.annotation] = `${base}-${prop.id}`
+      prop[prop.annotation] = `${base}${prop.id}`
       delete prop.annotation
       delete prop.value
     })

@@ -53,6 +53,7 @@ function createIndividualMapping (input, populateId, cb) {
 function updateIndividualMapping (id, cb) {
   dbAccess.findById(collection, id, (err, individual) => {
     if (err) return cb(err)
+    if (individual.individualName === undefined) return cb(new Error('Missing individual name'))
     let individualMapping = {
       tag: individual.tag,
       dataFileIds: [individual.dataFileId],
