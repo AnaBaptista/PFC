@@ -1,17 +1,32 @@
-const {app, BrowserWindow} = require('electron'),
-  fork = require('child_process').fork,
-  url =  'http://localhost:8000/'
+const {app, BrowserWindow} = require('electron')
+const proc = require('child_process')
+
+/**
+ * If you want generate the .exe file
+ * Windows or Linux - uncomment the first line
+ * MAC - uncomment the second line
+ */
+// const node = proc.spawn('node', ['./resources/app/express/bin/www'])
+// const node = proc.spawn('node', ['./Electron.app/Contents/Resources/app/express/bin/www'])
+
+
+/**
+ * Run desktop app
+ */
+const node = proc.spawn('node', ['./express/bin/www'])
 
 let win
-let childProcess
 
 function createWindow () {
-  createChildProccess()
-  win = new BrowserWindow({title: 'Hybrid Ontology Mapping Interface', show: false})
-  win.loadURL(url)
-  win.setMenu(null)
+  win = new BrowserWindow({
+    title: 'Hybrid Ontology Mapping Interface',
+    show: false,
+    autoHideMenuBar: true
+  })
+
+  win.loadURL('http://localhost:8000/')
   win.on('closed', () => {
-      win = null
+    win = null
   })
   win.once('ready-to-show', () => {
     win.show()
@@ -19,31 +34,21 @@ function createWindow () {
   })
 }
 
-function createChildProccess () {
-  const config = require('./config/config-electron')
-  let env = {
-    dirname: __dirname,
-    config: config,
-    port: 8000
-  }
-  let options = {
-    env: env
-  }
-
-  childProccess = fork('./bin/www', [], Object.create(options))
-}
-
 app.on('ready', createWindow)
-app.on('window-all-closed', () => {
-  if (childProcess !== undefined) {
-    childProcess.kill('SIGHUP')
-  }
-  app.quit()
+app.on('browser-window-created', (e, window) => {
+  window.setMenu(null)
 })
 
+app.on('window-all-closed', function () {
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+  node.kill('SIGINT')
+})
 
 app.on('activate', function () {
-    if (win === null) {
-        createWindow()
-    }
+  if (win === null) {
+    createWindow()
+  }
 })
+

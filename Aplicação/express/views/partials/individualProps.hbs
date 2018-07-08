@@ -1,0 +1,39 @@
+{{#each props}}
+    <div class="item" id="property-{{id}}">
+        <div class="right floated content">
+            <button class="ui icon mini button basic secondary" onclick="deleteIndividualProperty('{{../this._id}}', '{{id}}', '{{../this.type}}')" title="Click to delete this property">
+                <i class="large trash alternate outline middle aligned icon"></i>
+            </button>
+        </div>
+        {{#if (ifequals ../this.type 'annotation')}}
+            <div class="content">
+                <div class="header">
+                    {{annotation}}
+                </div>
+                <div class="description">
+                    {{value}}
+                </div>
+            </div>
+        {{/if}}
+        {{#if (ifequals ../this.type 'data')}}
+            <div class="content">
+                <div class="header">
+                    {{value}}
+                </div>
+                <div class="description">
+                    {{owlClassIRI}}
+                </div>
+            </div>
+        {{/if}}
+        {{#if (ifequals ../this.type 'object')}}
+            <div class="content">
+                <a class="header" href="/populate/nondata/{{../this/populateId}}/individual/{{value.id}}" title="Click to go to individual">
+                    {{value.name}}
+                </a>
+                <div class="description">
+                    {{owlClassIRI}}
+                </div>
+            </div>
+        {{/if}}
+    </div>
+{{/each}}
