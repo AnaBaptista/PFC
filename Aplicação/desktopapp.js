@@ -19,6 +19,7 @@ const node = proc.execFile('node', ['./bin/www'], {cwd: './resources/app/express
 /**
  * Run desktop app
  */
+<<<<<<< HEAD
 // const node = proc.execFile('node', ['./bin/www'], {cwd: './express'}, (error, stdout, stderr) => {
 //   if (error) {
 //     console.error('stderr', stderr)
@@ -26,6 +27,9 @@ const node = proc.execFile('node', ['./bin/www'], {cwd: './resources/app/express
 //   }
 //   console.log('stdout', stdout)
 // })
+=======
+const node = proc.fork('./express/bin/www')
+>>>>>>> dd241fc75af28965b853d72b03a9bede7583b5ce
 
 let win
 
