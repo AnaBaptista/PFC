@@ -13,7 +13,7 @@ const proc = require('child_process')
 /**
  * Run desktop app
  */
-const node = proc.spawn('node', ['./express/bin/www'])
+const node = proc.fork('./express/bin/www')
 
 let win
 

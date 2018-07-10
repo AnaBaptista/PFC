@@ -1,0 +1,24 @@
+{
+  "name": "desktopapp",
+  "productName": "Hybrid Ontology Mapping Interface",
+  "version": "1.0.0",
+  "description": "Hybrid Ontology Mapping Interface",
+  "main": "desktopapp.js",
+  "scripts": {
+    "start": "electron desktopapp.js",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --out=dist",
+    "package-win": "electron-packager . desktopapp --overwrite --platform=win32 --arch=x64 --out=dist --version-string.CompanyName=ISEL --version-string.FileDescription=ISEL --version-string.ProductName=\"Hybrid Ontology Mapping Interface\"",
+    "package-linux": "electron-packager . desktopapp --overwrite --platform=linux --arch=x64 --prune=true --out=dist"
+  },
+  "author": "Ana Carolina Baptista, Eliane Almeida",
+  "license": "ISC",
+  "dependencies": {
+    "debug": "^3.1.0",
+    "jquery": "^3.3.1",
+    "standard": "^11.0.1"
+  },
+  "devDependencies": {
+    "electron": "^2.0.4",
+    "electron-packager": "^12.1.0"
+  }
+}

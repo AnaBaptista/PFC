@@ -1,0 +1,47 @@
+body {
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.body-navbar,
+.body-footer {
+    height: 50px;
+}
+
+.body-content,
+.body-footer {
+    position: absolute;
+    width: 100%;
+}
+
+.body-content {
+    bottom: 100px;
+    top: 100px;
+}
+
+.body-footer {
+    bottom: 0;
+}
+
+@media (min-height: 320px) {
+    .ui.footer.form-page { /* Increased specificity for SO snippet priority */
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+}
+
+::-webkit-scrollbar {
+    background-color: transparent;
+    width: 0px;
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+::-webkit-scrollbar-track-piece {
+    background-color: transparent;
+    -webkit-border-radius: 6px;
+}
