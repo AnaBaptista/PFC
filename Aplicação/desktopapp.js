@@ -6,14 +6,30 @@ const proc = require('child_process')
  * Windows or Linux - uncomment the first line
  * MAC - uncomment the second line
  */
-// const node = proc.spawn('node', ['./resources/app/express/bin/www'])
+const node = proc.execFile('node', ['./bin/www'], {cwd: './resources/app/express'},
+  (error, stdout, stderr) => {
+  if (error) {
+    console.error('stderr', stderr)
+    throw error
+  }
+  console.log('stdout', stdout)
+})
 // const node = proc.spawn('node', ['./Electron.app/Contents/Resources/app/express/bin/www'])
-
 
 /**
  * Run desktop app
  */
+<<<<<<< HEAD
+// const node = proc.execFile('node', ['./bin/www'], {cwd: './express'}, (error, stdout, stderr) => {
+//   if (error) {
+//     console.error('stderr', stderr)
+//     throw error
+//   }
+//   console.log('stdout', stdout)
+// })
+=======
 const node = proc.fork('./express/bin/www')
+>>>>>>> dd241fc75af28965b853d72b03a9bede7583b5ce
 
 let win
 
@@ -51,4 +67,3 @@ app.on('activate', function () {
     createWindow()
   }
 })
-
