@@ -71,11 +71,11 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500)
   res.render('error')
 })
-//
-// app.set('port', (process.env.PORT || 8000))
-// app.listen(app.get('port'), () => {
-//   debug(`Listening on port: ${app.get('port')}`)
-// })
+
+app.set('port', (process.env.PORT || 8000))
+app.listen(app.get('port'), () => {
+  debug(`Listening on port: ${app.get('port')}`)
+})
 
 module.exports = {
   app: app

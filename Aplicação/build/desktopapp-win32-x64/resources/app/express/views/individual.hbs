@@ -1,0 +1,53 @@
+<!-- Navbar -->
+{{> navbar backward=(concat '/populate/nondata/' popId)}}
+<div class="ui body-content" id="mapper-content">
+    <div class="ui celled internally grid" id="mapper-grid">
+        <div class="row">
+            <div class="three wide column">
+                <h5 class="ui center aligned header">
+                    <i class="circular sitemap alternate outline icon"></i>
+                    INDIVIDUAL
+                </h5>
+            </div>
+            <div class="ten wide column">
+               <div>
+                   IRI: {{owlClassIRI}}
+               </div>
+                <div>
+                    Individual Name: {{originalIndividualName}}
+                </div>
+            </div>
+        </div>
+        <div class="row" id="individual-row">
+            <div class="sixteen wide column">
+                <div class="ui grid">
+                    <div class="row">
+                        <div class="eight wide column">
+                            <div class="ui buttons black ten wide fields">
+                                <button class="ui button" onclick="changeIndividualContent('{{_id}}', 'annotation');" title="Click to show annotation properties content">annotation properties</button>
+                                <button class="ui button" onclick="changeIndividualContent('{{_id}}', 'data');" title="Click to show data properties content">data properties</button>
+                                <button class="ui button" onclick="changeIndividualContent('{{_id}}', 'object', '{{popId}}');" title="Click to show object properties content">object properties</button>
+                            </div>
+                        </div>
+                        <div class="eight wide column">
+                            <h5 class="ui center aligned header">
+                                Properties that you mapped
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="row" id="individual-properties-content">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer -->
+{{> footer}}
+
+<script>
+    $(document).ready(function() {
+        $('.dropdown').dropdown({fullTextSearch: true})
+    });
+</script>

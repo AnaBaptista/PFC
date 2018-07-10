@@ -26,9 +26,17 @@ function makeFakeFile (listOfIndividuals, cb) {
 function processIndividual (individual, xml) {
   xml.startElement(`_${individual._id.toString()}`)
   xml.writeElement('individualName', individual.originalIndividualName)
-  if (individual.dataProperties !== undefined) { individual.dataProperties.forEach(prop => xml.writeElement(prop.id, prop.value)) }
-  if (individual.objectProperties !== undefined) { individual.objectProperties.forEach(prop => xml.writeElement(`_${prop.value.id}`, prop.value.name)) }
-  if (individual.annotationProperties !== undefined) { individual.annotationProperties.forEach(prop => xml.writeElement(prop.id, prop.value)) }
+  if (individual.dataProperties !== undefined) {
+    individual.dataProperties.forEach(
+      prop =>
+        xml.writeElement(`${prop.id}`, prop.value))
+  }
+  if (individual.objectProperties !== undefined) { individual.objectProperties.forEach(
+    prop =>
+      xml.writeElement(`${prop.id}`, prop.value.name)) }
+  if (individual.annotationProperties !== undefined) { individual.annotationProperties.forEach(
+    prop =>
+      xml.writeElement(`${prop.id}`, prop.value)) }
   xml.endElement()
 }
 /* /PRODUCES:

@@ -38,7 +38,7 @@ function putIndividualAnnotationProperties (id, props, cb) {
       if (!elem.id) {
         let id = idGen.generate()
         while (id.indexOf('-') > -1) id = idGen.generate()
-        elem.id = id
+        elem.id = `_${id}`
       }
     })
     let originalProps = indMap.annotationPropsOriginal ? indMap.annotationPropsOriginal : []
@@ -55,7 +55,7 @@ function putIndividualDataProperties (id, props, cb) {
       if (!elem.id) {
         let id = idGen.generate()
         while (id.indexOf('-') > -1) id = idGen.generate()
-        elem.id = id
+        elem.id = `_${id}`
       }
     })
     let originalProps = indMap.dataPropsOriginal ? indMap.dataPropsOriginal : []
@@ -72,7 +72,7 @@ function putIndividualObjectProperties (id, props, cb) {
       if (!elem.id) {
         let id = idGen.generate()
         while (id.indexOf('-') > -1) id = idGen.generate()
-        elem.id = id
+        elem.id = `_${id}`
       }
     })
     let originalProps = indMap.objectPropsOriginal ? indMap.ojectPropsOriginal : []

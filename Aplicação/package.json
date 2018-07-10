@@ -6,15 +6,18 @@
   "main": "desktopapp.js",
   "scripts": {
     "start": "electron desktopapp.js",
+    "create-database": "node create-database.js",
     "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --out=dist",
-    "package-win": "electron-packager . desktopapp --overwrite --platform=win32 --arch=x64 --out=dist --version-string.CompanyName=ISEL --version-string.FileDescription=ISEL --version-string.ProductName=\"Hybrid Ontology Mapping Interface\"",
+    "package-win": "electron-packager . desktopapp --overwrite --platform=win32 --arch=x64 --out=build --version-string.CompanyName=ISEL --version-string.FileDescription=ISEL --version-string.ProductName=\"Hybrid Ontology Mapping Interface\"",
     "package-linux": "electron-packager . desktopapp --overwrite --platform=linux --arch=x64 --prune=true --out=dist"
   },
   "author": "Ana Carolina Baptista, Eliane Almeida",
   "license": "ISC",
   "dependencies": {
+    "async": "^2.6.1",
     "debug": "^3.1.0",
     "jquery": "^3.3.1",
+    "mongodb": "^3.1.1",
     "standard": "^11.0.1"
   },
   "devDependencies": {

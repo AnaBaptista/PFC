@@ -324,25 +324,25 @@ function beginProcessOfPopulateWithoutData (listOfIds, cb) {
 }
 
 function postFakeFile (listOfIndividuals, cb) {
-  if (listOfIndividuals[0].dataFileId !== undefined) saveToDBAndChaos(listOfIndividuals, cb)
-  else {
-    fakeFileMaker(listOfIndividuals, (err, name, path) => {
+  // if (listOfIndividuals[0].dataFileId !== undefined) saveToDBAndChaos(listOfIndividuals, cb)
+  // else {
+  fakeFileMaker(listOfIndividuals, (err, name, path) => {
+    if (err) return cb(err)
+    fileService.addDataFile({name, path}, (err, id) => {
       if (err) return cb(err)
-      fileService.addDataFile({name, path}, (err, id) => {
+      db.findById(dataFiles, id._id, (err, file) => {
         if (err) return cb(err)
-        db.findById(dataFiles, id._id, (err, file) => {
-          if (err) return cb(err)
-          listOfIndividuals.forEach(individual =>
-            parseIndividualToInMap(individual, file.chaosid, file.nodes.filter(node => node.tag === `_${individual._id.toString()}`))
-          )
-          fs.unlink(path, (err) => {
-            if (err) return cb(err)
-          })
-          saveToDBAndChaos(listOfIndividuals, cb)
-        })
+        listOfIndividuals.forEach(individual =>
+          parseIndividualToInMap(individual, file.chaosid, file.nodes.filter(node => node.tag === `_${individual._id.toString()}`))
+        )
+        // fs.unlink(path, (err) => {
+        //   if (err) return cb(err)
+        // })
+        saveToDBAndChaos(listOfIndividuals, cb)
       })
     })
-  }
+  })
+  // }
 }
 
 function parseIndividualToInMap (individual, dataFileId, node) {
@@ -363,7 +363,7 @@ function parseIndividualToInMap (individual, dataFileId, node) {
   if (individual.objectProperties !== undefined) {
     individual.objectProperties.forEach(prop => {
       prop['id'] = prop.value.id
-      prop[prop.owlClassIRI] = `${base}_${prop.value.id}`
+      prop[prop.owlClassIRI] = `${base}_${prop.id}`
       delete prop.owlClassIRI
       delete prop.value
     })

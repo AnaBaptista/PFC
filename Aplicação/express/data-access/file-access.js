@@ -133,9 +133,7 @@ function deleteOntologyFile (id, cb) {
 
   let options = {
     url: url,
-    form: {
-      ontologyIds: JSON.stringify([id])
-    }
+    body: JSON.stringify([id])
   }
 
   req.post(options, (err, res) => {

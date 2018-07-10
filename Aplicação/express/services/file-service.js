@@ -141,14 +141,15 @@ function deleteDataFile (id, cb) {
     if (err) return cb(err)
     dataAccess.deleteDataFile(chaosid, cb)
   })
+  // dataAccess.deleteDataFile(id, cb)
 }
 
 function deleteOntologyFile (id, cb) {
   deleteFile(ontologyFileCol, id, (err, chaosid) => {
     if (err) return cb(err)
-    cb()
-    // dataAccess.deleteOntologyFile(chaosid, cb)
+    dataAccess.deleteOntologyFile(chaosid, cb)
   })
+  // dataAccess.deleteOntologyFile(id, cb)
 }
 
 function deleteFile (col, id, cb) {

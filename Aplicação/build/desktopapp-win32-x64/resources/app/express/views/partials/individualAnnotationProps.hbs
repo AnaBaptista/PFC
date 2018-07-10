@@ -1,0 +1,29 @@
+<div class="eight wide column">
+    <h5 class="ui center aligned header" id="property-header">
+        ANNOTATION PROPERTIES
+        <button class="ui button mini basic secondary right floated" onclick="createIndividualAnnotationProperty('{{_id}}')" title="Click to add the annotation property">
+            ADD
+        </button>
+    </h5>
+    <div class="ui labeled input fluid" id="property-input">
+        <div class="ui label">
+            Annotation property value:
+        </div>
+        <input id="individual-annotation-property" placeholder="Value" type="text">
+    </div>
+    <div class="ui fluid search selection dropdown">
+        <input name="select-aproperty" type="hidden">
+        <i class="dropdown icon"></i>
+        <div class="default text">Select annotation properties</div>
+        <div class="menu" id="annotation-properties-menu">
+            {{#each this.aproperties}}
+                <div class="item" data-value="{{this}}">{{this}}</div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+<div class="eight wide column">
+    <div class="ui middle aligned divided list" id="annotation-properties-list">
+        {{> individualProps props=this.annotationProperties _id=this._id type='annotation'}}
+    </div>
+</div>
