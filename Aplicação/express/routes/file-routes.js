@@ -39,7 +39,7 @@ function getDataFiles (req, res, next) {
   debug('GET /dataFile')
   service.getDataFiles((err, files) => {
     if (err) return next(err)
-    res.json(files)
+    res.render('files', {files: files, type: 'Data'})
   })
 }
 
@@ -47,7 +47,7 @@ function getOntologyFiles (req, res, next) {
   debug('GET /ontologyFile')
   service.getOntologyFiles((err, files) => {
     if (err) return next(err)
-    res.json(files)
+    res.render('files', {files: files, type: 'Ontology'})
   })
 }
 

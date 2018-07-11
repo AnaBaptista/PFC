@@ -81,29 +81,23 @@ function getPopulates (cb) {
 function deletePopulate (id, cb) {
   getPopulate(id, (err, pop) => {
     if (err) return cb(err)
+    let cbFunc = (err) => {
+      if (err) return cb(err)
+    }
+
     let indIds = pop.indMappings.map(i => i._id)
     if (indIds.length !== 0) {
       db.findByIds(indMapping, indIds, (err, indMaps) => {
         if (err) return cb(err)
         let chaosIds = indMaps.filter(i => i.chaosid).map(i => i.chaosid)
-        db.deleteByIds(indMapping, indIds, (err) => {
-          if (err) return cb(err)
-          genericIndividual.deleteIndividualsByIdOnChaosPop(chaosIds, (err) => {
-            if (err) return cb(err)
-            if (pop.chaosid) {
-              mappingService.deleteMapping(pop.chaosid, (err) => {
-                if (err) return cb(err)
-                pop.batchId
-                  ? deleteBatch(pop.batchId, (err) => {
-                    if (err) return cb(err)
-                    db.deleteById(populates, id, cb)
-                  }) : db.deleteById(populates, id, cb)
-              })
-            } else {
-              return db.deleteById(populates, id, cb)
-            }
-          })
-        })
+        db.deleteByIds(indMapping, indIds, cbFunc)
+        genericIndividual.deleteIndividualsByIdOnChaosPop(chaosIds, cbFunc)
+        if (pop.chaosid) {
+          mappingService.deleteMapping(pop.chaosid, cbFunc)
+          pop.batchId && deleteBatch(pop.batchId, cbFunc)
+          pop.outputFileId && fileService.deleteOntologyFileOnChaosPop(pop.outputFileId, cbFunc)
+        }
+        db.deleteById(populates, id, cb)
       })
     } else {
       db.deleteById(populates, id, cb)
@@ -280,6 +274,9 @@ function getPopulateDataMapping (id, cb) {
 function getPopulateDataIndividual (ind, cb) {
   genericIndividual.getIndividual(ind, (err, individual) => {
     if (err) return cb(err)
+    if (individual.individualName) {
+      individual.individualName = indMapService.getNodesFromParsed(individual.individualName)
+    }
     cb(null, individual)
   })
 }

@@ -9,7 +9,8 @@ module.exports = {
   deleteIndividualMappingProperty,
   renderDataProperties,
   renderAnnotationProperties,
-  renderObjectProperties
+  renderObjectProperties,
+  getNodesFromParsed
 }
 
 const dataAccess = require('../data-access/individual-mapping-access')
@@ -119,7 +120,8 @@ function putIndividualMappingName (id, listOfNodes, cb) {
       let set = {individualName: parsedName}
       dbAccess.updateById(collection, id, set, (err) => {
         if (err) return cb(err)
-        cb(null, parsedName)
+        let name = getNodesFromParsed(parsedName)
+        cb(null, name)
       })
     })
   })
@@ -180,11 +182,7 @@ function putIndividualMappingObjectProperties (id, objProps, cb) {
 function deleteIndividualMappingProperty (id, propertyId, type, cb) {
   service.deleteIndividualProperty(id, propertyId, type, (err, indMap) => {
     if (err) return cb(err)
-    if (indMap.chaosid) {
-      updateIndividualMapping(id, cb)
-    } else {
-      cb(null)
-    }
+    (indMap.chaosid && updateIndividualMapping(id, cb)) || cb()
   })
 }
 
@@ -224,7 +222,7 @@ function parseObjectAndAnnotationProperties (props, type) {
     return {
       id: obj.id,
       name: keys[1],
-      nodes: obj[keys[1]],
+      nodes: getNodesFromParsed(obj[keys[1]]),
       type: type
     }
   })
@@ -236,8 +234,17 @@ function parseDataProperties (props) {
     return {
       id: obj.id,
       name: keys[1],
-      nodes: obj[keys[1]][0],
+      nodes: getNodesFromParsed(obj[keys[1]][0]),
       type: 'data'
     }
   })
+}
+
+function getNodesFromParsed (metadata) {
+  let res = ''
+  let split = metadata.split(';')
+  split.forEach(node => {
+    res = res.concat(`${node.substring(node.lastIndexOf('-') + 1)} `)
+  })
+  return res
 }
