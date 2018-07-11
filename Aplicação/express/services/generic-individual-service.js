@@ -35,20 +35,27 @@ function createIndividual (individual, populateId, obj, cb) {
 function deleteIndividual (id, populateId, cb) {
   db.findById(collection, id, (err, ind) => {
     if (err) return cb(err)
-    db.deleteById(collection, id, (err) => {
+    let cbFunc = (err) => {
       if (err) return cb(err)
-      populateService.deleteIndividualFromPopulate(populateId, id, (err) => {
-        if (err) return cb(err)
-        if (ind.chaosid) {
-          dataAccess.deleteIndividualMapping([ind.chaosid], (err) => {
-            if (err) return cb(err)
-            cb()
-          })
-        } else {
-          cb()
-        }
-      })
-    })
+    }
+    ind.chaosid && dataAccess.deleteIndividualMapping([ind.chaosid], cbFunc)
+    populateService.deleteIndividualFromPopulate(populateId, id, cbFunc)
+    db.deleteById(collection, id, cb)
+
+    // db.deleteById(collection, id, (err) => {
+    //   if (err) return cb(err)
+    //   populateService.deleteIndividualFromPopulate(populateId, id, (err) => {
+    //     if (err) return cb(err)
+    //     if (ind.chaosid) {
+    //       dataAccess.deleteIndividualMapping([ind.chaosid], (err) => {
+    //         if (err) return cb(err)
+    //         cb()
+    //       })
+    //     } else {
+    //       cb()
+    //     }
+    //   })
+    // })
   })
 }
 

@@ -274,6 +274,9 @@ function getPopulateDataMapping (id, cb) {
 function getPopulateDataIndividual (ind, cb) {
   genericIndividual.getIndividual(ind, (err, individual) => {
     if (err) return cb(err)
+    if (individual.individualName) {
+      individual.individualName = indMapService.getNodesFromParsed(individual.individualName)
+    }
     cb(null, individual)
   })
 }

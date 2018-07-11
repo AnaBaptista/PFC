@@ -8,7 +8,8 @@ module.exports = {
   getOntologyFiles,
   getDataFiles,
   deleteDataFile,
-  deleteOntologyFile
+  deleteOntologyFile,
+  deleteOntologyFileOnChaosPop
 }
 
 const dataAccess = require('../data-access/file-access')
@@ -141,15 +142,13 @@ function deleteDataFile (id, cb) {
     if (err) return cb(err)
     dataAccess.deleteDataFile(chaosid, cb)
   })
-  // dataAccess.deleteDataFile(id, cb)
 }
 
 function deleteOntologyFile (id, cb) {
   deleteFile(ontologyFileCol, id, (err, chaosid) => {
     if (err) return cb(err)
-    dataAccess.deleteOntologyFile(chaosid, cb)
+    deleteOntologyFileOnChaosPop(chaosid, cb)
   })
-  // dataAccess.deleteOntologyFile(id, cb)
 }
 
 function deleteFile (col, id, cb) {
@@ -160,4 +159,8 @@ function deleteFile (col, id, cb) {
       return cb(null, file.chaosid)
     })
   })
+}
+
+function deleteOntologyFileOnChaosPop(id, cb) {
+  dataAccess.deleteOntologyFile(id, cb)
 }

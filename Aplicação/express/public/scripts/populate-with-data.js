@@ -231,6 +231,7 @@ function createIndividualMappingName (id) {
       document.getElementById('individual-name-btn').style.display = 'inline'
       document.getElementById('individual-name-row').style.display = 'none'
       document.getElementById('individual-name').innerText = json
+      document.getElementById('data-file-term').innerText = ''
       alertify.success('Individual name changed')
     })
     .catch(err => console.log(err.message))

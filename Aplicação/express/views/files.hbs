@@ -1,0 +1,21 @@
+<!-- Navbar -->
+{{> navbar backward='/'}}
+<div class="ui container">
+    <h4>{{type}}Files that already exist in database </h4>
+    <div class="ui relaxed divided list" id="files-table">
+        {{#each files}}
+            <div class="item" id="{{_id}}">
+                <div class="ui right floated content">
+                    <button class="ui tiny button basic secondary" title="Click to delete this file" onclick="deleteFile('{{_id}}', '{{../this.type}}')">
+                        DELETE
+                    </button>
+                </div>
+                <div class="content">
+                    <b>{{name}}</b>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>
+<!-- Footer -->
+{{> footer}}
