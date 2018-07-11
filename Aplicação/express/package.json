@@ -25,6 +25,7 @@
     "promise": "^8.0.1",
     "request": "^2.85.0",
     "save": "^2.3.2",
+    "serve-favicon": "^2.5.0",
     "shortid": "^2.2.8",
     "standard": "^11.0.1",
     "string-to-stream": "^1.1.1",

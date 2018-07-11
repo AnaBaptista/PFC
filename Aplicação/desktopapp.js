@@ -1,35 +1,29 @@
 const {app, BrowserWindow} = require('electron')
 const proc = require('child_process')
 
+const url = 'http://localhost:8000/'
+
 /**
  * If you want generate the .exe file
  * Windows or Linux - uncomment the first line
  * MAC - uncomment the second line
  */
-const node = proc.execFile('node', ['./bin/www'], {cwd: './resources/app/express'},
-  (error, stdout, stderr) => {
-  if (error) {
-    console.error('stderr', stderr)
-    throw error
-  }
-  console.log('stdout', stdout)
-})
-// const node = proc.spawn('node', ['./Electron.app/Contents/Resources/app/express/bin/www'])
+
+// const cwd = `./resources/app/express`
+// const cwd = `./Electron.app/Contents/Resources/app/express`
 
 /**
- * Run desktop app
+ * Run desktop app, without packager
  */
-<<<<<<< HEAD
-// const node = proc.execFile('node', ['./bin/www'], {cwd: './express'}, (error, stdout, stderr) => {
-//   if (error) {
-//     console.error('stderr', stderr)
-//     throw error
-//   }
-//   console.log('stdout', stdout)
-// })
-=======
-const node = proc.fork('./express/bin/www')
->>>>>>> dd241fc75af28965b853d72b03a9bede7583b5ce
+const cwd = './express'
+const node = proc.execFile('node', ['./bin/www'], {cwd: cwd},
+  (error, stdout, stderr) => {
+    if (error) {
+      console.error('stderr', stderr)
+      throw error
+    }
+    console.log('stdout', stdout)
+  })
 
 let win
 
@@ -40,7 +34,7 @@ function createWindow () {
     autoHideMenuBar: true
   })
 
-  win.loadURL('http://localhost:8000/')
+  win.loadURL(url)
   win.on('closed', () => {
     win = null
   })

@@ -21,3 +21,8 @@
 .non-404-error {
     margin-top: -0px;
 }
+
+#prerequisites-list {
+    margin-left: 200px;
+    padding-top: 25px;
+}

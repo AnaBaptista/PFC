@@ -48,7 +48,7 @@ function getMapping (id, cb) {
   let options = {
     url: url,
     form: {
-      id:id
+      id: id
     }
   }
 
@@ -57,4 +57,3 @@ function getMapping (id, cb) {
     handleResponse(res, cb)
   })
 }
-

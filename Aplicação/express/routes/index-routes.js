@@ -8,6 +8,7 @@ const service = require('../services/index-service')
 module.exports = router
 
 router.get('/', home)
+router.get('/download', download)
 
 function home (req, res, next) {
   debug('GET /')
@@ -15,4 +16,9 @@ function home (req, res, next) {
     if (err) return next(err)
     res.render('index', home)
   })
+}
+
+function download (req, res, next) {
+  debug('GET /dowload')
+  res.render('download')
 }

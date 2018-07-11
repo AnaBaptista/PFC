@@ -19,6 +19,7 @@ module.exports = {config: JSON.parse(config)}
 const hbs = require('./utils/handlebars-helpers')
 const bodyParser = require('body-parser')
 const express = require('express')
+const favicon = require('serve-favicon')
 
 const fileRouter = require('./routes/file-routes')
 const mappingRouter = require('./routes/mapping-routes')
@@ -42,6 +43,7 @@ hbs.registerPartials(path.join(__dirname, 'views/partials'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(favicon(path.join(__dirname, 'public', 'images/favicon.ico')))
 
 app.use(fileRouter)
 app.use(mappingRouter)
@@ -72,10 +74,10 @@ app.use(function (err, req, res, next) {
   res.render('error')
 })
 
-app.set('port', (process.env.PORT || 8000))
-app.listen(app.get('port'), () => {
-  debug(`Listening on port: ${app.get('port')}`)
-})
+// app.set('port', (process.env.PORT || 8000))
+// app.listen(app.get('port'), () => {
+//   debug(`Listening on port: ${app.get('port')}`)
+// })
 
 module.exports = {
   app: app
