@@ -81,29 +81,23 @@ function getPopulates (cb) {
 function deletePopulate (id, cb) {
   getPopulate(id, (err, pop) => {
     if (err) return cb(err)
+    let cbFunc = (err) => {
+      if (err) return cb(err)
+    }
+
     let indIds = pop.indMappings.map(i => i._id)
     if (indIds.length !== 0) {
       db.findByIds(indMapping, indIds, (err, indMaps) => {
         if (err) return cb(err)
         let chaosIds = indMaps.filter(i => i.chaosid).map(i => i.chaosid)
-        db.deleteByIds(indMapping, indIds, (err) => {
-          if (err) return cb(err)
-          genericIndividual.deleteIndividualsByIdOnChaosPop(chaosIds, (err) => {
-            if (err) return cb(err)
-            if (pop.chaosid) {
-              mappingService.deleteMapping(pop.chaosid, (err) => {
-                if (err) return cb(err)
-                pop.batchId
-                  ? deleteBatch(pop.batchId, (err) => {
-                    if (err) return cb(err)
-                    db.deleteById(populates, id, cb)
-                  }) : db.deleteById(populates, id, cb)
-              })
-            } else {
-              return db.deleteById(populates, id, cb)
-            }
-          })
-        })
+        db.deleteByIds(indMapping, indIds, cbFunc)
+        genericIndividual.deleteIndividualsByIdOnChaosPop(chaosIds, cbFunc)
+        if (pop.chaosid) {
+          mappingService.deleteMapping(pop.chaosid, cbFunc)
+          pop.batchId && deleteBatch(pop.batchId, cbFunc)
+          pop.outputFileId && fileService.deleteOntologyFileOnChaosPop(pop.outputFileId, cbFunc)
+        }
+        db.deleteById(populates, id, cb)
       })
     } else {
       db.deleteById(populates, id, cb)
@@ -333,19 +327,19 @@ function postFakeFile (listOfIndividuals, cb) {
       db.findById(dataFiles, id._id, (err, file) => {
         if (err) return cb(err)
         listOfIndividuals.forEach(individual =>
-          parseIndividualToInMap(individual, file.chaosid, file.nodes.filter(node => node.tag === `_${individual._id.toString()}`))
+          parseIndividualToIndMap2(individual, file.chaosid, file.nodes.filter(node => node.tag === `_${individual._id.toString()}`))
         )
         // fs.unlink(path, (err) => {
         //   if (err) return cb(err)
         // })
-        saveToDBAndChaos(listOfIndividuals, cb)
+        return saveToDBAndChaos(listOfIndividuals, cb)
       })
     })
   })
   // }
 }
 
-function parseIndividualToInMap (individual, dataFileId, node) {
+function parseIndividualToIndMap (individual, dataFileId, node) {
   individual.tag = `_${individual._id.toString()}`
   let base = `.inspecificchild-`
   individual.individualName = `${base}individualName`
@@ -354,16 +348,16 @@ function parseIndividualToInMap (individual, dataFileId, node) {
   individual.specification = false
   if (individual.dataProperties !== undefined) {
     individual.dataProperties.forEach(prop => {
-      prop[prop.owlClassIRI] = [`${base}${prop.id}`, prop.type]
+      prop[prop.owlClassIRI] =[`${base}${prop.id}`, prop.type]
       delete prop.owlClassIRI
       delete prop.type
       delete prop.value
     })
   }
   if (individual.objectProperties !== undefined) {
-    individual.objectProperties.forEach(prop => {
-      prop['id'] = prop.value.id
-      prop[prop.owlClassIRI] = `${base}_${prop.id}`
+    individual.objectPropsOriginal.forEach(prop => {
+      //prop['id'] = prop.value.id
+      prop[prop.owlClassIRI] = `${base}${prop.id}`
       delete prop.owlClassIRI
       delete prop.value
     })
@@ -373,6 +367,37 @@ function parseIndividualToInMap (individual, dataFileId, node) {
       prop[prop.annotation] = `${base}${prop.id}`
       delete prop.annotation
       delete prop.value
+    })
+  }
+}
+function parseIndividualToIndMap2 (individual, dataFileId, node) {
+  individual.tag = `_${individual._id.toString()}`
+  let base = `.inspecificchild-`
+  individual.individualName = `${base}individualName`
+  individual.dataFileId = dataFileId
+  individual.nodeId = node[0]._id.toString()
+  individual.specification = false
+  if (individual.dataPropsOriginal !== undefined) {
+    individual.dataProperties = []
+    individual.dataPropsOriginal.forEach(prop => {
+      let newProp = {
+        [prop.owlClassIRI] : [`${base}${prop.id}`, prop.type]
+      }
+      individual.dataProperties.push(newProp)
+    })
+  }
+  if (individual.objectPropsOriginal !== undefined) {
+    individual.objectProperties = []
+    individual.objectPropsOriginal.forEach(prop => {
+      let newProp = {[prop.owlClassIRI] : `${base}${prop.id}`}
+      individual.objectProperties.push(newProp)
+    })
+  }
+  if (individual.annotationPropsOriginal !== undefined) {
+    individual.annotationProperties = []
+    individual.annotationPropsOriginal.forEach(prop => {
+      let newProp= {[prop.annotation] : `${base}${prop.id}`}
+      individual.annotationProperties.push(newProp)
     })
   }
 }

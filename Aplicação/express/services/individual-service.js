@@ -75,7 +75,7 @@ function putIndividualObjectProperties (id, props, cb) {
         elem.id = `_${id}`
       }
     })
-    let originalProps = indMap.objectPropsOriginal ? indMap.ojectPropsOriginal : []
+    let originalProps = indMap.objectPropsOriginal ? indMap.objectPropsOriginal : []
     db.updateById(collection, id, {objectPropsOriginal: originalProps.concat(newProps)}, (err) => {
       if (err) return cb(err)
       ret(newProps)

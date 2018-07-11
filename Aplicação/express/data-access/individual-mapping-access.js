@@ -53,7 +53,7 @@ function updateIndividualMapping (newIndividual, cb) {
   }
   req.post(options, (err, res) => {
     if (err) return cb(err)
-    return cb(null, res)
+    handleResponse(res,cb)
   })
 }
 

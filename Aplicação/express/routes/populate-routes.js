@@ -123,7 +123,7 @@ function getPopulateDataIndividualTree (req, res, next) {
 
 // receives a list of individual mappings id's to be inserted into chaos pop and etc
 function finalize (req, res, next) {
-  decodeURI('PUT /populate/nondata/:id/finalize')
+  debug('PUT /populate/nondata/:id/finalize')
   let indMapIds = req.body.list
   service.beginProcessOfPopulateWithoutData(indMapIds, (err) => {
     if (err) return next(err)
