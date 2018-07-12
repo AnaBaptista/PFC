@@ -39,9 +39,9 @@ function addPopulate (req, res, next) {
 function createOutputFile (req, res, next) {
   debug('PUT /populate/:id/output')
   let id = req.params.id
-  service.createOutputFile(id, (err, out) => {
+  service.createOutputFile(id, (err, namespace) => {
     if (err) return next(err)
-    res.end()
+    res.json(namespace)
   })
 }
 

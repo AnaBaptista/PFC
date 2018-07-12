@@ -132,7 +132,11 @@ function createOutputFile (id, cb) {
           let set = {outputFileId: outputFileId[0], batchId: batchId}
           db.updateById(populates, id, set, (err) => {
             if (err) return cb(err)
-            cb()
+            // fileService.uploadFile(outputFileId[0], (err) => {
+            //   if (err) return cb(err)
+            //   cb(null, pop.namespace)
+            // })
+            cb(null, {namespace: 'http://chaospop.sysresearch.org/ontologies/teste.owl#'})
           })
         })
       })
@@ -321,8 +325,6 @@ function beginProcessOfPopulateWithoutData (listOfIds, cb) {
 }
 
 function postFakeFile (listOfIndividuals, cb) {
-  // if (listOfIndividuals[0].dataFileId !== undefined) saveToDBAndChaos(listOfIndividuals, cb)
-  // else {
   fakeFileMaker(listOfIndividuals, (err, name, path) => {
     if (err) return cb(err)
     fileService.addDataFile({name, path}, (err, id) => {
@@ -330,50 +332,18 @@ function postFakeFile (listOfIndividuals, cb) {
       db.findById(dataFiles, id._id, (err, file) => {
         if (err) return cb(err)
         listOfIndividuals.forEach(individual =>
-          parseIndividualToIndMap2(individual, file.chaosid, file.nodes.filter(node => node.tag === `_${individual._id.toString()}`))
+          parseIndividualToIndMap(individual, file.chaosid, file.nodes.filter(node => node.tag === `_${individual._id.toString()}`))
         )
-        // fs.unlink(path, (err) => {
-        //   if (err) return cb(err)
-        // })
+        fs.unlink(path, (err) => {
+          if (err) return cb(err)
+        })
         return saveToDBAndChaos(listOfIndividuals, cb)
       })
     })
   })
-  // }
 }
 
 function parseIndividualToIndMap (individual, dataFileId, node) {
-  individual.tag = `_${individual._id.toString()}`
-  let base = `.inspecificchild-`
-  individual.individualName = `${base}individualName`
-  individual.dataFileId = dataFileId
-  individual.nodeId = node[0]._id.toString()
-  individual.specification = false
-  if (individual.dataProperties !== undefined) {
-    individual.dataProperties.forEach(prop => {
-      prop[prop.owlClassIRI] =[`${base}${prop.id}`, prop.type]
-      delete prop.owlClassIRI
-      delete prop.type
-      delete prop.value
-    })
-  }
-  if (individual.objectProperties !== undefined) {
-    individual.objectProperties.forEach(prop => {
-      //prop['id'] = prop.value.id
-      prop[prop.owlClassIRI] = `${base}${prop.id}`
-      delete prop.owlClassIRI
-      delete prop.value
-    })
-  }
-  if (individual.annotationProperties !== undefined) {
-    individual.annotationProperties.forEach(prop => {
-      prop[prop.annotation] = `${base}${prop.id}`
-      delete prop.annotation
-      delete prop.value
-    })
-  }
-}
-function parseIndividualToIndMap2 (individual, dataFileId, node) {
   individual.tag = `_${individual._id.toString()}`
   let base = `.inspecificchild-`
   individual.individualName = `${base}individualName`
@@ -384,8 +354,8 @@ function parseIndividualToIndMap2 (individual, dataFileId, node) {
     individual.dataProperties = []
     individual.dataPropsOriginal.forEach(prop => {
       let newProp = {
-        'id' : prop.id,
-        [prop.owlClassIRI] : [`${base}${prop.id}`, prop.type]
+        id: prop.id,
+        [prop.owlClassIRI]: [`${base}${prop.id}`, prop.type]
       }
       individual.dataProperties.push(newProp)
     })
@@ -394,8 +364,8 @@ function parseIndividualToIndMap2 (individual, dataFileId, node) {
     individual.objectProperties = []
     individual.objectPropsOriginal.forEach(prop => {
       let newProp = {
-        'id' : prop.id,
-        [prop.owlClassIRI] : `${base}${prop.id}`
+        id: prop.id,
+        [prop.owlClassIRI]: `${base}${prop.id}`
       }
       individual.objectProperties.push(newProp)
     })
@@ -403,9 +373,9 @@ function parseIndividualToIndMap2 (individual, dataFileId, node) {
   if (individual.annotationPropsOriginal !== undefined) {
     individual.annotationProperties = []
     individual.annotationPropsOriginal.forEach(prop => {
-      let newProp= {
-        'id' : prop.id,
-        [prop.annotation] : `${base}${prop.id}`
+      let newProp = {
+        id: prop.id,
+        [prop.annotation]: `${base}${prop.id}`
       }
       individual.annotationProperties.push(newProp)
     })

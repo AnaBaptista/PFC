@@ -9,7 +9,8 @@ module.exports = {
   getDataFiles,
   deleteDataFile,
   deleteOntologyFile,
-  deleteOntologyFileOnChaosPop
+  deleteOntologyFileOnChaosPop,
+  uploadFile
 }
 
 const dataAccess = require('../data-access/file-access')
@@ -17,6 +18,7 @@ const db = require('../data-access/mongodb-access')
 
 const dataFileCol = 'DataFiles'
 const ontologyFileCol = 'OntologyFiles'
+const populates = 'Populates'
 
 const async = require('async')
 
@@ -145,22 +147,35 @@ function deleteDataFile (id, cb) {
 }
 
 function deleteOntologyFile (id, cb) {
-  deleteFile(ontologyFileCol, id, (err, chaosid) => {
+  deleteFile(ontologyFileCol, id, 'ontologyFiles', (err, chaosid) => {
     if (err) return cb(err)
     deleteOntologyFileOnChaosPop(chaosid, cb)
   })
 }
 
-function deleteFile (col, id, cb) {
-  db.findById(col, id, (err, file) => {
-    if (err) return cb(err)
-    db.deleteById(col, id, (err) => {
+function deleteFile (col, id, field, cb) {
+  let query = (field === 'ontologyFiles' && {ontologyFiles: {'$elemMatch': {id: id}}}) ||
+    {dataFiles: {'$elemMatch': {id: id}}}
+  db.findByQuery(populates, query, (err, res) => {
+    if (err) return cb(cb)
+    if (res.length > 0) return cb(new Error('You can not delete this file, it is associated with some populates'))
+    db.findById(col, id, (err, file) => {
       if (err) return cb(err)
-      return cb(null, file.chaosid)
+      db.deleteById(col, id, (err) => {
+        if (err) return cb(err)
+        return cb(null, file.chaosid)
+      })
     })
   })
 }
 
-function deleteOntologyFileOnChaosPop(id, cb) {
+function deleteOntologyFileOnChaosPop (id, cb) {
   dataAccess.deleteOntologyFile(id, cb)
+}
+
+function uploadFile (id, cb) {
+  dataAccess.uploadFile(id, (err) => {
+    if (err) return cb(err)
+    cb()
+  })
 }

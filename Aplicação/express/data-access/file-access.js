@@ -7,7 +7,8 @@ module.exports = {
   getOntologyFileObjectProperties,
   getOntologyFileDataProperties,
   deleteDataFile,
-  deleteOntologyFile
+  deleteOntologyFile,
+  uploadFile
 }
 
 const req = require('request')
@@ -134,6 +135,22 @@ function deleteOntologyFile (id, cb) {
   let options = {
     url: url,
     body: JSON.stringify([id])
+  }
+
+  req.post(options, (err, res) => {
+    if (err) return cb(err)
+    handleResponse(res, cb)
+  })
+}
+
+function uploadFile (id, cb) {
+  let url = `${dataFile}/uploadFileSFTP`
+
+  let options = {
+    url: url,
+    form: {
+      ontologyFileId: id
+    }
   }
 
   req.post(options, (err, res) => {

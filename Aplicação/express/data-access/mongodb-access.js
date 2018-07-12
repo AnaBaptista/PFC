@@ -73,7 +73,7 @@ function findByIds (col, ids, cb) {
  */
 function updateById (col, id, newValues, cb) {
   MongoClient.connect(url, mongoOptions, (err, client) => {
-    if (err) return console.log(err)
+    if (err) return cb(err)
     let query = {_id: ObjectID(id)}
     let set = { $set: newValues }
     client.db(dbName).collection(col).updateOne(query, set, (err, result) => {
@@ -92,7 +92,7 @@ function updateById (col, id, newValues, cb) {
  */
 function findByQuery (col, query, cb) {
   MongoClient.connect(url, mongoOptions,(err, client) => {
-    if (err) return console.log(err)
+    if (err) return cb(err)
     client.db(dbName).collection(col).find(query).toArray((err, result) => {
       client.close()
       if (err) return cb(err)
@@ -103,7 +103,7 @@ function findByQuery (col, query, cb) {
 
 function deleteById (col, id, cb) {
   MongoClient.connect(url, mongoOptions, (err, client) => {
-    if (err) return console.log(err)
+    if (err) return cb(err)
     let query = {_id: ObjectID(id)}
     client.db(dbName).collection(col).deleteOne(query, (err, result) => {
       client.close()
@@ -115,7 +115,7 @@ function deleteById (col, id, cb) {
 
 function deleteByIds (col, ids, cb) {
   MongoClient.connect(url, mongoOptions, (err, client) => {
-    if (err) return console.log(err)
+    if (err) return cb(err)
     ids = ids.map(id => ObjectID(id))
     let query = {_id: {$in: ids}}
     client.db(dbName).collection(col).remove(query, (err, result) => {

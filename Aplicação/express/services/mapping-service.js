@@ -65,7 +65,7 @@ function putMapping (data, pop, cb) {
       })
       dataAcces.createMapping(mapping, (err, id) => {
         if (err) return cb(err)
-        db.updateById(populates, data.populateId, {chaosid: JSON.parse(id), batchId: '', outputFileId: '', outputFileName: data.name}, (err) => {
+        db.updateById(populates, data.populateId, {chaosid: JSON.parse(id), batchId: '', outputFileId: '', outputFileName: data.name, namespace: mapping.outputOntologyNamespace}, (err) => {
           if (err) return cb(err)
           cb()
         })

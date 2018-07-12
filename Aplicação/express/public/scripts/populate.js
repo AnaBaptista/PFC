@@ -180,7 +180,15 @@ function genericCreateMapping (populateId, elemId, promise) {
 function generateOutputFile (id) {
   fetch(`/populate/${id}/output`, {method: 'PUT'})
     .then(handleError)
-    .then(_ => {
-      alertify.success('File created')
+    .then(res => res.json())
+    .then(json => {
+      alertify.minimalDialog || alertify.dialog('minimalDialog', () => {
+        return {
+          main: (content) => {
+            this.setContent(content)
+          }
+        }
+      })
+      alertify.minimalDialog(`${json.namespace}`)
     })
 }
