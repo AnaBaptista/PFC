@@ -8,13 +8,13 @@ const path = require('path')
  * Uncomment this line to use desktop configutation,
  * comment to use web configuration
  */
-const config = fs.readFileSync('./config.json', 'utf8')
+//const config = fs.readFileSync('./config.json', 'utf8')
 /**
  * Uncomment this line to use web configutation,
  * comment to use desktop configuration
 */
 // const config = fs.readFileSync(path.join(__dirname, 'config.json'), 'utf8')
-module.exports = {config: JSON.parse(config)}
+//module.exports = {config: JSON.parse(config)}
 
 const hbs = require('./utils/handlebars-helpers')
 const bodyParser = require('body-parser')

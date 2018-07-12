@@ -325,14 +325,16 @@ function beginProcessOfPopulateWithoutData (listOfIds, cb) {
 }
 
 function postFakeFile (listOfIndividuals, cb) {
-  fakeFileMaker(listOfIndividuals, (err, name, path) => {
+  fakeFileMaker.makeFakeFile(listOfIndividuals, (err, name, path) => {
     if (err) return cb(err)
     fileService.addDataFile({name, path}, (err, id) => {
       if (err) return cb(err)
       db.findById(dataFiles, id._id, (err, file) => {
         if (err) return cb(err)
         listOfIndividuals.forEach(individual =>
-          parseIndividualToIndMap(individual, file.chaosid, file.nodes.filter(node => node.tag === `_${individual._id.toString()}`))
+          fakeFileMaker.parseIndividualToIndMap(individual, file.chaosid,
+            file.nodes.filter(node => node.tag === `_${individual._id.toString()}`)
+          )
         )
         fs.unlink(path, (err) => {
           if (err) return cb(err)
@@ -341,45 +343,6 @@ function postFakeFile (listOfIndividuals, cb) {
       })
     })
   })
-}
-
-function parseIndividualToIndMap (individual, dataFileId, node) {
-  individual.tag = `_${individual._id.toString()}`
-  let base = `.inspecificchild-`
-  individual.individualName = `${base}individualName`
-  individual.dataFileId = dataFileId
-  individual.nodeId = node[0]._id.toString()
-  individual.specification = false
-  if (individual.dataPropsOriginal !== undefined) {
-    individual.dataProperties = []
-    individual.dataPropsOriginal.forEach(prop => {
-      let newProp = {
-        id: prop.id,
-        [prop.owlClassIRI]: [`${base}${prop.id}`, prop.type]
-      }
-      individual.dataProperties.push(newProp)
-    })
-  }
-  if (individual.objectPropsOriginal !== undefined) {
-    individual.objectProperties = []
-    individual.objectPropsOriginal.forEach(prop => {
-      let newProp = {
-        id: prop.id,
-        [prop.owlClassIRI]: `${base}${prop.id}`
-      }
-      individual.objectProperties.push(newProp)
-    })
-  }
-  if (individual.annotationPropsOriginal !== undefined) {
-    individual.annotationProperties = []
-    individual.annotationPropsOriginal.forEach(prop => {
-      let newProp = {
-        id: prop.id,
-        [prop.annotation]: `${base}${prop.id}`
-      }
-      individual.annotationProperties.push(newProp)
-    })
-  }
 }
 
 function saveToDBAndChaos (listOfIndividuals, cb) {
