@@ -132,11 +132,10 @@ function createOutputFile (id, cb) {
           let set = {outputFileId: outputFileId[0], batchId: batchId}
           db.updateById(populates, id, set, (err) => {
             if (err) return cb(err)
-            // fileService.uploadFile(outputFileId[0], (err) => {
-            //   if (err) return cb(err)
-            //   cb(null, pop.namespace)
-            // })
-            cb(null, {namespace: 'http://chaospop.sysresearch.org/ontologies/teste.owl#'})
+            fileService.uploadFile(outputFileId[0], (err) => {
+              if (err) return cb(err)
+              cb(null, pop.namespace)
+            })
           })
         })
       })

@@ -41,70 +41,48 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="populate.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="populate.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/express/public/scripts/populate.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="186" column="29" selection-start-line="186" selection-start-column="29" selection-end-line="186" selection-end-column="29" />
+            <state relative-caret-position="3145">
+              <caret line="185" column="38" selection-start-line="185" selection-start-column="38" selection-end-line="185" selection-end-column="38" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="handle-error.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/express/public/scripts/handle-error.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="9" selection-start-column="9" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="populate-service.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="populate-service.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/express/services/populate-service.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="138" column="89" selection-start-line="138" selection-start-column="89" selection-end-line="138" selection-end-column="89" />
+            <state relative-caret-position="357">
+              <caret line="137" column="14" selection-start-line="137" selection-start-column="14" selection-end-line="137" selection-end-column="14" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="populate-routes.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/express/routes/populate-routes.js">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/express/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="43" column="22" selection-start-line="43" selection-start-column="22" selection-end-line="43" selection-end-column="22" />
+            <state relative-caret-position="168">
+              <caret line="75" lean-forward="true" selection-start-line="75" selection-end-line="75" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mapping-access.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/express/data-access/mapping-access.js">
+      <file leaf-file-name="populate-access.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/express/data-access/populate-access.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="25" column="4" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mapping-service.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/express/services/mapping-service.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="69" column="10" selection-start-line="69" selection-start-column="10" selection-end-line="69" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mapping-routes.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/express/routes/mapping-routes.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
+            <state relative-caret-position="131">
+              <caret line="24" column="20" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>fs.</find>
+    </findStrings>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -115,8 +93,9 @@
         <option value="$PROJECT_DIR$/express/data-access/file-access.js" />
         <option value="$PROJECT_DIR$/express/utils/handle-response.js" />
         <option value="$PROJECT_DIR$/express/routes/populate-routes.js" />
-        <option value="$PROJECT_DIR$/express/services/populate-service.js" />
+        <option value="$PROJECT_DIR$/express/app.js" />
         <option value="$PROJECT_DIR$/express/public/scripts/populate.js" />
+        <option value="$PROJECT_DIR$/express/services/populate-service.js" />
       </list>
     </option>
   </component>
@@ -654,26 +633,27 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1531380784447</updated>
-      <workItem from="1531380787732" duration="5967000" />
+      <workItem from="1531380787732" duration="9196000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5967000" />
+    <option name="totallyTimeSpent" value="9196000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24963397" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.50073206" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32913387" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.33385828" />
       <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
       <window_info id="npm" side_tool="true" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Terminal" weight="0.32440946" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.399361" />
       <window_info id="Favorites" side_tool="true" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -753,30 +733,11 @@
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="19" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/express/services/populate-service.js</url>
-          <line>134</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/express/services/populate-service.js</url>
-          <line>136</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="23" />
-        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="24" />
+      <option name="time" value="25" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/express/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1360">
-          <caret line="80" lean-forward="true" selection-start-line="80" selection-end-line="80" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/express/data-access/mongodb-access.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-181">
@@ -838,24 +799,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/express/routes/populate-routes.js">
+    <entry file="file://$PROJECT_DIR$/express/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="43" column="22" selection-start-line="43" selection-start-column="22" selection-end-line="43" selection-end-column="22" />
+        <state relative-caret-position="168">
+          <caret line="75" lean-forward="true" selection-start-line="75" selection-end-line="75" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/express/services/populate-service.js">
+    <entry file="file://$PROJECT_DIR$/express/routes/populate-routes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="138" column="89" selection-start-line="138" selection-start-column="89" selection-end-line="138" selection-end-column="89" />
+        <state relative-caret-position="272">
+          <caret line="43" column="4" selection-start-line="43" selection-start-column="4" selection-end-line="43" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/express/data-access/populate-access.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="24" column="20" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/express/public/scripts/populate.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="186" column="29" selection-start-line="186" selection-start-column="29" selection-end-line="186" selection-end-column="29" />
+        <state relative-caret-position="3145">
+          <caret line="185" column="38" selection-start-line="185" selection-start-column="38" selection-end-line="185" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/express/services/populate-service.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="137" column="14" selection-start-line="137" selection-start-column="14" selection-end-line="137" selection-end-column="14" />
         </state>
       </provider>
     </entry>
