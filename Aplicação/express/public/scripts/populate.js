@@ -182,13 +182,7 @@ function generateOutputFile (id) {
     .then(handleError)
     .then(res => res.json())
     .then(json => {
-      alertify.minimalDialog || alertify.dialog('minimalDialog', () => {
-        return {
-          main: (content) => {
-            this.setContent(content)
-          }
-        }
-      })
-      alertify.minimalDialog(`${json.namespace}`)
+      alertify.alert(`Your output file is available <a href="${json.namespace}" target="_blank">here</a>`)
+        .setHeader('<b>Output file</b>')
     })
 }
