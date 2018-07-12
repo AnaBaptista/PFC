@@ -358,7 +358,7 @@ function parseIndividualToIndMap (individual, dataFileId, node) {
     })
   }
   if (individual.objectProperties !== undefined) {
-    individual.objectPropsOriginal.forEach(prop => {
+    individual.objectProperties.forEach(prop => {
       //prop['id'] = prop.value.id
       prop[prop.owlClassIRI] = `${base}${prop.id}`
       delete prop.owlClassIRI
@@ -384,6 +384,7 @@ function parseIndividualToIndMap2 (individual, dataFileId, node) {
     individual.dataProperties = []
     individual.dataPropsOriginal.forEach(prop => {
       let newProp = {
+        'id' : prop.id,
         [prop.owlClassIRI] : [`${base}${prop.id}`, prop.type]
       }
       individual.dataProperties.push(newProp)
@@ -392,14 +393,20 @@ function parseIndividualToIndMap2 (individual, dataFileId, node) {
   if (individual.objectPropsOriginal !== undefined) {
     individual.objectProperties = []
     individual.objectPropsOriginal.forEach(prop => {
-      let newProp = {[prop.owlClassIRI] : `${base}${prop.id}`}
+      let newProp = {
+        'id' : prop.id,
+        [prop.owlClassIRI] : `${base}${prop.id}`
+      }
       individual.objectProperties.push(newProp)
     })
   }
   if (individual.annotationPropsOriginal !== undefined) {
     individual.annotationProperties = []
     individual.annotationPropsOriginal.forEach(prop => {
-      let newProp= {[prop.annotation] : `${base}${prop.id}`}
+      let newProp= {
+        'id' : prop.id,
+        [prop.annotation] : `${base}${prop.id}`
+      }
       individual.annotationProperties.push(newProp)
     })
   }
