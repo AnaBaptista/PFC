@@ -74,8 +74,9 @@ app.use(function (err, req, res, next) {
   res.render('error')
 })
 
-app.set('port', (process.env.PORT || 8000))
+app.set('port', 8000)
 app.listen(app.get('port'), () => {
+  console.log('Listening on port' )
   debug(`Listening on port: ${app.get('port')}`)
 })
 

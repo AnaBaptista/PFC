@@ -1,7 +1,7 @@
 Overload()
 function Overload () {
   const async = require('async')
-  const db = require('../data-access/mongodb-access')
+  const db = require('../../data-access/mongodb-access')
   OverloadX(5,10,async,db) // 5 docs. 1 obj com 10 fields per doc
   OverloadX(5,100,async,db) // 5 docs. 1 obj com 10 fields per doc
   OverloadX(5,1000,async,db) // 5 docs. 1 obj com 10 fields per doc

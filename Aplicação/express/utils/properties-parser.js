@@ -64,14 +64,14 @@ function parseDataProperties (listOfProps, indMapNode, dataFileId, cb) {
   })
 }
 
-const labelType = ['label', 'comment', 'seeAlso', 'isDefinedBy', 'versionInfo ', 'backwardCompatibleWith', 'incompatibleWith']
+const labelType = ['label', 'comment', 'seeAlso']
 function parseAnnotationProperties (listOfProps, indMapNode, dataFileId, cb) {
   let annProps = []
   getNodesFromFile(dataFileId, (err, nodes) => {
     async.each(listOfProps,
       (listEntry, callback) => {
         if (!(labelType.includes(listEntry.annotation))) {
-          return cb(new Error(`Type from entry ${listEntry.annotation} does not match one of the allowed types: 'Integer', 'Boolean', 'Float', 'Double', 'String'`))
+          return cb(new Error(`Type from entry ${listEntry.annotation} does not match one of the allowed types: 'label', 'comment', 'seeAlso'`))
         }
         parser(listEntry.toMapNodeId, indMapNode, nodes,
           (err, parsedProp) => {
