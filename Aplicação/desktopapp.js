@@ -9,13 +9,13 @@ const url = 'http://localhost:8000/'
  * MAC - uncomment the second line
  */
 
-const cwd = `./resources/app/express`
+// const cwd = `./resources/app/express`
 // const cwd = `./Electron.app/Contents/Resources/app/express`
 
 /**
  * Run desktop app, without packager
  */
-// const cwd = './express'
+const cwd = './express'
 const node = proc.execFile('node', ['./bin/www'], {cwd: cwd},
   (error, stdout, stderr) => {
     if (error) {

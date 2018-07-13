@@ -1,5 +1,6 @@
 'use strict'
 
+const debug = require('debug')('HOMI::Server')
 const path = require('path')
 
 const hbs = require('./utils/handlebars-helpers')

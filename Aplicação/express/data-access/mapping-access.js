@@ -4,13 +4,23 @@ module.exports = {
   getMapping
 }
 
+/**
+ * Basic HTTP request
+ */
 const req = require('request')
 const handleResponse = require('../utils/handle-response')
 
-// ChaosPop requests
+/**
+ * Chaos Pop server uri's
+ */
 const api = 'http://chaospop.sysresearch.org/chaos/wsapi'
 const mappingManager = `${api}/mappingManager`
 
+/**
+ * This function creates a mapping on Chaos Pop
+ * @param mapping {Object} mapping
+ * @param cb {Function} callback
+ */
 function createMapping (mapping, cb) {
   let url = `${mappingManager}/createMapping`
 
@@ -26,6 +36,12 @@ function createMapping (mapping, cb) {
     handleResponse(res, cb)
   })
 }
+
+/**
+ * This function deletes a mapping
+ * @param id {String} mapping id
+ * @param cb {Function} callback function
+ */
 function deleteMapping (id, cb) {
   let url = `${mappingManager}/removeMapping`
 
@@ -41,6 +57,12 @@ function deleteMapping (id, cb) {
     handleResponse(res, cb)
   })
 }
+
+/**
+ * This function returns a mapping
+ * @param id {String} mapping id
+ * @param cb {Function} callback function
+ */
 function getMapping (id, cb) {
   let url = `${mappingManager}/getMapping`
 

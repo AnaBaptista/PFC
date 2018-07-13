@@ -2,11 +2,12 @@ Overload()
 
 function Overload () {
   const async = require('async')
-  const db = require('../data-access/mongodb-access')
+  const db = require('../../data-access/mongodb-access')
   //OverloadX(5, 1, async, db) // 5 docs. 1 obj com 10 fields per doc
   // OverloadX(5, 10, async, db) // 5 docs. 1 obj com 10 fields per doc
   // OverloadX(5, 100, async, db) // 5 docs. 1 obj com 100 fields per doc
   // OverloadX(5, 1000, async, db) // 5 docs. 1 obj com 1000 fields per doc 1k
+  // OverloadX(5, 5000, async, db)
   // OverloadX(5, 10000, async, db) // 5 docs. 1 obj com 10000 fields per doc 10k
   // OverloadX(5, 100000, async, db) // 5 docs. 1 obj com 100000 fields per doc 100k
 
@@ -36,7 +37,7 @@ function OverloadX (nrOfObjs, nrOfFieldsPerObj, async, db) {
     },
     (err) => {
       if (err) console.log(err)
-      let meanOfTimes = times.reduce((a, b) => a + b, 0) / 5
+      let meanOfTimes = times.reduce((a, b) => a + b, 0) / nrOfObjs
       console.log(`************Finished processing, Mean of times for ${nrOfObjs} docs with ${nrOfFieldsPerObj} fields : ${meanOfTimes} in ms******************`)
     }
   )

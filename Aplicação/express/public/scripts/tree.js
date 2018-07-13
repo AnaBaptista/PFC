@@ -76,9 +76,6 @@ function drawIndentedTree (root, id) {
     let nodeEnter = node.enter().append('g')
       .attr('class', 'node')
       .style('opacity', 0.001)
-      .attr('transform', function (d) {
-        return `translate(${source.y0}, ${source.x0})`
-      })
       .attr('id', (d) => {
         return `${d.id}`
       })

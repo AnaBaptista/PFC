@@ -44,21 +44,6 @@ function deleteIndividual (id, populateId, cb) {
     }
     populateService.deleteIndividualFromPopulate(populateId, id, cbFunc)
     db.deleteById(collection, id, cb)
-
-    // db.deleteById(collection, id, (err) => {
-    //   if (err) return cb(err)
-    //   populateService.deleteIndividualFromPopulate(populateId, id, (err) => {
-    //     if (err) return cb(err)
-    //     if (ind.chaosid) {
-    //       dataAccess.deleteIndividualMapping([ind.chaosid], (err) => {
-    //         if (err) return cb(err)
-    //         cb()
-    //       })
-    //     } else {
-    //       cb()
-    //     }
-    //   })
-    // })
   })
 }
 

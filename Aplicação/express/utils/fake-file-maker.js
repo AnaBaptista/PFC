@@ -27,6 +27,7 @@ function makeFakeFile (listOfIndividuals, cb) {
   })
 }
 
+// @todo acrescentar um _ nos ids todos
 function processIndividual (individual, xml) {
   xml.startElement(`_${individual._id.toString()}`)
   xml.writeElement('individualName', individual.originalIndividualName)

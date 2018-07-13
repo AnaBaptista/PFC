@@ -108,6 +108,10 @@ function createIndividualMappingDataProperty (id) {
     alertify.error('Missing data property, type or node')
     return
   }
+  if (verifyIndividualMappingPropertyType(type[0].textContent, node.childNodes) === false) {
+    alertify.error('Data property type not valid for this nodes')
+    return
+  }
 
   let ids = []
   node.childNodes.forEach(div => {
@@ -312,6 +316,7 @@ function changeDataFileNodeToMapping (node) {
   let div = document.createElement('div')
   div.id = node.id
   div.innerText = node.tag
+  div.className = node.value
   let childDiv = document.createElement('label')
   childDiv.id = node.dataFileId
   childDiv.className = 'dataFileId'
@@ -324,7 +329,34 @@ function changeDataFileNodeToMapping (node) {
   }
 }
 
+/**
+ * This function clears the selected nodes
+ */
 function clearDataFileNodeToMapping() {
   let id = document.getElementById('data-file-term').innerText
   document.getElementById(id).innerText = ''
+}
+
+/**
+ * This function verifies if node values are 'type'
+ * @param type {String}
+ * @param nodes {Array}
+ * @returns {boolean}
+ */
+function verifyIndividualMappingPropertyType (type, nodes) {
+  let res = true
+  if (type === 'Boolean') {
+    nodes.forEach(node => {
+      if ((node.nodeName !== '#text' && node.className !== '') && (node.className !== false || node.className !== true)) {
+        res = false
+      }
+    })
+  } else if (type !== 'String') {
+    nodes.forEach(node => {
+      if ((node.nodeName !== '#text' && node.className !== '') && isNaN(node.className)) {
+        res = false
+      }
+    })
+  }
+  return res
 }

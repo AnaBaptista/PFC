@@ -132,6 +132,7 @@ function putIndividualMappingName (id, listOfNodes, cb) {
  * @param annotationProps (list)
  * @param cb (err, results)
  */
+// @todo talvez acrescentar um filter e passar so os 'label' pelo parser?
 function putIndividualMappingAnnotationProperties (id, annotationProps, cb) {
   service.putIndividualAnnotationProperties(id, annotationProps, (props, ret, indMap) => {
     parser.parseAnnotationProperties(props, indMap.nodeId, indMap.dataFileId, (err, parsedProps) => {

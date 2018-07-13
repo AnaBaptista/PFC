@@ -93,6 +93,11 @@ function createIndividualDataProperty (id) {
     return
   }
 
+  if (verifyIndividualPropertyType(type[0].textContent, null, value) === false) {
+    alertify.error('Data property type not valid for this value')
+    return
+  }
+
   let data = {
     dataProps:
       [{
@@ -152,7 +157,7 @@ function createIndividualProperty (data, id, type) {
  * @param type {String} property type (annotation, data or object)
  */
 function deleteIndividualProperty (id, propertyId, type) {
-    genericDeleteIndividualProperty(`/individual/${id}/properties/${propertyId}?type=${type}`, propertyId)
+  genericDeleteIndividualProperty(`/individual/${id}/properties/${propertyId}?type=${type}`, propertyId)
 }
 
 /**
@@ -183,4 +188,20 @@ function finalizeMapping (populateId) {
       .then(_ => Promise.resolve())
   }
   genericCreateMapping(populateId, 'individuals-nondata-to-mapping-list', promise)
+}
+
+/**
+ * This functions verifies if value is 'type'
+ * @param type {String}
+ * @param value {String}
+ * @returns {boolean}
+ */
+function verifyIndividualPropertyType (type, value) {
+  let res = true
+  if (type === 'Boolean') {
+    res = !(value !== false || value !== true)
+  } else if (type !== 'String') {
+    res = !isNaN(value)
+  }
+  return res
 }

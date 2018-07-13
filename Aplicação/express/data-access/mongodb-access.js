@@ -21,7 +21,7 @@ const mongoOptions = {useNewUrlParser: true}
  * This function inserts a new document into col
  * @param col {String} colletion name
  * @param doc {Object} document to insert
- * @param cb {function} (err, result) callback function
+ * @param cb {Function} (err, result) callback function
  */
 function sendDocToDb (col, doc, cb) {
   MongoClient.connect(url, mongoOptions, (err, client) => {
@@ -39,7 +39,7 @@ function sendDocToDb (col, doc, cb) {
  *  and returns it
  * @param col {String} colletion name
  * @param id {String} document id
- * @param cb {function} (err, result) callback function
+ * @param cb {Function} (err, result) callback function
  */
 function findById (col, id, cb) {
   MongoClient.connect(url, mongoOptions, (err, client) => {
@@ -53,10 +53,10 @@ function findById (col, id, cb) {
 }
 
 /**
- *
+ *  This function searchs some documents in col
  * @param col {String} collection name
  * @param ids {Array} id's
- * @param cb {function} (err, result)
+ * @param cb {Function} (err, result) callback function
  */
 function findByIds (col, ids, cb) {
   ids = ids.map(id => ObjectID(id))
@@ -64,11 +64,11 @@ function findByIds (col, ids, cb) {
 }
 
 /**
- *
+ * This function updates in col the document identified by id
  * @param col {String} collection name
  * @param id {String} document id
  * @param newValues {Object} data to update
- * @param cb {function}
+ * @param cb {Function} (err, result) callback function
  */
 function updateById (col, id, newValues, cb) {
   MongoClient.connect(url, mongoOptions, (err, client) => {
@@ -84,10 +84,10 @@ function updateById (col, id, newValues, cb) {
 }
 
 /**
- *
- * @param col {String} collection id
+ * This function finds for document that matches with query
+ * @param col {String} collection name
  * @param query {Object} query to filter
- * @param cb {function}
+ * @param cb {function} (err, result) callback function
  */
 function findByQuery (col, query, cb) {
   MongoClient.connect(url, mongoOptions,(err, client) => {
@@ -100,6 +100,12 @@ function findByQuery (col, query, cb) {
   })
 }
 
+/**
+ * This functions delete in col the document identified by id
+ * @param col {String} collection name
+ * @param id {String} document id
+ * @param cb {Function} (err, result) callback function
+ */
 function deleteById (col, id, cb) {
   MongoClient.connect(url, mongoOptions, (err, client) => {
     if (err) return cb(err)
@@ -112,6 +118,12 @@ function deleteById (col, id, cb) {
   })
 }
 
+/**
+ * This function deletes some documents in col
+ * @param col {String} collection name
+ * @param ids {Array} document ids
+ * @param cb {Function} (err, result) callback function
+ */
 function deleteByIds (col, ids, cb) {
   MongoClient.connect(url, mongoOptions, (err, client) => {
     if (err) return cb(err)

@@ -4,20 +4,22 @@ module.exports = {
   deleteIndividualMapping
 }
 
-// Basic HTTP request
+/**
+ * Basic HTTP request
+ */
 const req = require('request')
 const handleResponse = require('../utils/handle-response')
 
-// ChaosPop requests
+/**
+ * Chaos Pop server uri's
+ */
 const api = 'http://chaospop.sysresearch.org/chaos/wsapi'
 const individualMappingManager = `${api}/individualMappingManager`
 
 /**
- * @param {string} id
- * @param tag
- * @param IRI
- * @param fileIds
- * @param {function} cb(err, result)
+ * This functions save an individual mapping on Chaos Pop
+ * @param individualMapping {Object} individual mapping
+ * @param cb {Function} callback function
  */
 function sendIndividualMappingToChaos (individualMapping, cb) {
   let url = `${individualMappingManager}/createIndividualMapping`
@@ -36,10 +38,9 @@ function sendIndividualMappingToChaos (individualMapping, cb) {
 }
 
 /**
- *
- * @param id
- * @param newIndividual
- * @param cb
+ * This function updates an individual mapping
+ * @param newIndividual {Object} individual mapping to update
+ * @param cb {Function} callback function
  */
 function updateIndividualMapping (newIndividual, cb) {
   let url = `${individualMappingManager}/replaceIndividualMapping`
@@ -56,6 +57,11 @@ function updateIndividualMapping (newIndividual, cb) {
   })
 }
 
+/**
+ * This function deletes an individual mapping
+ * @param id {String} individual mapping id
+ * @param cb {Function} callback function
+ */
 function deleteIndividualMapping (id, cb) {
   let url = `${individualMappingManager}/removeIndividualMapping`
   let options = {
