@@ -4,7 +4,7 @@ function handleError (response) {
       .then(error => {
         document.body.innerHTML = error
       })
-    throw new Error('Error')
+    throw new Error(`Error: ${response.message}`)
   }
   return response
 }

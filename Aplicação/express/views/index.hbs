@@ -5,7 +5,10 @@
         <div class="six wide column"  id="files-content-column">
             <h5 class="ui center aligned icon header">
                 <i class="circular file alternate outline icon"></i>
-                DATA FILES
+                <div class="content">
+                    DATA FILES
+                    <div class="sub header">You can't upload a data file with the same name of other that already exists.</div>
+                </div>
             </h5>
             <div>
                 <div class="ui action input fluid" id="add-data-file">
@@ -31,10 +34,13 @@
         <div class="six wide column" id="files-content-column">
             <h5 class="ui center aligned icon header">
                 <i class="circular file alternate outline icon"></i>
-                ONTOLOGY FILES
+                <div class="content">
+                    ONTOLOGY FILES
+                    <div class="sub header">You can't upload an ontology file with the same name of other that already exists.</div>
+                </div>
             </h5>
             <div>
-                <div class="ui action input fluid" id="add-data-file">
+                <div class="ui action input fluid">
                     <input type="text" id="ontology-file-input-text" placeholder="Ontology file name">
                     <input type="file" id="ontology-file-input" class="file-input" accept=".owl">
                     <div class="ui icon basic button" onclick="submitFile('ontology-file', '/ontologyFile')" title="Click to add this ontology file">

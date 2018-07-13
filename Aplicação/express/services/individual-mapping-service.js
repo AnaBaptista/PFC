@@ -132,7 +132,6 @@ function putIndividualMappingName (id, listOfNodes, cb) {
  * @param annotationProps (list)
  * @param cb (err, results)
  */
-// @todo talvez acrescentar um filter e passar so os 'label' pelo parser?
 function putIndividualMappingAnnotationProperties (id, annotationProps, cb) {
   service.putIndividualAnnotationProperties(id, annotationProps, (props, ret, indMap) => {
     parser.parseAnnotationProperties(props, indMap.nodeId, indMap.dataFileId, (err, parsedProps) => {
@@ -182,7 +181,12 @@ function putIndividualMappingObjectProperties (id, objProps, cb) {
 function deleteIndividualMappingProperty (id, propertyId, type, cb) {
   service.deleteIndividualProperty(id, propertyId, type, (err, indMap) => {
     if (err) return cb(err)
-    (indMap.chaosid && updateIndividualMapping(id, cb)) || cb()
+    if (indMap.chaosid) {
+      updateIndividualMapping(id, (err) => {
+        if (err) return cb(err)
+      })
+    }
+    cb()
   })
 }
 

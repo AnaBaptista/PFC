@@ -38,7 +38,10 @@ function deleteIndividual (id, populateId, cb) {
     let cbFunc = (err) => {
       if (err) return cb(err)
     }
-    ind.chaosid && dataAccess.deleteIndividualMapping([ind.chaosid], cbFunc)
+    let chaosid = ind.chaosid
+    if (chaosid) {
+      dataAccess.deleteIndividualMapping([chaosid], cbFunc)
+    }
     populateService.deleteIndividualFromPopulate(populateId, id, cbFunc)
     db.deleteById(collection, id, cb)
 
@@ -60,7 +63,7 @@ function deleteIndividual (id, populateId, cb) {
 }
 
 function deleteIndividualsByIdOnChaosPop (ids, cb) {
-  ids.length !== 0 ? dataAccess.deleteIndividualMapping(ids, cb) : cb()
+  dataAccess.deleteIndividualMapping(ids, cb)
 }
 
 function getIndividual (id, cb) {

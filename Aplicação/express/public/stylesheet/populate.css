@@ -119,7 +119,7 @@
     min-height: 600px;
 }
 
-#populates-table {
+#populates-table, #files-table {
     max-height: 500px;
     overflow-y: auto;
 }

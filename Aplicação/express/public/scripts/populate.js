@@ -98,12 +98,12 @@ function genericCreateIndividualProperty (path, data, type) {
 function genericDeleteIndividualProperty (path, propertyId) {
   fetch(path, {method: 'DELETE'})
     .then(handleError)
-    .then(_ => {
+    .then(res => {
       let elem = document.getElementById(`property-${propertyId}`)
       let parent = elem.parentElement
       parent.removeChild(elem)
       alertify.success(`Property deleted`)
-  })
+  }).catch(err => console.log(err.message))
 }
 
 /**
@@ -167,8 +167,8 @@ function genericCreateMapping (populateId, elemId, promise) {
       .then(_ => {
         alertify.success('Mapping created')
         window.location.href = '/populate'
-      })
-  })
+      }).catch(err => console.log(err.message))
+  }).catch(err => console.log(err.message))
 }
 
 /**
@@ -176,7 +176,6 @@ function genericCreateMapping (populateId, elemId, promise) {
  * populated ontology
  * @param id {String} populateId
  */
-// TODO: show the option to download the output file and delete all data
 function generateOutputFile (id) {
   fetch(`/populate/${id}/output`, {method: 'PUT'})
     .then(handleError)
@@ -184,5 +183,5 @@ function generateOutputFile (id) {
     .then(json => {
       alertify.alert(`Your output file is available <a href="${json.namespace}" target="_blank">here</a>`)
         .setHeader('<b>Output file</b>')
-    })
+    }).catch(err => console.log(err.message))
 }

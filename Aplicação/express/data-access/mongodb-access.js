@@ -12,10 +12,7 @@ module.exports = {
  * MongoDb Requests
  */
 const MongoClient = require('mongodb').MongoClient
-// let { config } = require('../app')
-// let url = config.mongoDb
-
-url = 'mongodb://localhost:27017'
+let url = 'mongodb://localhost:27017'
 const dbName = 'HomiDb'
 const ObjectID = require('mongodb').ObjectID
 const mongoOptions = {useNewUrlParser: true}

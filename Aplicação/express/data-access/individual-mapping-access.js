@@ -9,8 +9,7 @@ const req = require('request')
 const handleResponse = require('../utils/handle-response')
 
 // ChaosPop requests
-// const api = 'http://chaospop.sysresearch.org/chaos/wsapi'
-const api = 'http://localhost:8080/chaos/wsapi'
+const api = 'http://chaospop.sysresearch.org/chaos/wsapi'
 const individualMappingManager = `${api}/individualMappingManager`
 
 /**
@@ -53,7 +52,7 @@ function updateIndividualMapping (newIndividual, cb) {
   }
   req.post(options, (err, res) => {
     if (err) return cb(err)
-    handleResponse(res,cb)
+    handleResponse(res, cb)
   })
 }
 
@@ -61,9 +60,7 @@ function deleteIndividualMapping (id, cb) {
   let url = `${individualMappingManager}/removeIndividualMapping`
   let options = {
     url: url,
-    form: {
-      ids: JSON.stringify(id)
-    }
+    body: JSON.stringify(id)
   }
 
   req.post(options, (err, res) => {

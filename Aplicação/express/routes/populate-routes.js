@@ -41,7 +41,7 @@ function createOutputFile (req, res, next) {
   let id = req.params.id
   service.createOutputFile(id, (err, namespace) => {
     if (err) return next(err)
-    res.json(namespace)
+    res.json({namespace: namespace})
   })
 }
 

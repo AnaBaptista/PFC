@@ -7,9 +7,9 @@
   "scripts": {
     "start": "electron desktopapp.js",
     "create-database": "node create-database.js",
-    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --out=dist",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --out=build",
     "package-win": "electron-packager . desktopapp --overwrite --platform=win32 --arch=x64 --out=build --version-string.CompanyName=ISEL --version-string.FileDescription=ISEL --version-string.ProductName=\"Hybrid Ontology Mapping Interface\"",
-    "package-linux": "electron-packager . desktopapp --overwrite --platform=linux --arch=x64 --prune=true --out=dist"
+    "package-linux": "electron-packager . desktopapp --overwrite --platform=linux --arch=x64 --prune=true --out=build"
   },
   "author": "Ana Carolina Baptista, Eliane Almeida",
   "license": "ISC",

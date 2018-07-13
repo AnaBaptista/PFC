@@ -22,13 +22,17 @@ const populates = 'Populates'
 
 const async = require('async')
 
-function addDataFile ({name, path}, cb) {
+function addDataFile ({name, path, temp}, cb) {
   addFile(path, name, dataFileCol, (err, ids) => {
     if (err) return cb(err)
     dataAccess.getDataFileNodes(ids.chaosid, (err, nodes) => {
       if (err) return cb(err)
       nodes = JSON.parse(nodes)
-      db.updateById(dataFileCol, ids.id, {nodes: nodes.nodesTO}, (err) => {
+      let set = {nodes: nodes.nodesTO}
+      if (temp) {
+        set.temp = temp
+      }
+      db.updateById(dataFileCol, ids.id, set, (err) => {
         if (err) return cb(err)
         cb(null, {_id: ids.id})
       })
@@ -140,7 +144,7 @@ function getOntologyFileDataProperties (id, cb) {
 }
 
 function deleteDataFile (id, cb) {
-  deleteFile(dataFileCol, id, (err, chaosid) => {
+  deleteFile(dataFileCol, id, 'dataFiles', (err, chaosid) => {
     if (err) return cb(err)
     dataAccess.deleteDataFile(chaosid, cb)
   })
@@ -151,6 +155,7 @@ function deleteOntologyFile (id, cb) {
     if (err) return cb(err)
     deleteOntologyFileOnChaosPop(chaosid, cb)
   })
+  // deleteOntologyFileOnChaosPop(id, cb)
 }
 
 function deleteFile (col, id, field, cb) {

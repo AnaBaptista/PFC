@@ -173,7 +173,7 @@ function createIndividualMappingProperty (data, id, type) {
  * @param type {String} property type (annotation, data or object)
  */
 function deleteIndividualMappingProperty (id, propertyId, type) {
-    genericDeleteIndividualProperty(`/map/individual/${id}/properties/${propertyId}?type=${type}`, propertyId)
+  genericDeleteIndividualProperty(`/map/individual/${id}/properties/${propertyId}?type=${type}`, propertyId)
 }
 
 /**
@@ -182,9 +182,9 @@ function deleteIndividualMappingProperty (id, propertyId, type) {
  * @param type {String} property type (data, object or annotation)
  */
 function changeIndividualMappingContent (id, type) {
+  document.getElementById('data-file-term').innerText = `${type}-property-to-term`
   document.getElementById('individual-name-row').style.display = 'none'
   document.getElementById('individual-name-to-term').innerText = ''
-  document.getElementById('data-file-term').innerText = `${type}-property-to-term`
 
   let url = `/map/individual/${id}/properties/${type}/view`
   genericChangeIndividualContent(url, 'individual-mapping-content')
@@ -223,6 +223,7 @@ function createIndividualMappingName (id) {
   let options = getFetchOptions('PUT', data)
 
   document.getElementById('individual-name-btn').style.display = 'none'
+  document.getElementById('data-file-term').innerText = ''
   fetch(`/map/individual/${id}/name`, options)
     .then(handleError)
     .then(res => res.json())
@@ -231,7 +232,6 @@ function createIndividualMappingName (id) {
       document.getElementById('individual-name-btn').style.display = 'inline'
       document.getElementById('individual-name-row').style.display = 'none'
       document.getElementById('individual-name').innerText = json
-      document.getElementById('data-file-term').innerText = ''
       alertify.success('Individual name changed')
     })
     .catch(err => console.log(err.message))

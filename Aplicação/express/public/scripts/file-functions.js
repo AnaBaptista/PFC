@@ -12,7 +12,7 @@ function submitFile (id, path) {
   }
 
   let formData = new FormData()
-  formData.append('file', file)
+  formData.append('file', file, file.name)
   let options = {
     method: 'POST',
     body: formData
@@ -50,5 +50,5 @@ function deleteFile (id, type) {
       let parent = toDelete.parentElement
       parent.removeChild(toDelete)
       alertify.message(`${type}File deleted`)
-    })
+    }).catch(err => console.log(err.message))
 }

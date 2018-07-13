@@ -90,8 +90,8 @@ function deletePopulate (id, cb) {
       db.findByIds(indMapping, indIds, (err, indMaps) => {
         if (err) return cb(err)
         let chaosIds = indMaps.filter(i => i.chaosid).map(i => i.chaosid)
+        chaosIds.length > 0 && genericIndividual.deleteIndividualsByIdOnChaosPop(chaosIds, cbFunc)
         db.deleteByIds(indMapping, indIds, cbFunc)
-        genericIndividual.deleteIndividualsByIdOnChaosPop(chaosIds, cbFunc)
         if (pop.chaosid) {
           mappingService.deleteMapping(pop.chaosid, cbFunc)
           pop.batchId && deleteBatch(pop.batchId, cbFunc)
@@ -120,22 +120,22 @@ function createOutputFile (id, cb) {
       error.statusCode = 400
       return cb(error)
     } else {
+      if (pop.batchId) {
+        return cb(null, pop.namespace)
+      }
       let data = {
         mappingIds: [pop.chaosid]
       }
       dataAccess.createBatch(data, (err, batchId) => {
-        batchId = JSON.parse(batchId)
         if (err) return cb(err)
+        batchId = JSON.parse(batchId)
         dataAccess.processBatch(batchId, (err, res) => {
           if (err) return cb(err)
-          let outputFileId = JSON.parse(res)
-          let set = {outputFileId: outputFileId[0], batchId: batchId}
+          let outputFileId = JSON.parse(res)[0]
+          let set = {outputFileId: outputFileId, batchId: batchId}
           db.updateById(populates, id, set, (err) => {
             if (err) return cb(err)
-            fileService.uploadFile(outputFileId[0], (err) => {
-              if (err) return cb(err)
-              cb(null, pop.namespace)
-            })
+            cb(null, pop.namespace)
           })
         })
       })
@@ -331,14 +331,15 @@ function postFakeFile (listOfIndividuals, cb) {
       db.findById(dataFiles, id._id, (err, file) => {
         if (err) return cb(err)
         listOfIndividuals.forEach(individual =>
-          fakeFileMaker.parseIndividualToIndMap(individual, file.chaosid,
-            file.nodes.filter(node => node.tag === `_${individual._id.toString()}`)
-          )
+          fakeFileMaker.parseIndividualToIndMap(individual, file.chaosid, file.nodes.filter(node => node.tag === `_${individual._id.toString()}`))
         )
         fs.unlink(path, (err) => {
           if (err) return cb(err)
         })
-        return saveToDBAndChaos(listOfIndividuals, cb)
+        db.deleteById(dataFiles, id._id, (err) => {
+          if (err) return cb(err)
+          return saveToDBAndChaos(listOfIndividuals, cb)
+        })
       })
     })
   })

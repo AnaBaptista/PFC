@@ -1,20 +1,6 @@
 'use strict'
 
-const debug = require('debug')('HOMI::Server')
-const fs = require('fs')
 const path = require('path')
-
-/**
- * Uncomment this line to use desktop configutation,
- * comment to use web configuration
- */
-//const config = fs.readFileSync('./config.json', 'utf8')
-/**
- * Uncomment this line to use web configutation,
- * comment to use desktop configuration
-*/
-// const config = fs.readFileSync(path.join(__dirname, 'config.json'), 'utf8')
-//module.exports = {config: JSON.parse(config)}
 
 const hbs = require('./utils/handlebars-helpers')
 const bodyParser = require('body-parser')
@@ -72,11 +58,6 @@ app.use(function (err, req, res, next) {
   // render the error page
   res.status(err.status || 500)
   res.render('error')
-})
-
-app.set('port', (process.env.PORT || 8000))
-app.listen(app.get('port'), () => {
-  debug(`Listening on port: ${app.get('port')}`)
 })
 
 module.exports = {

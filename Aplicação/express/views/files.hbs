@@ -2,6 +2,7 @@
 {{> navbar backward='/'}}
 <div class="ui container">
     <h4>{{type}}Files that already exist in database </h4>
+    <i>You can't delete a file associated with a populate</i>
     <div class="ui relaxed divided list" id="files-table">
         {{#each files}}
             <div class="item" id="{{_id}}">
