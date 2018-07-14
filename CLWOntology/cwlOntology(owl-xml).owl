@@ -1,0 +1,1054 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="urn:absolute:cwlOntology"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="urn:absolute:cwlOntology">
+    <Prefix name="" IRI="urn:absolute:cwlOntology"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Declaration>
+        <ObjectProperty IRI="#isOutputBindingOf"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#loadContents"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasCommandLineBinding"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#dockerLoad"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#dockerImport"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasOutputBinding"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#CommandLineBinding"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#doc"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#File"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#coresMax"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#basename"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#ramMin"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CommandLineTool"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#dockerFile"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#CommandLineToolProps"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#size"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#glob"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#stdout"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#outdirMax"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#tmpdirMin"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#baseCommand"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#resourceRequiredProps"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#type"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isCommandInputParameterOf"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#class"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isCommandLineBindingOf"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#requirementProps"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasCommandOutputParameter"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#valueFrom"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#dirname"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#location"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#ramMax"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#CommandParameter"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DockerRequirement"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#separate"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#dockerOutputDirectory"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#format"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#stderr"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#FileProperties"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#checksum"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#streamable"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#coresMin"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#cwlVersion"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#CommandOutputBinding"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#dockerPull"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#dockerImageId"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CommandOuputBinding"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#label"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#itemSeparator"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ResourceRequirement"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#shellQuote"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#secondaryFiles"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hint"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isCommandOutputParameterOf"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#contents"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#outputEval"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#prefix"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasCommandInputParameter"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#position"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#dockerProps"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CommandInputParameter"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#outdirMin"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CommandLineBinding"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#path"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#fileClass"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CommandOutputParameter"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Requirements"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Outputs"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#id"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#nameext"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#stdin"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#tmpdirMax"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#nameroot"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="#CommandInputParameter"/>
+        <Class IRI="#CommandLineTool"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CommandLineBinding"/>
+        <Class IRI="#CommandInputParameter"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CommandOuputBinding"/>
+        <Class IRI="#CommandOutputParameter"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CommandOutputParameter"/>
+        <Class IRI="#CommandLineTool"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DockerRequirement"/>
+        <Class IRI="#Requirements"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Outputs"/>
+        <Class IRI="#CommandLineTool"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Requirements"/>
+        <Class IRI="#CommandLineTool"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ResourceRequirement"/>
+        <Class IRI="#Requirements"/>
+    </SubClassOf>
+    <DisjointClasses>
+        <Class IRI="#CommandInputParameter"/>
+        <Class IRI="#CommandLineBinding"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#CommandOuputBinding"/>
+        <Class IRI="#CommandOutputParameter"/>
+    </DisjointClasses>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#hasCommandInputParameter"/>
+        <ObjectProperty IRI="#isCommandInputParameterOf"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#hasCommandLineBinding"/>
+        <ObjectProperty IRI="#isCommandLineBindingOf"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#hasCommandOutputParameter"/>
+        <ObjectProperty IRI="#isCommandOutputParameterOf"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#hasOutputBinding"/>
+        <ObjectProperty IRI="#isOutputBindingOf"/>
+    </InverseObjectProperties>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasCommandInputParameter"/>
+        <Class IRI="#CommandLineTool"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasCommandLineBinding"/>
+        <Class IRI="#CommandInputParameter"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasCommandOutputParameter"/>
+        <Class IRI="#CommandLineTool"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasOutputBinding"/>
+        <Class IRI="#CommandOutputParameter"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isCommandInputParameterOf"/>
+        <Class IRI="#CommandInputParameter"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isCommandLineBindingOf"/>
+        <Class IRI="#CommandLineBinding"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isCommandOutputParameterOf"/>
+        <Class IRI="#CommandOutputParameter"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isOutputBindingOf"/>
+        <Class IRI="#CommandOuputBinding"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasCommandInputParameter"/>
+        <ObjectMinCardinality cardinality="1">
+            <ObjectProperty IRI="#hasCommandInputParameter"/>
+            <Class IRI="#CommandInputParameter"/>
+        </ObjectMinCardinality>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasCommandLineBinding"/>
+        <Class IRI="#CommandLineBinding"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasCommandOutputParameter"/>
+        <ObjectMinCardinality cardinality="1">
+            <ObjectProperty IRI="#hasCommandLineBinding"/>
+            <Class IRI="#CommandOutputParameter"/>
+        </ObjectMinCardinality>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasOutputBinding"/>
+        <Class IRI="#CommandOuputBinding"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#isCommandInputParameterOf"/>
+        <Class IRI="#CommandLineTool"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#isCommandLineBindingOf"/>
+        <Class IRI="#CommandInputParameter"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#isCommandOutputParameterOf"/>
+        <Class IRI="#CommandLineTool"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#isOutputBindingOf"/>
+        <Class IRI="#CommandOutputParameter"/>
+    </ObjectPropertyRange>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#baseCommand"/>
+        <DataProperty IRI="#CommandLineToolProps"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#basename"/>
+        <DataProperty IRI="#FileProperties"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#checksum"/>
+        <DataProperty IRI="#FileProperties"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#class"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#contents"/>
+        <DataProperty IRI="#FileProperties"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#coresMax"/>
+        <DataProperty IRI="#resourceRequiredProps"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#coresMin"/>
+        <DataProperty IRI="#resourceRequiredProps"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#cwlVersion"/>
+        <DataProperty IRI="#CommandLineToolProps"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#dirname"/>
+        <DataProperty IRI="#FileProperties"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#doc"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#dockerFile"/>
+        <DataProperty IRI="#dockerProps"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#dockerImageId"/>
+        <DataProperty IRI="#dockerProps"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#dockerImport"/>
+        <DataProperty IRI="#dockerProps"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#dockerLoad"/>
+        <DataProperty IRI="#dockerProps"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#dockerOutputDirectory"/>
+        <DataProperty IRI="#dockerProps"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#dockerProps"/>
+        <DataProperty IRI="#requirementProps"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#dockerPull"/>
+        <DataProperty IRI="#dockerProps"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#fileClass"/>
+        <DataProperty IRI="#FileProperties"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#format"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#glob"/>
+        <DataProperty IRI="#CommandOutputBinding"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#hint"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#id"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#itemSeparator"/>
+        <DataProperty IRI="#CommandLineBinding"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#label"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#loadContents"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#location"/>
+        <DataProperty IRI="#FileProperties"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#nameext"/>
+        <DataProperty IRI="#FileProperties"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#nameroot"/>
+        <DataProperty IRI="#FileProperties"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#outdirMax"/>
+        <DataProperty IRI="#resourceRequiredProps"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#outdirMin"/>
+        <DataProperty IRI="#resourceRequiredProps"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#outputEval"/>
+        <DataProperty IRI="#CommandOutputBinding"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#path"/>
+        <DataProperty IRI="#FileProperties"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#position"/>
+        <DataProperty IRI="#CommandLineBinding"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#prefix"/>
+        <DataProperty IRI="#CommandLineBinding"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#ramMax"/>
+        <DataProperty IRI="#resourceRequiredProps"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#ramMin"/>
+        <DataProperty IRI="#resourceRequiredProps"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#resourceRequiredProps"/>
+        <DataProperty IRI="#requirementProps"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#secondaryFiles"/>
+        <DataProperty IRI="#CommandParameter"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#separate"/>
+        <DataProperty IRI="#CommandLineBinding"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#shellQuote"/>
+        <DataProperty IRI="#CommandLineBinding"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#size"/>
+        <DataProperty IRI="#FileProperties"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#stderr"/>
+        <DataProperty IRI="#CommandLineToolProps"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#stdin"/>
+        <DataProperty IRI="#CommandLineToolProps"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#stdout"/>
+        <DataProperty IRI="#CommandLineToolProps"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#streamable"/>
+        <DataProperty IRI="#CommandParameter"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#tmpdirMax"/>
+        <DataProperty IRI="#resourceRequiredProps"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#tmpdirMin"/>
+        <DataProperty IRI="#resourceRequiredProps"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#type"/>
+        <DataProperty IRI="#CommandParameter"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#valueFrom"/>
+        <DataProperty IRI="#CommandLineBinding"/>
+    </SubDataPropertyOf>
+    <DataPropertyDomain>
+        <DataProperty IRI="#CommandLineBinding"/>
+        <Class IRI="#CommandLineBinding"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#CommandLineToolProps"/>
+        <Class IRI="#CommandLineTool"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#CommandOutputBinding"/>
+        <Class IRI="#CommandOuputBinding"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#CommandParameter"/>
+        <Class IRI="#CommandInputParameter"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#CommandParameter"/>
+        <Class IRI="#CommandOutputParameter"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#baseCommand"/>
+        <Class IRI="#CommandLineTool"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#class"/>
+        <Class IRI="#CommandLineTool"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#class"/>
+        <Class IRI="#DockerRequirement"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#class"/>
+        <Class IRI="#Requirements"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#class"/>
+        <Class IRI="#ResourceRequirement"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#coresMax"/>
+        <Class IRI="#ResourceRequirement"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#coresMin"/>
+        <Class IRI="#ResourceRequirement"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#cwlVersion"/>
+        <Class IRI="#CommandLineTool"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#doc"/>
+        <Class IRI="#CommandInputParameter"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#doc"/>
+        <Class IRI="#CommandLineTool"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#doc"/>
+        <Class IRI="#CommandOutputParameter"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#dockerFile"/>
+        <Class IRI="#DockerRequirement"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#dockerImageId"/>
+        <Class IRI="#DockerRequirement"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#dockerImport"/>
+        <Class IRI="#DockerRequirement"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#dockerLoad"/>
+        <Class IRI="#DockerRequirement"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#dockerOutputDirectory"/>
+        <Class IRI="#DockerRequirement"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#dockerProps"/>
+        <Class IRI="#DockerRequirement"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#dockerPull"/>
+        <Class IRI="#DockerRequirement"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#format"/>
+        <Class IRI="#CommandInputParameter"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#format"/>
+        <Class IRI="#CommandOutputParameter"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#glob"/>
+        <Class IRI="#CommandOuputBinding"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">required</Literal>
+        </Annotation>
+        <DataProperty IRI="#id"/>
+        <Class IRI="#CommandInputParameter"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">non required</Literal>
+        </Annotation>
+        <DataProperty IRI="#id"/>
+        <Class IRI="#CommandLineTool"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">required</Literal>
+        </Annotation>
+        <DataProperty IRI="#id"/>
+        <Class IRI="#CommandOutputParameter"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#itemSeparator"/>
+        <Class IRI="#CommandLineBinding"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#label"/>
+        <Class IRI="#CommandInputParameter"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#label"/>
+        <Class IRI="#CommandLineTool"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#label"/>
+        <Class IRI="#CommandOutputParameter"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#loadContents"/>
+        <Class IRI="#CommandLineBinding"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#loadContents"/>
+        <Class IRI="#CommandOuputBinding"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#outdirMax"/>
+        <Class IRI="#ResourceRequirement"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#outdirMin"/>
+        <Class IRI="#ResourceRequirement"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#outputEval"/>
+        <Class IRI="#CommandOuputBinding"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#position"/>
+        <Class IRI="#CommandLineBinding"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#prefix"/>
+        <Class IRI="#CommandLineBinding"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#ramMax"/>
+        <Class IRI="#ResourceRequirement"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#ramMin"/>
+        <Class IRI="#ResourceRequirement"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#requirementProps"/>
+        <Class IRI="#Requirements"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#resourceRequiredProps"/>
+        <Class IRI="#ResourceRequirement"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#secondaryFiles"/>
+        <Class IRI="#CommandInputParameter"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#secondaryFiles"/>
+        <Class IRI="#CommandOutputParameter"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#separate"/>
+        <Class IRI="#CommandLineBinding"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#shellQuote"/>
+        <Class IRI="#CommandLineBinding"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#stderr"/>
+        <Class IRI="#CommandLineTool"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#stdin"/>
+        <Class IRI="#CommandLineTool"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#stdout"/>
+        <Class IRI="#CommandLineTool"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#streamable"/>
+        <Class IRI="#CommandInputParameter"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#streamable"/>
+        <Class IRI="#CommandOutputParameter"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tmpdirMax"/>
+        <Class IRI="#ResourceRequirement"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tmpdirMin"/>
+        <Class IRI="#ResourceRequirement"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#type"/>
+        <Class IRI="#CommandInputParameter"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#type"/>
+        <Class IRI="#CommandOutputParameter"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#valueFrom"/>
+        <Class IRI="#CommandLineBinding"/>
+    </DataPropertyDomain>
+    <DataPropertyRange>
+        <DataProperty IRI="#baseCommand"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#basename"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#checksum"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#class"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#contents"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#coresMax"/>
+        <Datatype abbreviatedIRI="xsd:long"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#coresMax"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#coresMin"/>
+        <Datatype abbreviatedIRI="xsd:long"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#coresMin"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#cwlVersion"/>
+        <DataOneOf>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">draft-2</Literal>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">draft-3</Literal>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">draft-3.dev1</Literal>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">draft-3.dev2</Literal>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">draft-3.dev3</Literal>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">draft-3.dev4</Literal>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">draft-3.dev5</Literal>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">draft-4.dev1</Literal>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">draft-4.dev2</Literal>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">draft-4.dev3</Literal>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">v1.0</Literal>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">v1.0.dev4</Literal>
+        </DataOneOf>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#dirname"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#doc"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#dockerFile"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#dockerImageId"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#dockerImport"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#dockerLoad"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#dockerOutputDirectory"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#dockerPull"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#format"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#glob"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hint"/>
+        <Datatype abbreviatedIRI="xsd:boolean"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hint"/>
+        <Datatype abbreviatedIRI="xsd:double"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hint"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hint"/>
+        <Datatype abbreviatedIRI="xsd:long"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hint"/>
+        <DataOneOf>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Directory</Literal>
+            <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">File</Literal>
+        </DataOneOf>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#id"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#itemSeparator"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#label"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#loadContents"/>
+        <Datatype abbreviatedIRI="xsd:boolean"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#location"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#nameext"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#nameroot"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#outdirMax"/>
+        <Datatype abbreviatedIRI="xsd:long"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#outdirMax"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#outdirMin"/>
+        <Datatype abbreviatedIRI="xsd:long"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#outdirMin"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#outputEval"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#position"/>
+        <Datatype abbreviatedIRI="xsd:positiveInteger"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#prefix"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#ramMax"/>
+        <Datatype abbreviatedIRI="xsd:long"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#ramMax"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#ramMin"/>
+        <Datatype abbreviatedIRI="xsd:long"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#ramMin"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#secondaryFiles"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#separate"/>
+        <Datatype abbreviatedIRI="xsd:boolean"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#shellQuote"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#size"/>
+        <Datatype abbreviatedIRI="xsd:long"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#stderr"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#stdin"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#stdout"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#streamable"/>
+        <Datatype abbreviatedIRI="xsd:boolean"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#tmpdirMax"/>
+        <Datatype abbreviatedIRI="xsd:long"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#tmpdirMax"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#tmpdirMin"/>
+        <Datatype abbreviatedIRI="xsd:long"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#tmpdirMin"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#type"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#valueFrom"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#class</IRI>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">always required</Literal>
+    </AnnotationAssertion>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+

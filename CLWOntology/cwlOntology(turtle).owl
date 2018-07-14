@@ -1,0 +1,585 @@
+@prefix : <urn:absolute:cwlOntology> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <urn:absolute:cwlOntology> .
+
+<urn:absolute:cwlOntology> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  urn:absolute:cwlOntology#hasCommandInputParameter
+:hasCommandInputParameter rdf:type owl:ObjectProperty ;
+                          owl:inverseOf :isCommandInputParameterOf ;
+                          rdfs:domain :CommandLineTool ;
+                          rdfs:range [ rdf:type owl:Restriction ;
+                                       owl:onProperty :hasCommandInputParameter ;
+                                       owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onClass :CommandInputParameter
+                                     ] .
+
+
+###  urn:absolute:cwlOntology#hasCommandLineBinding
+:hasCommandLineBinding rdf:type owl:ObjectProperty ;
+                       owl:inverseOf :isCommandLineBindingOf ;
+                       rdfs:domain :CommandInputParameter ;
+                       rdfs:range :CommandLineBinding .
+
+
+###  urn:absolute:cwlOntology#hasCommandOutputParameter
+:hasCommandOutputParameter rdf:type owl:ObjectProperty ;
+                           owl:inverseOf :isCommandOutputParameterOf ;
+                           rdfs:domain :CommandLineTool ;
+                           rdfs:range [ rdf:type owl:Restriction ;
+                                        owl:onProperty :hasCommandLineBinding ;
+                                        owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                        owl:onClass :CommandOutputParameter
+                                      ] .
+
+
+###  urn:absolute:cwlOntology#hasOutputBinding
+:hasOutputBinding rdf:type owl:ObjectProperty ;
+                  owl:inverseOf :isOutputBindingOf ;
+                  rdfs:domain :CommandOutputParameter ;
+                  rdfs:range :CommandOuputBinding .
+
+
+###  urn:absolute:cwlOntology#isCommandInputParameterOf
+:isCommandInputParameterOf rdf:type owl:ObjectProperty ;
+                           rdfs:domain :CommandInputParameter ;
+                           rdfs:range :CommandLineTool .
+
+
+###  urn:absolute:cwlOntology#isCommandLineBindingOf
+:isCommandLineBindingOf rdf:type owl:ObjectProperty ;
+                        rdfs:domain :CommandLineBinding ;
+                        rdfs:range :CommandInputParameter .
+
+
+###  urn:absolute:cwlOntology#isCommandOutputParameterOf
+:isCommandOutputParameterOf rdf:type owl:ObjectProperty ;
+                            rdfs:domain :CommandOutputParameter ;
+                            rdfs:range :CommandLineTool .
+
+
+###  urn:absolute:cwlOntology#isOutputBindingOf
+:isOutputBindingOf rdf:type owl:ObjectProperty ;
+                   rdfs:domain :CommandOuputBinding ;
+                   rdfs:range :CommandOutputParameter .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  urn:absolute:cwlOntology#CommandLineBinding
+:CommandLineBinding rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :CommandLineBinding .
+
+
+###  urn:absolute:cwlOntology#CommandLineToolProps
+:CommandLineToolProps rdf:type owl:DatatypeProperty ;
+                      rdfs:domain :CommandLineTool .
+
+
+###  urn:absolute:cwlOntology#CommandOutputBinding
+:CommandOutputBinding rdf:type owl:DatatypeProperty ;
+                      rdfs:domain :CommandOuputBinding .
+
+
+###  urn:absolute:cwlOntology#CommandParameter
+:CommandParameter rdf:type owl:DatatypeProperty ;
+                  rdfs:domain :CommandInputParameter ,
+                              :CommandOutputParameter .
+
+
+###  urn:absolute:cwlOntology#FileProperties
+:FileProperties rdf:type owl:DatatypeProperty .
+
+
+###  urn:absolute:cwlOntology#baseCommand
+:baseCommand rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf :CommandLineToolProps ;
+             rdfs:domain :CommandLineTool ;
+             rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#basename
+:basename rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf :FileProperties ;
+          rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#checksum
+:checksum rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf :FileProperties ;
+          rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#class
+:class rdf:type owl:DatatypeProperty ;
+       rdfs:subPropertyOf owl:topDataProperty ;
+       rdfs:domain :CommandLineTool ,
+                   :DockerRequirement ,
+                   :Requirements ,
+                   :ResourceRequirement ;
+       rdfs:range xsd:string ;
+       rdfs:comment "always required" .
+
+
+###  urn:absolute:cwlOntology#contents
+:contents rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf :FileProperties ;
+          rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#coresMax
+:coresMax rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf :resourceRequiredProps ;
+          rdfs:domain :ResourceRequirement ;
+          rdfs:range xsd:long ,
+                     xsd:string .
+
+
+###  urn:absolute:cwlOntology#coresMin
+:coresMin rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf :resourceRequiredProps ;
+          rdfs:domain :ResourceRequirement ;
+          rdfs:range xsd:long ,
+                     xsd:string .
+
+
+###  urn:absolute:cwlOntology#cwlVersion
+:cwlVersion rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf :CommandLineToolProps ;
+            rdfs:domain :CommandLineTool ;
+            rdfs:range [ rdf:type rdfs:Datatype ;
+                         owl:oneOf [ rdf:type rdf:List ;
+                                     rdf:first "draft-2" ;
+                                     rdf:rest [ rdf:type rdf:List ;
+                                                rdf:first "draft-3" ;
+                                                rdf:rest [ rdf:type rdf:List ;
+                                                           rdf:first "draft-3.dev1" ;
+                                                           rdf:rest [ rdf:type rdf:List ;
+                                                                      rdf:first "draft-3.dev2" ;
+                                                                      rdf:rest [ rdf:type rdf:List ;
+                                                                                 rdf:first "draft-3.dev3" ;
+                                                                                 rdf:rest [ rdf:type rdf:List ;
+                                                                                            rdf:first "draft-3.dev4" ;
+                                                                                            rdf:rest [ rdf:type rdf:List ;
+                                                                                                       rdf:first "draft-3.dev5" ;
+                                                                                                       rdf:rest [ rdf:type rdf:List ;
+                                                                                                                  rdf:first "draft-4.dev1" ;
+                                                                                                                  rdf:rest [ rdf:type rdf:List ;
+                                                                                                                             rdf:first "draft-4.dev2" ;
+                                                                                                                             rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                        rdf:first "draft-4.dev3" ;
+                                                                                                                                        rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                   rdf:first "v1.0" ;
+                                                                                                                                                   rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                              rdf:first "v1.0.dev4" ;
+                                                                                                                                                              rdf:rest rdf:nil
+                                                                                                                                                            ]
+                                                                                                                                                 ]
+                                                                                                                                      ]
+                                                                                                                           ]
+                                                                                                                ]
+                                                                                                     ]
+                                                                                          ]
+                                                                               ]
+                                                                    ]
+                                                         ]
+                                              ]
+                                   ]
+                       ] .
+
+
+###  urn:absolute:cwlOntology#dirname
+:dirname rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf :FileProperties ;
+         rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#doc
+:doc rdf:type owl:DatatypeProperty ;
+     rdfs:subPropertyOf owl:topDataProperty ;
+     rdfs:domain :CommandInputParameter ,
+                 :CommandLineTool ,
+                 :CommandOutputParameter ;
+     rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#dockerFile
+:dockerFile rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf :dockerProps ;
+            rdfs:domain :DockerRequirement ;
+            rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#dockerImageId
+:dockerImageId rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf :dockerProps ;
+               rdfs:domain :DockerRequirement ;
+               rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#dockerImport
+:dockerImport rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf :dockerProps ;
+              rdfs:domain :DockerRequirement ;
+              rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#dockerLoad
+:dockerLoad rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf :dockerProps ;
+            rdfs:domain :DockerRequirement ;
+            rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#dockerOutputDirectory
+:dockerOutputDirectory rdf:type owl:DatatypeProperty ;
+                       rdfs:subPropertyOf :dockerProps ;
+                       rdfs:domain :DockerRequirement ;
+                       rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#dockerProps
+:dockerProps rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf :requirementProps ;
+             rdfs:domain :DockerRequirement .
+
+
+###  urn:absolute:cwlOntology#dockerPull
+:dockerPull rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf :dockerProps ;
+            rdfs:domain :DockerRequirement ;
+            rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#fileClass
+:fileClass rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf :FileProperties .
+
+
+###  urn:absolute:cwlOntology#format
+:format rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdfs:domain :CommandInputParameter ,
+                    :CommandOutputParameter ;
+        rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#glob
+:glob rdf:type owl:DatatypeProperty ;
+      rdfs:subPropertyOf :CommandOutputBinding ;
+      rdfs:domain :CommandOuputBinding ;
+      rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#hint
+:hint rdf:type owl:DatatypeProperty ;
+      rdfs:subPropertyOf owl:topDataProperty ;
+      rdfs:range xsd:boolean ,
+                 xsd:double ,
+                 xsd:int ,
+                 xsd:long ,
+                 [ rdf:type rdfs:Datatype ;
+                   owl:oneOf [ rdf:type rdf:List ;
+                               rdf:first "Directory" ;
+                               rdf:rest [ rdf:type rdf:List ;
+                                          rdf:first "File" ;
+                                          rdf:rest rdf:nil
+                                        ]
+                             ]
+                 ] .
+
+
+###  urn:absolute:cwlOntology#id
+:id rdf:type owl:DatatypeProperty ;
+    rdfs:subPropertyOf owl:topDataProperty ;
+    rdfs:domain :CommandInputParameter ,
+                :CommandLineTool ,
+                :CommandOutputParameter ;
+    rdfs:range xsd:string .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource :id ;
+   owl:annotatedProperty rdfs:domain ;
+   owl:annotatedTarget :CommandInputParameter ;
+   rdfs:comment "required"
+ ] .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource :id ;
+   owl:annotatedProperty rdfs:domain ;
+   owl:annotatedTarget :CommandLineTool ;
+   rdfs:comment "non required"
+ ] .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource :id ;
+   owl:annotatedProperty rdfs:domain ;
+   owl:annotatedTarget :CommandOutputParameter ;
+   rdfs:comment "required"
+ ] .
+
+
+###  urn:absolute:cwlOntology#itemSeparator
+:itemSeparator rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf :CommandLineBinding ;
+               rdfs:domain :CommandLineBinding ;
+               rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#label
+:label rdf:type owl:DatatypeProperty ;
+       rdfs:subPropertyOf owl:topDataProperty ;
+       rdfs:domain :CommandInputParameter ,
+                   :CommandLineTool ,
+                   :CommandOutputParameter ;
+       rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#loadContents
+:loadContents rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdfs:domain :CommandLineBinding ,
+                          :CommandOuputBinding ;
+              rdfs:range xsd:boolean .
+
+
+###  urn:absolute:cwlOntology#location
+:location rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf :FileProperties ;
+          rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#nameext
+:nameext rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf :FileProperties ;
+         rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#nameroot
+:nameroot rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf :FileProperties ;
+          rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#outdirMax
+:outdirMax rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf :resourceRequiredProps ;
+           rdfs:domain :ResourceRequirement ;
+           rdfs:range xsd:long ,
+                      xsd:string .
+
+
+###  urn:absolute:cwlOntology#outdirMin
+:outdirMin rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf :resourceRequiredProps ;
+           rdfs:domain :ResourceRequirement ;
+           rdfs:range xsd:long ,
+                      xsd:string .
+
+
+###  urn:absolute:cwlOntology#outputEval
+:outputEval rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf :CommandOutputBinding ;
+            rdfs:domain :CommandOuputBinding ;
+            rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#path
+:path rdf:type owl:DatatypeProperty ;
+      rdfs:subPropertyOf :FileProperties .
+
+
+###  urn:absolute:cwlOntology#position
+:position rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf :CommandLineBinding ;
+          rdfs:domain :CommandLineBinding ;
+          rdfs:range xsd:positiveInteger .
+
+
+###  urn:absolute:cwlOntology#prefix
+:prefix rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf :CommandLineBinding ;
+        rdfs:domain :CommandLineBinding ;
+        rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#ramMax
+:ramMax rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf :resourceRequiredProps ;
+        rdfs:domain :ResourceRequirement ;
+        rdfs:range xsd:long ,
+                   xsd:string .
+
+
+###  urn:absolute:cwlOntology#ramMin
+:ramMin rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf :resourceRequiredProps ;
+        rdfs:domain :ResourceRequirement ;
+        rdfs:range xsd:long ,
+                   xsd:string .
+
+
+###  urn:absolute:cwlOntology#requirementProps
+:requirementProps rdf:type owl:DatatypeProperty ;
+                  rdfs:domain :Requirements .
+
+
+###  urn:absolute:cwlOntology#resourceRequiredProps
+:resourceRequiredProps rdf:type owl:DatatypeProperty ;
+                       rdfs:subPropertyOf :requirementProps ;
+                       rdfs:domain :ResourceRequirement .
+
+
+###  urn:absolute:cwlOntology#secondaryFiles
+:secondaryFiles rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf :CommandParameter ;
+                rdfs:domain :CommandInputParameter ,
+                            :CommandOutputParameter ;
+                rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#separate
+:separate rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf :CommandLineBinding ;
+          rdfs:domain :CommandLineBinding ;
+          rdfs:range xsd:boolean .
+
+
+###  urn:absolute:cwlOntology#shellQuote
+:shellQuote rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf :CommandLineBinding ;
+            rdfs:domain :CommandLineBinding ;
+            rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#size
+:size rdf:type owl:DatatypeProperty ;
+      rdfs:subPropertyOf :FileProperties ;
+      rdfs:range xsd:long .
+
+
+###  urn:absolute:cwlOntology#stderr
+:stderr rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf :CommandLineToolProps ;
+        rdfs:domain :CommandLineTool ;
+        rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#stdin
+:stdin rdf:type owl:DatatypeProperty ;
+       rdfs:subPropertyOf :CommandLineToolProps ;
+       rdfs:domain :CommandLineTool ;
+       rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#stdout
+:stdout rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf :CommandLineToolProps ;
+        rdfs:domain :CommandLineTool ;
+        rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#streamable
+:streamable rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf :CommandParameter ;
+            rdfs:domain :CommandInputParameter ,
+                        :CommandOutputParameter ;
+            rdfs:range xsd:boolean .
+
+
+###  urn:absolute:cwlOntology#tmpdirMax
+:tmpdirMax rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf :resourceRequiredProps ;
+           rdfs:domain :ResourceRequirement ;
+           rdfs:range xsd:long ,
+                      xsd:string .
+
+
+###  urn:absolute:cwlOntology#tmpdirMin
+:tmpdirMin rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf :resourceRequiredProps ;
+           rdfs:domain :ResourceRequirement ;
+           rdfs:range xsd:long ,
+                      xsd:string .
+
+
+###  urn:absolute:cwlOntology#type
+:type rdf:type owl:DatatypeProperty ;
+      rdfs:subPropertyOf :CommandParameter ;
+      rdfs:domain :CommandInputParameter ,
+                  :CommandOutputParameter ;
+      rdfs:range xsd:string .
+
+
+###  urn:absolute:cwlOntology#valueFrom
+:valueFrom rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf :CommandLineBinding ;
+           rdfs:domain :CommandLineBinding ;
+           rdfs:range xsd:string .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  urn:absolute:cwlOntology#CommandInputParameter
+:CommandInputParameter rdf:type owl:Class ;
+                       rdfs:subClassOf :CommandLineTool ;
+                       owl:disjointWith :CommandLineBinding .
+
+
+###  urn:absolute:cwlOntology#CommandLineBinding
+:CommandLineBinding rdf:type owl:Class ;
+                    rdfs:subClassOf :CommandInputParameter .
+
+
+###  urn:absolute:cwlOntology#CommandLineTool
+:CommandLineTool rdf:type owl:Class .
+
+
+###  urn:absolute:cwlOntology#CommandOuputBinding
+:CommandOuputBinding rdf:type owl:Class ;
+                     rdfs:subClassOf :CommandOutputParameter ;
+                     owl:disjointWith :CommandOutputParameter .
+
+
+###  urn:absolute:cwlOntology#CommandOutputParameter
+:CommandOutputParameter rdf:type owl:Class ;
+                        rdfs:subClassOf :CommandLineTool .
+
+
+###  urn:absolute:cwlOntology#DockerRequirement
+:DockerRequirement rdf:type owl:Class ;
+                   rdfs:subClassOf :Requirements .
+
+
+###  urn:absolute:cwlOntology#File
+:File rdf:type owl:Class .
+
+
+###  urn:absolute:cwlOntology#Outputs
+:Outputs rdf:type owl:Class ;
+         rdfs:subClassOf :CommandLineTool .
+
+
+###  urn:absolute:cwlOntology#Requirements
+:Requirements rdf:type owl:Class ;
+              rdfs:subClassOf :CommandLineTool .
+
+
+###  urn:absolute:cwlOntology#ResourceRequirement
+:ResourceRequirement rdf:type owl:Class ;
+                     rdfs:subClassOf :Requirements .
+
+
+###  Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi

@@ -27,6 +27,14 @@ const service = require('../services/populate-service')
 /**
  * GENERIC POPULATE
  */
+
+/*
+ * creates a new populate
+ * needs in body: (Object) data
+ * data: {
+ *    ontologyFiles : Array of ontology files ids
+ * }
+ */
 function addPopulate (req, res, next) {
   debug('POST /populate')
   let data = req.body.data
@@ -36,6 +44,10 @@ function addPopulate (req, res, next) {
   })
 }
 
+/**
+ *  generates the output file
+ *  needs in path: id, populate's id
+ */
 function createOutputFile (req, res, next) {
   debug('PUT /populate/:id/output')
   let id = req.params.id
@@ -45,6 +57,10 @@ function createOutputFile (req, res, next) {
   })
 }
 
+/*
+  * returns all populates
+  * also renders view 'populates'
+ */
 function getPopulates (req, res, next) {
   debug('GET /populate')
   service.getPopulates((err, pops) => {
@@ -53,6 +69,10 @@ function getPopulates (req, res, next) {
   })
 }
 
+/*
+ * deletes a populate
+ * needs in path: id, populate's id
+ */
 function deletePopulate (req, res, next) {
   debug('DELETE /populate/:id')
   let id = req.params.id
@@ -66,6 +86,10 @@ function deletePopulate (req, res, next) {
  * POPULATE WITH DATA
  */
 
+/*
+  * returns all populates
+  * also renders view 'populatesWithoutData'
+ */
 function getPopulateWithData (req, res, next) {
   debug('GET /populate/data/:id')
   let id = req.params.id
@@ -75,6 +99,10 @@ function getPopulateWithData (req, res, next) {
   })
 }
 
+/*
+ *  returns node tree from populate
+ *  needs in path: id, populate's id
+ */
 function getPopulateDataTree (req, res, next) {
   debug('GET /populate/data/:id/tree')
   let id = req.params.id
@@ -84,6 +112,11 @@ function getPopulateDataTree (req, res, next) {
   })
 }
 
+/*
+ * returns mapping from populate
+ * also renders view 'populateWithDataMapping'
+ * needs in path: id, populate's id
+ */
 function getPopulateDataMapping (req, res, next) {
   debug('GET /populate/data/:id/mapping')
   let id = req.params.id
@@ -93,6 +126,12 @@ function getPopulateDataMapping (req, res, next) {
   })
 }
 
+/*
+ * returns individual from populate
+ * also renders view 'individualMapping'
+ * needs in path: id, populate's id
+ *                ind, individual mapping's id
+ */
 function getPopulateDataIndividual (req, res, next) {
   debug('GET /populate/data/:id/individual/:ind')
   let ind = req.params.ind
@@ -106,6 +145,11 @@ function getPopulateDataIndividual (req, res, next) {
     res.render('individualMapping', ctx)
   })
 }
+/*
+ * returns inividual's node tree
+ * needs in path: id, populate's id
+ *                ind, individual mapping's id
+ */
 
 function getPopulateDataIndividualTree (req, res, next) {
   debug('GET /populate/data/:id/individual/:ind/tree')
@@ -131,6 +175,11 @@ function finalize (req, res, next) {
   })
 }
 
+/*
+ * returns populate
+ * also renders view 'populateWithoutData'
+ * needs in path : id, populate's id
+ */
 function getPopulateWithoutData (req, res, next) {
   debug('GET /populate/nondata/:id')
   let id = req.params.id
@@ -140,6 +189,11 @@ function getPopulateWithoutData (req, res, next) {
   })
 }
 
+/*
+ * returns mapping
+ * also renders view 'populateWithoutDataMapping'
+ * needs in path : id, mapping's id
+ */
 function getPopulateNonDataMapping (req, res, next) {
   debug('GET /populate/nondata/:id/mapping')
   let id = req.params.id
@@ -149,6 +203,12 @@ function getPopulateNonDataMapping (req, res, next) {
   })
 }
 
+/*
+ * returns individual
+ * also renders view 'individual'
+ * needs in path : id, populate's id
+ *                 ind, indiviual's id
+ */
 function getPopulateNonDataIndividual (req, res, next) {
   debug('GET /populate/nondata/:id/individual/:ind')
   let id = req.params.id

@@ -36,6 +36,10 @@ function createIndividual (req, res, next) {
   })
 }
 
+/*
+ * Update individual mapping
+ * needs in path : id, this refers to the id of the desired individual mapping
+ */
 function putIndividualMapping (req, res, next) {
   debug('PUT /map/individual/:id')
   let id = req.params.id
@@ -173,6 +177,12 @@ function putIndividualMappingAnnotationProperties (req, res, next) {
   })
 }
 
+/*
+ * Delete individual mapping
+ * needs in path : id, this refers to the id of the desired individual mapping
+ * needs in query: populateId, this refers to the populate's id
+ */
+
 function deleteIndividualMapping (req, res, next) {
   debug('DELETE /map/individual/:id')
   let id = req.params.id
@@ -183,6 +193,12 @@ function deleteIndividualMapping (req, res, next) {
   })
 }
 
+/*
+ * Delete individual mapping property
+ * needs in path : id, this refers to the id of the desired individual mapping
+ *                pid, this refers to the id of the property to be deleted
+ * needs in query: type, describes the type of property to be deleted (Data, Object or Annotation)
+ */
 function deleteIndividualMappingProperty (req, res, next) {
   debug('DELETE /map/individual/:id/properties/:pid')
   let type = req.query.type
@@ -194,6 +210,10 @@ function deleteIndividualMappingProperty (req, res, next) {
   })
 }
 
+/*
+ * renders object properties
+ * needs in path: id, the individual mapping id
+ */
 function renderObjectProps (req, res, next) {
   debug('GET /map/individual/:id/properties/object/view')
   let id = req.params.id
@@ -205,6 +225,10 @@ function renderObjectProps (req, res, next) {
   })
 }
 
+/*
+ * renders data properties
+ * needs in path: id, the individual mapping id
+ */
 function renderDataProps (req, res, next) {
   debug('GET /map/individual/:id/properties/data/view')
   let id = req.params.id
@@ -216,6 +240,10 @@ function renderDataProps (req, res, next) {
   })
 }
 
+/*
+ * renders data properties
+ * needs in path: id, the individual mapping id
+ */
 function renderAnnotationProps (req, res, next) {
   debug('GET /map/individual/:id/properties/annotation/view')
   let id = req.params.id

@@ -1,0 +1,873 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="urn:absolute:cwlOntology"
+     xml:base="urn:absolute:cwlOntology"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="urn:absolute:cwlOntology"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- urn:absolute:cwlOntology#hasCommandInputParameter -->
+
+    <owl:ObjectProperty rdf:about="urn:absolute:cwlOntology#hasCommandInputParameter">
+        <owl:inverseOf rdf:resource="urn:absolute:cwlOntology#isCommandInputParameterOf"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandLineTool"/>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="urn:absolute:cwlOntology#hasCommandInputParameter"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="urn:absolute:cwlOntology#CommandInputParameter"/>
+            </owl:Restriction>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#hasCommandLineBinding -->
+
+    <owl:ObjectProperty rdf:about="urn:absolute:cwlOntology#hasCommandLineBinding">
+        <owl:inverseOf rdf:resource="urn:absolute:cwlOntology#isCommandLineBindingOf"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandInputParameter"/>
+        <rdfs:range rdf:resource="urn:absolute:cwlOntology#CommandLineBinding"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#hasCommandOutputParameter -->
+
+    <owl:ObjectProperty rdf:about="urn:absolute:cwlOntology#hasCommandOutputParameter">
+        <owl:inverseOf rdf:resource="urn:absolute:cwlOntology#isCommandOutputParameterOf"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandLineTool"/>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="urn:absolute:cwlOntology#hasCommandLineBinding"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="urn:absolute:cwlOntology#CommandOutputParameter"/>
+            </owl:Restriction>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#hasOutputBinding -->
+
+    <owl:ObjectProperty rdf:about="urn:absolute:cwlOntology#hasOutputBinding">
+        <owl:inverseOf rdf:resource="urn:absolute:cwlOntology#isOutputBindingOf"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandOutputParameter"/>
+        <rdfs:range rdf:resource="urn:absolute:cwlOntology#CommandOuputBinding"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#isCommandInputParameterOf -->
+
+    <owl:ObjectProperty rdf:about="urn:absolute:cwlOntology#isCommandInputParameterOf">
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandInputParameter"/>
+        <rdfs:range rdf:resource="urn:absolute:cwlOntology#CommandLineTool"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#isCommandLineBindingOf -->
+
+    <owl:ObjectProperty rdf:about="urn:absolute:cwlOntology#isCommandLineBindingOf">
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandLineBinding"/>
+        <rdfs:range rdf:resource="urn:absolute:cwlOntology#CommandInputParameter"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#isCommandOutputParameterOf -->
+
+    <owl:ObjectProperty rdf:about="urn:absolute:cwlOntology#isCommandOutputParameterOf">
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandOutputParameter"/>
+        <rdfs:range rdf:resource="urn:absolute:cwlOntology#CommandLineTool"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#isOutputBindingOf -->
+
+    <owl:ObjectProperty rdf:about="urn:absolute:cwlOntology#isOutputBindingOf">
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandOuputBinding"/>
+        <rdfs:range rdf:resource="urn:absolute:cwlOntology#CommandOutputParameter"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- urn:absolute:cwlOntology#CommandLineBinding -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#CommandLineBinding">
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandLineBinding"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#CommandLineToolProps -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#CommandLineToolProps">
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandLineTool"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#CommandOutputBinding -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#CommandOutputBinding">
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandOuputBinding"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#CommandParameter -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#CommandParameter">
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandInputParameter"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandOutputParameter"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#FileProperties -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#FileProperties"/>
+    
+
+
+    <!-- urn:absolute:cwlOntology#baseCommand -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#baseCommand">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#CommandLineToolProps"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandLineTool"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#basename -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#basename">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#FileProperties"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#checksum -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#checksum">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#FileProperties"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#class -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#class">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandLineTool"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#DockerRequirement"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#Requirements"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#ResourceRequirement"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment>always required</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#contents -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#contents">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#FileProperties"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#coresMax -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#coresMax">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#resourceRequiredProps"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#ResourceRequirement"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#long"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#coresMin -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#coresMin">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#resourceRequiredProps"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#ResourceRequirement"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#long"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#cwlVersion -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#cwlVersion">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#CommandLineToolProps"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandLineTool"/>
+        <rdfs:range>
+            <rdfs:Datatype>
+                <owl:oneOf>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                        <rdf:first>draft-2</rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                <rdf:first>draft-3</rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                        <rdf:first>draft-3.dev1</rdf:first>
+                                        <rdf:rest>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                <rdf:first>draft-3.dev2</rdf:first>
+                                                <rdf:rest>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                        <rdf:first>draft-3.dev3</rdf:first>
+                                                        <rdf:rest>
+                                                            <rdf:Description>
+                                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                                <rdf:first>draft-3.dev4</rdf:first>
+                                                                <rdf:rest>
+                                                                    <rdf:Description>
+                                                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                                        <rdf:first>draft-3.dev5</rdf:first>
+                                                                        <rdf:rest>
+                                                                            <rdf:Description>
+                                                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                                                <rdf:first>draft-4.dev1</rdf:first>
+                                                                                <rdf:rest>
+                                                                                    <rdf:Description>
+                                                                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                                                        <rdf:first>draft-4.dev2</rdf:first>
+                                                                                        <rdf:rest>
+                                                                                            <rdf:Description>
+                                                                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                                                                <rdf:first>draft-4.dev3</rdf:first>
+                                                                                                <rdf:rest>
+                                                                                                    <rdf:Description>
+                                                                                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                                                                        <rdf:first>v1.0</rdf:first>
+                                                                                                        <rdf:rest>
+                                                                                                            <rdf:Description>
+                                                                                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                                                                                <rdf:first>v1.0.dev4</rdf:first>
+                                                                                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                                                                                            </rdf:Description>
+                                                                                                        </rdf:rest>
+                                                                                                    </rdf:Description>
+                                                                                                </rdf:rest>
+                                                                                            </rdf:Description>
+                                                                                        </rdf:rest>
+                                                                                    </rdf:Description>
+                                                                                </rdf:rest>
+                                                                            </rdf:Description>
+                                                                        </rdf:rest>
+                                                                    </rdf:Description>
+                                                                </rdf:rest>
+                                                            </rdf:Description>
+                                                        </rdf:rest>
+                                                    </rdf:Description>
+                                                </rdf:rest>
+                                            </rdf:Description>
+                                        </rdf:rest>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </owl:oneOf>
+            </rdfs:Datatype>
+        </rdfs:range>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#dirname -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#dirname">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#FileProperties"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#doc -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#doc">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandInputParameter"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandLineTool"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandOutputParameter"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#dockerFile -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#dockerFile">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#dockerProps"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#DockerRequirement"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#dockerImageId -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#dockerImageId">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#dockerProps"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#DockerRequirement"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#dockerImport -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#dockerImport">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#dockerProps"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#DockerRequirement"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#dockerLoad -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#dockerLoad">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#dockerProps"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#DockerRequirement"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#dockerOutputDirectory -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#dockerOutputDirectory">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#dockerProps"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#DockerRequirement"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#dockerProps -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#dockerProps">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#requirementProps"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#DockerRequirement"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#dockerPull -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#dockerPull">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#dockerProps"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#DockerRequirement"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#fileClass -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#fileClass">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#FileProperties"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#format -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#format">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandInputParameter"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandOutputParameter"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#glob -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#glob">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#CommandOutputBinding"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandOuputBinding"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#hint -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#hint">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#long"/>
+        <rdfs:range>
+            <rdfs:Datatype>
+                <owl:oneOf>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                        <rdf:first>Directory</rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                <rdf:first>File</rdf:first>
+                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </owl:oneOf>
+            </rdfs:Datatype>
+        </rdfs:range>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#id -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#id">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandInputParameter"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandLineTool"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandOutputParameter"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="urn:absolute:cwlOntology#id"/>
+        <owl:annotatedProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#domain"/>
+        <owl:annotatedTarget rdf:resource="urn:absolute:cwlOntology#CommandInputParameter"/>
+        <rdfs:comment>required</rdfs:comment>
+    </owl:Axiom>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="urn:absolute:cwlOntology#id"/>
+        <owl:annotatedProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#domain"/>
+        <owl:annotatedTarget rdf:resource="urn:absolute:cwlOntology#CommandLineTool"/>
+        <rdfs:comment>non required</rdfs:comment>
+    </owl:Axiom>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="urn:absolute:cwlOntology#id"/>
+        <owl:annotatedProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#domain"/>
+        <owl:annotatedTarget rdf:resource="urn:absolute:cwlOntology#CommandOutputParameter"/>
+        <rdfs:comment>required</rdfs:comment>
+    </owl:Axiom>
+    
+
+
+    <!-- urn:absolute:cwlOntology#itemSeparator -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#itemSeparator">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#CommandLineBinding"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandLineBinding"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#label -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#label">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandInputParameter"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandLineTool"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandOutputParameter"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#loadContents -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#loadContents">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandLineBinding"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandOuputBinding"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#location -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#location">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#FileProperties"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#nameext -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#nameext">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#FileProperties"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#nameroot -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#nameroot">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#FileProperties"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#outdirMax -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#outdirMax">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#resourceRequiredProps"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#ResourceRequirement"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#long"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#outdirMin -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#outdirMin">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#resourceRequiredProps"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#ResourceRequirement"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#long"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#outputEval -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#outputEval">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#CommandOutputBinding"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandOuputBinding"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#path -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#path">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#FileProperties"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#position -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#position">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#CommandLineBinding"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandLineBinding"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#positiveInteger"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#prefix -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#prefix">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#CommandLineBinding"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandLineBinding"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#ramMax -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#ramMax">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#resourceRequiredProps"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#ResourceRequirement"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#long"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#ramMin -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#ramMin">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#resourceRequiredProps"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#ResourceRequirement"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#long"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#requirementProps -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#requirementProps">
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#Requirements"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#resourceRequiredProps -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#resourceRequiredProps">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#requirementProps"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#ResourceRequirement"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#secondaryFiles -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#secondaryFiles">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#CommandParameter"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandInputParameter"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandOutputParameter"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#separate -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#separate">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#CommandLineBinding"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandLineBinding"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#shellQuote -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#shellQuote">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#CommandLineBinding"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandLineBinding"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#size -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#size">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#FileProperties"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#long"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#stderr -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#stderr">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#CommandLineToolProps"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandLineTool"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#stdin -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#stdin">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#CommandLineToolProps"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandLineTool"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#stdout -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#stdout">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#CommandLineToolProps"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandLineTool"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#streamable -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#streamable">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#CommandParameter"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandInputParameter"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandOutputParameter"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#tmpdirMax -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#tmpdirMax">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#resourceRequiredProps"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#ResourceRequirement"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#long"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#tmpdirMin -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#tmpdirMin">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#resourceRequiredProps"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#ResourceRequirement"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#long"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#type -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#type">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#CommandParameter"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandInputParameter"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandOutputParameter"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- urn:absolute:cwlOntology#valueFrom -->
+
+    <owl:DatatypeProperty rdf:about="urn:absolute:cwlOntology#valueFrom">
+        <rdfs:subPropertyOf rdf:resource="urn:absolute:cwlOntology#CommandLineBinding"/>
+        <rdfs:domain rdf:resource="urn:absolute:cwlOntology#CommandLineBinding"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- urn:absolute:cwlOntology#CommandInputParameter -->
+
+    <owl:Class rdf:about="urn:absolute:cwlOntology#CommandInputParameter">
+        <rdfs:subClassOf rdf:resource="urn:absolute:cwlOntology#CommandLineTool"/>
+        <owl:disjointWith rdf:resource="urn:absolute:cwlOntology#CommandLineBinding"/>
+    </owl:Class>
+    
+
+
+    <!-- urn:absolute:cwlOntology#CommandLineBinding -->
+
+    <owl:Class rdf:about="urn:absolute:cwlOntology#CommandLineBinding">
+        <rdfs:subClassOf rdf:resource="urn:absolute:cwlOntology#CommandInputParameter"/>
+    </owl:Class>
+    
+
+
+    <!-- urn:absolute:cwlOntology#CommandLineTool -->
+
+    <owl:Class rdf:about="urn:absolute:cwlOntology#CommandLineTool"/>
+    
+
+
+    <!-- urn:absolute:cwlOntology#CommandOuputBinding -->
+
+    <owl:Class rdf:about="urn:absolute:cwlOntology#CommandOuputBinding">
+        <rdfs:subClassOf rdf:resource="urn:absolute:cwlOntology#CommandOutputParameter"/>
+        <owl:disjointWith rdf:resource="urn:absolute:cwlOntology#CommandOutputParameter"/>
+    </owl:Class>
+    
+
+
+    <!-- urn:absolute:cwlOntology#CommandOutputParameter -->
+
+    <owl:Class rdf:about="urn:absolute:cwlOntology#CommandOutputParameter">
+        <rdfs:subClassOf rdf:resource="urn:absolute:cwlOntology#CommandLineTool"/>
+    </owl:Class>
+    
+
+
+    <!-- urn:absolute:cwlOntology#DockerRequirement -->
+
+    <owl:Class rdf:about="urn:absolute:cwlOntology#DockerRequirement">
+        <rdfs:subClassOf rdf:resource="urn:absolute:cwlOntology#Requirements"/>
+    </owl:Class>
+    
+
+
+    <!-- urn:absolute:cwlOntology#File -->
+
+    <owl:Class rdf:about="urn:absolute:cwlOntology#File"/>
+    
+
+
+    <!-- urn:absolute:cwlOntology#Outputs -->
+
+    <owl:Class rdf:about="urn:absolute:cwlOntology#Outputs">
+        <rdfs:subClassOf rdf:resource="urn:absolute:cwlOntology#CommandLineTool"/>
+    </owl:Class>
+    
+
+
+    <!-- urn:absolute:cwlOntology#Requirements -->
+
+    <owl:Class rdf:about="urn:absolute:cwlOntology#Requirements">
+        <rdfs:subClassOf rdf:resource="urn:absolute:cwlOntology#CommandLineTool"/>
+    </owl:Class>
+    
+
+
+    <!-- urn:absolute:cwlOntology#ResourceRequirement -->
+
+    <owl:Class rdf:about="urn:absolute:cwlOntology#ResourceRequirement">
+        <rdfs:subClassOf rdf:resource="urn:absolute:cwlOntology#Requirements"/>
+    </owl:Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+

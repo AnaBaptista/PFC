@@ -1,0 +1,889 @@
+[ {
+  "@id" : "_:genid1",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Restriction" ],
+  "http://www.w3.org/2002/07/owl#minQualifiedCardinality" : [ {
+    "@type" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+    "@value" : "1"
+  } ],
+  "http://www.w3.org/2002/07/owl#onClass" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandInputParameter"
+  } ],
+  "http://www.w3.org/2002/07/owl#onProperty" : [ {
+    "@id" : "urn:absolute:cwlOntology#hasCommandInputParameter"
+  } ]
+}, {
+  "@id" : "_:genid16",
+  "@type" : [ "http://www.w3.org/2000/01/rdf-schema#Datatype" ],
+  "http://www.w3.org/2002/07/owl#oneOf" : [ {
+    "@list" : [ {
+      "@value" : "Directory"
+    }, {
+      "@value" : "File"
+    } ]
+  } ]
+}, {
+  "@id" : "_:genid19",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Axiom" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@value" : "required"
+  } ],
+  "http://www.w3.org/2002/07/owl#annotatedProperty" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#domain"
+  } ],
+  "http://www.w3.org/2002/07/owl#annotatedSource" : [ {
+    "@id" : "urn:absolute:cwlOntology#id"
+  } ],
+  "http://www.w3.org/2002/07/owl#annotatedTarget" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandInputParameter"
+  } ]
+}, {
+  "@id" : "_:genid2",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Restriction" ],
+  "http://www.w3.org/2002/07/owl#minQualifiedCardinality" : [ {
+    "@type" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+    "@value" : "1"
+  } ],
+  "http://www.w3.org/2002/07/owl#onClass" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandOutputParameter"
+  } ],
+  "http://www.w3.org/2002/07/owl#onProperty" : [ {
+    "@id" : "urn:absolute:cwlOntology#hasCommandLineBinding"
+  } ]
+}, {
+  "@id" : "_:genid20",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Axiom" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@value" : "non required"
+  } ],
+  "http://www.w3.org/2002/07/owl#annotatedProperty" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#domain"
+  } ],
+  "http://www.w3.org/2002/07/owl#annotatedSource" : [ {
+    "@id" : "urn:absolute:cwlOntology#id"
+  } ],
+  "http://www.w3.org/2002/07/owl#annotatedTarget" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineTool"
+  } ]
+}, {
+  "@id" : "_:genid21",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Axiom" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@value" : "required"
+  } ],
+  "http://www.w3.org/2002/07/owl#annotatedProperty" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#domain"
+  } ],
+  "http://www.w3.org/2002/07/owl#annotatedSource" : [ {
+    "@id" : "urn:absolute:cwlOntology#id"
+  } ],
+  "http://www.w3.org/2002/07/owl#annotatedTarget" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandOutputParameter"
+  } ]
+}, {
+  "@id" : "_:genid3",
+  "@type" : [ "http://www.w3.org/2000/01/rdf-schema#Datatype" ],
+  "http://www.w3.org/2002/07/owl#oneOf" : [ {
+    "@list" : [ {
+      "@value" : "draft-2"
+    }, {
+      "@value" : "draft-3"
+    }, {
+      "@value" : "draft-3.dev1"
+    }, {
+      "@value" : "draft-3.dev2"
+    }, {
+      "@value" : "draft-3.dev3"
+    }, {
+      "@value" : "draft-3.dev4"
+    }, {
+      "@value" : "draft-3.dev5"
+    }, {
+      "@value" : "draft-4.dev1"
+    }, {
+      "@value" : "draft-4.dev2"
+    }, {
+      "@value" : "draft-4.dev3"
+    }, {
+      "@value" : "v1.0"
+    }, {
+      "@value" : "v1.0.dev4"
+    } ]
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Ontology" ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#CommandInputParameter",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineTool"
+  } ],
+  "http://www.w3.org/2002/07/owl#disjointWith" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineBinding"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#CommandLineBinding",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty", "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineBinding"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandInputParameter"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#CommandLineTool",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#CommandLineToolProps",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineTool"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#CommandOuputBinding",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandOutputParameter"
+  } ],
+  "http://www.w3.org/2002/07/owl#disjointWith" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandOutputParameter"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#CommandOutputBinding",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandOuputBinding"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#CommandOutputParameter",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineTool"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#CommandParameter",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandInputParameter"
+  }, {
+    "@id" : "urn:absolute:cwlOntology#CommandOutputParameter"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#DockerRequirement",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#Requirements"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#File",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#FileProperties",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#Outputs",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineTool"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#Requirements",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineTool"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#ResourceRequirement",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#Requirements"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#baseCommand",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineTool"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineToolProps"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#basename",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#FileProperties"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#checksum",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#FileProperties"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#class",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#comment" : [ {
+    "@value" : "always required"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineTool"
+  }, {
+    "@id" : "urn:absolute:cwlOntology#DockerRequirement"
+  }, {
+    "@id" : "urn:absolute:cwlOntology#Requirements"
+  }, {
+    "@id" : "urn:absolute:cwlOntology#ResourceRequirement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#topDataProperty"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#contents",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#FileProperties"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#coresMax",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#ResourceRequirement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#long"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#resourceRequiredProps"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#coresMin",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#ResourceRequirement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#long"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#resourceRequiredProps"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#cwlVersion",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineTool"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "_:genid3"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineToolProps"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#dirname",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#FileProperties"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#doc",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandInputParameter"
+  }, {
+    "@id" : "urn:absolute:cwlOntology#CommandLineTool"
+  }, {
+    "@id" : "urn:absolute:cwlOntology#CommandOutputParameter"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#topDataProperty"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#dockerFile",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#DockerRequirement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#dockerProps"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#dockerImageId",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#DockerRequirement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#dockerProps"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#dockerImport",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#DockerRequirement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#dockerProps"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#dockerLoad",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#DockerRequirement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#dockerProps"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#dockerOutputDirectory",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#DockerRequirement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#dockerProps"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#dockerProps",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#DockerRequirement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#requirementProps"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#dockerPull",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#DockerRequirement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#dockerProps"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#fileClass",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#FileProperties"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#format",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandInputParameter"
+  }, {
+    "@id" : "urn:absolute:cwlOntology#CommandOutputParameter"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#topDataProperty"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#glob",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandOuputBinding"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandOutputBinding"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#hasCommandInputParameter",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineTool"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "_:genid1"
+  } ],
+  "http://www.w3.org/2002/07/owl#inverseOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#isCommandInputParameterOf"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#hasCommandLineBinding",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandInputParameter"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineBinding"
+  } ],
+  "http://www.w3.org/2002/07/owl#inverseOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#isCommandLineBindingOf"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#hasCommandOutputParameter",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineTool"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "_:genid2"
+  } ],
+  "http://www.w3.org/2002/07/owl#inverseOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#isCommandOutputParameterOf"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#hasOutputBinding",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandOutputParameter"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandOuputBinding"
+  } ],
+  "http://www.w3.org/2002/07/owl#inverseOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#isOutputBindingOf"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#hint",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#boolean"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#double"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#int"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#long"
+  }, {
+    "@id" : "_:genid16"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#topDataProperty"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#id",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandInputParameter"
+  }, {
+    "@id" : "urn:absolute:cwlOntology#CommandLineTool"
+  }, {
+    "@id" : "urn:absolute:cwlOntology#CommandOutputParameter"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#topDataProperty"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#isCommandInputParameterOf",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandInputParameter"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineTool"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#isCommandLineBindingOf",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineBinding"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandInputParameter"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#isCommandOutputParameterOf",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandOutputParameter"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineTool"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#isOutputBindingOf",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandOuputBinding"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandOutputParameter"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#itemSeparator",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineBinding"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineBinding"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#label",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandInputParameter"
+  }, {
+    "@id" : "urn:absolute:cwlOntology#CommandLineTool"
+  }, {
+    "@id" : "urn:absolute:cwlOntology#CommandOutputParameter"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#topDataProperty"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#loadContents",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineBinding"
+  }, {
+    "@id" : "urn:absolute:cwlOntology#CommandOuputBinding"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#boolean"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://www.w3.org/2002/07/owl#topDataProperty"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#location",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#FileProperties"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#nameext",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#FileProperties"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#nameroot",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#FileProperties"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#outdirMax",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#ResourceRequirement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#long"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#resourceRequiredProps"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#outdirMin",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#ResourceRequirement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#long"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#resourceRequiredProps"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#outputEval",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandOuputBinding"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandOutputBinding"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#path",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#FileProperties"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#position",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineBinding"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#positiveInteger"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineBinding"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#prefix",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineBinding"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineBinding"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#ramMax",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#ResourceRequirement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#long"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#resourceRequiredProps"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#ramMin",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#ResourceRequirement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#long"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#resourceRequiredProps"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#requirementProps",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#Requirements"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#resourceRequiredProps",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#ResourceRequirement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#requirementProps"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#secondaryFiles",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandInputParameter"
+  }, {
+    "@id" : "urn:absolute:cwlOntology#CommandOutputParameter"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandParameter"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#separate",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineBinding"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#boolean"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineBinding"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#shellQuote",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineBinding"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineBinding"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#size",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#long"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#FileProperties"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#stderr",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineTool"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineToolProps"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#stdin",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineTool"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineToolProps"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#stdout",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineTool"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineToolProps"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#streamable",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandInputParameter"
+  }, {
+    "@id" : "urn:absolute:cwlOntology#CommandOutputParameter"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#boolean"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandParameter"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#tmpdirMax",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#ResourceRequirement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#long"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#resourceRequiredProps"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#tmpdirMin",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#ResourceRequirement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#long"
+  }, {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#resourceRequiredProps"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#type",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandInputParameter"
+  }, {
+    "@id" : "urn:absolute:cwlOntology#CommandOutputParameter"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandParameter"
+  } ]
+}, {
+  "@id" : "urn:absolute:cwlOntology#valueFrom",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineBinding"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#string"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "urn:absolute:cwlOntology#CommandLineBinding"
+  } ]
+} ]

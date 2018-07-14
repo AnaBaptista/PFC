@@ -1,0 +1,506 @@
+Prefix(:=<urn:absolute:cwlOntology>)
+Prefix(owl:=<http://www.w3.org/2002/07/owl#>)
+Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
+Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)
+Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)
+Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
+
+
+Ontology(<urn:absolute:cwlOntology>
+
+Declaration(Class(<urn:absolute:cwlOntology#CommandInputParameter>))
+Declaration(Class(<urn:absolute:cwlOntology#CommandLineBinding>))
+Declaration(Class(<urn:absolute:cwlOntology#CommandLineTool>))
+Declaration(Class(<urn:absolute:cwlOntology#CommandOuputBinding>))
+Declaration(Class(<urn:absolute:cwlOntology#CommandOutputParameter>))
+Declaration(Class(<urn:absolute:cwlOntology#DockerRequirement>))
+Declaration(Class(<urn:absolute:cwlOntology#File>))
+Declaration(Class(<urn:absolute:cwlOntology#Outputs>))
+Declaration(Class(<urn:absolute:cwlOntology#Requirements>))
+Declaration(Class(<urn:absolute:cwlOntology#ResourceRequirement>))
+Declaration(ObjectProperty(<urn:absolute:cwlOntology#hasCommandInputParameter>))
+Declaration(ObjectProperty(<urn:absolute:cwlOntology#hasCommandLineBinding>))
+Declaration(ObjectProperty(<urn:absolute:cwlOntology#hasCommandOutputParameter>))
+Declaration(ObjectProperty(<urn:absolute:cwlOntology#hasOutputBinding>))
+Declaration(ObjectProperty(<urn:absolute:cwlOntology#isCommandInputParameterOf>))
+Declaration(ObjectProperty(<urn:absolute:cwlOntology#isCommandLineBindingOf>))
+Declaration(ObjectProperty(<urn:absolute:cwlOntology#isCommandOutputParameterOf>))
+Declaration(ObjectProperty(<urn:absolute:cwlOntology#isOutputBindingOf>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#CommandLineBinding>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#CommandLineToolProps>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#CommandOutputBinding>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#CommandParameter>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#FileProperties>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#baseCommand>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#basename>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#checksum>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#class>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#contents>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#coresMax>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#coresMin>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#cwlVersion>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#dirname>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#doc>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#dockerFile>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#dockerImageId>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#dockerImport>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#dockerLoad>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#dockerOutputDirectory>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#dockerProps>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#dockerPull>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#fileClass>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#format>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#glob>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#hint>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#id>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#itemSeparator>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#label>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#loadContents>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#location>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#nameext>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#nameroot>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#outdirMax>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#outdirMin>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#outputEval>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#path>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#position>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#prefix>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#ramMax>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#ramMin>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#requirementProps>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#resourceRequiredProps>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#secondaryFiles>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#separate>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#shellQuote>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#size>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#stderr>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#stdin>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#stdout>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#streamable>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#tmpdirMax>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#tmpdirMin>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#type>))
+Declaration(DataProperty(<urn:absolute:cwlOntology#valueFrom>))
+
+############################
+#   Object Properties
+############################
+
+# Object Property: <urn:absolute:cwlOntology#hasCommandInputParameter> (<urn:absolute:cwlOntology#hasCommandInputParameter>)
+
+InverseObjectProperties(<urn:absolute:cwlOntology#hasCommandInputParameter> <urn:absolute:cwlOntology#isCommandInputParameterOf>)
+ObjectPropertyDomain(<urn:absolute:cwlOntology#hasCommandInputParameter> <urn:absolute:cwlOntology#CommandLineTool>)
+ObjectPropertyRange(<urn:absolute:cwlOntology#hasCommandInputParameter> ObjectMinCardinality(1 <urn:absolute:cwlOntology#hasCommandInputParameter> <urn:absolute:cwlOntology#CommandInputParameter>))
+
+# Object Property: <urn:absolute:cwlOntology#hasCommandLineBinding> (<urn:absolute:cwlOntology#hasCommandLineBinding>)
+
+InverseObjectProperties(<urn:absolute:cwlOntology#hasCommandLineBinding> <urn:absolute:cwlOntology#isCommandLineBindingOf>)
+ObjectPropertyDomain(<urn:absolute:cwlOntology#hasCommandLineBinding> <urn:absolute:cwlOntology#CommandInputParameter>)
+ObjectPropertyRange(<urn:absolute:cwlOntology#hasCommandLineBinding> <urn:absolute:cwlOntology#CommandLineBinding>)
+
+# Object Property: <urn:absolute:cwlOntology#hasCommandOutputParameter> (<urn:absolute:cwlOntology#hasCommandOutputParameter>)
+
+InverseObjectProperties(<urn:absolute:cwlOntology#hasCommandOutputParameter> <urn:absolute:cwlOntology#isCommandOutputParameterOf>)
+ObjectPropertyDomain(<urn:absolute:cwlOntology#hasCommandOutputParameter> <urn:absolute:cwlOntology#CommandLineTool>)
+ObjectPropertyRange(<urn:absolute:cwlOntology#hasCommandOutputParameter> ObjectMinCardinality(1 <urn:absolute:cwlOntology#hasCommandLineBinding> <urn:absolute:cwlOntology#CommandOutputParameter>))
+
+# Object Property: <urn:absolute:cwlOntology#hasOutputBinding> (<urn:absolute:cwlOntology#hasOutputBinding>)
+
+InverseObjectProperties(<urn:absolute:cwlOntology#hasOutputBinding> <urn:absolute:cwlOntology#isOutputBindingOf>)
+ObjectPropertyDomain(<urn:absolute:cwlOntology#hasOutputBinding> <urn:absolute:cwlOntology#CommandOutputParameter>)
+ObjectPropertyRange(<urn:absolute:cwlOntology#hasOutputBinding> <urn:absolute:cwlOntology#CommandOuputBinding>)
+
+# Object Property: <urn:absolute:cwlOntology#isCommandInputParameterOf> (<urn:absolute:cwlOntology#isCommandInputParameterOf>)
+
+ObjectPropertyDomain(<urn:absolute:cwlOntology#isCommandInputParameterOf> <urn:absolute:cwlOntology#CommandInputParameter>)
+ObjectPropertyRange(<urn:absolute:cwlOntology#isCommandInputParameterOf> <urn:absolute:cwlOntology#CommandLineTool>)
+
+# Object Property: <urn:absolute:cwlOntology#isCommandLineBindingOf> (<urn:absolute:cwlOntology#isCommandLineBindingOf>)
+
+ObjectPropertyDomain(<urn:absolute:cwlOntology#isCommandLineBindingOf> <urn:absolute:cwlOntology#CommandLineBinding>)
+ObjectPropertyRange(<urn:absolute:cwlOntology#isCommandLineBindingOf> <urn:absolute:cwlOntology#CommandInputParameter>)
+
+# Object Property: <urn:absolute:cwlOntology#isCommandOutputParameterOf> (<urn:absolute:cwlOntology#isCommandOutputParameterOf>)
+
+ObjectPropertyDomain(<urn:absolute:cwlOntology#isCommandOutputParameterOf> <urn:absolute:cwlOntology#CommandOutputParameter>)
+ObjectPropertyRange(<urn:absolute:cwlOntology#isCommandOutputParameterOf> <urn:absolute:cwlOntology#CommandLineTool>)
+
+# Object Property: <urn:absolute:cwlOntology#isOutputBindingOf> (<urn:absolute:cwlOntology#isOutputBindingOf>)
+
+ObjectPropertyDomain(<urn:absolute:cwlOntology#isOutputBindingOf> <urn:absolute:cwlOntology#CommandOuputBinding>)
+ObjectPropertyRange(<urn:absolute:cwlOntology#isOutputBindingOf> <urn:absolute:cwlOntology#CommandOutputParameter>)
+
+
+############################
+#   Data Properties
+############################
+
+# Data Property: <urn:absolute:cwlOntology#CommandLineBinding> (<urn:absolute:cwlOntology#CommandLineBinding>)
+
+DataPropertyDomain(<urn:absolute:cwlOntology#CommandLineBinding> <urn:absolute:cwlOntology#CommandLineBinding>)
+
+# Data Property: <urn:absolute:cwlOntology#CommandLineToolProps> (<urn:absolute:cwlOntology#CommandLineToolProps>)
+
+DataPropertyDomain(<urn:absolute:cwlOntology#CommandLineToolProps> <urn:absolute:cwlOntology#CommandLineTool>)
+
+# Data Property: <urn:absolute:cwlOntology#CommandOutputBinding> (<urn:absolute:cwlOntology#CommandOutputBinding>)
+
+DataPropertyDomain(<urn:absolute:cwlOntology#CommandOutputBinding> <urn:absolute:cwlOntology#CommandOuputBinding>)
+
+# Data Property: <urn:absolute:cwlOntology#CommandParameter> (<urn:absolute:cwlOntology#CommandParameter>)
+
+DataPropertyDomain(<urn:absolute:cwlOntology#CommandParameter> <urn:absolute:cwlOntology#CommandInputParameter>)
+DataPropertyDomain(<urn:absolute:cwlOntology#CommandParameter> <urn:absolute:cwlOntology#CommandOutputParameter>)
+
+# Data Property: <urn:absolute:cwlOntology#baseCommand> (<urn:absolute:cwlOntology#baseCommand>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#baseCommand> <urn:absolute:cwlOntology#CommandLineToolProps>)
+DataPropertyDomain(<urn:absolute:cwlOntology#baseCommand> <urn:absolute:cwlOntology#CommandLineTool>)
+DataPropertyRange(<urn:absolute:cwlOntology#baseCommand> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#basename> (<urn:absolute:cwlOntology#basename>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#basename> <urn:absolute:cwlOntology#FileProperties>)
+DataPropertyRange(<urn:absolute:cwlOntology#basename> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#checksum> (<urn:absolute:cwlOntology#checksum>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#checksum> <urn:absolute:cwlOntology#FileProperties>)
+DataPropertyRange(<urn:absolute:cwlOntology#checksum> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#class> (<urn:absolute:cwlOntology#class>)
+
+AnnotationAssertion(rdfs:comment <urn:absolute:cwlOntology#class> "always required")
+SubDataPropertyOf(<urn:absolute:cwlOntology#class> owl:topDataProperty)
+DataPropertyDomain(<urn:absolute:cwlOntology#class> <urn:absolute:cwlOntology#CommandLineTool>)
+DataPropertyDomain(<urn:absolute:cwlOntology#class> <urn:absolute:cwlOntology#DockerRequirement>)
+DataPropertyDomain(<urn:absolute:cwlOntology#class> <urn:absolute:cwlOntology#Requirements>)
+DataPropertyDomain(<urn:absolute:cwlOntology#class> <urn:absolute:cwlOntology#ResourceRequirement>)
+DataPropertyRange(<urn:absolute:cwlOntology#class> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#contents> (<urn:absolute:cwlOntology#contents>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#contents> <urn:absolute:cwlOntology#FileProperties>)
+DataPropertyRange(<urn:absolute:cwlOntology#contents> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#coresMax> (<urn:absolute:cwlOntology#coresMax>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#coresMax> <urn:absolute:cwlOntology#resourceRequiredProps>)
+DataPropertyDomain(<urn:absolute:cwlOntology#coresMax> <urn:absolute:cwlOntology#ResourceRequirement>)
+DataPropertyRange(<urn:absolute:cwlOntology#coresMax> xsd:long)
+DataPropertyRange(<urn:absolute:cwlOntology#coresMax> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#coresMin> (<urn:absolute:cwlOntology#coresMin>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#coresMin> <urn:absolute:cwlOntology#resourceRequiredProps>)
+DataPropertyDomain(<urn:absolute:cwlOntology#coresMin> <urn:absolute:cwlOntology#ResourceRequirement>)
+DataPropertyRange(<urn:absolute:cwlOntology#coresMin> xsd:long)
+DataPropertyRange(<urn:absolute:cwlOntology#coresMin> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#cwlVersion> (<urn:absolute:cwlOntology#cwlVersion>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#cwlVersion> <urn:absolute:cwlOntology#CommandLineToolProps>)
+DataPropertyDomain(<urn:absolute:cwlOntology#cwlVersion> <urn:absolute:cwlOntology#CommandLineTool>)
+DataPropertyRange(<urn:absolute:cwlOntology#cwlVersion> DataOneOf("draft-2" "draft-3" "draft-3.dev1" "draft-3.dev2" "draft-3.dev3" "draft-3.dev4" "draft-3.dev5" "draft-4.dev1" "draft-4.dev2" "draft-4.dev3" "v1.0" "v1.0.dev4"))
+
+# Data Property: <urn:absolute:cwlOntology#dirname> (<urn:absolute:cwlOntology#dirname>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#dirname> <urn:absolute:cwlOntology#FileProperties>)
+DataPropertyRange(<urn:absolute:cwlOntology#dirname> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#doc> (<urn:absolute:cwlOntology#doc>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#doc> owl:topDataProperty)
+DataPropertyDomain(<urn:absolute:cwlOntology#doc> <urn:absolute:cwlOntology#CommandInputParameter>)
+DataPropertyDomain(<urn:absolute:cwlOntology#doc> <urn:absolute:cwlOntology#CommandLineTool>)
+DataPropertyDomain(<urn:absolute:cwlOntology#doc> <urn:absolute:cwlOntology#CommandOutputParameter>)
+DataPropertyRange(<urn:absolute:cwlOntology#doc> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#dockerFile> (<urn:absolute:cwlOntology#dockerFile>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#dockerFile> <urn:absolute:cwlOntology#dockerProps>)
+DataPropertyDomain(<urn:absolute:cwlOntology#dockerFile> <urn:absolute:cwlOntology#DockerRequirement>)
+DataPropertyRange(<urn:absolute:cwlOntology#dockerFile> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#dockerImageId> (<urn:absolute:cwlOntology#dockerImageId>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#dockerImageId> <urn:absolute:cwlOntology#dockerProps>)
+DataPropertyDomain(<urn:absolute:cwlOntology#dockerImageId> <urn:absolute:cwlOntology#DockerRequirement>)
+DataPropertyRange(<urn:absolute:cwlOntology#dockerImageId> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#dockerImport> (<urn:absolute:cwlOntology#dockerImport>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#dockerImport> <urn:absolute:cwlOntology#dockerProps>)
+DataPropertyDomain(<urn:absolute:cwlOntology#dockerImport> <urn:absolute:cwlOntology#DockerRequirement>)
+DataPropertyRange(<urn:absolute:cwlOntology#dockerImport> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#dockerLoad> (<urn:absolute:cwlOntology#dockerLoad>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#dockerLoad> <urn:absolute:cwlOntology#dockerProps>)
+DataPropertyDomain(<urn:absolute:cwlOntology#dockerLoad> <urn:absolute:cwlOntology#DockerRequirement>)
+DataPropertyRange(<urn:absolute:cwlOntology#dockerLoad> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#dockerOutputDirectory> (<urn:absolute:cwlOntology#dockerOutputDirectory>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#dockerOutputDirectory> <urn:absolute:cwlOntology#dockerProps>)
+DataPropertyDomain(<urn:absolute:cwlOntology#dockerOutputDirectory> <urn:absolute:cwlOntology#DockerRequirement>)
+DataPropertyRange(<urn:absolute:cwlOntology#dockerOutputDirectory> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#dockerProps> (<urn:absolute:cwlOntology#dockerProps>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#dockerProps> <urn:absolute:cwlOntology#requirementProps>)
+DataPropertyDomain(<urn:absolute:cwlOntology#dockerProps> <urn:absolute:cwlOntology#DockerRequirement>)
+
+# Data Property: <urn:absolute:cwlOntology#dockerPull> (<urn:absolute:cwlOntology#dockerPull>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#dockerPull> <urn:absolute:cwlOntology#dockerProps>)
+DataPropertyDomain(<urn:absolute:cwlOntology#dockerPull> <urn:absolute:cwlOntology#DockerRequirement>)
+DataPropertyRange(<urn:absolute:cwlOntology#dockerPull> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#fileClass> (<urn:absolute:cwlOntology#fileClass>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#fileClass> <urn:absolute:cwlOntology#FileProperties>)
+
+# Data Property: <urn:absolute:cwlOntology#format> (<urn:absolute:cwlOntology#format>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#format> owl:topDataProperty)
+DataPropertyDomain(<urn:absolute:cwlOntology#format> <urn:absolute:cwlOntology#CommandInputParameter>)
+DataPropertyDomain(<urn:absolute:cwlOntology#format> <urn:absolute:cwlOntology#CommandOutputParameter>)
+DataPropertyRange(<urn:absolute:cwlOntology#format> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#glob> (<urn:absolute:cwlOntology#glob>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#glob> <urn:absolute:cwlOntology#CommandOutputBinding>)
+DataPropertyDomain(<urn:absolute:cwlOntology#glob> <urn:absolute:cwlOntology#CommandOuputBinding>)
+DataPropertyRange(<urn:absolute:cwlOntology#glob> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#hint> (<urn:absolute:cwlOntology#hint>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#hint> owl:topDataProperty)
+DataPropertyRange(<urn:absolute:cwlOntology#hint> xsd:boolean)
+DataPropertyRange(<urn:absolute:cwlOntology#hint> xsd:double)
+DataPropertyRange(<urn:absolute:cwlOntology#hint> xsd:int)
+DataPropertyRange(<urn:absolute:cwlOntology#hint> xsd:long)
+DataPropertyRange(<urn:absolute:cwlOntology#hint> DataOneOf("Directory" "File"))
+
+# Data Property: <urn:absolute:cwlOntology#id> (<urn:absolute:cwlOntology#id>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#id> owl:topDataProperty)
+DataPropertyDomain(Annotation(rdfs:comment "required") <urn:absolute:cwlOntology#id> <urn:absolute:cwlOntology#CommandInputParameter>)
+DataPropertyDomain(Annotation(rdfs:comment "non required") <urn:absolute:cwlOntology#id> <urn:absolute:cwlOntology#CommandLineTool>)
+DataPropertyDomain(Annotation(rdfs:comment "required") <urn:absolute:cwlOntology#id> <urn:absolute:cwlOntology#CommandOutputParameter>)
+DataPropertyRange(<urn:absolute:cwlOntology#id> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#itemSeparator> (<urn:absolute:cwlOntology#itemSeparator>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#itemSeparator> <urn:absolute:cwlOntology#CommandLineBinding>)
+DataPropertyDomain(<urn:absolute:cwlOntology#itemSeparator> <urn:absolute:cwlOntology#CommandLineBinding>)
+DataPropertyRange(<urn:absolute:cwlOntology#itemSeparator> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#label> (<urn:absolute:cwlOntology#label>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#label> owl:topDataProperty)
+DataPropertyDomain(<urn:absolute:cwlOntology#label> <urn:absolute:cwlOntology#CommandInputParameter>)
+DataPropertyDomain(<urn:absolute:cwlOntology#label> <urn:absolute:cwlOntology#CommandLineTool>)
+DataPropertyDomain(<urn:absolute:cwlOntology#label> <urn:absolute:cwlOntology#CommandOutputParameter>)
+DataPropertyRange(<urn:absolute:cwlOntology#label> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#loadContents> (<urn:absolute:cwlOntology#loadContents>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#loadContents> owl:topDataProperty)
+DataPropertyDomain(<urn:absolute:cwlOntology#loadContents> <urn:absolute:cwlOntology#CommandLineBinding>)
+DataPropertyDomain(<urn:absolute:cwlOntology#loadContents> <urn:absolute:cwlOntology#CommandOuputBinding>)
+DataPropertyRange(<urn:absolute:cwlOntology#loadContents> xsd:boolean)
+
+# Data Property: <urn:absolute:cwlOntology#location> (<urn:absolute:cwlOntology#location>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#location> <urn:absolute:cwlOntology#FileProperties>)
+DataPropertyRange(<urn:absolute:cwlOntology#location> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#nameext> (<urn:absolute:cwlOntology#nameext>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#nameext> <urn:absolute:cwlOntology#FileProperties>)
+DataPropertyRange(<urn:absolute:cwlOntology#nameext> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#nameroot> (<urn:absolute:cwlOntology#nameroot>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#nameroot> <urn:absolute:cwlOntology#FileProperties>)
+DataPropertyRange(<urn:absolute:cwlOntology#nameroot> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#outdirMax> (<urn:absolute:cwlOntology#outdirMax>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#outdirMax> <urn:absolute:cwlOntology#resourceRequiredProps>)
+DataPropertyDomain(<urn:absolute:cwlOntology#outdirMax> <urn:absolute:cwlOntology#ResourceRequirement>)
+DataPropertyRange(<urn:absolute:cwlOntology#outdirMax> xsd:long)
+DataPropertyRange(<urn:absolute:cwlOntology#outdirMax> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#outdirMin> (<urn:absolute:cwlOntology#outdirMin>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#outdirMin> <urn:absolute:cwlOntology#resourceRequiredProps>)
+DataPropertyDomain(<urn:absolute:cwlOntology#outdirMin> <urn:absolute:cwlOntology#ResourceRequirement>)
+DataPropertyRange(<urn:absolute:cwlOntology#outdirMin> xsd:long)
+DataPropertyRange(<urn:absolute:cwlOntology#outdirMin> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#outputEval> (<urn:absolute:cwlOntology#outputEval>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#outputEval> <urn:absolute:cwlOntology#CommandOutputBinding>)
+DataPropertyDomain(<urn:absolute:cwlOntology#outputEval> <urn:absolute:cwlOntology#CommandOuputBinding>)
+DataPropertyRange(<urn:absolute:cwlOntology#outputEval> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#path> (<urn:absolute:cwlOntology#path>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#path> <urn:absolute:cwlOntology#FileProperties>)
+
+# Data Property: <urn:absolute:cwlOntology#position> (<urn:absolute:cwlOntology#position>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#position> <urn:absolute:cwlOntology#CommandLineBinding>)
+DataPropertyDomain(<urn:absolute:cwlOntology#position> <urn:absolute:cwlOntology#CommandLineBinding>)
+DataPropertyRange(<urn:absolute:cwlOntology#position> xsd:positiveInteger)
+
+# Data Property: <urn:absolute:cwlOntology#prefix> (<urn:absolute:cwlOntology#prefix>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#prefix> <urn:absolute:cwlOntology#CommandLineBinding>)
+DataPropertyDomain(<urn:absolute:cwlOntology#prefix> <urn:absolute:cwlOntology#CommandLineBinding>)
+DataPropertyRange(<urn:absolute:cwlOntology#prefix> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#ramMax> (<urn:absolute:cwlOntology#ramMax>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#ramMax> <urn:absolute:cwlOntology#resourceRequiredProps>)
+DataPropertyDomain(<urn:absolute:cwlOntology#ramMax> <urn:absolute:cwlOntology#ResourceRequirement>)
+DataPropertyRange(<urn:absolute:cwlOntology#ramMax> xsd:long)
+DataPropertyRange(<urn:absolute:cwlOntology#ramMax> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#ramMin> (<urn:absolute:cwlOntology#ramMin>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#ramMin> <urn:absolute:cwlOntology#resourceRequiredProps>)
+DataPropertyDomain(<urn:absolute:cwlOntology#ramMin> <urn:absolute:cwlOntology#ResourceRequirement>)
+DataPropertyRange(<urn:absolute:cwlOntology#ramMin> xsd:long)
+DataPropertyRange(<urn:absolute:cwlOntology#ramMin> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#requirementProps> (<urn:absolute:cwlOntology#requirementProps>)
+
+DataPropertyDomain(<urn:absolute:cwlOntology#requirementProps> <urn:absolute:cwlOntology#Requirements>)
+
+# Data Property: <urn:absolute:cwlOntology#resourceRequiredProps> (<urn:absolute:cwlOntology#resourceRequiredProps>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#resourceRequiredProps> <urn:absolute:cwlOntology#requirementProps>)
+DataPropertyDomain(<urn:absolute:cwlOntology#resourceRequiredProps> <urn:absolute:cwlOntology#ResourceRequirement>)
+
+# Data Property: <urn:absolute:cwlOntology#secondaryFiles> (<urn:absolute:cwlOntology#secondaryFiles>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#secondaryFiles> <urn:absolute:cwlOntology#CommandParameter>)
+DataPropertyDomain(<urn:absolute:cwlOntology#secondaryFiles> <urn:absolute:cwlOntology#CommandInputParameter>)
+DataPropertyDomain(<urn:absolute:cwlOntology#secondaryFiles> <urn:absolute:cwlOntology#CommandOutputParameter>)
+DataPropertyRange(<urn:absolute:cwlOntology#secondaryFiles> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#separate> (<urn:absolute:cwlOntology#separate>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#separate> <urn:absolute:cwlOntology#CommandLineBinding>)
+DataPropertyDomain(<urn:absolute:cwlOntology#separate> <urn:absolute:cwlOntology#CommandLineBinding>)
+DataPropertyRange(<urn:absolute:cwlOntology#separate> xsd:boolean)
+
+# Data Property: <urn:absolute:cwlOntology#shellQuote> (<urn:absolute:cwlOntology#shellQuote>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#shellQuote> <urn:absolute:cwlOntology#CommandLineBinding>)
+DataPropertyDomain(<urn:absolute:cwlOntology#shellQuote> <urn:absolute:cwlOntology#CommandLineBinding>)
+DataPropertyRange(<urn:absolute:cwlOntology#shellQuote> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#size> (<urn:absolute:cwlOntology#size>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#size> <urn:absolute:cwlOntology#FileProperties>)
+DataPropertyRange(<urn:absolute:cwlOntology#size> xsd:long)
+
+# Data Property: <urn:absolute:cwlOntology#stderr> (<urn:absolute:cwlOntology#stderr>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#stderr> <urn:absolute:cwlOntology#CommandLineToolProps>)
+DataPropertyDomain(<urn:absolute:cwlOntology#stderr> <urn:absolute:cwlOntology#CommandLineTool>)
+DataPropertyRange(<urn:absolute:cwlOntology#stderr> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#stdin> (<urn:absolute:cwlOntology#stdin>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#stdin> <urn:absolute:cwlOntology#CommandLineToolProps>)
+DataPropertyDomain(<urn:absolute:cwlOntology#stdin> <urn:absolute:cwlOntology#CommandLineTool>)
+DataPropertyRange(<urn:absolute:cwlOntology#stdin> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#stdout> (<urn:absolute:cwlOntology#stdout>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#stdout> <urn:absolute:cwlOntology#CommandLineToolProps>)
+DataPropertyDomain(<urn:absolute:cwlOntology#stdout> <urn:absolute:cwlOntology#CommandLineTool>)
+DataPropertyRange(<urn:absolute:cwlOntology#stdout> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#streamable> (<urn:absolute:cwlOntology#streamable>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#streamable> <urn:absolute:cwlOntology#CommandParameter>)
+DataPropertyDomain(<urn:absolute:cwlOntology#streamable> <urn:absolute:cwlOntology#CommandInputParameter>)
+DataPropertyDomain(<urn:absolute:cwlOntology#streamable> <urn:absolute:cwlOntology#CommandOutputParameter>)
+DataPropertyRange(<urn:absolute:cwlOntology#streamable> xsd:boolean)
+
+# Data Property: <urn:absolute:cwlOntology#tmpdirMax> (<urn:absolute:cwlOntology#tmpdirMax>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#tmpdirMax> <urn:absolute:cwlOntology#resourceRequiredProps>)
+DataPropertyDomain(<urn:absolute:cwlOntology#tmpdirMax> <urn:absolute:cwlOntology#ResourceRequirement>)
+DataPropertyRange(<urn:absolute:cwlOntology#tmpdirMax> xsd:long)
+DataPropertyRange(<urn:absolute:cwlOntology#tmpdirMax> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#tmpdirMin> (<urn:absolute:cwlOntology#tmpdirMin>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#tmpdirMin> <urn:absolute:cwlOntology#resourceRequiredProps>)
+DataPropertyDomain(<urn:absolute:cwlOntology#tmpdirMin> <urn:absolute:cwlOntology#ResourceRequirement>)
+DataPropertyRange(<urn:absolute:cwlOntology#tmpdirMin> xsd:long)
+DataPropertyRange(<urn:absolute:cwlOntology#tmpdirMin> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#type> (<urn:absolute:cwlOntology#type>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#type> <urn:absolute:cwlOntology#CommandParameter>)
+DataPropertyDomain(<urn:absolute:cwlOntology#type> <urn:absolute:cwlOntology#CommandInputParameter>)
+DataPropertyDomain(<urn:absolute:cwlOntology#type> <urn:absolute:cwlOntology#CommandOutputParameter>)
+DataPropertyRange(<urn:absolute:cwlOntology#type> xsd:string)
+
+# Data Property: <urn:absolute:cwlOntology#valueFrom> (<urn:absolute:cwlOntology#valueFrom>)
+
+SubDataPropertyOf(<urn:absolute:cwlOntology#valueFrom> <urn:absolute:cwlOntology#CommandLineBinding>)
+DataPropertyDomain(<urn:absolute:cwlOntology#valueFrom> <urn:absolute:cwlOntology#CommandLineBinding>)
+DataPropertyRange(<urn:absolute:cwlOntology#valueFrom> xsd:string)
+
+
+
+############################
+#   Classes
+############################
+
+# Class: <urn:absolute:cwlOntology#CommandInputParameter> (<urn:absolute:cwlOntology#CommandInputParameter>)
+
+SubClassOf(<urn:absolute:cwlOntology#CommandInputParameter> <urn:absolute:cwlOntology#CommandLineTool>)
+DisjointClasses(<urn:absolute:cwlOntology#CommandInputParameter> <urn:absolute:cwlOntology#CommandLineBinding>)
+
+# Class: <urn:absolute:cwlOntology#CommandLineBinding> (<urn:absolute:cwlOntology#CommandLineBinding>)
+
+SubClassOf(<urn:absolute:cwlOntology#CommandLineBinding> <urn:absolute:cwlOntology#CommandInputParameter>)
+
+# Class: <urn:absolute:cwlOntology#CommandOuputBinding> (<urn:absolute:cwlOntology#CommandOuputBinding>)
+
+SubClassOf(<urn:absolute:cwlOntology#CommandOuputBinding> <urn:absolute:cwlOntology#CommandOutputParameter>)
+DisjointClasses(<urn:absolute:cwlOntology#CommandOuputBinding> <urn:absolute:cwlOntology#CommandOutputParameter>)
+
+# Class: <urn:absolute:cwlOntology#CommandOutputParameter> (<urn:absolute:cwlOntology#CommandOutputParameter>)
+
+SubClassOf(<urn:absolute:cwlOntology#CommandOutputParameter> <urn:absolute:cwlOntology#CommandLineTool>)
+
+# Class: <urn:absolute:cwlOntology#DockerRequirement> (<urn:absolute:cwlOntology#DockerRequirement>)
+
+SubClassOf(<urn:absolute:cwlOntology#DockerRequirement> <urn:absolute:cwlOntology#Requirements>)
+
+# Class: <urn:absolute:cwlOntology#Outputs> (<urn:absolute:cwlOntology#Outputs>)
+
+SubClassOf(<urn:absolute:cwlOntology#Outputs> <urn:absolute:cwlOntology#CommandLineTool>)
+
+# Class: <urn:absolute:cwlOntology#Requirements> (<urn:absolute:cwlOntology#Requirements>)
+
+SubClassOf(<urn:absolute:cwlOntology#Requirements> <urn:absolute:cwlOntology#CommandLineTool>)
+
+# Class: <urn:absolute:cwlOntology#ResourceRequirement> (<urn:absolute:cwlOntology#ResourceRequirement>)
+
+SubClassOf(<urn:absolute:cwlOntology#ResourceRequirement> <urn:absolute:cwlOntology#Requirements>)
+
+
+)

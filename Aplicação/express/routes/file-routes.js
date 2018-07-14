@@ -18,6 +18,10 @@ router.get('/ontologyFile', getOntologyFiles)
 router.delete('/dataFile/:id', deleteDataFile)
 router.delete('/ontologyFile/:id', deleteOntologyFile)
 
+/** Adds a new Data file.
+ * Body Parameters:
+ * ( File ) file
+ */
 function addDataFile (req, res, next) {
   debug('POST /dataFile')
   setFileDir(req, (file, path) => {
@@ -31,6 +35,10 @@ function addDataFile (req, res, next) {
   })
 }
 
+/** Adds a new Ontology file.
+ * Body Parameters:
+ * ( File ) file
+ */
 function addOntologyFile (req, res, next) {
   debug('POST /ontologyFile')
   setFileDir(req, (file, path) => {
@@ -44,6 +52,9 @@ function addOntologyFile (req, res, next) {
   })
 }
 
+/*
+ * Adiciona o ficheiro de input a uma diretoria temporaria
+ */
 function setFileDir (req, cb) {
   var form = new formidable.IncomingForm()
   form.keepExtensions = true
@@ -57,6 +68,9 @@ function setFileDir (req, cb) {
   form.parse(req)
 }
 
+/*
+ * Returns all data files
+ */
 function getDataFiles (req, res, next) {
   debug('GET /dataFile')
   service.getDataFiles((err, files) => {
@@ -65,6 +79,9 @@ function getDataFiles (req, res, next) {
   })
 }
 
+/*
+ * Returns all ontology files
+ */
 function getOntologyFiles (req, res, next) {
   debug('GET /ontologyFile')
   service.getOntologyFiles((err, files) => {
@@ -72,7 +89,9 @@ function getOntologyFiles (req, res, next) {
     res.render('files', {files: files, type: 'Ontology'})
   })
 }
-
+/*
+ * Deletes the datafile specified by Id
+ */
 function deleteDataFile (req, res, next) {
   debug('DELETE /dataFile/:id')
   let id = req.params.id
@@ -81,7 +100,9 @@ function deleteDataFile (req, res, next) {
     res.end()
   })
 }
-
+/*
+ * Deletes the ontology file specified by Id
+ */
 function deleteOntologyFile (req, res, next) {
   debug('DELETE /ontologyFile/:id')
   let id = req.params.id

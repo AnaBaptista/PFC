@@ -10,6 +10,9 @@ module.exports = router
 router.get('/', home)
 router.get('/download', download)
 
+/*
+ * Renders Home
+ */
 function home (req, res, next) {
   debug('GET /')
   service.home((err, home) => {
@@ -18,6 +21,9 @@ function home (req, res, next) {
   })
 }
 
+/*
+ * Renders download page
+ */
 function download (req, res, next) {
   debug('GET /dowload')
   res.render('download')

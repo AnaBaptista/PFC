@@ -18,6 +18,11 @@ router.get('/individual/:id/properties/object/view', renderObjectProperties)
 router.delete('/individual/:id', deleteIndividual)
 router.delete('/individual/:id/properties/:pid', deleteIndividualProperty)
 
+/*
+ * creates new individual
+ * needs in body: id, the individual  id
+ *                populateId, the id for the populate
+ */
 function createIndividual (req, res, next) {
   debug('POST /individual')
   let input = req.body.data
@@ -27,7 +32,11 @@ function createIndividual (req, res, next) {
     res.json({_id: id})
   })
 }
-
+/*
+ * inserts a new or updates an existing Annotation property
+ * needs in body: (list) annotationProps, a list containing the annotation properties
+ * neesd in path: id, individual mappings' id
+ */
 function putIndividualAnnotationProperties (req, res, next) {
   debug('PUT /individual/:id/properties/annotation')
   let id = req.params.id
@@ -40,6 +49,11 @@ function putIndividualAnnotationProperties (req, res, next) {
   })
 }
 
+/*
+ * inserts a new or updates an existing data property
+ * needs in body: (list) dataProps, a list containing the data properties
+ * neesd in path: id, individual mappings' id
+ */
 function putIndividualDataProperties (req, res, next) {
   debug('PUT /individual/:id/properties/data')
   let id = req.params.id
@@ -52,6 +66,12 @@ function putIndividualDataProperties (req, res, next) {
   })
 }
 
+/*
+ * inserts a new or updates an existing object property
+ * needs in body: (list) objProps, a list containing the object properties
+ *                       populateId, the populate's id
+ * needs in path: id, individual mappings' id
+ */
 function putIndividualObjectProperties (req, res, next) {
   debug('PUT /individual/:id/properties/object')
   let id = req.params.id
@@ -65,6 +85,10 @@ function putIndividualObjectProperties (req, res, next) {
   })
 }
 
+/*
+ * renders annotation properties
+ * needs in path: id, the individual's id
+ */
 function renderAnnotationProperties (req, res, next) {
   debug('GET /individual/:id/properties/annotation/view')
   let id = req.params.id
@@ -76,6 +100,10 @@ function renderAnnotationProperties (req, res, next) {
   })
 }
 
+/*
+ * renders data properties
+ * needs in path: id, the individual's id
+ */
 function renderDataProperties (req, res, next) {
   debug('GET /individual/:id/properties/data/view')
   let id = req.params.id
@@ -87,6 +115,10 @@ function renderDataProperties (req, res, next) {
   })
 }
 
+/*
+ * renders object properties
+ * needs in path: id, the individual's id
+ */
 function renderObjectProperties (req, res, next) {
   debug('GET /individual/:id/properties/object/view')
   let id = req.params.id
@@ -99,6 +131,10 @@ function renderObjectProperties (req, res, next) {
   })
 }
 
+/*
+ * deletes an individual
+ * needs in path: id, the individual's id
+ */
 function deleteIndividual (req, res, next) {
   debug('DELETE /individual/:id')
   let id = req.params.id
@@ -109,6 +145,12 @@ function deleteIndividual (req, res, next) {
   })
 }
 
+/*
+ * Delete an individual's property
+ * needs in path : id, this refers to the id of the desired individual mapping
+ *                pid, this refers to the id of the property to be deleted
+ * needs in query: type, describes the type of property to be deleted (Data, Object or Annotation)
+ */
 function deleteIndividualProperty (req, res, next) {
   debug('DELETE /individual/:id/properties/:pid')
   let type = req.query.type
