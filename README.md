@@ -17,23 +17,23 @@ These instructions will get you a copy of the project up and running on your loc
 
 1. Clone this repo to a folder.
 2. Open terminal to code repository.
-3. Run ```npm install```.
+3. Change directories to ```Aplicação``` folder and run ```npm install```.
 4. Change directories to the ```express``` folder and run ```npm install```.
-5. Change directories back to the root of the code repository.
+5. Change directories back to the ```Aplicação```.
 6. Run ```npm start``` to start the desktop application.
 
 ### Package with electron-packager
-For both cases make sure you are in root of the code repository.
+For both cases make sure you are in ```Aplicação``` folder.
 In ```desktopapp.js``` comment the line:
 
 ```
-const node = proc.spawn('node', ['./express/bin/www'])
+const cwd = './express'
 ```
 
 #### Windows or Linux
 1. In ```desktopapp.js``` uncomment the line:
 ```
-const node = proc.spawn('node', ['./resources/app/express/bin/www'])
+const cwd = `./resources/app/express`
 ```
 2. Run: 
     * ```npm run package-win``` if the platform is Windows.
@@ -42,7 +42,7 @@ const node = proc.spawn('node', ['./resources/app/express/bin/www'])
 #### MAC
 1. In ```desktopapp.js``` uncomment the line:
 ```
-const node = proc.spawn('node', ['./Electron.app/Contents/Resources/app/express/bin/www'])
+const cwd = `./Electron.app/Contents/Resources/app/express`
 ```
 2. Run ```npm run package-mac```.
 
