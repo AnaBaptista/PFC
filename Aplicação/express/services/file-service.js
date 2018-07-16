@@ -155,7 +155,6 @@ function deleteOntologyFile (id, cb) {
     if (err) return cb(err)
     deleteOntologyFileOnChaosPop(chaosid, cb)
   })
-  // deleteOntologyFileOnChaosPop(id, cb)
 }
 
 function deleteFile (col, id, field, cb) {

@@ -9,7 +9,6 @@ const fs = require('fs')
 const path = require('path')
 
 function makeFakeFile (listOfIndividuals, cb) {
-  // fs.createReadStream(path)
 
   let xml = new XMLWriter(true)
   xml.startDocument()
@@ -19,7 +18,6 @@ function makeFakeFile (listOfIndividuals, cb) {
   xml.endElement()
   xml.endDocument()
   let filename = idGen.generate()
-  // let path = `${__dirname}/tempFiles/${filename}.xml`
   let dir = path.join(__dirname, `../tempFiles/${filename}.xml`)
   fs.writeFile(dir, xml.toString(), (err) => {
     if (err) return cb(err)
@@ -27,7 +25,6 @@ function makeFakeFile (listOfIndividuals, cb) {
   })
 }
 
-// @todo acrescentar um _ nos ids todos
 function processIndividual (individual, xml) {
   xml.startElement(`_${individual._id.toString()}`)
   xml.writeElement('individualName', individual.originalIndividualName)
